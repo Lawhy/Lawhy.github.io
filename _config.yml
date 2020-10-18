@@ -3,7 +3,7 @@ title:              Yuan He
 bio: 		    Hi! I am currently a PhD candidate in Computer Science.
 uni:                University of Oxford
 dept:               Department of Computer Science
-description:        PhD candidate in Computer Science at Oxford.
+description:        PhD candidate in Computer Science at University of Oxford.
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/me.png'
@@ -39,20 +39,20 @@ disqus_shortname:   taylantatli
   #ad-client:
   #ad-slot:
 #bing-verify:
-#email:
-twitter:            username
-facebook:           username
-github-url:         username
+email:              yuan.he@cs.ox.ac.uk
+#twitter:           username
+facebook:           yuanheoxcs
+github-url:         Lawhy
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
-#linkedin:          username
+linkedin:           yuan-he-0557781aa
 #xing:              username
-instagram:          username
+#instagram:          username
 #lastfm:            username
 #tumblr:            username
 #medium:            '@username'
 #pinterest:         username
 #foursquare:        username
-steam:              username
+#steam:              username
 #dribbble:          username
 #youtube:           username
 #youtube-channel:   channel
