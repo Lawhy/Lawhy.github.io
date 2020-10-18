@@ -1,12 +1,14 @@
 # Site
 title:              Yuan He
-bio:                'PhD candidate in Computer Science \n University of Oxford'
-description:        "Welcome to my homepage."
+bio: 		    Hi! I am currently a PhD candidate in Computer Science.
+uni:                University of Oxford
+dept:               Department of Computer Science
+description:        PhD candidate in Computer Science at Oxford.
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/me.png'
-background:         'assets/img/placeholder-big.jpg'
-tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
+background:         'https://images.pexels.com/photos/3774094/pexels-photo-3774094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+tiled_bg:           true   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_UK
 url:                https://lawhy.github.io/
 
