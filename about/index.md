@@ -20,6 +20,14 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 | DPhil in Computer Science | University of Oxford    | Oct 2020 - Present |
 | BSc (Hons) AI and Maths   | University of Edinburgh | Sep 2016 - Jul 2020|
 
+## Publications
+
+* Yuan He and Shay B. Cohen (2020). "English-to-Chinese Transliteration with a Phonetic Auxiliary Task." In: AACL-IJCNLP.
+
+## Events
+
+* Practice talk for the long-paper presentation in AACL-IJCNLP conference. Slides available [here]().
+
 
 ## Contact
 
