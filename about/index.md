@@ -17,7 +17,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 ## Education
 
 | Degree | Institution | Time |
-| ------------- | ------------- | ------------ |
+| :------------- | :--------------- | :-------------- |
 | DPhil in Computer Science | University of Oxford    | Oct 2020 - Present |
 | BSc (Hons) AI and Maths   | University of Edinburgh | Sep 2016 - Jul 2020|
 
@@ -43,6 +43,6 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 ## Contact
 
 Email: ![Drag Racing](https://m.qt86.com/cache/1602988785_381345.png)
-      
-[Resume](https://lawhy.github.io/resume){: .btn} [Github](https://github.com/Lawhy){: .btn} 
-[Linkedin](https://www.linkedin.com/in/yuan-he-0557781aa/?originalSubdomain=uk){: .btn}
+
+[Github](https://github.com/Lawhy){: .btn} [Linkedin](https://www.linkedin.com/in/yuan-he-0557781aa/?originalSubdomain=uk){: .btn} [Resume (Preview)](https://lawhy.github.io/resume){: .btn} [Resume (Download)](https://github.com/Lawhy/resume/raw/main/CV.pdf){: .btn} 
+
