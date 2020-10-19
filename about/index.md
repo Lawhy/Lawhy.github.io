@@ -37,8 +37,8 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 | Description | Time | File |
 | :------------- | :--------------- | :-------------- |
-|Practice talk for the long-paper presentation <br/> in AACL-IJCNLP conference| Oct 2020 | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx) |
-|Received The 2020 Joint Class Prize for the degree of <br/> BSc in Artificial Intelligence and Mathematics| Oct 2020 | [<span style="color: #002147">Certificate</span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/Certificate%20-%20Y.%20He%5B1591%5D.pdf)|
+|Practice talk for the long-paper presentation in AACL-IJCNLP conference|  10/2020 | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx) |
+|Received The 2020 Joint Class Prize for the degree of BSc in Artificial Intelligence and Mathematics| 10/2020 | [<span style="color: #002147">Certificate</span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/Certificate%20-%20Y.%20He%5B1591%5D.pdf)|
 
 
 
