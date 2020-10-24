@@ -27,7 +27,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 ## Publications
 
 * Yuan He and Shay B. Cohen (2020).
-  [*English-to-Chinese Transliteration with a Phonetic Auxiliary Task*](http://aacl2020.org/accepted/121.html). 
+  [*English-to-Chinese Transliteration with a Phonetic Auxiliary Task*](http://aacl2020.org/accepted/). 
   In: AACL-IJCNLP.
 
 
@@ -37,7 +37,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 | Description | File |
 | :------------- | :--------------- |
-|Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx) |
+|Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx), [<span style="color: #002147"> PDF </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf) |
 |Received The 2020 Joint Class Prize for the degree of BSc in Artificial Intelligence and Mathematics (Oct 2020) | [<span style="color: #002147">Certificate</span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/Certificate%20-%20Y.%20He%5B1591%5D.pdf)|
 
 
