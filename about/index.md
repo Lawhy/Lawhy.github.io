@@ -48,4 +48,4 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/assets/img/email.png)
 
-[Github](https://github.com/Lawhy){: .btn} [Linkedin](https://www.linkedin.com/in/yuan-he-0557781aa/?originalSubdomain=uk){: .btn} [Resume (Preview)](https://lawhy.github.io/resume){: .btn} [Resume (Download)](https://github.com/Lawhy/resume/raw/main/CV.pdf){: .btn} 
+[Github](https://github.com/Lawhy){: .btn} [Linkedin](https://www.linkedin.com/in/yuan-he-0557781aa/?originalSubdomain=uk){: .btn} [Resume (Download)](https://github.com/Lawhy/resume/raw/main/CV.pdf){: .btn} 
