@@ -1,4 +1,4 @@
 # Homepage based on Moon Jekyll Theme
 
-**[Moon](https://taylantatli.github.io/Moon)** is a minimal, one column jekyll theme.
+Currently disabled the ```Posts``` and ```Projects``` sections in ```nav.html.``` as well as ```home.html```.
 
