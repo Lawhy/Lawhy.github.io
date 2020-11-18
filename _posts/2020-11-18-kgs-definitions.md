@@ -28,24 +28,23 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     One graph `entails` another *iff* any model of the former graph is also a model of the latter graph.
 
-<--!
----------
-Latex Maths expression for testing. The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
+<!--
+    Latex Maths expression for testing. The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
 
-$$
-\begin{align*}
-  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
-      \vdots & \ddots & \vdots \\
-      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
-$$
+    $$
+    \begin{align*}
+      & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+      = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+      & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+          \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+          \vdots & \ddots & \vdots \\
+          \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+        \end{array} \right)
+      \left( \begin{array}{c}
+          y_1 \\
+          \vdots \\
+          y_n
+        \end{array} \right)
+    \end{align*}
+    $$
 -->
