@@ -22,8 +22,11 @@ The interpretations that satisfy a graph are called *models* of the graph.
 
 
 4. **Entailment**:
-One graph *entails* another **iff** any model of the former graph is also a model of the latter graph.
 
+⋅⋅⋅One graph *entails* another **iff** any model of the former graph is also a model of the latter graph.
+
+---------
+Latex Maths expression for testing.
 $$
 \begin{align*}
   & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
