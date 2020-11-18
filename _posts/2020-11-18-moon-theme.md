@@ -1,10 +1,9 @@
 ---
-layout: project
+layout: post
 title:  "Credits to Original Theme"
 date:   2020-11-18
 excerpt: "My personal homepage credits to Moon Jekyll Theme, and this is the post containing the link to the set-up guide of the original theme."
-tag:
-- jekyll
+tag: [jekyll]
 comments: false
 ---
 
