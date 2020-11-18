@@ -28,6 +28,7 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     One graph `entails` another *iff* any model of the former graph is also a model of the latter graph.
 
+<--!
 ---------
 Latex Maths expression for testing. The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
 
@@ -47,3 +48,4 @@ $$
     \end{array} \right)
 \end{align*}
 $$
+-->
