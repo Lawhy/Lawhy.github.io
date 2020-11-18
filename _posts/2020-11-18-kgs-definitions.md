@@ -11,15 +11,13 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
 1. *Knowledge Graph*.
 ~~~ python
-A graph of data intended to accumulate and convey
-knowledge of the real world, whose nodes represent *entities* of
-interest and whose *edges* represent relations between these entities.
+A graph of data intended to accumulate and convey knowledge of the real world, 
+whose nodes represent *entities* of interest and whose *edges* represent relations between these entities.
 ~~~
 
 2. *Interpretation*. 
 ~~~ python
-Mapping the nodes/edges in the data graph to
-those of the *domain graph*.
+Mapping the nodes and edges in the data graph to those (respectively) of the *domain graph*.
 ~~~
 
 3. *Model*.
