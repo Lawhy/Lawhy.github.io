@@ -28,6 +28,10 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     One graph `entails` another *iff* any model of the former graph is also a model of the latter graph.
 
+---
+### References:
+- Hogan, A., E. Blomqvist, Michael Cochez, Claudia D'amato, Gerard de Melo, C. Gutiérrez, J. L. Gayo, S. Kirrane, S. Neumaier, A. Polleres, R. Navigli, Axel-Cyrille Ngonga Ngomo, S. M. Rashid, A. Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab and A. Zimmermann. “Knowledge Graphs.” ArXiv abs/2003.02320 (2020): n. pag.
+
 <!--
     Latex Maths expression for testing. The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
 
