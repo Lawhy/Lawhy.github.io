@@ -24,3 +24,8 @@ Mapping the nodes and edges in the data graph to those (respectively) of the *do
 ~~~ python
 The interpretations that satisfy a graph are called *models* of the graph.
 ~~~
+
+4.
+~~~ python
+One graph *entails* another *iff* any model of the former graph is also a model of the latter graph.
+~~~
