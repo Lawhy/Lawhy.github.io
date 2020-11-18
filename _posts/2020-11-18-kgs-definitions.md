@@ -29,7 +29,8 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     One graph `entails` another *iff* any model of the former graph is also a model of the latter graph.
 
 ---------
-Latex Maths expression for testing.
+Latex Maths expression for testing. The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
+
 $$
 \begin{align*}
   & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
