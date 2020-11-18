@@ -4,7 +4,7 @@ title: "Important Definitions in Knowledge Graphs"
 date: 2020-11-18
 excerpt: "A collection of definitions in Knowledge Graphs (KGs)."
 tags: [knowledge_graph, definition, research]
-comments: true
+comments: false
 ---
 
 *Knowledge graph.* A graph of data intended to accumulate and convey
