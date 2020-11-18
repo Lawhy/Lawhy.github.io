@@ -7,11 +7,12 @@ tags: [knowledge_graph, definition, research]
 comments: false
 ---
 
-### Knowledge Graph
+This post collects the important definitions in Knowledge Graphs and it will be updated every now and then.
+
+1. *Knowledge Graph*.
 A graph of data intended to accumulate and convey
 knowledge of the real world, whose nodes represent **entities** of
 interest and whose **edges** represent relations between these entities.
 
----
-### Model 
+2. *Model*.
 The interpretations that satisfy a graph are called *models* of the graph.
