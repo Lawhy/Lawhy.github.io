@@ -22,7 +22,7 @@ Mapping the nodes/edges in the data graph to
 those of the *domain graph*.
 ```
 
-2. *Model*.
+3. *Model*.
 ```
 The interpretations that satisfy a graph are called *models* of the graph.
 ```
