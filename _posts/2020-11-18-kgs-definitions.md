@@ -36,6 +36,18 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     A rule encodes `IF-THEN` style consequences and is composed of a `body` (IF) and a `head` (THEN), both of which are given as `graph patterns`.
 
+7. **Materialisation**:
+
+    Refers to the idea of applying `rules` *recursively* to a graph, adding the `conclusions` generated back to the graph until a fixpoint is reached and nothing more can be added.
+
+8. **Query Rewriting**:
+
+    Automatically `extends` the query in order to find solutions entailed by a set of `rules`.
+
+9. **Description Logics**:
+
+    DLs are based on three types of elements: `individuals` (e.g. Santiago); `classes` (e.g. City); and `properties` (e.g. flight). DLs then allow for making claims, known as `axioms`, about these elements. Assertional axioms form the `Assertional Box` (A-Box); Class axioms form the `Terminology Box` (T-Box); Property axioms form the `Role Box` (R-Box).
+    
 ---
 ### References:
 - Hogan, A., E. Blomqvist, Michael Cochez, Claudia D'amato, Gerard de Melo, C. Gutiérrez, J. L. Gayo, S. Kirrane, S. Neumaier, A. Polleres, R. Navigli, Axel-Cyrille Ngonga Ngomo, S. M. Rashid, A. Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab and A. Zimmermann. “Knowledge Graphs.” ArXiv abs/2003.02320 (2020): n. pag.
