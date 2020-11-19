@@ -46,7 +46,7 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
 9. **Description Logics**:
 
-    DLs are based on three types of elements: `individuals` (e.g. Santiago); `classes` (e.g. City); and `properties` (e.g. flight). DLs then allow for making claims, known as `axioms`, about these elements. Assertional axioms form the `Assertional Box` (A-Box); Class axioms form the `Terminology Box` (T-Box); Property axioms form the `Role Box` (R-Box). ⊤ symbol is used in DLs to denote the `class of all individuals`.
+    DLs are based on three types of elements: `individuals` (e.g. Santiago); `classes` (e.g. City); and `properties` (e.g. flight). DLs then allow for making claims, known as `axioms`, about these elements. Assertional axioms form the `Assertional Box` (A-Box); Class axioms form the `Terminology Box` (T-Box); Property axioms form the `Role Box` (R-Box). `⊤` symbol is used in DLs to denote the `class of all individuals`.
     
 ---
 ### References:
