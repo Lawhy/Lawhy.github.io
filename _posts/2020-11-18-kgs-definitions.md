@@ -48,6 +48,14 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     DLs are based on three types of elements: `individuals` (e.g. Santiago); `classes` (e.g. City); and `properties` (e.g. flight). DLs then allow for making claims, known as `axioms`, about these elements. Assertional axioms form the `Assertional Box` (A-Box); Class axioms form the `Terminology Box` (T-Box); Property axioms form the `Role Box` (R-Box). `⊤` symbol is used in DLs to denote the `class of all individuals`.
     
+10. **Deductive vs. Inductive**:
+
+    Deductive knowledge is characterised by `precise logicial consequences`; Inductive knowledge involves `generalising pattern`s (then `making predictions` with a level of confidence) from observations.
+    
+11. **Supervised, Self-supervised and Unsupervised Methods**:
+
+    `Supervised` methods learn a function (model) to map a given set of example inputs to their labelled outputs; `Self-supervisision` rather finds ways to generate the input-output pairs automatically from the input, then fed into a supervised process to learn a model; `Unsupervised` processes do not require lablled input-output pairs, but rather apply a predefined function to map inputs to outputs.
+    
 ---
 ### References:
 - Hogan, A., E. Blomqvist, Michael Cochez, Claudia D'amato, Gerard de Melo, C. Gutiérrez, J. L. Gayo, S. Kirrane, S. Neumaier, A. Polleres, R. Navigli, Axel-Cyrille Ngonga Ngomo, S. M. Rashid, A. Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab and A. Zimmermann. “Knowledge Graphs.” ArXiv abs/2003.02320 (2020): n. pag.
