@@ -27,6 +27,14 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 4. **Entailment**:
 
     One graph `entails` another *iff* any model of the former graph is also a model of the latter graph.
+    
+5. **Graph Pattern**:
+
+    Data graphs allowing `variables` as terms.
+    
+6. **Inference Rules**:
+
+    A rule encodes `IF-THEN` style consequences and is composed of a `body` (IF) and a `head` (THEN), both of which are given as `graph patterns`.
 
 ---
 ### References:
