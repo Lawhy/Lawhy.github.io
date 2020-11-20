@@ -72,7 +72,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\(50 \leq d \leq 1000 \\). 
     
-    13.1 Most common instantiation is given an edge `[s] --p--> [o]`, and the embeddings \\(e_s, r_p, e_o\\), the scoring function computes the *plausibility* of the edge. The goal is then to compute the embeddings that maximise the plausibility of `postive edges` (typically edges in the graph) and minimise the plausibility of `negative examples` (typically edges in the graph with a node or edge label changed) according to the scoring function. The resulting embeddings can be seen as encoding latent features of graph through `self-supervision`, mapping input edges to output plausibility scores.
+    13.1 <u>Most common instantiation</u> is given an edge `[s] --p--> [o]`, and the embeddings \\(e_s, r_p, e_o\\) (*e* stands for entity, *r* stands for relation), the scoring function computes the *plausibility* of the edge. The goal is then to compute the embeddings that maximise the plausibility of `postive edges` (typically edges in the graph) and minimise the plausibility of `negative examples` (typically edges in the graph with a node or edge label changed) according to the scoring function. The resulting embeddings can be seen as encoding latent features of graph through `self-supervision`, mapping input edges to output plausibility scores.
+    
+    13.2 <u>Translational models</u> interpret edge labels as transformations from subject nodes (source, head) to object nodes (target, tail). The most elementary approach is `TransE`, aiming to make \\(e_s + r_p \rightarrow e_o\\).
  
  
 ---
