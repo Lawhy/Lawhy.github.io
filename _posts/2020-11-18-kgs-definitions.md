@@ -68,7 +68,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     **Note**: The combination of analytics and entailment, according to the survey, has not been well-explored.
     
-    
+13. **Knowledge Graph Embeddings**
+
+    The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\[50 \leq d \leq 1000 \\].
     
 ---
 ### References:
