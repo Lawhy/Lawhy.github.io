@@ -60,7 +60,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     `Analytics` is the process of discovering, interpreting, and communicating *meaningful patterns* inherent to data collections (graph data for Graph Analytics). `Topology` of the graph is how the nodes of the graph are connected.
     
-    12.1 Main techniques: `Centrality` aiming to identify the most important nodes or edges of the graph. `Community detection` aiming to identify *communities*, i.e. sub-graphs that are more densely connected internally than to the rest of the graph; `Connectivity` aiming to estimate how well-connected the graph is, revealing, e.g. the resilience and (un)reachability of elements of the graph; `Node similarity` aiming to find nodes that are similar to other nodes by virtue of how they are connected within their neighbourhood; `Path finding` aiming to find paths in a graph, typically between pairs of nodes given as input.
+    12.1 <u>Main techniques</u>: `Centrality` aiming to identify the most important nodes or edges of the graph. `Community detection` aiming to identify *communities*, i.e. sub-graphs that are more densely connected internally than to the rest of the graph; `Connectivity` aiming to estimate how well-connected the graph is, revealing, e.g. the resilience and (un)reachability of elements of the graph; `Node similarity` aiming to find nodes that are similar to other nodes by virtue of how they are connected within their neighbourhood; `Path finding` aiming to find paths in a graph, typically between pairs of nodes given as input.
+    
+    12.2 <u>Graph parallel frameworks</u> apply a `systolic abstraction` where nodes are processors that can send message to other nodes along edges; an algorithm in this framework consists of the functions to compute message values in the `message phase` (MsG), and to accumulate the messages in the `aggregation phase` (AGG); additional features including `global step` (global computation) and `mutation step` (adding/removing during processing).
 
     
     
