@@ -66,6 +66,8 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     12.3 <u>Analytics involving edge meta-data</u>: `Projection` drops all edge metat-data; `Weighting` converts edge meta-data into numerical values according to some function; `Transformation` involves transforming the graph to a lower arity model, where being `lossy` means irreversible transformation (lossing information) and being `lossless` means reversible; `Customisation` involves changing the analytical procedure to incorporate edge meta-data.
     
+    **Note**: The combination of analytics and entailment, according to the survey, has not been well-explored.
+    
     
     
 ---
