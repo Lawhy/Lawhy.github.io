@@ -56,6 +56,14 @@ This post collects the important definitions in Knowledge Graphs and it will be 
 
     `Supervised` methods learn a function (model) to map a given set of example inputs to their labelled outputs; `Self-supervisision` rather finds ways to generate the input-output pairs automatically from the input, then fed into a supervised process to learn a model; `Unsupervised` processes do not require lablled input-output pairs, but rather apply a predefined function to map inputs to outputs.
     
+12. **Graph Analytics**:
+
+    `Analytics` is the process of discovering, interpreting, and communicating *meaningful patterns* inherent to data collections (graph data for Graph Analytics). `Topology` of the graph is how the nodes of the graph are connected.
+    
+    12.1 Main techniques: `Centrality` aiming to identify the most important nodes or edges of the graph. `Community detection` aiming to identify *communities*, i.e. sub-graphs that are more densely connected internally than to the rest of the graph; `Connectivity` aiming to estimate how well-connected the graph is, revealing, e.g. the resilience and (un)reachability of elements of the graph; `Node similarity` aiming to find nodes that are similar to other nodes by virtue of how they are connected within their neighbourhood; `Path finding` aiming to find paths in a graph, typically between pairs of nodes given as input.
+
+    
+    
 ---
 ### References:
 - Hogan, A., E. Blomqvist, Michael Cochez, Claudia D'amato, Gerard de Melo, C. Gutiérrez, J. L. Gayo, S. Kirrane, S. Neumaier, A. Polleres, R. Navigli, Axel-Cyrille Ngonga Ngomo, S. M. Rashid, A. Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab and A. Zimmermann. “Knowledge Graphs.” ArXiv abs/2003.02320 (2020): n. pag.
