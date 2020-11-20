@@ -64,6 +64,8 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     12.2 <u>Graph parallel frameworks</u> apply a `systolic abstraction` where nodes are processors that can send message to other nodes along edges; an algorithm in this framework consists of the functions to compute message values in the `message phase` (MsG), and to accumulate the messages in the `aggregation phase` (AGG); additional features including `global step` (global computation) and `mutation step` (adding/removing during processing).
 
+    12.3 <u>Analytics involving edge meta-data</u>: `Projection` drops all edge metat-data; `Weighting` converts edge meta-data into numerical values according to some function; `Transformation` involves transforming the graph to a lower arity model, where being `lossy` means irreversible transformation (lossing information) and being `lossless` means reversible; `Customisation` involves changing the analytical procedure to incorporate edge meta-data.
+    
     
     
 ---
