@@ -70,7 +70,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
 13. **Knowledge Graph Embeddings**
 
-    The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\(50 \leq d \leq 1000 \\). Most common instantiation is given an edge `[s] --p--> [o]`, and the embeddings \\(e_s, r_p, e_o\\)
+    The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\(50 \leq d \leq 1000 \\). 
+    
+    13.1 Most common instantiation is given an edge `[s] --p--> [o]`, and the embeddings \\(e_s, r_p, e_o\\), the scoring function computes the *plausibility* of the edge. The goal is then to compute the embeddings that maximise the plausibility of `postive edges` (typically edges in the graph) and minimise the plausibility of `negative examples` (typically edges in the graph with a node or edge label changed) according to the scoring function. The resulting embeddings can be seen as encoding latent features of graph through `self-supervision`, mapping input edges to output plausibility scores.
     
 ---
 ### References:
