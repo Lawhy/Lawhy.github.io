@@ -78,9 +78,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     13.3 <u>Tensor decomposition models</u>: the original tensor is decomposed into more *elementary* tensors which capture *latent factors* (underlying information). `Rank decomposition` such that \\(\sum^r_{i=1} \mathbf{x_i} \otimes \mathbf{y_i} = \mathbf{C} \\) is approximated by setting a limit \\( d < r\\), \\(\otimes\\) refers to the `outer product` of vectors (\\(\mathbf{x} \otimes \mathbf{y} = \mathbf{x}\mathbf{y^T}\\). Method is called `Canonical Polyadic` (CP) decomposition. For graphs, we can have it encoded as a one-hot, order-3 tensor \\(G\\) with \\(\vert V \vert \times \vert L \vert \times \vert V \vert \\) elements, where \\(G_{ijk}\\) is set to one if \\(i^{th}\\) node links to \\(k^{th}\\) node with an edge having \\(j^{th}\\) label, or zero otherwise. Apply CP we obtain \\( \sum^d_{i=1} \mathbf{x_i} \otimes \mathbf{y_i} \otimes \mathbf{z_i} \approx G\\) and the decomposed \\(\mathbf{x_i}, \mathbf{y_j}, \mathbf{z_k}\\) are the graph embeddings we want. 
     
-    **Note**: According to the survey, the current state-of-the-art decomposition method is `TuckER` with \\( G = \mathcal{T} \otimes \mathbf{A} \otimes \mathbf{B} \otimes \mathbf{C}\\).
+    **Note**: According to the survey, the current state-of-the-art decomposition method is `TuckER` with \\( G = \mathcal{T} \otimes \mathbf{A} \otimes \mathbf{B} \otimes \mathbf{C}\\), where the tensor \\(\mathcal{T}\\) is the "core" tensor.
     
-    13.4 <u>Neural models<\u>:...
+    13.4 <u>Neural models</u>:...
  
  
 ---
