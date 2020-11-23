@@ -84,7 +84,7 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     13.5 <u>Language models</u>: `RDF2Vec` performs biased random work on teh graph and records the paths as *sentences*, which are then fed as input to `word2vec` model. `KGloVe` uses personalised PageRank to determine the most related nodes to a given node, whose results are fed into the `GloVe` model.
     
-    13.6 <u>Entailment-aware models</u>:
+    13.6 <u>Entailment-aware models</u>: Use deductive knowledge (ontology, set of rules) to refine the predictions made by embeddings.
  
  
 ---
