@@ -80,7 +80,7 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     **Note**: According to the survey, the current state-of-the-art decomposition method is `TuckER` with \\( G = \mathcal{T} \otimes \mathbf{A} \otimes \mathbf{B} \otimes \mathbf{C}\\), where the tensor \\(\mathcal{T}\\) is the "core" tensor.
     
-    13.4 <u>Neural models</u>: One of the earliest proposal is `Semantic Matching Energy` (SME) which learns parameters for two functions \\(f_s(e_s, r_p), g_{w'}(e_o, r_p)\\) such that \\(f_s(e_s, r_p) \cdot g_{w'}(e_o, r_p)\\) gives the plausibility score.
+    13.4 <u>Neural models</u>: One of the earliest proposal is `Semantic Matching Energy` (SME) which learns parameters for two functions \\(f_s(e_s, r_p), g_{w'}(e_o, r_p)\\) such that \\(f_s(e_s, r_p) \cdot g_{w'}(e_o, r_p)\\) gives the plausibility score; Anoter early work was `Neural Tensor Networks` (NTN), which proposes to maintain a tensor \\(\mathcal{W}\\) of internal weights such that the plausibility score is given by a complex function that combines \\(e_s \otimes \mathcal{W} \otimes e_o \rightarrow NN_{e_s}, NN_{e_o} rightarrow r_p\\).
  
  
 ---
