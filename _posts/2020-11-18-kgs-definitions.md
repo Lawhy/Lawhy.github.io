@@ -85,7 +85,18 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     13.5 <u>Language models</u>: `RDF2Vec` performs biased random work on teh graph and records the paths as *sentences*, which are then fed as input to `word2vec` model. `KGloVe` uses personalised PageRank to determine the most related nodes to a given node, whose results are fed into the `GloVe` model.
     
     13.6 <u>Entailment-aware models</u>: Use deductive knowledge (ontology, set of rules) to refine the predictions made by embeddings.
- 
+
+14. **Graph Neural Network**
+
+    14.1 <u>Recursive GNN</u> (RecGNN) takes as input a directed graph where nodes and edges are associated with `feature vectors` that capture node and edge labels, weights, etc. Each node is associated with `state vecotr`, which is recursively updated based on neighbours, with convergence up to a fixpoint.
+    
+    14.2 <u>Convolutional GNN</u> (ConvGNN) has its transition function applied over a node and its neighbours, while for CNN it is appliedon a pixel and its neighbours in the image. One challenge is that neightbours of different nodes can be diverse and approaches to address that involves `spectral` or `spatial` representations. An alternative is to use `attention mechanism` to learn the nodes whose features are most important to the current node.
+    
+15. **Symbolic Learning**
+
+    Previous neural approaches are unable to provide results for edges involving unseedn nodes or edges (`out-of-vbocabulary` problem) and the models are often difficult to explain. `Symbolic learning` aims to learn *hypotheses* in a symbolic (logical) language that "explain" a given set of postive and negative edges.
+    
+    15.1 <u>Rule mining.</u>
  
 ---
 ### References
