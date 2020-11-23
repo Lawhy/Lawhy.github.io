@@ -45,16 +45,16 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 ---------------------------
 
+## Amateur Work
+
+I am also an amateur music composer and novel/poetry/prose writer (specific to Chinese literature), please check the post [here]() to view the links to my work if you are interested to know me beyond the academic scope. 
+
+---------------------------
+
 ## Contact
 
 Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/assets/img/email.png)
 
 [Github](https://github.com/Lawhy){: .btn} [Linkedin](https://www.linkedin.com/in/yuan-he-0557781aa/?originalSubdomain=uk){: .btn} [Resume](https://github.com/Lawhy/resume/raw/main/CV.pdf){: .btn} 
-
----------------------------
-
-## Amateur Work
-
-I am also an amateur music composer and novel/poetry/prose writer (specific to Chinese literature), please check the post [here]() to view the links to my work if you are interested to know me beyond the academic scope. 
 
 
