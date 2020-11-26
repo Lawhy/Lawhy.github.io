@@ -97,6 +97,9 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     Previous neural approaches are unable to provide results for edges involving unseedn nodes or edges (`out-of-vbocabulary` problem) and the models are often difficult to explain. `Symbolic learning` aims to learn *hypotheses* in a symbolic (logical) language that "explain" a given set of postive and negative edges.
     
     15.1 <u>Rule mining</u>: The goal is to identify new rules that entail a high ratio of `positive edges` from other positive edges, but entail a low ratio of negative edges from positive edges. Edges entailed by a rule and a set of positivbe edges are the `positive entailments` of that rule. The `number` and the `ratio` of positive entailments are `support` and `confidence` for the rule (good for high support and confidence). Under the `Partial Completeness Assumption` (PCA), negative examples are edges (\\([s] \xrightarrow{p} [o'] \\)) *NOT* in the graph but \\(\exists [o]. [s] \xrightarrow{p} [o]\\). Edges that are neither positive or negative are ignored by the measure. Rules are `closed` meaning that each variable appears in `at least two edges` of the rule, which ensures rules are `safe`, meaning that each variable in the `head` appears in the `body` (see Definition 6 for the concept of head and body). Technique that involves NN is called `differentiable rule mining`.
+    
+    15.2 <u>Axiom mining</u>: Axioms are expressed in logicial languages such as DLs.
+    
  
 ---
 ### References
