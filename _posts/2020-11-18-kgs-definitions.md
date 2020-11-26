@@ -100,6 +100,17 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     15.2 <u>Axiom mining</u>: Axioms are expressed in logicial languages such as DLs.
     
+16. **Text Sources**
+
+    16.1 <u>Pre-processing</u> includes `Tokenisation`, `Part-of-Speech tagging`, `Depdency Parsing` (extracts a grammatical tree structure), `Word Sense Disambiguation` (to identify sense and link words with a lexicon of senses, e.g. WordNet).
+    
+    16.2 <u>Named Entity Recognition</u>: Names entities identified by NER may be used to generate new candidate nodes from the KG, or linked to exsisting nodes.
+    
+    16.3 <u>Entity Linking</u>: Challenging because \\([1]\\) there are multiple ways to mention the same entity and \\([2]\\) the same mention in different contexts can refer to distinct entities.
+    
+    16.4 <u>Relation Extraction</u>: The RE task extracts relations between entities in the text. 
+    
+    ![Text-extraction](https://github.com/Lawhy/Lawhy.github.io/blob/master/_posts/Materials/Text-extraction-example.PNG)
  
 ---
 ### References
