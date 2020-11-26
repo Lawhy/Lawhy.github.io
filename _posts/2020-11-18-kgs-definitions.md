@@ -110,7 +110,7 @@ This post collects the important definitions in Knowledge Graphs and it will be 
     
     16.4 <u>Relation Extraction</u>: The RE task extracts relations between entities in the text. 
     
-    ![Text-extraction](https://github.com/Lawhy/Lawhy.github.io/blob/master/_posts/Materials/Text-extraction-example.PNG)
+    ![Text-extraction](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/Text-extraction-example.PNG)
  
 ---
 ### References
