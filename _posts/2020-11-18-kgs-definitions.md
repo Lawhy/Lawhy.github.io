@@ -7,7 +7,7 @@ tags: [knowledge_graph, literature_review, definition]
 comments: false
 ---
 
-This post collects the important definitions in Knowledge Graphs and it will be updated every now and then.
+Notes on reading the long survey: **Knowledge Graphs** (see References).
 
 1. **Knowledge Graph**
 
