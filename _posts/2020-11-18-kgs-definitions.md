@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Important Definitions for Knowledge Graphs"
+title: "Reading Notes: Knowledge Graphs"
 date: 2020-11-18
-excerpt: "A collection of definitions in Knowledge Graphs (KGs)."
+excerpt: "A collection of definitions and concise points in the long survey of Knowledge Graphs (KGs)."
 tags: [knowledge_graph, literature_review, definition]
 comments: false
 ---
