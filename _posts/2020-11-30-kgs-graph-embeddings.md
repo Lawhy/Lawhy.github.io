@@ -13,4 +13,8 @@ Here \\(X\\) is said to be embedded in \\(Y\\).
 
 ### Classical Graph Embeddings
 
+1. **Locally Linear Embedding**: Under the assumption that the node can be represented by the `linear combination` of its neighbors such that the objective function is
+$$
+\phi(\mathbf{X}) = \frac{1}{2} \sum_i (\mathbf{X_i} - \sum_{\mathbf{X_j \in ne(\mathbf{X_i})} \mathbf{W_j} \mathbf{X_j})^2
+$$
 
