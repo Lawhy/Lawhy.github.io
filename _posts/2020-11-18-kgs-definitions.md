@@ -82,7 +82,7 @@ Notes on reading the long survey: **Knowledge Graphs** (see References).
     
     13.4 <u>Neural models</u>: One of the earliest proposal is `Semantic Matching Energy` (SME) which learns parameters for two functions such that \\(f_s(e_s, r_p) \cdot g_{w'}(e_o, r_p)\\) gives the plausibility score; Anoter early work was `Neural Tensor Networks` (NTN), which proposes to maintain a tensor \\(\mathcal{W}\\) of internal weights such that the plausibility score is given by a complex function that combines \\(e_s \otimes \mathcal{W} \otimes e_o \rightarrow NN_{e_s}, NN_{e_o} \rightarrow r_p\\). `Multi-layer Perceptron` (MLP) is a simpler model, where \\(e_s, r_p, e_o\\) are concatenated and fed into a hidden layer to compute plausibility score. For more neural models, please refer to page 41 - 42 of the survey.
     
-    13.5 <u>Language models</u>: `RDF2Vec` performs biased random work on teh graph and records the paths as *sentences*, which are then fed as input to `word2vec` model. `KGloVe` uses personalised PageRank to determine the most related nodes to a given node, whose results are fed into the `GloVe` model.
+    13.5 <u>Language models</u>: `RDF2Vec` performs biased random work on the graph and records the paths as *sentences*, which are then fed as input to `word2vec` model. `KGloVe` uses personalised PageRank to determine the most related nodes to a given node, whose results are fed into the `GloVe` model.
     
     13.6 <u>Entailment-aware models</u>: Use deductive knowledge (ontology, set of rules) to refine the predictions made by embeddings.
 
