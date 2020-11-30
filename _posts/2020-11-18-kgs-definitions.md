@@ -70,7 +70,7 @@ Notes on reading the long survey: **Knowledge Graphs** (see References).
     
 13. **Knowledge Graph Embeddings**
 
-    The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\(50 \leq d \leq 1000 \\). 
+    The main goal is to create a dense representation of teh graph in a continuous, low-dimensional vector space, where the dimensionality *d* is typically low, e.g. \\(50 \leq d \leq 1000 \\). **Embedding** is given by some mathematical function \\(f: X \rightarrow Y\\) which is `injective`, `structure-preserving` and often maps from the abstract high dimensional space to the concrete low diemnsional space to resolve the *sparsity* and *fractured information* caused by one-hot encoding. Here $$X$$ is said to be embedded in $$Y$$. 
     
     13.1 <u>Most common instantiation</u> is given an edge \\([s] \xrightarrow{p} [o] \\), and the embeddings \\(e_s, r_p, e_o\\) (*e* stands for entity, *r* stands for relation), the scoring function computes the *plausibility* of the edge. The goal is then to compute the embeddings that maximise the plausibility of `postive edges` (typically edges in the graph) and minimise the plausibility of `negative examples` (typically edges in the graph with a node or edge label changed) according to the scoring function. The resulting embeddings can be seen as encoding latent features of graph through `self-supervision`, mapping input edges to output plausibility scores.
     
