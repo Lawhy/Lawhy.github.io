@@ -7,8 +7,6 @@ tags: [contraction_mapping_theorem, proof, in_depth_notes]
 comments: false
 ---
 
-The source of the proof is available [here](https://www.math.ucdavis.edu/~hunter/book/ch3.pdf).
-
 ### Contraction Mapping Definition
 
 Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contraction mapping*, or *contraction*, if $$\exists c, 0 \leq c < 1$$ s.t. $$\forall x,y \in X$$, we have \\[d(T(x), T(y)) \leq c d(x, y).\\] 
@@ -50,4 +48,9 @@ Hence, $$(x_n)$$ is *Cauchy*, and it converges to $$x \in X$$ since $$X$$ is **c
 Finally, suppose $$x$$ and $$y$$ are two fixed points, then we have 
 \\[ 0 \leq d(x, y) = d(Tx, Ty) \leq cd(x, y),\\]
 which implies that $$d(x,y) = 0$$ otherwise it contradicts to the definition of contractions.
+
+-----------------
+### References
+
+The source of the proof is available [here](https://www.math.ucdavis.edu/~hunter/book/ch3.pdf).
 
