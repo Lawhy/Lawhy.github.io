@@ -17,6 +17,8 @@ Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contractio
 
 **Note 2**: The point $$x \in X$$ s.t. $$T(x) = x$$ is called a *fixed point* of $$T$$.
 
+**Note 3**: The contraction mapping is **uniformly continuous** (not showing the proof in this post).
+
 ### Contraction Mapping Theorem
 
 If $$T: X \mapsto X$$ is a *contraction mapping* on a **complete** metric space $$(X, d)$$, then $$\exists x \in X$$ be *fixed point*.
@@ -38,4 +40,11 @@ d\left(x_{n}, x_{m}\right) &=d\left(T^{n} x_{0}, T^{m} x_{0}\right) \\
 \end{aligned}
 $$
 
-**Inserted Note**: The second line results from **iterating** the definition of contractions for $$m$$ times, the first iteration would be \\[d(T^n x_0, T^m x_0 \leq cd(T^{n-1}x_0, T^{m-1}x_0)\\]. The third line results from **iterating** the triangle inequality for $$n-m-1$$ times, the first iteration would be \\[c^{m} d\left(T^{n-m} x_{0}, x_{0}\right) \leq c^m [d(T^{n-m}x_0, T^{n-m-1}x_0) + d(T^{n-m-1}x_0, x_0)]\\].
+**Inserted Note**: The second line results from **iterating** the definition of contractions for $$m$$ times, the first iteration would be \\[d(T^n x_0, T^m x_0 \leq cd(T^{n-1}x_0, T^{m-1}x_0).\\] The third line results from **iterating** the triangle inequality for $$n-m-1$$ times, the first iteration would be \\[c^{m} d\left(T^{n-m} x_{0}, x_{0}\right) \leq c^m [d(T^{n-m}x_0, T^{n-m-1}x_0) + d(T^{n-m-1}x_0, x_0)].\\] The fourth line, again, results from applying the defintion of contractions on each term separately. The last line gives an upper bound and since $$0 \leq c < 1$$, the bound converges to $$0$$. 
+
+Hence, $$(x_n)$$ is *Cauchy*, and it converges to $$x \in X$$ since $$X$$ is **complete**. This further implies that
+\\[Tx = T \lim_{n \rightarrow \infty} x_n = \lim_{n \rightarrow \infty} x_{n+1} = x.\\] 
+
+**Inserted Note**: The limit sign can be pulled out because of the **uniform continuity** of $$T$$.
+
+
