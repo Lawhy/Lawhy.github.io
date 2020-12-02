@@ -11,5 +11,5 @@ The source of the proof is available [here](https://www.math.ucdavis.edu/~hunter
 
 ### Definition of Contractions
 
-Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contraction mapping*, or *contraction*, if $$\exists c$$ (constant) with 
-$$0 \leq c < 1$$ s.t. $$\forall x,y \in X$$, we have \\[d(T(x), T(y)) \leq c d(x, y)\\].  
+Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contraction mapping*, or *contraction*, if $$\exists c, 0 \leq c < 1$$ s.t. $$\forall x,y \in X$$, we have \\[d(T(x), T(y)) \leq c d(x, y).\\] 
+**Note**: The *contraction* literally means `shortening the distance` between points. 
