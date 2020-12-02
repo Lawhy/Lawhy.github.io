@@ -38,4 +38,4 @@ d\left(x_{n}, x_{m}\right) &=d\left(T^{n} x_{0}, T^{m} x_{0}\right) \\
 \end{aligned}
 $$
 
-**Inserted Note**: The second line results from **iterating** the definition of contractions for $$m$$ times (the first iteration would be $$d(T^n x_0, T^m x_0 \leq cd(T^{n-1}x_0, T^{m-1}x_0)$$). The third line results from **iterating** the triangle inequality for $$n-m$$ times (the first iteration would be $$c^{m} d\left(T^{n-m} x_{0}, x_{0}\right) \leq c^m [d(T^{n-m}x_0, T^{n-m-1}x_0) + d(T^{n-m-1}x_0, x_0)]$$).
+**Inserted Note**: The second line results from **iterating** the definition of contractions for $$m$$ times, the first iteration would be \\[d(T^n x_0, T^m x_0 \leq cd(T^{n-1}x_0, T^{m-1}x_0)\\]. The third line results from **iterating** the triangle inequality for $$n-m-1$$ times, the first iteration would be \\[c^{m} d\left(T^{n-m} x_{0}, x_{0}\right) \leq c^m [d(T^{n-m}x_0, T^{n-m-1}x_0) + d(T^{n-m-1}x_0, x_0)]\\].
