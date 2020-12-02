@@ -9,10 +9,14 @@ comments: false
 
 The source of the proof is available [here](https://www.math.ucdavis.edu/~hunter/book/ch3.pdf).
 
-### Contraction Mapping
+### Contraction Mapping Definition
 
 Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contraction mapping*, or *contraction*, if $$\exists c, 0 \leq c < 1$$ s.t. $$\forall x,y \in X$$, we have \\[d(T(x), T(y)) \leq c d(x, y).\\] 
 
 **Note 1**: The *contraction* literally means **shortening the distance** between points. 
 
-**Note 2**: The point $$x \in X$$ s.t. $$T(x) = x$$ is called a `fixed point` of $$T$$.
+**Note 2**: The point $$x \in X$$ s.t. $$T(x) = x$$ is called a *fixed point* of $$T$$.
+
+### Contraction Mapping Theorem
+
+If $$T: X \maps X$$ is a *contraction mapping* on a **complete** metric space $$(X, d)$$, then $$\exists x \in X$$ be *fixed point*.
