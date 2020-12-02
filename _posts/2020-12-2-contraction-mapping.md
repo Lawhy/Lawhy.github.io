@@ -29,6 +29,7 @@ First, we show that $$(x_n)$$ is a *Cauchy sequence*. If $$n \geq m \geq 1$$, th
 $$ 
 \begin{aligned}
 d\left(x_{n}, x_{m}\right) &=d\left(T^{n} x_{0}, T^{m} x_{0}\right) \\
+& \leq cd(T^{n-1}x_0, T^{m-1}x_0) \\
 & \leq c^{m} d\left(T^{n-m} x_{0}, x_{0}\right) \\
 & \leq c^{m}\left[d\left(T^{n-m} x_{0}, T^{n-m-1} x_{0}\right)+d\left(T^{n-m-1} x_{0}, T^{n-m-2} x_{0}\right)\right.\\
 & \leq c^{m}\left[\sum_{k=0}^{n-m-1} c^{k}\right] d\left(x_{1}, x_{0}\right) \\
