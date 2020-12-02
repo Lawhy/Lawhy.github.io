@@ -47,4 +47,7 @@ Hence, $$(x_n)$$ is *Cauchy*, and it converges to $$x \in X$$ since $$X$$ is **c
 
 **Inserted Note**: The limit sign can be pulled out because of the **uniform continuity** of $$T$$.
 
+Finally, suppose $$x$$ and $$y$$ are two fixed points, then we have 
+\\[ 0 \leq d(x, y) = d(Tx, Ty) \leq cd(x, y),\\]
+which implies that $$d(x,y) = 0$$ otherwise it contradicts to the definition of contractions.
 
