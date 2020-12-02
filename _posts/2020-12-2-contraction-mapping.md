@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Contraction Mapping Theorem"
-date: 2020-11-18
+date: 2020-12-2
 excerpt: "The proof and notes of the Contraction Mapping Theorem."
 tags: [contraction_mapping_theorem, proof, in_depth_notes]
 comments: false
