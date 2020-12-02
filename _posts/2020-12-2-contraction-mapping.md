@@ -20,3 +20,7 @@ Let $$(X, d)$$ be a metric space, A mapping $$T : X \mapsto X$$ is a *contractio
 ### Contraction Mapping Theorem
 
 If $$T: X \maps X$$ is a *contraction mapping* on a **complete** metric space $$(X, d)$$, then $$\exists x \in X$$ be *fixed point*.
+
+**Note 1**: A metric space $$(X, d)$$is said to be **complete** if every Cauchy sequence in $$X$$ converges to a point in $$X$$.
+
+**Proof.** The proof uses a **constructive** method by creating a sequence converging to the *fixed point*. Let $$x_0$$ be any point in $$X$$. We define a sequence $$(x_n)$$ in $$X$$ by  
