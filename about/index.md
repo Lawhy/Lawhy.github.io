@@ -37,7 +37,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 | Description | File |
 | :------------- | :--------------- |
-|[Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020)](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx), [<span style="color: #002147"> PDF </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf) |
+|Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pptx), [<span style="color: #002147"> PDF </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf), [<span style="color: #002147"> Video </span>](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s)|
 |Received the cerfiticate for the course The Web of Data, issued by EIT Digital (Nov 2020)|[<span style="color: #002147">Certificate</span>](https://coursera.org/share/08b65b727ca6caebb7d6edc3ab67f061)|
 |Received The 2020 Joint Class Prize for the degree of BSc in Artificial Intelligence and Mathematics (Oct 2020) | [<span style="color: #002147">Certificate</span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/Certificate%20-%20Y.%20He%5B1591%5D.pdf)|
 
