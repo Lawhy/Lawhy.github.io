@@ -27,7 +27,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 ## Publications
 
 * Yuan He and Shay B. Cohen (2020).
-  [*English-to-Chinese Transliteration with a Phonetic Auxiliary Task*](http://aacl2020.org/accepted/). 
+  [*English-to-Chinese Transliteration with a Phonetic Auxiliary Task*](https://www.aclweb.org/anthology/2020.aacl-main.40/). 
   In: AACL-IJCNLP.
 
 
