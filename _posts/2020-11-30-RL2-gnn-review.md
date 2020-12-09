@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Graph Neural Network"
+title: "Literature Review: Graph Neural Network"
 date: 2020-11-18
 excerpt: "Notes on the original Graph Neural Network (GNN)."
-tags: [gnn, neural_network, literature_review, in_depth_notes]
+tags: [graph_neural_network, gnn, literature_review, in_depth_notes]
 comments: false
 ---
 
