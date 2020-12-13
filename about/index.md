@@ -39,7 +39,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 | Description | File |
 | :------------- | :--------------- |
-|Received First Prize (IMPACT proejct) in KYOTO International Entrepreneurship Contest For University Students (Dec 2020)|[<span style="color: #002147"> Link </span>](https://www.ie.education/)|
+|Received First Prize (IMPACT project) in KYOTO International Entrepreneurship Contest For University Students (Dec 2020)|[<span style="color: #002147"> Link </span>](https://www.ie.education/)|
 |Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf), [<span style="color: #002147"> Video </span>](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s)|
 |Received Golden Award (IMPACT project) in China College Students 'Internet+' Innovation and Entrepreneurship Competition (Nov 2020)| [<span style="color: #002147"> Link </span>](https://cy.ncss.cn/information/8a80808d758bf61b0175da8689820041) |
 |Received the cerfiticate for the course The Web of Data, issued by EIT Digital (Nov 2020)|[<span style="color: #002147">Certificate</span>](https://coursera.org/share/08b65b727ca6caebb7d6edc3ab67f061)|
