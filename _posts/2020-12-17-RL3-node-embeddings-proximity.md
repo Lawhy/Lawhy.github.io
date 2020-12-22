@@ -27,4 +27,4 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
   R(i, j) = \cos(A[i,:]^T, A[j, :]^T).
   \\]
   
-  > **Note**: $$TF$$ indicates how often the predicates $$p_i$$ and $$p_j$$ are shared by the same subject-object pairs; $$ITF$$ penalizes the score for $$p_j$$ if it is too   common or overloaded. Overall, each cell in $$C_M$$ indicates how **special** of $$p_j$$ is to $$p_i$$.
+  > **Note**: $$TF$$ indicates how often the predicates $$p_i$$ and $$p_j$$ are shared by the same subject-object pairs; $$ITF$$ penalizes the score for $$p_j$$ if it is too   common or overloaded. Overall, each cell in $$C_M$$ indicates how **special** of $$p_j$$ is to $$p_i$$. And the relatedness score indicates the **similarity** between the predicates.
