@@ -19,7 +19,12 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
 - *Graph Embedding*: A graph embedding model $$h: v \mapsto \mathbb{R}^d$$ projects nodes into a low dimensional vector space where $$d \ll \lvert V \rvert$$.
 
 - *Predicate Relatedness*: Given a KG $$G = (V, E, U)$$ and a pair of predicates $$(p_i, p_j) \in E$$, the relatedness measure is based on:
-  - *Triple Frequency*: $$TF(p_i, p_j) = \log(1 + C_{i, j})$$, and
-  - *Inverse Triple Frequency*: $$ITF(p_j, E) = \log \frac{\lvert E \rvert}{\lvert \{ p_i: C_{i. j} > 0 \} \rvert}$$,
+  - **Triple Frequency**: $$TF(p_i, p_j) = \log(1 + C_{i, j})$$, and
+  - **Inverse Triple Frequency**: $$ITF(p_j, E) = \log \frac{\lvert E \rvert}{\lvert \{ p_k: C_{k. j} > 0 \} \rvert}$$, 
 
-  where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects.
+  where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects. Based on $$TF$$ and $$ITF$$, we can build a symmetric matrix   $$A$$ where $$A(i,j) = TF(p_i, p_j) \times ITF(p_j, E)$$. The final predicate relatedness matrix is constructed as:
+  \\[ 
+  R(i, j) = \cos(A[i,:]^T, A[j, :]^T).
+  \\]
+  
+  > **Note**: $$TF$$ indicates how often the predicates $$p_i$$ and $$p_j$$ are shared by the same subject-object pairs; $$ITF$$ penalizes the score for $$p_j$$ if it is too   common or overloaded. Overall, each cell in $$C_M$$ indicates how **special** of $$p_j$$ is to $$p_i$$.
