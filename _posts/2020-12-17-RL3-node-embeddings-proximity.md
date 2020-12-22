@@ -16,4 +16,4 @@ comments: false
 - *Heterogeneous Networks*: A graph $$G = (V,E)$$ with node and edge type mapping functions $$\tau_V : V \mapsto T_V$$ and $$\tau_E: E \mapsto T_E$$ is called *heterogeneous* if nodes (resp. edges) of the graph have different types, i.e., $$\lvert T_V \rvert > 1$$ (resp. $$T_E > 1$$). 
 The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogeneous information networks*. A KG is a *[directed]* *[node and edge labeled]* *[multi-graph]* $$G = (V, E, U)$$ i.e. (entities, predicates, triples representing directed labeled edges).
 
-- *Graph Embedding*: A graph embedding model $$h: v \mapsto \mathbb{R}^d$$ projects nodes into a low dimensional vector space where $$d << \lvert V \rvert$$.
+- *Graph Embedding*: A graph embedding model $$h: v \mapsto \mathbb{R}^d$$ projects nodes into a low dimensional vector space where $$d \ll \lvert V \rvert$$.
