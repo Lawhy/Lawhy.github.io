@@ -22,4 +22,4 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
   - *Triple Frequency*: $$TF(p_i, p_j) = \log(1 + C_{i, j})$$, and
   - *Inverse Triple Frequency*: $$ITF(p_j, E) = \log \frac{\lvert E \rvert}{\lvert \{ p_i: C_{i. j} > 0 \} \rvert}$$,
 
-where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects.
+  where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects.
