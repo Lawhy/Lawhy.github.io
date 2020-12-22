@@ -17,3 +17,8 @@ comments: false
 The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogeneous information networks*. A KG is a *[directed]* *[node and edge labeled]* *[multi-graph]* $$G = (V, E, U)$$ i.e. (entities, predicates, triples representing directed labeled edges).
 
 - *Graph Embedding*: A graph embedding model $$h: v \mapsto \mathbb{R}^d$$ projects nodes into a low dimensional vector space where $$d \ll \lvert V \rvert$$.
+
+- *Predicate Relatedness*: Given a KG $$G = (V, E, U)$$ and a pair of predicates $$(p_i, p_j) \in E$$, the relatedness measure is based on:
+  - *Triple Frequency*: $$TF(p_i, p_j) = \log(1 + C_{i, j})$$, and
+  - *Inverse Triple Frequency*: $$ITF(p_j, E) = \log \frac{\lvert E \rvert}{\lvert \{ p_i: C_{i. j} > 0 \} \rvert}$$,
+  where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects.
