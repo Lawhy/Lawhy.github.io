@@ -12,3 +12,5 @@ comments: false
 **2. Contributions**: A novel approach that (1) leverages edge relatedness to derive the embedding construction (better than using nodes), (2) learns domain-specific embeddings by using some input predicates, (3) requires simpler input, and (4) considers an embedding refinement strategy based on penalty functions and semantic proximity.
 
 **2. Preliminaries**:
+
+- *Heterogeneous Networks*: A graph $$G = (V,E)$$ with node and edge type mapping functions $$\tau_V : V \mapsto T_V$$ and $$\tau_E: E \mapsto T_E$$ is called *heterogeneous* if nodes (resp. edges) of the graph have different types, i.e., $$|T_V| > 1$$ (resp. $$T_E > 1$$). The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogeneous information networks*. A KG is a *[directed]* *[node and edge labeled]* *[multi-graph]* $$G = (V, E, U)$$ i.e. (entities, predicates, triples representing directed labeled edges).
