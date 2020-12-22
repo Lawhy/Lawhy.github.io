@@ -9,4 +9,6 @@ comments: false
 
 **1. Research Gap**: (1) Previous random walks based approaches mainly find the structural information without considering the semantics; (2) Other approaches rely on complex inputs (e.g. meaningful metapaths, that is, sequences of node types) or implicit semantic information (e.g. prior distribution specific to a dataset); (3) None of the approaches can learn embeddings of **semantic neighbors**, even if not directly connected (i.e. not structural neighbors).
 
+**2. Contributions**: A novel approach that (1) leverages edge relatedness to derive the embedding construction (better than using nodes), (2) learns domain-specific embeddings by using some input predicates, (3) requires simpler input, and (4) considers an embedding refinement strategy based on penalty functions and semantic proximity.
+
 **2. Preliminaries**:
