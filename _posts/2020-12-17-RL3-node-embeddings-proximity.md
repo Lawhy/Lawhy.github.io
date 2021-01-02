@@ -33,12 +33,20 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
   
 **3. Relatedness-Driven Walk Generation**
 
-Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$\Epsilon (u)$$ be the set of predicates between $$u$$ and its neighbors.
+Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$E(u)$$ be the set of predicates between $$u$$ and its neighbors.
 
-- *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the highest relatedness score. Mathematically, 
+- *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the **probability distribution** of the highest relatedness scores. Mathematically, 
 \\[
-1
+\begin{equation}
+  P(v|u, IP) =
+    \begin{cases}
+      0 & \text{if $\lvert E(u) \rvert = 0$}\\
+      1 & \text{if $\lvert E(u) \rvert = 1$}\\
+      \max_{p_i \in E(u), p_j \in IP} R(p_i, p_j) & \text{otherwise}
+    \end{cases}       
+\end{equation}
 \\]
 
+> **Note**: The paper does not specify if the relatedness scores need to be **normalized while using them as probabilities**. 
 
 
