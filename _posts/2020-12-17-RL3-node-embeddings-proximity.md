@@ -48,6 +48,6 @@ $$
 \end{equation}
 $$
 
-> **Note**: The paper does not specify if the relatedness scores need to be **normalized while using them as probabilities**. 
+  > **Note**: The paper does not specify if the relatedness scores need to be **normalized while using them as probabilities**. 
 
 - *Relatedness Driven Jump and Stay Walk*: The first approach is somewhat biased because it considers only the highest relatedness score. To overcome, (1) 
