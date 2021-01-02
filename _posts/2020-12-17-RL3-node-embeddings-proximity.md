@@ -36,6 +36,7 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
 Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$E(u)$$ be the set of predicates between $$u$$ and its neighbors.
 
 - *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the **probability distribution** of the highest relatedness scores. Mathematically, 
+
 $$
 \begin{equation}
   P(v|u, IP) =
