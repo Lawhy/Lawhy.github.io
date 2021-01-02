@@ -56,3 +56,7 @@ $$
 - *Relatedness Driven Jump and Stay Walk*: The first approach is somewhat biased because it considers only the highest relatedness score. To overcome, (1) for the first $$M$$ steps if any $$R(p_i, p_j) > \alpha$$, we **stay** (using the equation above), otherwise we **jump** (choosing a random neighbor); (2) starting from $$(M+1)$$th step, for every move we choose a random node.
 
   > **Note**: The confusion here is whether or not we choose a random node in the neighbors or any others in (2).
+
+- *Randomized Relatedness Driven Walk*: Select the next node in the subset of neighbors with top-$$k$$ highest relatedness scores randomly.
+
+  > **Note**: The subset of neighbors might be of size smaller than $$k$$ when a neighbor $$v$$ has more than $$1$$ top-$$k$$ scores.
