@@ -37,16 +37,16 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
 
 Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$E(u)$$ be the set of predicates between $$u$$ and its neighbors.
 
-- *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the the highest relatedness scores. Mathematically, \\[ v = \argmax_{p_i \in E(u), p_j \in IP, v \in Ne(u)} R(p_i, p_j)  \\]
+- *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the the highest relatedness scores. Mathematically, \\[ v = \text{argmax}_{p_i \in E(u), p_j \in IP, v \in Ne(u)} R(p_i, p_j)  \\]
 
   > **Note**: The paper's original mathematical expressions are WRONG in my understanding.
 
 - *Relatedness Driven Jump and Stay Walk*: The first approach is somewhat biased because it considers only the highest relatedness score. To overcome, (1) for the first $$M$$ steps if any $$R(p_i, p_j) > \alpha$$, we **stay** (using the equation above), otherwise we **jump** (choosing a random neighbor); (2) starting from $$(M+1)$$th step, for every move we choose a random node.
 
-  > **Note**: The confusion here is whether or not we choose a random node in the neighbors or any others in (2).
+  > **Note**: The confusion here is whether or not we choose a random node in the neighbors or any others in (2). In my understanding, (2) corresponds to a **jump**.
 
 - *Randomized Relatedness Driven Walk*: Select the next node in the subset of neighbors with top-$$k$$ highest relatedness scores randomly.
 
   > **Note**: The subset of neighbors might be of size smaller than $$k$$ when a neighbor $$v$$ has more than $$1$$ top-$$k$$ scores.
   
-- *Probabilistic Relatedness Driven Walk*: 
+- *Probabilistic Relatedness Driven Walk*: Sample $$v$$ from the distribution of the highest relatedness scores.
