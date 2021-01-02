@@ -24,15 +24,21 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
   - **Triple Frequency**: $$TF(p_i, p_j) = \log(1 + C_{i, j})$$, and
   - **Inverse Triple Frequency**: $$ITF(p_j, E) = \log \frac{\lvert E \rvert}{\lvert \{ p_k: C_{k. j} > 0 \} \rvert}$$, 
 
-  where $$C_{i, j}$$ counts the number of times the predicates $$p_i$$ and $$p_j$$ link the same subjects and objects. Based on $$TF$$ and $$ITF$$, we can build a symmetric matrix   $$A$$ where $$A(i,j) = TF(p_i, p_j) \times ITF(p_j, E)$$. The final predicate relatedness matrix is constructed as:
+  where $$C_{i, j}$$ counts the **number of times** the predicates $$p_i$$ and $$p_j$$ link the **same subjects and objects**. Based on $$TF$$ and $$ITF$$, we can build a symmetric matrix   $$A$$ where $$A(i,j) = TF(p_i, p_j) \times ITF(p_j, E)$$. The final predicate relatedness matrix is constructed as:
   \\[ 
   R(i, j) = \cos(A[i,:]^T, A[j, :]^T).
   \\]
   
-  > **Note**: $$TF$$ indicates how often the predicates $$p_i$$ and $$p_j$$ are shared by the same subject-object pairs; $$ITF$$ penalizes the score for $$p_j$$ if it is too   common or overloaded. Overall, each cell in $$C_M$$ indicates how **special** of $$p_j$$ is to $$p_i$$. And the relatedness score indicates the **similarity** between the predicates.
+  > **Note**: $$TF$$ indicates how often the predicates $$p_i$$ and $$p_j$$ are shared by the same subject-object pairs; $$ITF$$ penalizes the score for $$p_j$$ if it is too   common or overloaded. Overall, each cell in $$A$$ indicates how **special** of $$p_j$$ is to $$p_i$$. And the relatedness score indicates the **similarity** between the predicates.
   
 **3. Relatedness-Driven Walk Generation**
 
+Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$\Epsilon (u)$$ be the set of predicates between $$u$$ and its neighbors.
+
+- *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the highest relatedness score. Mathematically, 
+\\[
+1
+\\]
 
 
 
