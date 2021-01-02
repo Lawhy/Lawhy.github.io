@@ -33,6 +33,8 @@ The work of this paper considers mainly *knowledge graphs* (KGs) aka *heterogene
   
 **3. Relatedness-Driven Walk Generation**
 
+>**Note**: From the recommender, this section is not worth detailed reading as it contains many small logical problems and the techniques are of minal improvement.
+
 Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$u \in V$$ be the current node and $$v \in Ne(u)$$ be the next node to be chosen from the neighbors of $$u$$. Let $$E(u)$$ be the set of predicates between $$u$$ and its neighbors.
 
 - *Semantic Relatedness Driven Walk*: (1)  Compute the relatedness between each **predicate linked to the neighbors** and all the **input predicates**; (2) The strategy picks the next node via the **probability distribution** of the highest relatedness scores. Mathematically, 
@@ -50,4 +52,6 @@ $$
 
   > **Note**: The paper does not specify if the relatedness scores need to be **normalized while using them as probabilities**. 
 
-- *Relatedness Driven Jump and Stay Walk*: The first approach is somewhat biased because it considers only the highest relatedness score. To overcome, (1) 
+- *Relatedness Driven Jump and Stay Walk*: The first approach is somewhat biased because it considers only the highest relatedness score. To overcome, (1) for the first $$M$$ steps if any $$R(p_i, p_j) > \alpha$$, we **stay** (using the equation above), otherwise we **jump** (choosing a random neighbor); (2) starting from $$(M+1)$$th step, for every move we choose a random node.
+
+  > **Note**: The confusion here is whether or not we choose a random node in the neighbors or any others.
