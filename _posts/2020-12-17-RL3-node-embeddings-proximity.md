@@ -50,3 +50,7 @@ Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$
   > **Note**: The subset of neighbors might be of size smaller than $$k$$ when a neighbor $$v$$ has more than $$1$$ top-$$k$$ scores.
   
 - *Probabilistic Relatedness Driven Walk*: Sample $$v$$ from the distribution of the highest relatedness scores.
+
+**4. Learning Node Embeddings**
+
+Use skip
