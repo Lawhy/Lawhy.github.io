@@ -53,4 +53,6 @@ Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$
 
 **4. Learning Node Embeddings**
 
-Use skip
+Use [Skip-gram](https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf) with [Negative Sampling](https://aegis4048.github.io/optimize_computational_efficiency_of_skip-gram_with_negative_sampling) to **maximize** the co-occurence probability among nodes that **appear in a walk** exsited in the corpus and **minimize** that for node pairs that **do not exist**.
+
+**5. NESP: Embedding Refinement via Semantic Proximity**
