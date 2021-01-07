@@ -56,3 +56,12 @@ Let $$IP$$, the input predicates for generating domain-driven embeddings. Let $$
 Use [Skip-gram](https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf) with [Negative Sampling](https://aegis4048.github.io/optimize_computational_efficiency_of_skip-gram_with_negative_sampling) to **maximize** the co-occurence probability among nodes that **appear in a walk** exsited in the corpus and **minimize** that for node pairs that **do not exist**.
 
 **5. NESP: Embedding Refinement via Semantic Proximity**
+
+The loss function is refined by adding constraints that each context node is selected from the **semantic neighbors** of the center node, and minimizing the **radius of the neighborhood** for each center node. Special regularization is employeed to convert the *non-convex constrained* (?) optimization problem into an *unconstrained* one.
+
+
+-------------
+
+### References
+
+- Chekol, Melisachew Wudage and G. Pirrò. “Refining Node Embeddings via Semantic Proximity.” SEMWEB (2020).
