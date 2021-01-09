@@ -36,6 +36,10 @@ $$
 
 where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n_i)$$ are the reasons for eliminating terms in the second step, and the minus sign in the last step comes from inverting the fraction. If we take the probability of a ball going into the $$i$$th box as $$\lim_{N \to \infty} \frac{n_i}{N}$$, then we can interpret $$H$$ as the average bits (yes-or-no questions) required for knowing a ball going to which box. WLOG, for a discrete probability distribution $$P$$, the **entropy** $$H_P$$ is the average bits required for observing an event happened under the distribution $$P$$.
 
+### What is Cross-Entropy?
+
+The **Cross-Entropy** is the average number of bits needed to encode data (in the binary system) or event coming from distribution $$P$$ when we simulate from $$Q$$.
+
 ### References
 
 - Brownlee, J., 2021. A Gentle Introduction To Cross-Entropy For Machine Learning. [online] Machine Learning Mastery. 
