@@ -11,7 +11,7 @@ Suppose we have $$N$$ balls that are entirely the **same**, and we put $$n_i$$ b
 into the boxes is the following:
 
 $$
-M = \frac{N}{\prod_i n_i}
+M = \frac{N !}{\prod_i n_i !}
 $$
 
 
