@@ -7,6 +7,8 @@ tags: [information_theory, cross_entropy, loss_function]
 comments: false
 ---
 
+### What is Entropy?
+
 Suppose we have $$N$$ balls that are entirely the **same**, and we put $$n_i$$ balls into the $$i$$th box, such that $$\sum_i n_i = N$$. Then, the number of ways of putting balls 
 into the boxes is the following:
 
