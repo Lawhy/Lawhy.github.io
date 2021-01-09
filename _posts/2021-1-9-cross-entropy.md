@@ -17,11 +17,11 @@ $$
 In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the number of bits required in the binary system to represent the number $$M$$. Therefore, the average bit for a ball is $$H = \frac{h}{N} = \frac{1}{N} \log_2 M$$. When $$N$$ goes to infinity, the average bit for storing the result incurred by one ball is the following:
 
 $$
-\begin{aligned*}
+\begin{aligned}
 
 A = asdf
 
-\end{aligned*}
+\end{aligned}
 $$
 
 
