@@ -19,7 +19,7 @@ In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the n
 $$
 \begin{aligned}
 
-A = asdf
+H = \lim_{N \right \infty} \frac{1}{N} \log_2 \frac{N !}{\prod_i n_i !} = \lim_{N \right \infty} \frac{1}{N} (\log_2 N! - \log_2 \prod_i n_i!)
 
 \end{aligned}
 $$
