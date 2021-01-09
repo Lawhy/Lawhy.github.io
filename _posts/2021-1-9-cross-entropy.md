@@ -20,7 +20,19 @@ $$
 H = \lim_{N \to \infty} \frac{1}{N} \log_2 \frac{N !}{\prod_i n_i !} = \lim_{N \to \infty} \frac{1}{N} (\log_2 N! - \sum_i \log_2 n_i!)
 $$
 
-By [Stirling's Approximation](https://en.wikipedia.org/wiki/Stirling%27s_approximation), we have $$\log_2 n! = n \log_2 n - n \log_2 e + O(\log_2 n)$$. 
+By [Stirling's Approximation](https://en.wikipedia.org/wiki/Stirling%27s_approximation), we have $$\log_2 n! = n \log_2 n - n \log_2 e + O(\log_2 n)$$. Hence, the above formula becomes:
+
+$$
+\begin{aligned}
+
+H &= \lim_{N \to \infty} \frac{1}{N} (N \log_2 N - N \log_2 e + O(\log_2 N) - \sum_i (n_i \log_2 n_i - n \log_2 e + O(\log_2 n_i))) \\
+  &= \lim_{N \to \infty} \frac{1}{N} (N \log_2 N - \sum_i (n_i \log_2 n_i)) \\
+  &= \lim_{N \to \infty} \frac{1}{N} (\sum_i n_i \log_2 N - \sum_i (n_i \log_2 n_i)) \\
+  &= \lim_{N \to \infty} \sum_i \frac{n_i}{N} \log_2 \frac{N}{n_i}
+\end{aligned}
+$$
+
+where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n_i)$$ are the reasons for eliminating terms in the second step.
 
 ### References
 
