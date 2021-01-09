@@ -32,7 +32,7 @@ H &= \lim_{N \to \infty} \frac{1}{N} (N \log_2 N - N \log_2 e + O(\log_2 N) - \s
 \end{aligned}
 $$
 
-where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n_i)$$ are the reasons for eliminating terms in the second step.
+where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n_i)$$ are the reasons for eliminating terms in the second step. If we take the probability of a ball going into the $$i$$th box as $$\frac{n_i}{N}$$, then we can interpret $$H$$ as the average bits (yes-or-no questions) required for knowing a ball going to which box. WLOG, for a discrete probability distribution $$P$$, the **entropy** $$H_P$$ is the average bits required for observing an event happened under the distribution $$P$$.
 
 ### References
 
