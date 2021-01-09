@@ -14,6 +14,8 @@ $$
 M = \frac{N !}{\prod_i n_i !}
 $$
 
+In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the number of bits required in the binary system to represent the number $$M$$.
+
 
 
 ### References
