@@ -14,7 +14,7 @@ $$
 M = \frac{N !}{\prod_i n_i !}
 $$
 
-In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the number of bits required in the binary system to represent the number $$M$$. Therefore for each ball, the average bit for a ball is $$\frac{h}{N} = \frac{1}{N} \log_2 M$$.
+In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the number of bits required in the binary system to represent the number $$M$$. Therefore for each ball, the average bit for a ball is $$\bar{h} = \frac{h}{N} = \frac{1}{N} \log_2 M$$.
 
 
 ### References
