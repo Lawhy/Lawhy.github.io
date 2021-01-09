@@ -42,6 +42,12 @@ The **Cross-Entropy** is the average number of **total bits** needed to encode d
 
 > **Note:** In contrast, Relative Entropy (KL Divergence) is the average number of **extra bits** to represent an event from Q instead of P.
 
+The formula for Cross-Entropy and its relationship with KL Divergence is presented as follows:
+
+$$
+H(P, Q) = - \sum_i p_i \log_2 q_i = H(P) + KL(P \lvert \rvert Q)
+$$
+
 ### References
 
 - Brownlee, J., 2021. A Gentle Introduction To Cross-Entropy For Machine Learning. [online] Machine Learning Mastery. 
