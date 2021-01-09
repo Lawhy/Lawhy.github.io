@@ -52,6 +52,12 @@ For machine learning task, we can have $$H(y, \hat{y}) = - \sum_i y_i \log_2 \ha
 
 > **Note**: Specifically, a cross-entropy loss function is equivalent to a maximum likelihood function under a Bernoulli or Multinoulli probability distribution.
 
+### Some extra thoughts
+
+- KL Divergence seems to be more appropriate to be used as the loss because it can actually tell the difference between the true distribution and the prediction model when the entropy of the true distribution is extremely large.
+
+- Overfitting will be easily incurred in the NLP task because the cross-entropy model assumes the true conditional probability for a word appeared in this position is $$1$$.
+
 ### References
 
 - Brownlee, J., 2021. A Gentle Introduction To Cross-Entropy For Machine Learning. [online] Machine Learning Mastery. 
