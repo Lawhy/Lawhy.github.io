@@ -58,6 +58,8 @@ For a machine learning task, we can have $$H(y, \hat{y}) = - \sum_i y_i \log_2 \
 
 - Overfitting will be easily incurred in the NLP task because the cross-entropy model assumes the true conditional probability for a word appeared in this position is $$1$$.
 
+-------------------------
+
 ### References
 
 - Brownlee, J., 2021. A Gentle Introduction To Cross-Entropy For Machine Learning. [online] Machine Learning Mastery. 
