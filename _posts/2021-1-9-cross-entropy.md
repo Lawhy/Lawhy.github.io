@@ -20,7 +20,7 @@ $$
 H = \lim_{N \to \infty} \frac{1}{N} \log_2 \frac{N !}{\prod_i n_i !} = \lim_{N \to \infty} \frac{1}{N} (\log_2 N! - \sum_i \log_2 n_i!)
 $$
 
-
+By [Stirling's Approximation](https://en.wikipedia.org/wiki/Stirling%27s_approximation), we have $$\log_2 n! = n \log_2 n - n \log_2 e + O(\log_2 n)$$. 
 
 ### References
 
