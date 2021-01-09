@@ -40,13 +40,15 @@ where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n
 
 The **Cross-Entropy** is the average number of **total bits** needed to encode data (in the binary system) or event coming from (true) distribution $$P$$ when we simulate from $$Q$$.
 
-> **Note:** In contrast, Relative Entropy (KL Divergence) is the average number of **extra bits** to represent an event from Q instead of P.
+> **Note:** In contrast, Relative Entropy (KL Divergence) is the average number of **extra bits** to represent an event from Q instead of P. And both measures are **not symmetrical**.
 
 The formula for Cross-Entropy and its relationship with KL Divergence is presented as follows:
 
 $$
 H(P, Q) = - \sum_i p_i \log_2 q_i = H(P) + KL(P \lvert \rvert Q)
 $$
+
+
 
 ### References
 
