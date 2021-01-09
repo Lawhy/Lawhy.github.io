@@ -41,3 +41,5 @@ where $$N \log_2 e = \sum_i n_i \log_2 e$$ and $$O(\log_2 N) = \sum_i O(\log_2 n
 - Brownlee, J., 2021. A Gentle Introduction To Cross-Entropy For Machine Learning. [online] Machine Learning Mastery. 
   Available at: [https://machinelearningmastery.com/cross-entropy-for-machine-learning](https://machinelearningmastery.com/cross-entropy-for-machine-learning) 
   [Accessed 9 January 2021].
+  
+- The mathematical proof of the entropy formula is inspired by the blog [here](https://zhuanlan.zhihu.com/p/30854084).
