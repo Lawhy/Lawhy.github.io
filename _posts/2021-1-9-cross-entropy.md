@@ -17,8 +17,9 @@ $$
 In the binary system, we have $$2^h = M \iff h = \log_2 M$$ where $$h$$ is the number of bits required in the binary system to represent the number $$M$$. Therefore, the average bit for a ball is $$H = \frac{h}{N} = \frac{1}{N} \log_2 M$$. When $$N$$ goes to infinity, the average bit for storing the result incurred by one ball is the following:
 
 $$
-H = \lim_{N \to \infty} \frac{1}{N} \log_2 \frac{N !}{\prod_i n_i !} = \lim_{N \to \infty} \frac{1}{N} (\log_2 N! - \log_2 \prod_i n_i!)
+H = \lim_{N \to \infty} \frac{1}{N} \log_2 \frac{N !}{\prod_i n_i !} = \lim_{N \to \infty} \frac{1}{N} (\log_2 N! - \sum_i \log_2 n_i!)
 $$
+
 
 
 ### References
