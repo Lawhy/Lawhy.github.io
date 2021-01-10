@@ -11,7 +11,7 @@ comments: false
 
 **Ontology alignment** or ontology matching is the task for integrating knowledge across different ontologies. This paper focues on studying the **equivalent** or **sub-class** 
 relationship among the classes from different ontologies. The intuitive motivation for ontology alignment is that a single ontology is commonly **incomplete** even for only one 
-domain.
+domain and cross-domain knowledge is essential for many real world applications.
 
 
 
