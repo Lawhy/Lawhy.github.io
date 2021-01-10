@@ -18,8 +18,7 @@ SOTA systems such as *LogMap* and *AgreementMakerLight (AML)* often combine mult
 
 ### Preliminaries
 
-**1. LogMap**
-
+**1. LogMap**: [LogMap1](https://www.cs.ox.ac.uk/isg/projects/LogMap/papers/paper_ISWC2011.pdf), [LogMap2](https://www.cs.ox.ac.uk/files/4801/LogMap_ecai2012.pdf).
 
 ------
 
