@@ -6,7 +6,7 @@ dept:               Department of Computer Science
 description:        PhD candidate in Computer Science at University of Oxford.
 reading_time:       true
 words_per_minute:   200
-logo:               'assets/img/20201028-circle-cropped.png'
+logo:               'assets/img/20210110-circle-cropped.png'
 background:         'https://images.pexels.com/photos/3774094/pexels-photo-3774094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
 tiled_bg:           true   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_UK
