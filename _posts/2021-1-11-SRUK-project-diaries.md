@@ -7,7 +7,7 @@ tags: [ontology_alignment, symbolic, machine_learning SRUK, project_diaries]
 comments: false
 ---
 
-This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based mapping model*.
+This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based ontology mapping model*.
 
 ---------------------
 
