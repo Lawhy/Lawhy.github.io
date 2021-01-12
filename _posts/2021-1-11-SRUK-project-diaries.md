@@ -12,7 +12,7 @@ comments: false
 **Key Points**
 
 - Ontology packages: (1) [Java Based]: JAVA OWL API; Apache Jena; (2) [Python Based]: [OwlReady2](https://pythonhosted.org/Owlready2/);
-- Protege OWL Visualisation Tool
+- Consider the following "meta" issues: (1) what would success look like? (Presumably a published paper; (2) what datasets/evaluation will you use to measure success? (3) can existing results give some insights into what the problems are? (4) how can you quickly evaluate candidate ideas for Class Disjointness?
 
 **To Do List**
 
