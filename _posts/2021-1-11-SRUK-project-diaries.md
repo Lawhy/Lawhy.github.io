@@ -22,3 +22,7 @@ comments: false
 
 [ ] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
 
+[ ] Go through the [OAEI datasets](http://oaei.ontologymatching.org/).
+
+[ ] Read the remaining papers to gain more background knowledge.
+
