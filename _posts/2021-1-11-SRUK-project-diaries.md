@@ -12,9 +12,13 @@ comments: false
 **Key Points**
 
 - Ontology packages: (1) [Java Based]: JAVA OWL API; Apache Jena; (2) [Python Based]: [OwlReady2](https://pythonhosted.org/Owlready2/);
-- 
+- Protege OWL Visualisation Tool
 
 **To Do List**
 
 [$$\checkmark$$] Ask Jiaojian detailed questions regarding to the previous submission -- the ML extension of LogMap.
-[] Take a look on LogMap paper but don't dive into it as the whole system will be re-implemented from scratch.
+
+[ ] Take a look on LogMap paper but don't dive into it as the whole system will be re-implemented from scratch.
+
+[ ] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
+
