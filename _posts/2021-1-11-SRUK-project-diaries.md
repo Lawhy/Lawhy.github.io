@@ -7,9 +7,14 @@ tags: [ontology_alignment, symbolic, machine_learning SRUK, project_diaries]
 comments: false
 ---
 
-#### First Meeting with SRUK 11/01/2021
+### First Meeting with SRUK 11/01/2021
 
 **Key Points**
 
+- Ontology packages: (1) [Java Based]: JAVA OWL API; Apache Jena; (2) [Python Based]: [OwlReady2](https://pythonhosted.org/Owlready2/);
+- 
+
 **To Do List**
 
+[$$\checkmark$$] Ask Jiaojian detailed questions regarding to the previous submission -- the ML extension of LogMap.
+[] Take a look on LogMap paper but don't dive into it as the whole system will be re-implemented from scratch.
