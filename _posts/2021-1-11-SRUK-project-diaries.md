@@ -7,6 +7,8 @@ tags: [ontology_alignment, symbolic, machine_learning SRUK, project_diaries]
 comments: false
 ---
 
+This post records the project diaries for the collaborative research project concerning the Ontology Alignment task. 
+
 ### First Meeting with SRUK 11/01/2021
 
 **Key Points**
