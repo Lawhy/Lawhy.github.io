@@ -7,7 +7,7 @@ tags: [ontology_alignment, symbolic, machine_learning SRUK, project_diaries]
 comments: false
 ---
 
-This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based ontology mapping model*.
+This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based ontology mapping model*. Idea Collection is available [here](https://unioxfordnexus-my.sharepoint.com/:w:/r/personal/coml0713_ox_ac_uk/_layouts/15/guestaccess.aspx?e=fjtPw5&CID=0f8a821f-2a74-676f-aae6-8d2d57f275a0&share=ER6fOsSh5rVIowB_l1W9ZQkBNqEE9CF83BsGKJ8_SnxQcw).
 
 ---------------------
 
@@ -26,7 +26,7 @@ This post records the project diaries for the collaborative research project con
 
 [ ] Go through the SiamNN model.
 
-[ ] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
+[$$\checkmark$$] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
 
 [ ] Go through the [OAEI datasets](http://oaei.ontologymatching.org/).
 
