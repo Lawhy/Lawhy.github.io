@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Cross Entropy Loss"
+title: "[Maths] Cross Entropy Loss"
 date: 2021-1-9
 excerpt: "Cross-entropy is a measure of the difference between two probability distributions for a given random variable or set of events."
-tags: [information_theory, cross_entropy, loss_function]
+tags: [information_theory, cross_entropy, loss_function, maths]
 comments: false
 ---
 
