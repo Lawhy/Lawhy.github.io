@@ -6,3 +6,10 @@ excerpt: "Softmax function is widely used in the output layer of neural network 
 tags: [softmax, approximation, sampling, time_complexity, neural_network, maths]
 comments: false
 ---
+
+
+-------
+
+### References
+
+- Sebastian Ruder. 2021. Approximating The Softmax For Learning Word Embeddings. [online] Available at: <https://ruder.io/word-embeddings-softmax/index.html#negativesampling> [Accessed 17 January 2021].
