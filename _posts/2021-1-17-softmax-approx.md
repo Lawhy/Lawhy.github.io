@@ -7,13 +7,13 @@ tags: [softmax, approximation, sampling, time_complexity, neural_network, maths]
 comments: false
 ---
 
-**Softmax** function is widely used in the output layer of neural network based model. However, it suffers from the time complexitiy problem resulted from normalizing over the whole vocabulary in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating Softmax have been proposed, and this post introduces some of them as well as the maths behind them. Taking the Skip-gram model as an example, the output conditional probability of predicting the context word $$c$$ given the center word $$w$$ is given by the Softmax function as:
+**Softmax** function is widely used in the output layer of neural network based model. However, it suffers from the time complexitiy problem resulted from normalizing over the whole vocabulary in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating Softmax have been proposed, and this post introduces some of them as well as the maths behind them. Taking the Continuous Bag of Words model as an example, the output conditional probability of predicting the center word $$w$$ given the context word $$c$$ is given by the Softmax function as:
 
 $$
-P(c | w) = \fract{\exp(x_i)}{\sum_{j=1}^{\lvert V \rvert} \exp(x_j)}
+P(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp((S(v, c)))}
 $$
 
-where $$x_i$$ is the similarity score between the $$i$$th word in the vocabulary (i.e. the context word) and the given center word. 
+where $$S(w, c)$$ is the scoring function that computes the **similarity** between the center word $$w$$ and the given context word $$c$$. To enforce a probability distribution, the Softmax function normalizes the exponetial of the similarity score over the whole **vocabulary** of size $$\lvert V \rvert$$ and this results in a large time consumption ($$O(\lvert V \rvert)$$).
 
 
 -------
