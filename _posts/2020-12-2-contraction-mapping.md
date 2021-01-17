@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Mathematical Proof: Contraction Mapping Theorem"
+title: "[MathsNotes] Contraction Mapping Theorem"
 date: 2020-12-2
 excerpt: "The proof and notes of the Contraction Mapping Theorem."
-tags: [contraction_mapping_theorem, mathematical_proof, topology]
+tags: [contraction_mapping_theorem, topology, maths_notes]
 comments: false
 ---
 
