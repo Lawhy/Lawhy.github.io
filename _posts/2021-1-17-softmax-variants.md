@@ -49,7 +49,7 @@ $$
 P(w | c) = P(w | p(w), c) \cdot P(p(w) | c) 
 $$
 
-where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The **recursive step is to merge the cluster $$p(w)$$ into a larger cluster** by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node. Hence, the final expression is:
+where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The **recursive step is to merge the cluster $$p(w)$$ into a larger cluster** by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node (similar to hierarchical k-means). Hence, the final expression is:
 
 $$
 P(w | c) = \prod_{i=0}^{\log \lvert V \rvert - 2} P(p^i(w) | p^{i+1}(w), c) \cdot P(root)
@@ -63,9 +63,12 @@ where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V
 
 Since we are searching in the binary tree, the probability function for each node can be the sigmoid function as proposed in the original work of H-Softmax.
 
+> **Note:** Although H-Softmax achieves $$O(\log \lvert v \rvert)$$ in **training**, it still needs to compute the probabilities for **all words** in **testing** because we do not know in advance that which word to be predicted (thus we **do not know the exact path**).
+
 > **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
 
-> **Note:** Although H-Softmax reduces the training time, for tasks that require n-best outputs in evaluation, the time complexity gets back to be linear. Besides, the performance of H-Softmax relies largely on the construction of the tree corpus or the definition of the clusters.
+> **Note:** The intermediate nodes can be deemed as the **latent variables** and the performance of H-Softmax relies largely on the construction of the tree or the definition of the clusters.
+
 
 -------
 
@@ -78,4 +81,6 @@ Since we are searching in the binary tree, the probability function for each nod
 - Sebastian Ruder. On word embeddings - Part 2: Approximating the Softmax. http://ruder.io/word-embeddings-softmax, 2016.
 
 - Morin, F. and Yoshua Bengio. “Hierarchical Probabilistic Neural Network Language Model.” AISTATS (2005).
+
+- Chen, Wenlin, David Grangier and M. Auli. “Strategies for Training Large Vocabulary Neural Language Models.” ACL (2016).
 
