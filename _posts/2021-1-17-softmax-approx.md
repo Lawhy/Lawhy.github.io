@@ -43,7 +43,7 @@ $$
 P(Y|X) = P(Y | C(Y), X) \cdot P(C(Y) | X)
 $$
 
-We can then extend the idea by applying the paritioning **recursively** as in a **binary tree structure** such that at each node of the tree, we are partioning words into two clusters. Suppose we have a **balanced binary tree** with leaves representing the words in the vocabulary, then the maximum search depth will be $$\log \lvert V \rvert$$ instead of $$\lvert V \rvert$$ as in the original softmax. Following the previous equation, we can replace the random variables to fit our context such that
+We can then extend the idea by applying the paritioning **recursively** as in a **binary tree structure** such that at each node of the tree, we are partioning words into two clusters. Suppose we have a **balanced binary tree** with leaves representing the words in the vocabulary, then the maximum search depth will be $$\log \lvert V \rvert$$ instead of $$\lvert V \rvert$$ as in the original softmax. Following the previous equation, we can replace the random variables to fit our context as follows:
 
 $$
 P(w | c) = P(w | p(w), c) \cdot P(p(w) | c) 
