@@ -59,7 +59,9 @@ where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V
 
 | ![hsoftmax.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/hsoftmax.png) | 
 |:--:| 
-| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree to compute \\(P(blue \vert context)\\).* |
+| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree.* |
+
+> **Note:** Building a language model with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$ for $$\lvert V \lvert = 10000$$.      
 
 -------
 
