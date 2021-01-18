@@ -34,7 +34,13 @@ where $$S(w, c)$$ is the scoring function that computes the **similarity** betwe
 The idea of H-Softmax starts from manipulating the equation of the conditional probability by **partioning** the outcomes of the random variable of interest into **clusters**. To illustrate, suppose we want to compute the conditional probability of $$Y$$ given $$X$$, by applying the summation rule we have:
 
 $$
-P(Y=y|X=x) = \sum_c P(Y=y, C=c | X=x) \sum_c P(Y=y | C=c, X=x) P(C=c | X=x)
+P(Y|X) = \sum_k P(Y, C_k | X) = \sum_k P(Y | C_k, X) P(C_k | X)
+$$
+
+where $$C_k$$ stands for the $$k$$th cluster of $$Y$$. Suppose there are no overlaps among clusters, we have each $$Y$$ corresponding to exactly one cluster $$C(Y)$$, thus the probabilities conditioned on other clusters are zeros. Therefore, we can re-write the above equation by discarding the summation symbol as:
+
+$$
+P(Y|X) = P(Y | C(Y), X) P(C(Y) | X)
 $$
 
 
