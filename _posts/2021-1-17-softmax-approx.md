@@ -55,6 +55,8 @@ $$
 P(w | c) = P(root) \cdot \prod_{i=0}^{\log (\lvert V \rvert) - 2} P(p^i(w) | p^{i+1}(w), c) 
 $$
 
+where $$p^0(w) = w$$ and the path is of length $$\log (\lvert V \rvert) - 1$$.
+
 -------
 
 ### References
