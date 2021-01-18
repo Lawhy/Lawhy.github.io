@@ -65,7 +65,7 @@ Since we are searching in the binary tree, the probability function for each nod
 
 > **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
 
-> **Note:** Although H-Softmax reduces the training time, for tasks that require n-best outputs in evaluation, the time complexity gets back to be linear. Besides, the performance of H-Softmax relies largely on the construction of the tree corpus.
+> **Note:** Although H-Softmax reduces the training time, for tasks that require n-best outputs in evaluation, the time complexity gets back to be linear. Besides, the performance of H-Softmax relies largely on the construction of the tree corpus or the definition of the clusters.
 
 -------
 
