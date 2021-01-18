@@ -57,6 +57,10 @@ $$
 
 where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. 
 
+| ![hsoftmax.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/hsoftmax.png) | 
+|:--:| 
+| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree to compute $$P(blue | context)$$.* |
+
 -------
 
 ### References
