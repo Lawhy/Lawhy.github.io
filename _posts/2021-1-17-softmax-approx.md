@@ -52,7 +52,7 @@ $$
 where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The recursive step is to merge the cluster $$p(w)$$ into a larger cluster by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node. Let $$Path(w)$$ denote the list of nodes on the path from root node to the leaf word $$w$$, the expanded expression is:
 
 $$
-P(w | c) = P(root) \cdot \prod_{i=0}^{\log (\lvert V \rvert) - 2} P(p^i(w) | p^{i+1}(w), c) 
+P(w | c) = (\prod_{i=0}^{\log (\lvert V \rvert) - 2} P(p^i(w) | p^{i+1}(w), c)) \cdot P(root)
 $$
 
 where $$p^0(w) = w$$ and the path is of length $$\log (\lvert V \rvert) - 1$$.
