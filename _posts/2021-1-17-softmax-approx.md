@@ -63,7 +63,7 @@ where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V
 
 Since we are searching in the binary tree, the probability function for each node can be the sigmoid function.
 
-> **Note:** Building a language model with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$ for $$\lvert V \lvert = 10000$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
+> **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
 
 > **Note:** Although H-Softmax reduces the training time, for tasks that require n-best outputs in evaluation, the time complexity gets back to be linear. Besides, the performance of H-Softmax relies largely on the construction of the tree corpus.
 
