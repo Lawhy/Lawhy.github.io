@@ -69,6 +69,10 @@ Since we are searching in the binary tree, the probability function for each nod
 
 -------
 
+
+
+-------
+
 ### References
 
 - Sebastian Ruder. 2021. Approximating The Softmax For Learning Word Embeddings. [online] Available at: <https://ruder.io/word-embeddings-softmax/index.html#negativesampling> [Accessed 17 January 2021].
