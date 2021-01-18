@@ -49,13 +49,13 @@ $$
 P(w | c) = P(w | p(w), c) \cdot P(p(w) | c) 
 $$
 
-where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The recursive step is to merge the cluster $$p(w)$$ into a larger cluster by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node. Hence, the final expression is:
+where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The **recursive step is to merge the cluster $$p(w)$$ into a larger cluster** by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node. Hence, the final expression is:
 
 $$
 P(w | c) = \prod_{i=0}^{\log \lvert V \rvert - 2} P(p^i(w) | p^{i+1}(w), c) \cdot P(root)
 $$
 
-where $$p^0(w) = w$$ and the path is of length $$\log \lvert V \rvert - 1$$. 
+where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. 
 
 -------
 
