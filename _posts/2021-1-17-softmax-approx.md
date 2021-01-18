@@ -1,13 +1,21 @@
 ---
 layout: post
-title: "[Maths] Approaches for Softmax Approximation"
+title: "[Maths] Variants of Softmax Function"
 date: 2021-1-17
 excerpt: "Softmax function is widely used in the output layer of neural network based model. However, it suffers from the time complexitiy problem resulted from normalizing over the whole vocabulary in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating Softmax have been proposed, and this post introduces some of them as well as the maths behind them."
-tags: [softmax, approximation, sampling, time_complexity, neural_network, maths]
+tags: [softmax, variants, hierachical_decomposition, sampling, neural_network, maths]
 comments: false
 ---
 
-The **softmax** function is widely used in the output layer of the neural network based model when we have a classification problem. It is the generalization of the **sigmoid** function in the multi-dimensional space. Compared to other types of normalization, the softmax function assigns more *extreme probabilities* to the outputs, and thus behaving more like the **argmax** function. Also, because of its **differentiability** and the nice **mathematical properties associated with its gradient**, softmax is a good fit for gradient-based optimization such as the *stochastic gradient descent*.
+The **softmax** function is widely used in the output layer of the neural network based model when we have a classification problem. It is the generalization of the **sigmoid** function in the multi-dimensional space. To see that, suppose we have a random variable $$X$$ with only two possible outcomes $$\{ x_1, x_2 \}$$, then by applying the softmax function on $$X$$, we have:
+
+$$
+P(X=x_1) = \frac{\exp(x_1)}{\sum_{i=1, 2} \exp(x_i)} = \frac{\exp(x_1)}{\exp(x_1) + \exp(x_2)} = \frac{1}{1 + \exp(x_1 - x_2)} = \sigma (x_1 - x_2)  
+$$
+
+where $$\sigma (\cdot)$$ is the sigmoid function.
+
+Compared to other types of normalization, the softmax function assigns more *extreme probabilities* to the outputs, and thus behaving more like the **argmax** function. Also, because of its **differentiability** and the nice **mathematical properties associated with its gradient**, softmax is a good fit for gradient-based optimization such as the *stochastic gradient descent*.
 
 Nevertheless, the softmax function suffers from the time complexitiy problem resulted from **normalizing over the whole vocabulary** in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating softmax have been proposed, and this post introduces some of them as well as the maths behind them. Taking the Continuous Bag of Words model as an example, the output conditional probability of predicting the center word $$w$$ given the context word $$c$$ is given by the softmax function as:
 
