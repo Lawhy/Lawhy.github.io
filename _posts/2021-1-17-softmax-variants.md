@@ -67,11 +67,18 @@ Since we are searching in the binary tree, the probability function for each nod
 
 > **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
 
-> **Note:** The intermediate nodes can be deemed as the **latent variables** and the performance of H-Softmax relies largely on the construction of the tree or the definition of the clusters.
+> **Note:** The intermediate nodes can be deemed as the **latent variables** and the performance of H-softmax relies largely on the construction of the tree or the definition of the clusters.
 
 
 -------
 
+### Differentiated Softmax (D-Softmax)
+
+The idea of D-Softmax was inspired by *differentiating* words according to their frequencies. Compared to the vanilla softmax with a condense weight matrix in the output layer, D-Softmax utilizes a sparse weight matrix with blocks (of different dimensionalities) distributed to different word embeddings. 
+
+-------
+
+### CNN Softmax
 
 
 -------
