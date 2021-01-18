@@ -34,15 +34,26 @@ where $$S(w, c)$$ is the scoring function that computes the **similarity** betwe
 The idea of H-Softmax starts from manipulating the equation of the conditional probability by **partioning** the outcomes of the random variable of interest into **clusters**. To illustrate, suppose we want to compute the conditional probability of $$Y$$ given $$X$$, by applying the summation rule we have:
 
 $$
-P(Y|X) = \sum_k P(Y, C_k | X) = \sum_k P(Y | C_k, X) P(C_k | X)
+P(Y|X) = \sum_k P(Y, C_k | X) = \sum_k P(Y | C_k, X) \cdot P(C_k | X)
 $$
 
 where $$C_k$$ stands for the $$k$$th cluster of $$Y$$. Suppose there are no overlaps among clusters, we have each $$Y$$ corresponding to exactly one cluster $$C(Y)$$, thus the probabilities conditioned on other clusters are zeros. Therefore, we can re-write the above equation by discarding the summation symbol as:
 
 $$
-P(Y|X) = P(Y | C(Y), X) P(C(Y) | X)
+P(Y|X) = P(Y | C(Y), X) \cdot P(C(Y) | X)
 $$
 
+We can then extend the idea by applying the paritioning **recursively** as in a **binary tree structure** such that at each node of the tree, we are partioning words into two clusters. Suppose we have a **balanced binary tree** with leaves representing the words in the vocabulary, then the maximum search depth will be $$\log \lvert V \rvert$$ instead of $$\lvert V \rvert$$ as in the original softmax. Following the previous equation, we can replace the random variables to fit our context such that
+
+$$
+P(w | c) = P(w | p(w), c) \cdot P(p(w) | c) 
+$$
+
+where $$p(w)$$ stands for the parent node of the leaf for the word $$w$$. We can regard $$p(w)$$ as the cluster of $$w$$ and another word $$w'$$ (two children). The recursive step is to merge the cluster $$p(w)$$ into a larger cluster by applying the backtracking function $$p(\cdot)$$ again and again (climbing up the hierarchy) until reaching the root node. Let $$Path(w)$$ denote the list of nodes on the path from root node to the leaf word $$w$$, the expanded expression is:
+
+$$
+P(w | c) = P(root) \cdot \prod_{i=0}^{\log (\lvert V \rvert) - 2} P(p^i(w) | p^{i+1}(w), c) 
+$$
 
 -------
 
