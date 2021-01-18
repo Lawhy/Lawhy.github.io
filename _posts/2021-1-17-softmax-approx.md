@@ -55,11 +55,11 @@ $$
 P(w | c) = \prod_{i=0}^{\log \lvert V \rvert - 2} P(p^i(w) | p^{i+1}(w), c) \cdot P(root)
 $$
 
-where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. The figure below demonstrates an example for computing the conditional probability $$P(blue | context)$$ in the hierarchical manner.
+where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. The figure below demonstrates an example for computing the conditional probability $$P(blue \vert context)$$ in the hierarchical manner.
 
 | ![hsoftmax.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/hsoftmax.png) | 
 |:--:| 
-| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree to compute \\(P(blue | context)\\).* |
+| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree to compute \\(P(blue \vert context)\\).* |
 
 -------
 
