@@ -61,7 +61,7 @@ where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V
 |:--:| 
 | *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree.* |
 
-Since we are searching in the binary tree, the probability function for each node can be the sigmoid function as proposed in the original work of H-Softmax.
+Since we are searching in the binary tree, the probability function for each node can be the sigmoid function as proposed in the original work of H-Softmax [[2]](#ref3).
 
 > **Note:** Although H-Softmax achieves $$O(\log \lvert v \rvert)$$ in **training**, it still needs to compute the probabilities for **all words** in **testing** because we do not know in advance that which word to be predicted (thus we **do not know the exact path**).
 
@@ -72,9 +72,9 @@ Since we are searching in the binary tree, the probability function for each nod
 
 -------
 
-### Differentiated Softmax (D-Softmax) [[3]](#ref3)
+### Differentiated Softmax (D-Softmax) 
 
-The idea of D-Softmax was inspired by *differentiating* words according to their frequencies. Compared to the vanilla softmax with a condense weight matrix in the output layer, D-Softmax utilizes a sparse weight matrix with blocks (of different dimensionalities) distributed to different word embeddings. 
+The idea of D-Softmax was inspired by *differentiating* words according to their frequencies. Compared to the vanilla softmax with a condense weight matrix in the output layer, D-Softmax utilizes a sparse weight matrix with blocks (of different dimensionalities) distributed to different word embeddings [[3]](#ref3). 
 
 -------
 
