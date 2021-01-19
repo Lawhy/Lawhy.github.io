@@ -110,6 +110,8 @@ $$
 \end{aligned}
 $$
 
+where $$P$$ is the softmax probability distribution derived from the network. The final form of the gradient can be deemed as the (negative) deviation from the mean gradient.
+
 -------
 
 ### References
