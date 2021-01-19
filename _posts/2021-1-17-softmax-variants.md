@@ -147,7 +147,7 @@ $$
 Compared to the direct sampling, we have an extra term $$\frac{P(x)}{Q(x)}$$ (sampling ratio) needed to compute, but the samples are derived from the distribution $$Q$$. To fit our context, we have:
 
 $$
-\mathbb{E}_{P}[\nabla z] \approx \mathbb{E}_{Q}[\nabla z \frac{P(\nabla z}{Q(\nabla z)}]
+\mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(\nabla z}{Q(\nabla z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{P(z_k)}{Q(z_k)} 
 $$
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
