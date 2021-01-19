@@ -120,7 +120,7 @@ $$
 \mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
 
-where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** (see the concrete proof [here](https://towardsdatascience.com/proof-of-the-law-of-large-numbers-part-2-the-strong-law-356aa608ca5d)) stating that:
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** (see the relatively more intuitive proof [here](https://towardsdatascience.com/proof-of-the-law-of-large-numbers-part-2-the-strong-law-356aa608ca5d) and the concrete proof [here](http://www.stats.ox.ac.uk/~winkel/bs3a07l9-10.pdf)) stating that:
 
 $$
 Pr(\lim_{m \to \infty}  \frac{1}{m} \sum_{k=1}^m \nabla z_k = \mathbb{E}[\nabla z]) = 1
