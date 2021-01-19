@@ -103,7 +103,7 @@ $$
 
 \delta L_i = 
 
-\end{aligned
+\end{aligned}
 $$
 
 -------
