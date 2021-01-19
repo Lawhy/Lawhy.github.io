@@ -106,7 +106,7 @@ $$
            &= - \nabla z_i + \frac{1}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \cdot \sum_{k=1}^{\lvert V \rvert} \exp(z_k) \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} \frac{\exp(z_k)}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} P(z_k) \nabla z_k\\
-           &= - \nabla z_i + \mathbb{E}[\nabla z_k]
+           &= - \nabla z_i + \mathbb{E}_P[\nabla z_k]
 \end{aligned}
 $$
 
