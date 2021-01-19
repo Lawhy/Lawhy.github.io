@@ -69,7 +69,7 @@ Since we are searching in the binary tree, the probability function for each nod
 
 > **Note:** Although H-Softmax achieves $$O(\log \lvert v \rvert)$$ in **training**, it still needs to compute the probabilities for **all words** in **testing** because we do not know in advance that which word to be predicted (thus we **do not know the exact path**).
 
-> **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = - \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} = - \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
+> **Note:** Building a language model for a corpus of vocabulary size $$\lvert V \rvert = 10000$$ with a balanced binary tree will result in an overall entropy of $$H = - \sum_{w \in V} p(w) \log p(w) = $$$$- \sum_{w \in V} \frac{1}{\lvert V \rvert} \log \frac{1}{\lvert V \rvert} =$$$$- \log {\lvert V \rvert} \approx 13.3$$. However, if we consider the frequencies of words in the corpus, we may have a lower entropy.
 
 > **Note:** The intermediate nodes can be deemed as the **latent variables** and the performance of H-softmax relies largely on the construction of the tree or the definition of the clusters. One idea is to enforce that similar paths are assigned to similar words.
 
