@@ -96,7 +96,7 @@ $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))}
 $$
 
-where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the result generated from the previous layer, and the output is computed by the softmax activation. For backpropagation we need to compute the gradient of the loss as:
+where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. For backpropagation we need to compute the gradient of the loss as:
 
 $$
 \begin{aligned}
