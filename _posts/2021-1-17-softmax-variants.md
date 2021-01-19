@@ -96,7 +96,11 @@ $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
 $$
 
-where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. For backpropagation we need to compute the gradient of the loss as:
+where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. 
+
+> **Note**: The subscripts for $$z$$ and $$y$$ correspond to the indices of the words in the vocabulary. 
+
+For backpropagation we need to compute the gradient of the loss as:
 
 $$
 \begin{aligned}
@@ -122,7 +126,7 @@ $$
 \mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
 
-where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Law of Large Numbers (LLN)** stating that the sample average converges to the expected value when the sample size is large enough.
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Law of Large Numbers (LLN)** stating that the sample average converges to the expected value when the sample size is large enough. Nevertheless, such sampling method requires us to know the distribution $$P$$ of words from the network, but computing $$P$$ is undesired in the first place.
 
 
 > **Note**: There are two forms of LLN, the **strong** one states that $$ Pr(\lim_{n \to \infty} \bar{X}_n = \mu) = 1 $$, which means the sample average converges [almost surely](https://www.statlect.com/asymptotic-theory/almost-sure-convergence)) to the mean. Briefly speaking, the event of having the limit not equal to the expectation is technically possible but of zero probability. Another example of the zero-probability event is $$Pr(X=x)=0$$ when $$X$$ is a continuous random variable.
@@ -130,6 +134,10 @@ where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mention
 > **Note**: The **weak** LLN states that $$\forall \epsilon.\lim_{n \to \infty} Pr(\lvert \bar{X}_n - \mu \rvert < \epsilon) = 0$$. Notice that the limit sign is pulled out and meaning changes. Here it states that with large enough sample size, there is a very low (but not zero) probability of having the deviation larger than some margin $$\epsilon$$. The weak LLN can be easily proved by using the **Chebyshev's Inequaility** but there is a lot more effort required for proving the strong LLN. 
 
 > **Note**: Many Bayesian integrals can be viewed as expectations. 
+
+### Importance Sampling
+
+
 
 -------
 
