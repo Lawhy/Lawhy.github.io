@@ -138,7 +138,15 @@ Nevertheless, such sampling method requires us to know the distribution $$P$$ of
 
 ### Importance Sampling
 
+The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
 
+$$
+\mathbb{E}_P[f(X)] = \int f(x)p(x) dx = \int f(x)\frac{P(x)}{Q(x)} Q(x) dx = \mathbb{E}_Q[f(X)\frac{P(x)}{Q(x)}] \approx \frac{1}{m} \sum_{k=1}^m f(x) \frac{P(x)}{Q(x)} 
+$$
+
+Compared to the direct sampling, we have an extra term $$\frac{p(x)}{q(x)}$$ (sampling ratio) needed to compute, but the samples are derived from the distribution $$Q$$.
+
+> **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
 -------
 
