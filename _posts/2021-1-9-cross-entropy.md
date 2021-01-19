@@ -52,6 +52,8 @@ For a machine learning task, we can have $$H(y, \hat{y}) = - \sum_i y_i \log_2 \
 
 > **Note**: Specifically, a cross-entropy loss function is **equivalent** to a maximum likelihood function under a **Bernoulli or Multinoulli probability distribution**.
 
+> **Note**: For the NLP case, $$H(y)=0$$ because we know exactly which position of the vector will have the value $$1$$ (one-hot encoding). Thus, minimizing the cross entropy is equivalent to minimizing the KL divergence.
+
 ### Some Extra Thoughts
 
 - KL Divergence seems to be more appropriate to be used as the loss because it can actually tell the difference between the true distribution and the prediction model when the entropy of the true distribution is extremely large.
