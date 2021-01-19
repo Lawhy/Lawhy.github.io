@@ -78,7 +78,12 @@ The idea of D-Softmax was inspired by *differentiating* words according to their
 
 -------
 
-### CNN Softmax
+### Character-level Softmax
+
+Instead of having a softmax over the words, we can apply it on the characters sequentially. 
+
+-------
+
 
 
 -------
