@@ -88,6 +88,8 @@ Instead of having a softmax over the words, we can apply it on the characters se
 
 The approaches discussed in this section utilize the statistical sampling techniques to approximate the softmax function with an alternative objective.
 
+### 
+
 -------
 
 ### References
