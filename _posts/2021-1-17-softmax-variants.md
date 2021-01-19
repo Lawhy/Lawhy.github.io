@@ -101,7 +101,7 @@ where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ 
 $$
 \begin{aligned}
 
-\delta L_i = 
+\nabla L_i = 
 
 \end{aligned}
 $$
