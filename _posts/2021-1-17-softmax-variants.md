@@ -126,13 +126,15 @@ $$
 \mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
 
-where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Law of Large Numbers (LLN)** stating that the sample average converges to the expected value when the sample size is large enough. Nevertheless, such sampling method requires us to know the distribution $$P$$ of words from the network, but computing $$P$$ is undesired in the first place. So instead of the direct sampling method, we need "smarter" ways (as discussed in the following sections) to derive samples from a known distribution.
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Law of Large Numbers (LLN)** stating that the sample average converges to the expected value when the sample size is large enough. 
 
 > **Note**: There are two forms of LLN, the **strong** one states that $$ Pr(\lim_{n \to \infty} \bar{X}_n = \mu) = 1 $$, which means the sample average converges [almost surely](https://www.statlect.com/asymptotic-theory/almost-sure-convergence)) to the mean. Briefly speaking, the event of having the limit not equal to the expectation is technically possible but of zero probability. Another example of the zero-probability event is $$Pr(X=x)=0$$ when $$X$$ is a continuous random variable.
 
 > **Note**: The **weak** LLN states that $$\forall \epsilon.\lim_{n \to \infty} Pr(\lvert \bar{X}_n - \mu \rvert < \epsilon) = 0$$. Notice that the limit sign is pulled out and meaning changes. Here it states that with large enough sample size, there is a very low (but not zero) probability of having the deviation larger than some margin $$\epsilon$$. The weak LLN can be easily proved by using the **Chebyshev's Inequaility** but there is a lot more effort required for proving the strong LLN. 
 
 > **Note**: Many Bayesian integrals can be viewed as expectations. 
+
+Nevertheless, such sampling method requires us to know the distribution $$P$$ of words from the network, but computing $$P$$ is undesired in the first place. So instead of the direct sampling method, we need "smarter" ways (as discussed in the following sections) to derive samples from a known distribution.
 
 ### Importance Sampling
 
