@@ -112,7 +112,7 @@ $$
 
 where $$P$$ is the softmax probability distribution derived from the network. The final form of the gradient can be deemed as the (negative) deviation from the mean gradient. 
 
-**Note**: The reason for modelling the expectation is that backpropagation **does not** require the exact loss value and all we need to know is the gradient. However, we need specific softmax value when we want to monitor the convergence of the loss or during the evaluation time.
+> **Note**: The reason for modelling the expectation is that backpropagation **does not** require the exact loss value and all we need to know is the gradient. However, we need specific softmax value when we want to monitor the convergence of the loss or during the evaluation time.
 
 ### Monte-Carlo Estimate
 
