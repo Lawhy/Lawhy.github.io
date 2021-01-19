@@ -120,15 +120,14 @@ $$
 \mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
 
-where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** (see the relatively more intuitive proof [here](https://towardsdatascience.com/proof-of-the-law-of-large-numbers-part-2-the-strong-law-356aa608ca5d) and the concrete proof [here](http://www.stats.ox.ac.uk/~winkel/bs3a07l9-10.pdf)) stating that:
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Law of Large Numbers (LLN)** stating that the sample average converges to the expected value when the sample size is large enough.
 
-$$
-Pr(\lim_{m \to \infty}  \frac{1}{m} \sum_{k=1}^m \nabla z_k = \mathbb{E}[\nabla z]) = 1
-$$
 
-which means the sample average converges **almost surely** (see the detailed defintion [here](https://www.statlect.com/asymptotic-theory/almost-sure-convergence)) to the mean. Briefly speaking, the event of having the limit not equal to the expectation is technically possible but of zero probability. Another example of the zero-probability event is $$Pr(X=x)=0$$ when $$X$$ is a continuous random variable.
+> **Note**: There are two forms of LLN, the **strong** one states that $$ Pr(\lim_{n \to \infty} \bar{X}_n = \mu) = 1 $$, which means the sample average converges **almost surely** (see the detailed defintion [here](https://www.statlect.com/asymptotic-theory/almost-sure-convergence)) to the mean. Briefly speaking, the event of having the limit not equal to the expectation is technically possible but of zero probability. Another example of the zero-probability event is $$Pr(X=x)=0$$ when $$X$$ is a continuous random variable.
 
-**Note:** Many Bayesian integrals can be viewed as expectations. 
+> **Note**: The **weak** LLN states that $$\forall epsilon.\lim_{n \to infty} P(\lvert \bar{X}_n - \mu \rvert < \epsilon) = 0$$
+
+> **Note**: Many Bayesian integrals can be viewed as expectations. 
 
 -------
 
