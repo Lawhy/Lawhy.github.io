@@ -72,7 +72,7 @@ Since we are searching in the binary tree, the probability function for each nod
 
 -------
 
-### Differentiated Softmax (D-Softmax)
+### Differentiated Softmax (D-Softmax) [[3]](#ref3)
 
 The idea of D-Softmax was inspired by *differentiating* words according to their frequencies. Compared to the vanilla softmax with a condense weight matrix in the output layer, D-Softmax utilizes a sparse weight matrix with blocks (of different dimensionalities) distributed to different word embeddings. 
 
@@ -85,9 +85,9 @@ The idea of D-Softmax was inspired by *differentiating* words according to their
 
 ### References
 
-- Sebastian Ruder. On word embeddings - Part 2: Approximating the Softmax. http://ruder.io/word-embeddings-softmax, 2016.
+- [1] Sebastian Ruder. On word embeddings - Part 2: Approximating the Softmax. http://ruder.io/word-embeddings-softmax, 2016. <a name="ref1"></a>
 
-- Morin, F. and Yoshua Bengio. “Hierarchical Probabilistic Neural Network Language Model.” AISTATS (2005).
+- [2] Morin, F. and Yoshua Bengio. “Hierarchical Probabilistic Neural Network Language Model.” AISTATS (2005). <a name="ref2"></a>
 
-- Chen, Wenlin, David Grangier and M. Auli. “Strategies for Training Large Vocabulary Neural Language Models.” ACL (2016).
+- [3] Chen, Wenlin, David Grangier and M. Auli. “Strategies for Training Large Vocabulary Neural Language Models.” ACL (2016). <a name="ref3"></a>
 
