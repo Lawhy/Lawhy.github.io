@@ -120,13 +120,15 @@ $$
 \mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
 
-where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** stating that:
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** (see proof [here](https://towardsdatascience.com/proof-of-the-law-of-large-numbers-part-2-the-strong-law-356aa608ca5d)) stating that:
 
 $$
-Pr(\mathbb{E}[X] \lim_{m \to \infty}  \frac{1}{m} \sum_{k=1}^m X)
+Pr(\mathbb{E}[\nabla z] \lim_{m \to \infty}  \frac{1}{m} \sum_{k=1}^m \nabla z_k) = 1
 $$
 
-**Note:** Many Bayesian integrals can be viewed as expectations (from the Bayesian Theory course).
+which means the sample average converges **almost surely** (see defintion [here](https://www.statlect.com/asymptotic-theory/almost-sure-convergence)) to the mean.
+
+**Note:** Many Bayesian integrals can be viewed as expectations. 
 
 -------
 
