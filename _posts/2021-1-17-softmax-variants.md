@@ -84,9 +84,9 @@ Instead of having a softmax over the words, we can apply it on the characters se
 
 -------
 
-## Sampling Based Approahes
+## Monte-Carlo Sampling Based Approahes
 
-The approaches discussed in this section utilize the statistical sampling techniques to approximate the softmax function without preserving the original structure. Before delving into the methodology, we need to know some nice mathematical properties of the cross-entropy loss with the softmax activation.
+The approaches discussed in this section utilize the Monte-Carlo sampling techniques to approximate the softmax expectation during backpropagation to avoid the expensive computation on the normalizing term. Before delving into the methodology, we need to know some nice mathematical properties of the cross-entropy loss with the softmax activation.
 
 ### Cross-Entropy Loss with Softmax
 
@@ -110,7 +110,9 @@ $$
 \end{aligned}
 $$
 
-where $$P$$ is the softmax probability distribution derived from the network. The final form of the gradient can be deemed as the (negative) deviation from the mean gradient.
+where $$P$$ is the softmax probability distribution derived from the network. The final form of the gradient can be deemed as the (negative) deviation from the mean gradient. 
+
+**Note**: The reason for modelling the expectation is that backpropagation **does not** require the exact loss value and all we need to know is the gradient. However, we need specific softmax value when we want to monitor the convergence of the loss or during the evaluation time.
 
 ### Monte-Carlo Estimate
 
