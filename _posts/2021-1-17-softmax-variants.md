@@ -93,7 +93,7 @@ The approaches discussed in this section utilize the statistical sampling techni
 In the language model scenario, the **cross-entropy loss for a datapoint** $$(\mathbf{x}, \mathbf{y})$$ ($$\mathbf{y}$$ is an one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
 
 $$
-L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))}
+L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
 $$
 
 where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. For backpropagation we need to compute the gradient of the loss as:
