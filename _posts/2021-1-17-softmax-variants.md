@@ -106,11 +106,19 @@ $$
            &= - \nabla z_i + \frac{1}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \cdot \sum_{k=1}^{\lvert V \rvert} \exp(z_k) \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} \frac{\exp(z_k)}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} P(z_k) \nabla z_k\\
-           &= - \nabla z_i + \mathbb{E}_P[\nabla z_k]
+           &= - \nabla z_i + \mathbb{E}[\nabla z]
 \end{aligned}
 $$
 
 where $$P$$ is the softmax probability distribution derived from the network. The final form of the gradient can be deemed as the (negative) deviation from the mean gradient.
+
+### Monte-Carlo Estimate
+
+The Monte-Carlo estimate of the expectation $$\mathbb{E}[\nabla z]$$ has the following form:
+
+$$
+\mathbb{E}[\nabla z] = \approx \frac{1}{m} \sum_{i=1}^m \nabla z
+$$
 
 -------
 
