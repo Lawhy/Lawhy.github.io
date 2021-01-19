@@ -144,7 +144,11 @@ $$
 \mathbb{E}_{P}[f(X)] = \int f(x)p(x) dx = \int f(x)\frac{P(x)}{Q(x)} Q(x) dx = \mathbb{E}_{Q}[f(X)\frac{P(X)}{Q(X)}] \approx \frac{1}{m} \sum_{k=1}^m f(x_k) \frac{P(x_k)}{Q(x_k)} 
 $$
 
-Compared to the direct sampling, we have an extra term $$\frac{p(x)}{q(x)}$$ (sampling ratio) needed to compute, but the samples are derived from the distribution $$Q$$.
+Compared to the direct sampling, we have an extra term $$\frac{P(x)}{Q(x)}$$ (sampling ratio) needed to compute, but the samples are derived from the distribution $$Q$$. To fit our context, we have:
+
+$$
+\mathbb{E}_{P}[\nabla z] \approx \mathbb{E}_{Q}[\nabla z \frac{P(\nabla z}{Q(\nabla z)}]
+$$
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
