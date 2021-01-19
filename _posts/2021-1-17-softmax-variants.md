@@ -101,7 +101,7 @@ where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ 
 $$
 \begin{aligned}
 
-\nabla L_i = 
+\nabla L_i = - \nabla z_i + \frac{1}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \cdot \nabla (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
 
 \end{aligned}
 $$
