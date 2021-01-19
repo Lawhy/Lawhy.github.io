@@ -90,7 +90,7 @@ The approaches discussed in this section utilize the statistical sampling techni
 
 ### Cross-Entropy Loss with Softmax
 
-In the language model scenario, the **cross-entropy loss for a datapoint** $$(\mathbf{x}, \mathbf{y})$$ ($$\mathbf{y}$$ is an one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
+In the language model scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
 
 $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
@@ -106,7 +106,7 @@ $$
            &= - \nabla z_i + \frac{1}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \cdot \sum_{k=1}^{\lvert V \rvert} \exp(z_k) \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} \frac{\exp(z_k)}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j)} \nabla z_k\\
            &= - \nabla z_i + \sum_{k=1}^{\lvert V \rvert} P(z_k) \nabla z_k\\
-           &= - \nabla z_i + \mathbb{E}_P(\nabla z_k)
+           &= - \nabla z_i + \mathbb{E}[\nabla z_k]
 \end{aligned}
 $$
 
