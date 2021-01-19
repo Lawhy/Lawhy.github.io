@@ -117,8 +117,16 @@ where $$P$$ is the softmax probability distribution derived from the network. Th
 The Monte-Carlo estimate of the expectation $$\mathbb{E}[\nabla z]$$ has the following form:
 
 $$
-\mathbb{E}[\nabla z] = \approx \frac{1}{m} \sum_{i=1}^m \nabla z
+\mathbb{E}[\nabla z] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k
 $$
+
+where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mentioned above. To justify the Monte-Carlo method, we need to apply the **Strong Law of Large Numbers** stating that:
+
+$$
+Pr(\mathbb{E}[X] \lim_{m \to \infty}  \frac{1}{m} \sum_{k=1}^m X)
+$$
+
+**Note:** Many Bayesian integrals can be viewed as expectations (from the Bayesian Theory course).
 
 -------
 
