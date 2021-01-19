@@ -86,9 +86,21 @@ Instead of having a softmax over the words, we can apply it on the characters se
 
 ## Sampling Based Approahes
 
-The approaches discussed in this section utilize the statistical sampling techniques to approximate the softmax function with an alternative objective.
+The approaches discussed in this section utilize the statistical sampling techniques to approximate the softmax function without preserving the original structure. Before delving into the methodology, we need to know some nice mathematical properties of the cross-entropy loss with the softmax activation.
 
-### 
+### Cross-Entropy Loss with Softmax
+
+In the language model scenario, the **cross-entropy loss for one input** has to following form (see my previous post (here)[https://lawhy.github.io/cross-entropy/] about cross-entropy): 
+
+$$
+L = H(y, \hat{y}) = - \sum_j y_j \log \hat{y}_j = - \log \hat{y}_i 
+$$
+
+where $$y_j = 1 \iff j=i$$ because of the nature of one-hot encoding. With the softmax predictor, we have:
+
+$$
+L = - \log \frac{\exp(\hat{y}_i)}{\sum_j \hat{y}_j} 
+$$
 
 -------
 
