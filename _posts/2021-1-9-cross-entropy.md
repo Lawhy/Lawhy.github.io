@@ -48,7 +48,7 @@ $$
 H(P, Q) = - \sum_i p_i \log_2 q_i = H(P) + KL(P \lvert \rvert Q)
 $$
 
-For a machine learning task, we can have $$H(y, \hat{y}) = - \sum_i y_i \log_2 \hat{y}_i$$, where $$y_i$$ is the known probability for the $$i$$th label occurred in the dataset, and $$\hat{y}_i$$ the is the probability of predicting the $$i$$th label. In an NlP task such as Word2Vec, the entropy becomes $$H(y, \hat{y}) = - \sum_i y_i \log_2 \hat{y}_i = - \log_2 \hat{y}_i$$ because the probability of having a word at this position is exactly $$1$$ in the text data. If we use gradient descent, then we consider the sum or partial sum (batch) of the cross-entropies across the corpus as the loss function. In Word2Vec, this is equivalent to minimizing the negative log likelihood of context words given a center word (Skip-gram) or vice versa (CBOW). 
+For a machine learning task, we can have $$H(y, \hat{y}) = - \sum_i y_i \log_2 \hat{y}_i$$, where $$y_i$$ is the known probability for the $$i$$th label occurred in the dataset, and $$\hat{y}_i$$ the is the probability of predicting the $$i$$th label. In an NlP task such as Word2Vec, the entropy becomes $$H(y, \hat{y}) = - \sum_i y_i \log_2 \hat{y}_i = - \log_2 \hat{y}_k$$ because the probability of having a word at this position (k) is exactly $$1$$ in the text data. If we use gradient descent, then we consider the sum or partial sum (batch) of the cross-entropies across the corpus as the loss function. In Word2Vec, this is equivalent to minimizing the negative log likelihood of context words given a center word (Skip-gram) or vice versa (CBOW). 
 
 > **Note**: Specifically, a cross-entropy loss function is **equivalent** to a maximum likelihood function under a **Bernoulli or Multinoulli probability distribution**.
 
