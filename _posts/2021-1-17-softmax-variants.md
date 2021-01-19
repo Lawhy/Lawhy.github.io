@@ -7,7 +7,7 @@ tags: [softmax, variants, hierachical_decomposition, sampling, neural_network, m
 comments: false
 ---
 
-### Introduction
+## Introduction
 
 The **softmax** function is widely used in the output layer of the neural network based model when we have a classification problem. It is the generalization of the **sigmoid** function in the multi-dimensional space. To see that, suppose we have a random variable $$X$$ with only two possible outcomes $$\{ x_1, x_2 \}$$, then by applying the softmax function on $$X$$, we have:
 
@@ -28,6 +28,10 @@ $$
 where $$S(w, c)$$ is the scoring function that computes the **similarity** between the center word $$w$$ and the given context word $$c$$. To enforce a probability distribution, the softmax function normalizes the exponetial of the similarity score over the whole vocabulary of size $$\lvert V \rvert$$, thus requiring a large time consumption ($$O(\lvert V \rvert)$$) when we have a large vocabulary list.
 
 -------
+
+## Softmax-based Approaches 
+
+The approaches discussed in this section more or less maintain the overall structure of the softmax.
 
 ### Hierarchical Softmax (H-Softmax)
 
@@ -70,13 +74,9 @@ Since we are searching in the binary tree, the probability function for each nod
 > **Note:** The intermediate nodes can be deemed as the **latent variables** and the performance of H-softmax relies largely on the construction of the tree or the definition of the clusters. One idea is to enforce that similar paths are assigned to similar words.
 
 
--------
-
 ### Differentiated Softmax (D-Softmax) 
 
 The idea of D-Softmax was inspired by *differentiating* words according to their frequencies. Compared to the vanilla softmax with a condense weight matrix in the output layer, D-Softmax utilizes a sparse weight matrix with blocks (of different dimensionalities) distributed to different word embeddings [[3]](#ref3). 
-
--------
 
 ### Character-level Softmax
 
@@ -84,7 +84,9 @@ Instead of having a softmax over the words, we can apply it on the characters se
 
 -------
 
+## Sampling Based Approahes
 
+The approaches discussed in this section utilize the statistical sampling techniques to approximate the softmax function with an alternative objective.
 
 -------
 
