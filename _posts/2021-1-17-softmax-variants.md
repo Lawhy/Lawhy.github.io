@@ -21,7 +21,7 @@ $$
 P(X = x_i = \log y_i) = \frac{\exp(x_i)}{\sum_{j} \exp(x_j)} = \frac{y_i}{\sum_j y_j}
 $$
 
-which can be deemed as **normalizing over the sum of all the log-scale variables**. In fact, we can easily transform the probability function that involves a normalizing term to the linear one by applying the inverse function to our inputs (e.g. $$\log = \exp^{-1}$$). Taking the natural $$log$$ is the assumption made by the [logistic model](https://en.wikipedia.org/wiki/Logistic_regression).  
+which can be deemed as **normalizing over the sum of all the log-scale variables**. In fact, we can easily transform the probability function that involves a normalizing term to the linear one by applying the inverse function to our inputs (e.g. $$\log(\cdot) = \exp^{-1}(\cdot)$$). Taking the natural $$log$$ is the assumption made by the [logistic model](https://en.wikipedia.org/wiki/Logistic_regression).  
 
 > **Note:** In this post, the $$log$$ sign is by default of base $$e$$ except in the case of binary tree where a base $$2$$ is used.
 
