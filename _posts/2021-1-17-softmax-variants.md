@@ -134,11 +134,11 @@ where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mention
 
 > **Note**: Many Bayesian integrals can be viewed as expectations. 
 
-Nevertheless, such sampling method requires us to know the distribution $$P$$ of words from the network, but computing $$P$$ is undesired in the first place. So instead of the direct sampling method, we need "smarter" ways (as discussed in the following sections) to derive samples from a known distribution.
+It is clear that if $$m < \lvert V \rvert$$, then we will have a reduced computation steps. Nevertheless, such sampling method requires to **know the distribution $$P$$ of words** from the network which is even harder. Moreover, to reduce the training time further we need to **approximate the normalizing term using the sampling techniques** as well. In the following section, we will discuss how to address these two problems using Importance Sampling.
 
 ### Importance Sampling
 
-The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
+The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ (e.g. the unigram distribution) to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
 
 $$
 \mathbb{E}_{P}[f(X)] = \int f(x)p(x) dx = \int f(x)\frac{P(x)}{Q(x)} Q(x) dx = \mathbb{E}_{Q}[f(X)\frac{P(X)}{Q(X)}] \approx \frac{1}{m} \sum_{k=1}^m f(x_k) \frac{P(x_k)}{Q(x_k)} 
@@ -149,6 +149,9 @@ Compared to the direct sampling, we have an extra term $$\frac{P(x)}{Q(x)}$$ (sa
 $$
 \mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{P(z_k)}{Q(z_k)} 
 $$
+
+Nonetheless, 
+
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
@@ -162,3 +165,4 @@ $$
 
 - [3] Chen, Wenlin, David Grangier and M. Auli. “Strategies for Training Large Vocabulary Neural Language Models.” ACL (2016). <a name="ref3"></a>
 
+- [4] Bengio, Yoshua and Jean-Sébastien Senecal. “Quick Training of Probabilistic Neural Nets by Importance Sampling.” AISTATS (2003). <a name="ref4"></a>
