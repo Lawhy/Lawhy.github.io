@@ -214,6 +214,7 @@ P+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w
 $$
 
 
+
 -------
 
 ### References
