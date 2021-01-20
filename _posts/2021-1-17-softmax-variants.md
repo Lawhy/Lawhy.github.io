@@ -193,7 +193,7 @@ $$
 \end{equation}
 $$
 
-where $$P(w \vert D, c) = P^+(w \vert c)$$ when $$w$$ is a positive sample (i.e. $$D=1$$) and $$P(w \vert c) = P^-(w)$$ when it is negative (i.e. $$D=0$$, and thus independent of the context word). Again, using the definition of the conditional probability we can derive:
+where $$P(w \vert D, c) = P^+(w \vert c)$$ when $$w$$ is a positive sample (i.e. $$D=1$$) and $$P(w \vert c) = P^-(w)$$ when it is negative (i.e. $$D=0$$, and thus independent of the context word). Also, $$P(D|c) = P(D)$$ because the corpus label $$D$$ is independent of the context word $$c$$. Again, using the definition of the conditional probability we can derive:
 
 $$
 \begin{equation}
