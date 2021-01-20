@@ -210,7 +210,7 @@ $$
 Notice that the positive distribution $$P+(w | c)$$ is the softmax probability generated from our model:
 
 $$
-P+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))}
+P+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w, c))}{Z(c)}
 $$
 
 
