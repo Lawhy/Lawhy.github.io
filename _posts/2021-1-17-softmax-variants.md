@@ -159,8 +159,9 @@ $$
 In order to reuse the same proposal distribution $$Q$$, we can apply importance sampling on the expected value and obtain:
 
 $$
-\mathbb{E}_{Uniform(0, n)} = \mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \exp(z_k}\frac{m^{-1}}{Q(z_k)}
+\mathbb{E}_{Uniform(0, n)} = \mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \exp(z_k}\frac{m^{-1}}{Q(z_k)} \implies 
 $$
+
 
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
