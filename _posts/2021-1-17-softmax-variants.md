@@ -159,9 +159,14 @@ $$
 In order to reuse the same proposal distribution $$Q$$, we can apply importance sampling on the expected value and obtain:
 
 $$
-\mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \exp(z_k)\frac{n^{-1}}{Q(z_k)} \implies \sum_j \exp(z_j) \approx \frac{1}{m} \sum_{k=1}^m \frac{\exp(z_k)}{Q(z_k)}
+\mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \exp(z_k)\frac{n^{-1}}{Q(z_k)} 
 $$
 
+which further implies that:
+
+$$ 
+\sum_j \exp(z_j) \approx \frac{1}{m} \sum_{k=1}^m \frac{\exp(z_k)}{Q(z_k)}
+$$
 
 
 
