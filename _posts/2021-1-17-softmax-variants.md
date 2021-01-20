@@ -156,6 +156,12 @@ $$
 \sum_j \exp(z_j) = n \sum_j \frac{1}{n} \exp(z_j) = n \cdot \mathbb{E}_{Uniform(0, n)}[\exp(z)] \approx \frac{n}{m} \sum_{k=1}^m \exp(z_k)
 $$
 
+In order to reuse the same proposal distribution $$Q$$, we can apply importance sampling on the expected value and obtain:
+
+$$
+\mathbb{E}_{Uniform(0, n)} = \mathbb{E}_{Q}[\exp(z) \frac{1/m}{Q(z)}]\frac{1}{m} \sum_{k=1}^m \exp(z_k}\frac{1/m}{Q(z_k)}
+$$
+
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
