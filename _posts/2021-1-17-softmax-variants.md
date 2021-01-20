@@ -185,7 +185,7 @@ NCE reduces the language model estimation problem to the binary classification p
 
 $$
 \begin{equation}
-  P(D, w | c) = P(D | w, c) \cdot P(w | c) = 
+  P(D, w | c) = P(D | c) \cdot P(w |D, c) = 
     \begin{cases}
       \frac{1}{1+k} P^+(w | c) & \text{if $D=1$}\\
       \frac{k}{1+k} P^-(w) & \text{if $D=0$ }\\
@@ -193,12 +193,16 @@ $$
 \end{equation}
 $$
 
-where $$P(w \vert c) = P^+(w \vert c)$$ when $$w$$ is a positive sample and $$P(w \vert c) = P^-(w)$$ when it is negative (and thus independent of the context word). Again, using the definition of the conditional probability we can derive:
+where $$P(w \vert D, c) = P^+(w \vert c)$$ when $$w$$ is a positive sample (i.e. $$D=1$$) and $$P(w \vert c) = P^-(w)$$ when it is negative (i.e. $$D=0$$, and thus independent of the context word). Again, using the definition of the conditional probability we can derive:
 
 $$
-\begin{aligned}
-
-\end{aligned}
+\begin{equation}
+P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} =  
+    \begin{cases}
+      \frac{\frac{1}{1+k} P^+(w | c)}{} & \text{if $D=1$}\\
+      \frac{k}{1+k} P^-(w) & \text{if $D=0$ }\\
+    \end{cases}  
+\end{equation}
 $$
 
 -------
