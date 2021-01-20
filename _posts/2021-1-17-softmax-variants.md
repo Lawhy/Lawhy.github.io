@@ -175,6 +175,8 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 > **Note**: The author also proposed the so-called Adaptive Importance Sampling, which which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
 
+> **Note**: In the language model case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
+
 -------
 
 ## Noise Contrastive Estimation
