@@ -150,7 +150,7 @@ $$
 \mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{P(z_k)}{Q(z_k)} 
 $$
 
-At this point, we have solved the first problem by leveraging the proposal distribution, but we still need to tackle the normalizing term. We can first rewrite the normalizing term in the form of expectation as:
+At this point, we have solved the first problem by leveraging the proposal distribution, but we still need to tackle the normalizing term. We can first rewrite the normalizing term (denoted as $$Z$$) in the form of expectation as:
 
 $$
 Z = \sum_j \exp(z_j) = n \sum_j \frac{1}{n} \exp(z_j) = n \cdot \mathbb{E}_{Uniform(0, n)}[\exp(z)] \approx \frac{n}{m} \sum_{j=1}^m \exp(z_j)
