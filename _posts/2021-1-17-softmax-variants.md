@@ -12,13 +12,13 @@ comments: false
 The **softmax** function is widely used in the output layer of the neural network based model when we have a classification problem. It is the generalization of the **sigmoid** function in the multi-dimensional space. To see that, suppose we have a random variable $$X$$ with only two possible outcomes $$\{ x_1, x_2 \}$$, then by applying the softmax function on $$X$$, we have:
 
 $$
-P(X=x_1) = \frac{\exp(x_1)}{\sum_{i=1, 2} \exp(x_i)} = \frac{\exp(x_1)}{\exp(x_1) + \exp(x_2)} = \frac{1}{1 + \exp(x_2 - x_1)} = \sigma (-(x_1 - x_2))  
+P(X=x_1) = \frac{\exp(x_1)}{\sum_{i=1, 2} \exp(x_i)} = \frac{\exp(x_1)}{\exp(x_1) + \exp(x_2)} = \frac{1}{1 + \exp(-(x_2 - x_1))} = \sigma (x_1 - x_2)  
 $$
 
-where $$\sigma (\cdot)$$ is the sigmoid function. Furthermore, we can actually interpret sigmoid function in a more general form if we let $$x_1 = \ln P(y_1)$$ and $$x_2 = \ln p(y_2)$$
+where $$\sigma (z) = \frac{1}{1 + \exp(-z)}$$ is the sigmoid function. Furthermore, we can actually interpret sigmoid function in a more general form if we let $$x_1 = \ln P(y_1)$$ and $$x_2 = \ln p(y_2)$$
 
 $$
-\sigma
+\sigma(
 $$
 
 Compared to other types of normalization, the softmax function assigns more *extreme probabilities* to the outputs, and thus behaving more like the **argmax** function. Also, because of its **differentiability** and the nice **mathematical properties associated with its gradient**, softmax is a good fit for gradient-based optimization such as the *stochastic gradient descent*.
