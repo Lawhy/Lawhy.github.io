@@ -168,7 +168,7 @@ $$
 \mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)} = \frac{\sum_{k=1}^m \nabla z_k \cdot \exp(z_k) / Q(z_k)}{\sum_{j=1}^m \exp(z_j) / Q(z_j)}
 $$
 
-Notice that we actually decompose the random variable as $$\mathbb{E}[\nabla z \frac{P(z)}{Q(z)}]$$ $$= \mathbb{E}[\frac{\nabla z \exp(z) / Q(z)}{Z}]$$, and the estimator is indeed $$\frac{\mathbb{E}[\nabla z \exp(z)]}{E[Z]}$$ which is **biased** because $$\mathbb{E}[\frac{A}{B}] \neq \frac{\mathbb{E}[A]}{\mathbb{E}[B]}$$.   
+Notice that we actually decompose the random variable as $$\mathbb{E}_Q[\nabla z \frac{P(z)}{Q(z)}]$$ $$= \mathbb{E}_Q[\frac{\nabla z \exp(z) / Q(z)}{Z}]$$, and the estimator is indeed $$\frac{\mathbb{E}_Q[\nabla z \exp(z)]}{E_Q[Z]}$$ which is **biased** because $$\mathbb{E}[\frac{A}{B}] \neq \frac{\mathbb{E}[A]}{\mathbb{E}[B]}$$.   
 
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
