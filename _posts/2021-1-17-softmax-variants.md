@@ -199,8 +199,8 @@ $$
 \begin{equation}
 P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} =  
     \begin{cases}
-      \frac{\frac{1}{1+k} P^+(w | c)}{} & \text{if $D=1$}\\
-      \frac{k}{1+k} P^-(w) & \text{if $D=0$ }\\
+      \frac{\frac{1}{1+k} \cdot P^+(w | c)}{} & \text{if $D=1$}\\
+      \frac{k}{1+k} \cdot P^-(w) & \text{if $D=0$ }\\
     \end{cases}  
 \end{equation}
 $$
