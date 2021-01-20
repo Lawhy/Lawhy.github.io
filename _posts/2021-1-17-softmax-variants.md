@@ -162,7 +162,13 @@ $$
 \mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{j=1}^m \exp(z_j)\frac{n^{-1}}{Q(z_j)} \implies Z \approx \frac{1}{m} \sum_{k=1}^m \frac{\exp(z_j)}{Q(z_j)}
 $$
 
+By assembling everything together, we have:
 
+$$
+\mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)}
+$$
+
+Notice that we actually decompose the term $$\nabla z \frac{P(z)}{Q(z)}$$ into 
 
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
