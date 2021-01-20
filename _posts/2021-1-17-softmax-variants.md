@@ -15,11 +15,13 @@ $$
 P(X=x_1) = \frac{\exp(x_1)}{\sum_{i=1, 2} \exp(x_i)} = \frac{\exp(x_1)}{\exp(x_1) + \exp(x_2)} = \frac{1}{1 + \exp(-(x_2 - x_1))} = \sigma (x_1 - x_2)  
 $$
 
-where $$\sigma (z) = \frac{1}{1 + \exp(-z)}$$ is the sigmoid function. Furthermore, we can actually interpret sigmoid function in a more general form if we let $$x_1 = \ln P(y_1)$$ and $$x_2 = \ln p(y_2)$$
+where $$\sigma (z) = \frac{1}{1 + \exp(-z)}$$ is the sigmoid function. Furthermore, we can actually interpret softmax function in the more general form---if we assume our input $$X$$ as the log form of some other variable $$Y$$ such that $$x_i = \log y_i$$, then
 
 $$
-\sigma(
+P(X = x_i = \log y_i) = \frac{\exp(x_i)}{\sum_{j} \exp(x_j)} = \frac{y_i}{\sum_j y_j}
 $$
+
+which can be deemed as **normalizing over the sum of all the log-scale variables**.
 
 Compared to other types of normalization, the softmax function assigns more *extreme probabilities* to the outputs, and thus behaving more like the **argmax** function. Also, because of its **differentiability** and the nice **mathematical properties associated with its gradient**, softmax is a good fit for gradient-based optimization such as the *stochastic gradient descent*.
 
