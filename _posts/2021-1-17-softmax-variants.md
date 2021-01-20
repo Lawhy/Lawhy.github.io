@@ -207,7 +207,7 @@ P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d 
 \end{equation}
 $$
 
-Notice that the positive distribution $$P+(w | c)$$ is the softmax probability generated from our model:
+Notice that the positive distribution $$P^+(w \vert c)$$ is the softmax probability generated from our model:
 
 $$
 P+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w, c))}{Z(c)}
