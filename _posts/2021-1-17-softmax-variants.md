@@ -197,7 +197,7 @@ where $$P(w \vert D, c) = P^+(w \vert c)$$ when $$w$$ is a positive sample (i.e.
 
 $$
 \begin{equation}
-P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d | c)} 
+P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d | c)} =
     \begin{cases}
       \frac{\frac{1}{1+k} \cdot P^+(w | c)}{Z} & \text{if $D=1$}\\
       \frac{\frac{k}{1+k} \cdot P^-(w)}{Z} & \text{if $D=0$ }\\
