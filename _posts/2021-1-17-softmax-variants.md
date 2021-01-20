@@ -153,7 +153,7 @@ $$
 At this point, we have solved the first problem by leveraging the proposal distribution, but we still need to tackle the normalizing term. We can first rewrite the normalizing term in the form of expectation as:
 
 $$
-\sum_j \exp(z_j) = n \sum_j \frac{1}{n} \exp(z_j) = n \cdot \mathbb{E}_{Uniform(0, n)}[z] \approx n \frac{1}{m} \sum_{k=1}^m z_k
+\sum_j \exp(z_j) = n \sum_j \frac{1}{n} \exp(z_j) = n \cdot \mathbb{E}_{Uniform(0, n)}[z] \approx \frac{n}{m} \sum_{k=1}^m z_k
 $$
 
 
