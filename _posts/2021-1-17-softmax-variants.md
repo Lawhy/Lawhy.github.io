@@ -205,7 +205,7 @@ P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d 
 \end{equation}
 $$
 
-where $$Z = P(w | c) = \frac{1}{1+k} \cdot P^+(w | c) + \frac{k}{1+k} \cdot P^-(w)$$
+where $$Z = P(w \vert c) = \frac{1}{1+k} \cdot P^+(w \vert c) + \frac{k}{1+k} \cdot P^-(w)$$
 
 -------
 
