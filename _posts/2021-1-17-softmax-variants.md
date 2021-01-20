@@ -181,7 +181,11 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 Compared to the Mento-Carlo Sampling methods described previously, Noise Contrastive Estimation (NCE) is a more **stable** [[1]](#ref1) because it has no concern of designing the proposal distribution which might not be close enough to the target distribution. Furthermore, NCE does not estimate the word probability directly and instead, it adopts some **auxiliary loss** function to reach the same goal.
 
-NCE reduces the language model estimation problem to the binary classification problem that uses the same set of parameters. Let $$D$$ be the binary label with $$D=1$$ indicating that the (positive) sample is drawn from the **true** distribution $$P_{+ve)$$ (i.e. from the corpus) and $$D=0$$ indicating that the (negative) sample is drawn from the **noise** distribution $$P_{-ve}$$ (i.e. from the *fake* corpus). For every positive sample, we draw $$k$$ negative samples
+NCE reduces the language model estimation problem to the binary classification problem that uses the same set of parameters. Let $$D$$ be the binary label with $$D=1$$ indicating that the (positive) sample is drawn from the **true** distribution $$P_{+ve)$$ (i.e. from the corpus) and $$D=0$$ indicating that the (negative) sample is drawn from the **noise** distribution $$P_{-ve}$$ (i.e. from the *fake* corpus). For every positive sample, we draw $$k$$ negative samples, thus the joint probability distribution of $$D$$ and $$w$$ (center word) conditioned on $$c$$ (context word) is given by:
+
+$$
+P(D, w | c) = 
+$$
 
 -------
 
