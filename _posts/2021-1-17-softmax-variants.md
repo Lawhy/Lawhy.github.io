@@ -210,7 +210,7 @@ $$
 Notice that the positive distribution $$P^+(w \vert c)$$ is the softmax probability generated from our model:
 
 $$
-P+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w, c))}{Z(c)}
+P^+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w, c))}{Z(c)}
 $$
 
 > **Note**: NCE is not restricted to softmax and instead, it can be applied to more general cases where we have concern of computing the normalizing term.
