@@ -187,8 +187,8 @@ $$
 \begin{equation}
   P(D, w | c) = P(D | c) \cdot P(w |D, c) = 
     \begin{cases}
-      \frac{1}{1+k} P^+(w | c) & \text{if $D=1$}\\
-      \frac{k}{1+k} P^-(w) & \text{if $D=0$ }\\
+      \frac{1}{1+k} \cdot P^+(w | c) & \text{if $D=1$}\\
+      \frac{k}{1+k} \cdot P^-(w) & \text{if $D=0$ }\\
     \end{cases}       
 \end{equation}
 $$
@@ -199,13 +199,13 @@ $$
 \begin{equation}
 P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d | c)} 
     \begin{cases}
-      \frac{\frac{1}{1+k} \cdot P^+(w | c)}{Z(c)} & \text{if $D=1$}\\
-      \frac{\frac{k}{1+k} P^-(w)}{Z(c)} & \text{if $D=0$ }\\
+      \frac{\frac{1}{1+k} \cdot P^+(w | c)}{Z} & \text{if $D=1$}\\
+      \frac{\frac{k}{1+k} \cdot P^-(w)}{Z} & \text{if $D=0$ }\\
     \end{cases}  
 \end{equation}
 $$
 
-where $$Z(c) = P(w | c)$$
+where $$Z = P(w | c) = \frac{1}{1+k} \cdot P^+(w | c) + \frac{k}{1+k} \cdot P^-(w)$$
 
 -------
 
