@@ -177,6 +177,12 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 -------
 
+## Noise Contrastive Estimation
+
+Compared to the Mento-Carlo Sampling methods described previously, Noise Contrastive Estimation (NCE) is a more **stable** [[1]](#ref 1) because it has no concern of designing the proposal distribution which might not be close enough to the target distribution. Furthermore, NCE does not estimate the word probability directly and instead, it adopts some auxiliary loss function to reach the same goal.
+
+-------
+
 ### References
 
 - [1] Sebastian Ruder. On word embeddings - Part 2: Approximating the Softmax. http://ruder.io/word-embeddings-softmax, 2016. <a name="ref1"></a>
