@@ -159,15 +159,13 @@ $$
 In order to reuse the same proposal distribution $$Q$$, we can apply importance sampling on the expected value and obtain:
 
 $$
-\mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{j=1}^m \exp(z_j)\frac{n^{-1}}{Q(z_j)} \implies Z \approx \frac{1}{m} \sum_{k=1}^m \frac{\exp(z_j)}{Q(z_j)}
+\mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{j=1}^m \exp(z_j)\frac{n^{-1}}{Q(z_j)} \implies Z \approx \frac{1}{m} \sum_{j=1}^m \frac{\exp(z_j)}{Q(z_j)}
 $$
 
 By assembling everything together, we have:
 
 $$
-\begin{aligned}
-\mathbb{E}_{P}[\nabla z] &= \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)}
-\end{aligned}
+\mathbb{E}_{P}[\nabla z] &= \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)} = \frac{\sum_{k=1}^m \nabla z_k \cdot \exp(z_k) / Q(z_k)}{\sum_{j=1}^m \exp(z_j} / Q(z_j)} 
 $$
 
 Notice that we actually decompose the term $$\nabla z \frac{P(z)}{Q(z)}$$ into 
