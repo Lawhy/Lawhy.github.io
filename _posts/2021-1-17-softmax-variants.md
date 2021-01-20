@@ -165,7 +165,9 @@ $$
 By assembling everything together, we have:
 
 $$
-\mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)}
+\begin{aligned}
+\mathbb{E}_{P}[\nabla z] &= \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)}
+\end{aligned}
 $$
 
 Notice that we actually decompose the term $$\nabla z \frac{P(z)}{Q(z)}$$ into 
