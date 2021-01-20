@@ -199,8 +199,8 @@ $$
 \begin{equation}
 P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d | c)} =
     \begin{cases}
-      \frac{\frac{1}{1+k} \cdot P^+(w | c)}{\frac{k}{1+k} P^-(w)} & \text{if $D=1$}\\
-      \frac{\frac{k}{1+k} \cdot P^-(w)}{\frac{k}{1+k} P^-(w)} & \text{if $D=0$ }\\
+      \frac{\frac{1}{1+k} \cdot P^+(w | c)}{\frac{\frac{1}{1+k} + \frac{k}{1+k} P^-(w)} & \text{if $D=1$}\\
+      \frac{\frac{k}{1+k} \cdot P^-(w)}{\frac{\frac{1}{1+k} + \frac{k}{1+k} P^-(w)} & \text{if $D=0$ }\\
     \end{cases}  
 \end{equation}
 $$
