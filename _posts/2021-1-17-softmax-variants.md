@@ -165,10 +165,10 @@ $$
 By assembling everything together, we have:
 
 $$
-\mathbb{E}_{P}[\nabla z] &= \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)} = \frac{\sum_{k=1}^m \nabla z_k \cdot \exp(z_k) / Q(z_k)}{\sum_{j=1}^m \exp(z_j} / Q(z_j)} 
+\mathbb{E}_{P}[\nabla z] &= \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{\exp(z_k)/Z}{Q(z_k)} = 
 $$
 
-Notice that we actually decompose the term $$\nabla z \frac{P(z)}{Q(z)}$$ into 
+Notice that we actually decompose the term $$\nabla z \frac{P(z)}{Q(z)}$$ into $$\frac{\nabla z \exp(z) / Q(z)}{Z}$$ and 
 
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
