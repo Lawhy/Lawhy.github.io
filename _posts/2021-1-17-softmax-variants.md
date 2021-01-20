@@ -173,6 +173,8 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
+> **Note**: The author also proposed the so-called Adaptive Importance Sampling, which which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
+
 -------
 
 ### References
