@@ -138,7 +138,7 @@ It is clear that if $$m < \lvert V \rvert$$, then we will have a reduced computa
 
 ### Importance Sampling
 
-The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ (e.g. the unigram distribution) to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
+The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ (e.g. the unigram distribution) called the **proposal distribution** to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
 
 $$
 \mathbb{E}_{P}[f(X)] = \int f(x)p(x) dx = \int f(x)\frac{P(x)}{Q(x)} Q(x) dx = \mathbb{E}_{Q}[f(X)\frac{P(X)}{Q(X)}] \approx \frac{1}{m} \sum_{k=1}^m f(x_k) \frac{P(x_k)}{Q(x_k)} 
@@ -150,7 +150,11 @@ $$
 \mathbb{E}_{P}[\nabla z] = \mathbb{E}_{Q}[\nabla z \frac{P(z)}{Q(z)}] \approx \frac{1}{m} \sum_{k=1}^m \nabla z_k \frac{P(z_k)}{Q(z_k)} 
 $$
 
-Nonetheless, 
+At this point, we have solved the first problem by leveraging the proposal distribution, but we still need to tackle the normalizing term. We can first rewrite the normalizing term in the form of expectation as:
+
+$$
+\sum_j \exp(z_j) = m \sum_j \frac{1}{m} \exp(z_j) = m \mathbb{E}_{Uniform}[z_j]
+$$
 
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
