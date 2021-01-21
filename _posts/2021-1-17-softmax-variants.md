@@ -169,7 +169,7 @@ $$
 In order to reuse the same proposal distribution $$Q$$, we can apply importance sampling on the expected value and obtain:
 
 $$
-\mathbb{E}_{Uniform(0, n)} =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{j=1}^m \exp(z_j)\frac{n^{-1}}{Q(z_j)} \implies Z \approx \frac{1}{m} \sum_{j=1}^m \frac{\exp(z_j)}{Q(z_j)}
+\mathbb{E}_{Uniform(0, n)}[\exp(z)] =\mathbb{E}_{Q}[\exp(z) \frac{P'(z)}{Q(z)}] \approx \frac{1}{m} \sum_{j=1}^m \exp(z_j)\frac{n^{-1}}{Q(z_j)} \implies Z \approx \frac{1}{m} \sum_{j=1}^m \frac{\exp(z_j)}{Q(z_j)}
 $$
 
 By assembling everything together, we have:
