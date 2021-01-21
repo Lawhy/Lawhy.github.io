@@ -235,7 +235,7 @@ L_{NCE} &= - \mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c) + k \cdot \
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to have $$P^+$$ a good estimator of the unknown true distribution. Notice that we can discard the constant $$\frac{1}{\lvert \mathcal{D}$$ without affecting the objective.
+    where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to have $$P^+$$ a good estimator of the unknown true distribution. Notice that we can discard the constant $$\frac{1}{\lvert \mathcal{D}}$$ without affecting the objective.
 
 Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
