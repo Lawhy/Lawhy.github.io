@@ -274,9 +274,9 @@ $$
 \end{aligned}
 $$
 
-As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} \cdot (P^{\mathcal{D}_c} - P^+) \nabla_{\mathcal{\theta}} \cdot \log(P^+)$$ which is the gradient of the negative log-likelihood. Thus as the ratio of noise samples to observations increases, the negative of the NCE gradient approaches the maximum likelihood gradient.
+As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} \cdot (P^{\mathcal{D}_c} - P^+) \nabla_{\mathcal{\theta}} \cdot \log(P^+)$$ which is the gradient of the negative log-likelihood. To interpret this further, we see that the extreme points will be attained with the zero gradient, i.e. either $$P^{\mathcal{D}_c} - P^+ = 0$$ or the gradient of the log function of our model gets zero. The former means our model perfectly fits to the data distribution and the latter suggests the maximization of our model's log-likelihood. In other words, as the ratio of noise samples to observations increases, the negative of the NCE gradient approaches the maximum likelihood gradient.
 
-**Note**: The log-likelihood for the binary classification has the following form $$LL = \sum_i y_i \log \hat{y}_i + (1-y_i) \log (1 - \hat{y}_i)$$ and in our case $$y_i = P^{\mathcal{D}_c}$$ and $$\hat{y}_i = P^+$$.
+> **Note**: The log-likelihood for the binary classification has the following form $$LL = \sum_i y_i \log \hat{y}_i + (1-y_i) \log (1 - \hat{y}_i)$$ and in our case $$y_i = P^{\mathcal{D}_c}$$ and $$\hat{y}_i = P^+$$.
 
 
 -------
