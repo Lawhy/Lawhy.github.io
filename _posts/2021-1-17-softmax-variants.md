@@ -240,7 +240,7 @@ $$
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c)}{\exp(S(w, c) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{P\exp(S(w, c) + k \cdot P^-(w)})
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)})
 $$
 
 ### Asymtopic Analysis: Why NCE works?
