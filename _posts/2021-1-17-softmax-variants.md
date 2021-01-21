@@ -107,6 +107,7 @@ $$
 where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the word2vec case (or other context dependent scenarios), $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
 
 > **Note**: The subscripts for $$z$$ and $$y$$ correspond to the indices of the words in the vocabulary. 
+> **Note**: The cross-entropy loss happens to be the same as **minimizing the negative log-likehood (or MLE)** in our scenario.
 
 For backpropagation we need to compute the gradient of the loss as:
 
@@ -244,6 +245,12 @@ L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c))}{\exp(S(w, c
 $$
 
 ### Asymtopic Analysis: Why NCE works?
+
+Consider the maximum likelihood objective:
+
+$$
+
+$$
 
 
 > **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
