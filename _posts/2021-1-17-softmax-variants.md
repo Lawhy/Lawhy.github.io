@@ -229,7 +229,10 @@ The next step is to approximate the normalizing constant $$Z(c)$$ for each conte
 We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of dataset $$\mathcal{D}$$, with each positive sample accompanied by $$k$$ negative samples:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
+\begin{aligned}
+L_{NCE} &= \mathbb{E}_{w \sim P^+} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
+ &= - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
+\end{aligned}
 $$
 
 Once again, we use the Monte-Carlo estimate of the expected value such that:
@@ -251,6 +254,8 @@ Recall the gradient of the cross-entropy loss derived from the previous section,
 $$
 \nabla L_{NLE} = - \sum_{(w, c) \in \mathcal{D}} \nabla S(w, c) + \mathbb{E}[\nabla S(w, c)] 
 $$
+
+
 
 
 > **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
