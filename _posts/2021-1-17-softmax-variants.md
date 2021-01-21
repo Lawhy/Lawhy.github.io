@@ -228,16 +228,20 @@ The next step is to approximate the normalizing constant $$Z(c)$$ for each conte
 We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of dataset $$\mathcal{D}$$, with each positive sample accompanied by $$k$$ negative samples:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P^+(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P^-(D=0 | w', c)])
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 $$
 
 Once again, we use the Monte-Carlo estimate of the expected value such that:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P^+(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P^-(D=0 | w'_i, c))
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
 $$
 
-By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. 
+By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
+
+$$
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c)}{\exp(S(w, c) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{P\exp(S(w, c) + k \cdot P^-(w)})
+$$
 
 
 > **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
