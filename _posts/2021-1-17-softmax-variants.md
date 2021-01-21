@@ -231,6 +231,12 @@ $$
 L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P^+(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P^-(D=0 | w', c)])
 $$
 
+Once again, we use the Monte-Carlo estimate of the expected value such that:
+
+$$
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P^+(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k {w' \sim P^-} [\log P^-(D=0 | w'_i, c)])
+$$
+
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. 
 
 
