@@ -226,7 +226,7 @@ $$
 
 The next step is to approximate the normalizing constant $$Z(c)$$ for each context word $$c$$. The initial implementation of NCE training learned a log-normalizing constant $$\theta_c = \log(\theta'_c)$$ such that $$Z(c) \approx \exp(- \theta_c)$$ (the minus sign is inferred from the paper's equation) for each context in the training set, storing them in a hash table indexed by the context [[6]](#ref6). However, with a large number of observed contexts we will encounter the **scalability** issue. Surprisingly, Mnih and Teh (2012) [[6]](#ref6) discovered that fixing the normalizing constants as $$Z(c) = 1$$ instead of learning them does not affect the performance of the resulting models. The explanation is that because the neural model has **a huge parameter space**, it is flexible enough to **learn the normalization constraint specific to each context**. 
 
-Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the context word of $w$} \}$$ and the data distribution within some context $$c$$ by $$\mathcal{D}_c$$. We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of the data portion conditioned on the context $$c$$, with each positive sample accompanied by $$k$$ negative samples:
+Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the context word of $w$} \}$$ and the data distribution given a fixed context $$c$$ by $$\mathcal{D}_c$$. We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of the data portion conditioned on the context $$c$$, with each positive sample accompanied by $$k$$ negative samples:
 
 $$
 \begin{aligned}
