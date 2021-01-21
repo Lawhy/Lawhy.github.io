@@ -264,6 +264,15 @@ To see why NCE works, we need to compute its gradient and compare it with the gr
 |:--:| 
 | *Fig. 2: The detailed calculation steps for the gradient of the NCE loss divided into two parts.* |
 
+By combining the results, we can express the NCE loss as:
+
+$$
+\begin{aligned} 
+\nabla_{\mathcal{\theta}} L_c &=
+- \sum_{w \in V} \nabla_{\mathcal{\theta}}\log(P^+) \cdot \frac{kP^-}{P^+ + kP^-} \cdot P^{\mathcal{D}_c} - (-k) \sum_{w' \in V} \nabla_{\mathcal{\theta}}\log(P^+) \cdot \frac{P^+}{P^+ + kP^-} \cdot P^-  \\
+&= -\sum_{w \in V} \nabla_{\mathcal{\theta}}\log(P^+) \cdot \frac{kP^- P^{\mathcal{D}_c} - k P^- P^+}{P^+ +  kP^-} = -\sum_{w \in V} \frac{kP^-}{P^+ + kP^-} \cdot (P^{\mathcal{D}_c} - P^+) \nabla_{\mathcal{\theta}} \cdot \log(P^+) \\
+\end{aligned}
+$$
 
 
 -------
