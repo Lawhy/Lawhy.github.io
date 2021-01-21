@@ -260,7 +260,7 @@ $$
 
 To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. For the first part, we have:
 
-| ![nce-proof1.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof1.PNG) | 
+| ![nce-proof1.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof-1.PNG) | 
 |:--:| 
 | *Fig. 2: The detailed calculation steps for the gradient of the NCE loss (first part).* |
 
