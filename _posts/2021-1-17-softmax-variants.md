@@ -11,6 +11,8 @@ comments: false
 
 The **softmax** function is widely used in the output layer of the neural network based model when we have a classification problem. It is the generalization of the **sigmoid** function in the multi-dimensional space. To see that, suppose we have a random variable $$X$$ with only two possible outcomes $$\{ x_1, x_2 \}$$, then by applying the softmax function on $$X$$, we have:
 
+$a$
+
 $$
 P(X=x_1) = \frac{\exp(x_1)}{\sum_{i=1, 2} \exp(x_i)} = \frac{\exp(x_1)}{\exp(x_1) + \exp(x_2)} = \frac{1}{1 + \exp(-(x_2 - x_1))} = \sigma (x_1 - x_2)  
 $$
