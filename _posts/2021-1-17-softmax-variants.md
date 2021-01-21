@@ -230,8 +230,8 @@ Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the
 
 $$
 \begin{aligned}
-L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} \left[ \log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c) \right] \\[10pt]
- &= - \sum_{w \in V} P^{\mathcal{D}_c}(w) \left( \log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \right) \\
+L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} \left[ \log P(D=1 | w, c) \right] - k \cdot \mathbb{E}_{w' \sim P^-} \left[ \log P(D=0 | w', c) \right] \\[10pt]
+ &= - \sum_{w \in V} P^{\mathcal{D}_c}(w) \left( \log P(D=1 | w, c)\right) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]  \\
  &= - \sum_{(w, c) \in \mathcal{D}_c} \frac{1}{\lvert \mathcal{D}_c \rvert} \left( \log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \right)
 \end{aligned}
 $$
