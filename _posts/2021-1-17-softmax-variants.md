@@ -183,7 +183,7 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 > **Note**: There are many other Bayesian sampling techniques such as Rejection Sampling and MCMC.
 
-> **Note**: The author also proposed the so-called Adaptive Importance Sampling, which which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
+> **Note**: The author also proposed the so-called Adaptive Importance Sampling, which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
 
 > **Note**: In the Word2Vec case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
 
