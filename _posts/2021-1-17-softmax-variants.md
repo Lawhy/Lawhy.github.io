@@ -261,11 +261,10 @@ $$
 To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. For the first part, we have:
 
 $$
-\usepackage{cancel}
 \begin{aligned}
 LHS &= \nabla_{\mathcal{\theta}} \sum_{w \in V} P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} \\
 &=\nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-}  + P^{\mathcal{D}_c} \cdot \nabla \log \frac{P^+}{P^+ + k \cdot P^-} \\
-&= \nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} + \cancel{P^{\mathcal{D}_c}} \cdot \frac{P^+ + k \cdot P^-}{\cancel{P+}} \cdot \nabla \frac{P^+}{P^+ + k \cdot P^-}\\
+&= \nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} + \sout{P^{\mathcal{D}_c}} \cdot \frac{P^+ + k \cdot P^-}{\sout{P+}} \cdot \nabla \frac{P^+}{P^+ + k \cdot P^-}\\
 &= 
 \end{aligned}
 $$
