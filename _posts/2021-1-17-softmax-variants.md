@@ -262,7 +262,7 @@ To see why NCE works, we need to compute its gradient and compare it with the gr
 
 | ![nce-proof1.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof1.PNG) | 
 |:--:| 
-| *Fig. 2: The detailed calculation for computing the gradient of the NCE loss (first part).* |
+| *Fig. 2: The detailed calculation steps for the gradient of the NCE loss (first part).* |
 
 
 -------
