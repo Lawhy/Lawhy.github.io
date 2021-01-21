@@ -231,7 +231,7 @@ We now have a binary classification problem with parameters that can be trained 
 $$
 \begin{aligned}
 L_{NCE} &= - \mathbb{E}_{c \sim P^{\mathcal{D}}} [\mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
- &\prop \sum_{c \in V} \sum_{w \in V} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
+ &\propto \sum_{c \in V} \sum_{w \in V} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
 $$
 
