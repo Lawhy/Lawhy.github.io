@@ -262,7 +262,7 @@ To see why NCE works, we need to compute its gradient and compare it with the gr
 
 $$
 \begin{aligned}
-\nabla_{\mathcal{\theta}} \sum_{w \in V} P^{\mathcal{D}_c}(w) \log \frac{P^+}{P^+ + k \cdot P^-} 
+\nabla_{\mathcal{\theta}} \sum_{w \in V} P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} 
 &=1 \\
 &=2
 \end{aligned}
