@@ -242,7 +242,7 @@ $$
 L_{c} = - \sum_{(w, c) \in \mathcal{D}_c} \left( \log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c) \right)
 $$
 
-By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
+By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relative terms, we have:
 
 $$
 L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)} \right)
