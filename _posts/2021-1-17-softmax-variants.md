@@ -225,7 +225,11 @@ $$
 
 The next step is to approximate the normalizing constant $$Z(c)$$ for each context word $$c$$. The initial implementation of NCE training learned a log-normalizing constant $$\theta_c = \log(\theta'_c)$$ such that $$Z(c) \approx \exp(- \theta_c)$$ (the minus sign is inferred from the paper's equation) for each context in the training set, storing them in a hash table indexed by the context [[6]](#ref6). However, with a large number of observed contexts we will encounter the **scalability** issue. Surprisingly, Mnih and Teh (2012) [[6]](#ref6) discovered that fixing the normalizing constants as $$Z(c) = 1$$ instead of learning them does not affect the performance of the resulting models. The explanation is that because the neural model has **a huge parameter space**, it is flexible enough to **learn the normalization constraint specific to each context**.
 
+By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P(D=1 \vert w, c = \frac{\exp(S(w,c))}{\exp(S(w,c)) + kP^-(w)}$$. 
+
 > **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
+
+
 
 -------
 
