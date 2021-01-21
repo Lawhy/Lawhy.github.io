@@ -243,6 +243,8 @@ $$
 L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c)}{\exp(S(w, c) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{P\exp(S(w, c) + k \cdot P^-(w)})
 $$
 
+### Asymtopic Analysis: Why NCE works?
+
 
 > **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
 
