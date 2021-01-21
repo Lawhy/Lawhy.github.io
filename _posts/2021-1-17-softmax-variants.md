@@ -230,12 +230,14 @@ We now have a binary classification problem with parameters that can be trained 
 
 $$
 \begin{aligned}
-L_{NCE} &= \mathbb{E}_{w \sim P^+} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
+L_{NCE} &= \mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
  &= - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
 $$
 
-Once again, we use the Monte-Carlo estimate of the expected value such that:
+where $$P^{\mathcal{D}$$ is the true distribution of our data and we want to have $$P^+$$ a good estimator of the general distribution (i.e. when the dataset size approaches infinity). 
+
+Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
 $$
 L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
