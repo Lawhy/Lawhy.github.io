@@ -236,9 +236,7 @@ L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot 
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. We can **discard the constant term** without affecting our objective.
-
-Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
+where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. We can **discard the constant term** without affecting our objective. Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the expectation of the noise distribution such that:
 
 $$
 L_{c} = - \sum_{(w, c) \in \mathcal{D}_c} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
@@ -247,7 +245,7 @@ $$
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
 
 $$
-L_{NCE} = - \sum_{c \in V} \sum_{w \in V} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)}
+L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)}
 $$
 
 > **Note**: We can express $$\sum_{c \in V} \sum_{w \in V^c}$$ as $$\sum_{(w, c) \in \mathcal{D}}$$.
