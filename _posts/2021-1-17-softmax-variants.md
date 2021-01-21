@@ -230,7 +230,7 @@ We now have a binary classification problem with parameters that can be trained 
 
 $$
 \begin{aligned}
-L_{NCE} &= \mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
+L_{NCE} &= - \mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
  &= - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
 $$
