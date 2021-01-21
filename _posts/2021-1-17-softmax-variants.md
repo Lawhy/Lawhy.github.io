@@ -258,11 +258,12 @@ $$
 L_{c} = - \sum_{w \in V} P^{\mathcal{D}_c}  \log \frac{P^+}{P^+ + k \cdot P^-} - k \cdot \sum_{w' \in V} P^-(w') \log \frac{k \cdot P^-}{P^+ + k \cdot P^-} 
 $$
 
-To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. For the first part, we have:
+To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. Let $$LHS$$ and $$LHS'$$ denote the first and second parts, respectively ($$L_c = - LHS - LHS'$$), then we have:
 
-| ![nce-proof1.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof-1.PNG) | 
+| ![nce-proof.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof.PNG) | 
 |:--:| 
-| *Fig. 2: The detailed calculation steps for the gradient of the NCE loss (first part).* |
+| *Fig. 2: The detailed calculation steps for the gradient of the NCE loss divided into two parts.* |
+
 
 
 -------
