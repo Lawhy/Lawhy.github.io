@@ -230,23 +230,23 @@ We now have a binary classification problem with parameters that can be trained 
 
 $$
 \begin{aligned}
-L_{NCE} &= - \mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
- &= - \frac{1}{\lvert \mathcal{D} \rvert}\sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
+L_{NCE} &= - \mathbb{E}_{c \sim P^{\mathcal{D}}} [\mathbb{E}_{w \sim P^{\mathcal{D}}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)]] \\ 
+ &\prop \sum_{c \in V} \sum_{w \in V} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
 $$
 
-    where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to have $$P^+$$ a good estimator of the unknown true distribution. Notice that we can discard the constant $$\frac{1}{\lvert \mathcal{D}}$$ without affecting the objective.
+where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to have $$P^+$$ a good estimator of the unknown true distribution. Notice that in the second line, we discard the constant terms without affecting the objective.
 
 Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
+L_{NCE} = - \sum_{c \in V} \sum_{w \in V} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
 $$
 
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)})
+L_{NCE} = - \sum_{c \in V} \sum_{w \in V} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)})
 $$
 
 ### Asymtopic Analysis: Why NCE works?
