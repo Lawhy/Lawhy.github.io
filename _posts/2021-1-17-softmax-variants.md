@@ -104,7 +104,7 @@ $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
 $$
 
-where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. 
+where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the word2vec case, $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
 
 > **Note**: The subscripts for $$z$$ and $$y$$ correspond to the indices of the words in the vocabulary. 
 
@@ -222,6 +222,10 @@ P^+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(
 $$
 
 > **Note**: NCE is not restricted to softmax and a discrete probability estimation. Instead, we can employ NCE to train an **unormalized probablisitc model** to estimate the probability density as proved in the original paper [[5]](#ref5). 
+
+The next step is to approximate the normalizing constant $$Z(c)$$ for each context word $$c$$
+
+> **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
 
 -------
 
