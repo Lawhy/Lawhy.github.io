@@ -278,6 +278,9 @@ As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} \cdot (
 
 > **Note**: The log-likelihood for the binary classification has the following form $$LL = \sum_i y_i \log \hat{y}_i + (1-y_i) \log (1 - \hat{y}_i)$$ and in our case $$y_i = P^{\mathcal{D}_c}$$ and $$\hat{y}_i = P^+$$.
 
+### Negative Sampling
+...
+
 
 -------
 
