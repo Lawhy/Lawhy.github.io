@@ -230,9 +230,9 @@ Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the
 
 $$
 \begin{aligned}
-L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \\[2pt]
+L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \\[4pt]
  &= - \sum_{w \in V} P^{\mathcal{D}_c}(w) \cdot (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])\\
- &= - \sum_{(w, c) \in \mathcal{D}} \frac{1}{\lvert \mathcal{D} \rvert} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
+ &= - \sum_{(w, c) \in \mathcal{D}_c} \frac{1}{\lvert \mathcal{D}_c \rvert} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
 $$
 
@@ -241,7 +241,7 @@ where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in t
 Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
 $$
-L_{c} = - \sum_{w \in V_c} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
+L_{c} = - \sum_{(w, c) \in \mathcal{D}_c} (\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c))
 $$
 
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relevant terms, we have:
