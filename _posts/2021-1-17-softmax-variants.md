@@ -236,7 +236,7 @@ L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot 
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot | c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot | c) = \hat{P}^{\mathcal{D}_c}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we discard the data probability term because every word-context pair (regardless of repetition) occurs only once in the dataset.
+where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P}^{\mathcal{D}_c}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we discard the data probability term because every word-context pair (regardless of repetition) occurs only once in the dataset.
 
 Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
