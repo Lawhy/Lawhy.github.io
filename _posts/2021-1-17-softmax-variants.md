@@ -230,7 +230,7 @@ Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the
 
 $$
 \begin{aligned}
-L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \\ \smallskip
+L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} [\log P(D=1 | w, c)] + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \\[2pt]
  &= - \sum_{w \in V} P^{\mathcal{D}_c}(w) \cdot (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])\\
  &= - \sum_{(w, c) \in \mathcal{D}} \frac{1}{\lvert \mathcal{D} \rvert} (\log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)])
 \end{aligned}
