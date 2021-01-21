@@ -235,7 +235,7 @@ L_{NCE} &= - \mathbb{E}_{c \sim P^{\mathcal{D}}} [\mathbb{E}_{w \sim P^{\mathcal
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to have $$P^+$$ a good estimator of the $$P^{\mathcal{D}}$$. Notice that in the second line, we discard the constant terms without affecting the objective.
+where $$P^{\mathcal{D}}$$ is the distribution of our data and we want to fit the model $$P^+$$ to $$P^{\mathcal{D}}$$. Notice that in the second line, we discard the constant terms without affecting the objective.
 
 Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the noise distribution such that:
 
