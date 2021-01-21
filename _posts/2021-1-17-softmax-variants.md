@@ -258,7 +258,7 @@ $$
 L_{c} = - \sum_{w \in V} P^{\mathcal{D}_c} \left( \log \frac{P^+}{P^+ + k \cdot P^-} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-}{P^+ + k \cdot P^-} \right)
 $$
 
-To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. For the first part, we have:
+To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. For the first part, we have:
 
 $$
 \begin{aligned}
