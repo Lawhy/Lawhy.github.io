@@ -98,7 +98,7 @@ The approaches discussed in this section utilize the Monte-Carlo sampling techni
 
 ### Cross-Entropy Loss with Softmax
 
-In the language model scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
+In the word2vec scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
 
 $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
@@ -183,7 +183,7 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 > **Note**: The author also proposed the so-called Adaptive Importance Sampling, which which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
 
-> **Note**: In the language model case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
+> **Note**: In the word2vec case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
 
 -------
 
@@ -215,7 +215,7 @@ P(D|w, c) = \frac{P(D, w|c)}{P(w | c)} = \frac{P(D, w|c)}{\sum_{d=0}^1 P(w, D=d 
 \end{equation}
 $$
 
-Notice that the positive distribution $$P^+(w \vert c)$$ is the softmax probability generated from our model:
+Notice that the positive distribution $$P^+(w \vert c)$$ in our case is the softmax probability generated from our model:
 
 $$
 P^+(w | c) = \frac{\exp(S(w, c))}{\sum_{v \in V} \exp(S(v, c)))} = \frac{\exp(S(w, c))}{Z(c)}
