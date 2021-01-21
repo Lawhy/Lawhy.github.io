@@ -228,7 +228,7 @@ The next step is to approximate the normalizing constant $$Z(c)$$ for each conte
 We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of dataset $$\mathcal{D}$$, with each positive sample accompanied by $$k$$ negative samples:
 
 $$
-L_{NCE} = - \sum_{(w, c) \in \mathcal{D}}
+L_{NCE} = - \sum_{(w, c) \in \mathcal{D}} [\log P^+(D=1 | w, c) + k \mathbb{E}_{w' \sim P^-} [\log P^-(D=0 | w', c)]]
 $$
 
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. 
