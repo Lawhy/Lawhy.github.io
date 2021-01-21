@@ -98,13 +98,13 @@ The approaches discussed in this section utilize the Monte-Carlo sampling techni
 
 ### Cross-Entropy Loss with Softmax
 
-In the word2vec scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
+In the Word2Vec scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
 
 $$
 L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
 $$
 
-where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the word2vec case (or other context dependent scenarios), $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
+where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the Word2Vec case (or other context dependent scenarios), $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
 
 > **Note**: The subscripts for $$z$$ and $$y$$ correspond to the indices of the words in the vocabulary. 
 > **Note**: The cross-entropy loss happens to be the same as **minimizing the negative log-likehood (or MLE)** in our scenario.
@@ -184,7 +184,7 @@ Notice that we actually decompose the term as $$\mathbb{E}_Q[\nabla z \frac{P(z)
 
 > **Note**: The author also proposed the so-called Adaptive Importance Sampling, which which means to design an adaptive proposal distribution $$Q$$ such that it becomes closer to the target distribution $$P$$. 
 
-> **Note**: In the word2vec case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
+> **Note**: In the Word2Vec case, $$z$$ is simply the similarity score between $$w$$ and $$c$$, i.e. $$S(w, c)$$.
 
 -------
 
@@ -246,10 +246,10 @@ $$
 
 ### Asymtopic Analysis: Why NCE works?
 
-Consider the maximum likelihood objective:
+Recall the gradient of the cross-entropy loss derived from the previous section, since it is equivalent to minimizing the negative likelihood in the Word2Vec case, we can rewrite the equation by adding on the context dependence and the summation over all center words as follows:
 
 $$
-
+\nabla L_{NLE} = - \sum_{(w, c) \in \mathcal{D}} \nabla S(w, c) + \mathbb{E}[\nabla S(w, c)] 
 $$
 
 
