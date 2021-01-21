@@ -43,7 +43,7 @@ The approaches discussed in this section more or less maintain the overall struc
 
 ### Hierarchical Softmax (H-Softmax)
 
-The idea of H-Softmax starts from manipulating the equation of the conditional probability by **partioning** the outcomes of the random variable of interest into **clusters**. To illustrate, suppose we want to compute the conditional probability of $$Y$$ given $$X$$, by applying the summation rule we have:
+The idea of H-Softmax starts from manipulating the equation of the conditional probability by **partitioning** the outcomes of the random variable of interest into **clusters**. To illustrate, suppose we want to compute the conditional probability of $$Y$$ given $$X$$, by applying the summation rule we have:
 
 $$
 P(Y|X) = \sum_k P(Y, C_k | X) = \sum_k P(Y | C_k, X) \cdot P(C_k | X)
@@ -55,7 +55,7 @@ $$
 P(Y|X) = P(Y | C(Y), X) \cdot P(C(Y) | X)
 $$
 
-We can then extend the idea by applying the paritioning **recursively** as in a **binary tree structure** such that at each node of the tree, we are partioning words into two clusters. Suppose we have a **balanced binary tree** with leaves representing the words in the vocabulary, then the maximum search depth will be $$\log \lvert V \rvert$$ instead of $$\lvert V \rvert$$ as in the original softmax. Following the previous equation, we can replace the random variables to fit our context as follows:
+We can then extend the idea by applying the paritioning **recursively** as in a **binary tree structure** such that at each node of the tree, we are partitioning words into two clusters. Suppose we have a **balanced binary tree** with leaves representing the words in the vocabulary, then the maximum search depth will be $$\log \lvert V \rvert$$ instead of $$\lvert V \rvert$$ as in the original softmax. Following the previous equation, we can replace the random variables to fit our context as follows:
 
 $$
 P(w | c) = P(w | p(w), c) \cdot P(p(w) | c) 
@@ -71,7 +71,7 @@ where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V
 
 | ![hsoftmax.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/hsoftmax.png) | 
 |:--:| 
-| *Fig. 1: The example of applying the recursive cluster partioning as in the balanced binary tree.* |
+| *Fig. 1: The example of applying the recursive cluster partitioning as in the balanced binary tree.* |
 
 Since we are searching in the binary tree, the probability function for each node can be the sigmoid function as proposed in the original work of H-Softmax [[2]](#ref3).
 
@@ -101,7 +101,7 @@ The approaches discussed in this section utilize the Monte-Carlo sampling techni
 In the Word2Vec scenario, the **cross-entropy loss for a single instance** $$\mathbf{y}$$ (one-hot encoding vector with value $$1$$ at the $$i$$th position) has the following form (see my previous post [here](https://lawhy.github.io/cross-entropy/) about cross-entropy): 
 
 $$
-L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j))
+L_i = H(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^{\lvert V \rvert} y_j \log \hat{y}_j = - \log \hat{y}_i = - \log \frac{\exp(z_{i})}{\sum_{j=1}^{\lvert V \rvert} \exp(z_j))} = - z_i + \log (\sum_{j=1}^{\lvert V \rvert} \exp(z_j)
 $$
 
 where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the Word2Vec case (or other context dependent scenarios), $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
