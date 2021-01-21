@@ -258,7 +258,7 @@ $$
 L_{c} = - \sum_{w \in V} P^{\mathcal{D}_c}  \log \frac{P^+}{P^+ + k \cdot P^-} - k \cdot \sum_{w' \in V} P^-(w') \log \frac{k \cdot P^-}{P^+ + k \cdot P^-} 
 $$
 
-To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P+$$ to help with the calculation. Let $$LHS$$ and $$LHS'$$ denote the first and second parts, respectively ($$L_c = - LHS - LHS'$$), then we have:
+To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P^+$$ to help with the calculation. Let $$LHS$$ and $$LHS'$$ denote the first and second parts, respectively ($$L_c = - LHS - LHS'$$), then we have:
 
 | ![nce-proof.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/nce-proof.PNG) | 
 |:--:| 
