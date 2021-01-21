@@ -237,16 +237,16 @@ L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} \left[ \log P(D=1 | w, c) \righ
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. We can **discard the constant term** without affecting our objective. Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the expectation of the noise distribution such that:
+where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. <del> We can **discard the constant term** without affecting our objective.</del> Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the expectation of the noise distribution such that:
 
 $$
-L_{c} = - \sum_{(w, c) \in \mathcal{D}_c}  \log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c) 
+L_{c} = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c) 
 $$
 
 By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relative terms, we have:
 
 $$
-L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c}  \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)} 
+L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)} 
 $$
 
 > **Note**: An easy way of constructing the noise distribution is by letting $$P^-(w') = 1 - P_{unigram}(w')$$. This is the technique used in the Negative Sampling which is a special case of NCE.
