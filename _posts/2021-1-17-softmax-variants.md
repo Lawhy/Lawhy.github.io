@@ -258,6 +258,11 @@ $$
 L_{c} = - \sum_{w \in V} P^{\mathcal{D}_c}(w) \left( \log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \right)
 $$
 
+To see why NCE works, we need to compute its gradient:
+
+$$
+\nabla_{\mathcal{\theta}} L_{c} = 
+$$
 
 
 -------
