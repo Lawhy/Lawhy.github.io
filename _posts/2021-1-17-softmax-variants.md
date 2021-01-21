@@ -261,7 +261,9 @@ $$
 To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. For the first part, we have:
 
 $$
-\nabla_{\mathcal{\theta}} \sum_{w \in V}  = \sum_{w \in V} P^{\mathcal{D}_c}(w) \log P(D=1 | w, c)
+\begin{aligned}
+\nabla_{\mathcal{\theta}} \sum_{w \in V} P^{\mathcal{D}_c}(w) \log P(D=1 | w, c) &=
+\end{aligned}
 $$
 
 
