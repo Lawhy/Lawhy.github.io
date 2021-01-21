@@ -248,7 +248,7 @@ $$
 L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c}  \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)} 
 $$
 
-**Note**: An easy way of constructing the noise distribution is by letting $$P^-(w') = 1 - P_{unigram}(w')$$. This is the technique used in the Negative Sampling which is a special case of NCE.
+> **Note**: An easy way of constructing the noise distribution is by letting $$P^-(w') = 1 - P_{unigram}(w')$$. This is the technique used in the Negative Sampling which is a special case of NCE.
 
 ### Asymtopic Analysis: Why NCE works?
 
