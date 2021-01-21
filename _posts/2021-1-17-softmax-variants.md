@@ -248,8 +248,6 @@ $$
 L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c} (\log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w)}{\exp(S(w, c)) + k \cdot P^-(w)}
 $$
 
-> **Note**: We can express $$\sum_{c \in V} \sum_{w \in V^c}$$ as $$\sum_{(w, c) \in \mathcal{D}}$$.
-
 ### Asymtopic Analysis: Why NCE works?
 
 Recall the gradient of the cross-entropy loss derived from the previous section, since it is equivalent to minimizing the negative likelihood in the Word2Vec case, we can rewrite the equation by adding on the context dependence and the summation over all center words as follows:
