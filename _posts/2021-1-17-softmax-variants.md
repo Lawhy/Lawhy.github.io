@@ -252,14 +252,11 @@ $$
 
 ### Asymtopic Analysis: Why NCE works?
 
-Recall the gradient of the cross-entropy loss derived from the previous section, since it is equivalent to minimizing the negative likelihood in the Word2Vec case, we can rewrite the equation by adding on the context dependence and the summation over all center words as follows:
+Recall the expression of $$L_c$$ after applying the definition of the expectation:
 
 $$
-\nabla L_{NLE} = - \sum_{(w, c) \in \mathcal{D}} \nabla S(w, c) + \mathbb{E}[\nabla S(w, c)] 
+L_{c} = - \sum_{w \in V} P^{\mathcal{D}_c}(w) \left( \log P(D=1 | w, c) + k \cdot \mathbb{E}_{w' \sim P^-} [\log P(D=0 | w', c)] \right)
 $$
-
-
-> **Note**: It can be proved that NCE has **Asymptotic Normality** while Negative Sampling does not guarantee this property.
 
 
 
