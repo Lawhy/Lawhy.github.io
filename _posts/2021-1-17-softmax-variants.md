@@ -264,7 +264,7 @@ $$
 \begin{aligned}
 LHS &= \nabla_{\mathcal{\theta}} \sum_{w \in V} P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} \\
 &=\nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-}  + P^{\mathcal{D}_c} \cdot \nabla \log \frac{P^+}{P^+ + k \cdot P^-} \\
-&= \nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} + P^{\mathcal{D}_c} \cdot \frac{P^+ + k \cdot P^-}{P+} \cdot \nabla \frac{P^+}{P^+ + k \cdot P^-}\\
+&= \nabla P^{\mathcal{D}_c} \cdot \log \frac{P^+}{P^+ + k \cdot P^-} + \cancel{P^{\mathcal{D}_c}} \cdot \frac{P^+ + k \cdot P^-}{\cancel{P+}} \cdot \nabla \frac{P^+}{P^+ + k \cdot P^-}\\
 &= 
 \end{aligned}
 $$
