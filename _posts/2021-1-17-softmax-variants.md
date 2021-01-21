@@ -274,6 +274,8 @@ $$
 \end{aligned}
 $$
 
+As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} \cdot (P^{\mathcal{D}_c} - P^+) \nabla_{\mathcal{\theta}} \cdot \log(P^+)$$
+
 
 -------
 
