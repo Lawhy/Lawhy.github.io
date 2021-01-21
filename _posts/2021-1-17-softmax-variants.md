@@ -107,6 +107,7 @@ $$
 where $$y_j = 1 \iff j=i$$ because of the nature of the one-hot encoding, $$z$$ refers to the unnormalized result generated from the previous layer, and the output is computed by the softmax activation. In the Word2Vec case (or other context dependent scenarios), $$z_i = S(w_i, c)$$ given some context word $$c$$. For the clearer illustration of the algebraic calculations, we neglect the context dependence for this section. 
 
 > **Note**: The subscripts for $$z$$ and $$y$$ correspond to the indices of the words in the vocabulary. 
+
 > **Note**: The cross-entropy loss happens to be the same as **minimizing the negative log-likehood (or MLE)** in our scenario.
 
 For backpropagation we need to compute the gradient of the loss as:
@@ -143,11 +144,11 @@ where $$\nabla z_k$$ is sampled from the network's distribution $$P$$ as mention
 
 > **Note**: Many Bayesian integrals can be viewed as expectations. 
 
-It is clear that if $$m < \lvert V \rvert$$, then we will have a reduced computation steps. Nevertheless, such sampling method requires to **know the distribution $$P$$ of words** from the network which is even harder. Moreover, to reduce the training time further we need to **approximate the normalizing term using the sampling techniques** as well. In the following section, we will discuss how to address these two problems using Importance Sampling.
+It is clear that if $$m < \lvert V \rvert$$, then we will have a reduced number of computation steps. Nevertheless, such sampling method requires to **know the distribution $$P$$ of words** from the network which is even harder. Moreover, to reduce the training time further we need to **approximate the normalizing term using the sampling techniques** as well. In the following section, we will discuss how to address these two problems using Importance Sampling.
 
 ### Importance Sampling
 
-The idea of the importance sampling is to leverage a easy-to-compute distribution $$Q$$ (e.g. the unigram distribution) called the **proposal distribution** to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
+The idea of the importance sampling is to leverage an easy-to-compute distribution $$Q$$ (e.g. the unigram distribution) called the **proposal distribution** to avoid sampling from the network's distribution $$P$$. To this end, we rewrite the forluma of the expected value as:
 
 $$
 \mathbb{E}_{P}[f(X)] = \int f(x)p(x) dx = \int f(x)\frac{P(x)}{Q(x)} Q(x) dx = \mathbb{E}_{Q}[f(X)\frac{P(X)}{Q(X)}] \approx \frac{1}{m} \sum_{k=1}^m f(x_k) \frac{P(x_k)}{Q(x_k)} 
