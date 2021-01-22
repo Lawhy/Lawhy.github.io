@@ -237,7 +237,7 @@ L_{c} &= - \mathbb{E}_{w \sim P^{\mathcal{D}_c}} \left[ \log P(D=1 | w, c) \righ
 \end{aligned}
 $$
 
-where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. <del> We can **discard the constant term** without affecting our objective.</del> Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the expectation of the noise distribution such that:
+where $$P^{\mathcal{D}_c}(w)$$ is the probability of the word $$w$$ occured in the context $$c$$, and we want to fit the model $$P^+(\cdot \vert c)$$ to $$P^{\mathcal{D}_c}(\cdot)$$ such that $$P^+(\cdot \vert c) = \hat{P^{\mathcal{D}_c}}(\cdot)$$. Notice that the second line of the equation comes from the definition of the expectation for a discrete distribution. In the third line, we change the data probability term to a constant because every word-context pair (regardless of repetition) occurs only once in the dataset. <del> We can **discard the constant term** without affecting our objective.</del> Once again, we use the Monte-Carlo estimate of the expected value to avoid expensive computation on the expectation of the noise distribution such that:
 
 $$
 L_{c} = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c) 
@@ -296,6 +296,7 @@ L
 &= - \sum_{(w, c) \in \mathcal{D}}\left( \log \sigma[S(w, c)] + \sum_{i=1, w' \sim P^-}^{\lvert V \rvert} \log \sigma[-S(w'_i, c)] \right)
 \end{aligned}
 
+where $$\sigma{\cdot}$$ is the sigmoid function.
 
 -------
 
