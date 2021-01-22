@@ -249,7 +249,14 @@ $$
 L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} 
 $$
 
-> **Note**: An easy way of constructing the noise distribution is by letting $$P^-(w') = 1 - P_{unigram}(w')$$. This is the technique used in the Negative Sampling which is a special case of NCE.
+The expression of $$L_c$$ suggests that **on average**, each positive sample given a fixed context $$c$$ is accompanied by $$k$$ negative samples. Thus, for the overall NCE loss, we can discard the average term and express it as each positive sample is associated with $$k$$ negative samples:
+
+$$
+\begin{aligned}
+L &= - \sum_{(w, c) \in \mathcal{D}} \left(\log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c)\right) \\
+  &= L = - \sum_{(w, c) \in \mathcal{D}} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} \right)
+\end{aligned}
+$$
 
 ### Asymtopic Analysis: Why NCE works?
 
