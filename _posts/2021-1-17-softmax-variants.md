@@ -278,7 +278,8 @@ $$
 As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} (P^{\mathcal{D}_c} - P^+) \nabla_{\mathcal{\theta}} \cdot \log(P^+)$$ which is the gradient of the negative log-likelihood scaled by the difference between the true data distribution and the model's distribution. To interpret this further, we see that the extreme points will be attained with the zero gradient, i.e. either $$P^{\mathcal{D}_c} - P^+ = 0$$ or the gradient of the log likelihood of our model gets zero. The former means our model **perfectly fits to the data distribution** and the latter suggests the **maximization of our model's log-likelihood**. In other words, as the ratio of noise samples to observations increases, the negative of the NCE gradient approaches the maximum likelihood gradient.
 
 ### Negative Sampling
-...
+
+Negative Sampling can be viewed as a special case of NCE when (1) $$k = \lvert V \rvert$$ and (2) $$P^-$$ is uniform. To see this, recall the monte-carlo-estimated form of the NCE loss with substitutions of $$k = \lvert V \rvert$$ and $$P^-(w) = \frac{1}{\lvert V \rvert}$$.
 
 
 -------
