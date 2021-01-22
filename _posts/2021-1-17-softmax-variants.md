@@ -243,7 +243,7 @@ $$
 L_{c} = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c) 
 $$
 
-By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. Substituting the relative terms, we have:
+By setting $$Z(c) = 1$$ for all context $$c$$, we have: $$P^+(w \vert c) = \exp(S(w, c))$$. After substituting the relevant terms, we have:
 
 $$
 L_{c}  = - \sum_{(w, c) \in \mathcal{D}_c}  \frac{1}{\lvert \mathcal{D}_c \rvert} \cdot \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} 
@@ -300,8 +300,15 @@ $$
 
 where $$\sigma{\cdot}$$ is the sigmoid function. To interpret $$P^-$$ as a uniform distribution, consider the whole corpus with each position having a "unique" token (the uniqueness is **in terms of the position, not the word**), it is clear that these "unique" tokens are uniformly distributed because each one of them has only one occurrence. 
 
-### Conclusions
+### Self Normalization
 ...
+
+### Infrequent Normalization
+...
+
+### Acknowledgements
+
+This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers [[2] - [6]](#ref4) but the **corresponding proofs are all written by myself**.
 
 -------
 
