@@ -300,15 +300,29 @@ $$
 
 where $$\sigma{\cdot}$$ is the sigmoid function. To interpret $$P^-$$ as a uniform distribution, consider the whole corpus with each position having a "unique" token (the uniqueness is **in terms of the position, not the word**), it is clear that these "unique" tokens are uniformly distributed because each one of them has only one occurrence. 
 
+-------
+
+## Tackling the Normalizing Constant Directly
+
+All the approaches discussed in the previous sections attempt to approximate the normalizing constant, but circle around this goal with many additional settings. A natural question to ask is, why don't we give a treatment to the normalizing constant more directly? 
+
+
 ### Self Normalization
 ...
 
 ### Infrequent Normalization
 ...
 
+
+> **Note**: The softmax variants discussed in this post share some theoretical connections and are driven by one primary goal---to deal with the normalizing constant in the softmax function's denominator.
+
+----------
+
 ### Acknowledgements
 
-This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers [[2] - [6]](#ref4) but the **corresponding proofs are all written by myself**.
+This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers [[2] - [6]](#ref4) but the **corresponding proofs are all written by myself**
+
+### Citation
 
 -------
 
