@@ -253,8 +253,8 @@ The expression of $$L_c$$ suggests that **on average**, each positive sample giv
 
 $$
 \begin{aligned}
-L &= - \sum_{(w, c) \in \mathcal{D}} \left(\log P(D=1 | w, c) - \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c)\right) \\
-  &= - \sum_{(w, c) \in \mathcal{D}} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} - \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} \right)
+L &= - \sum_{(w, c) \in \mathcal{D}} \left(\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c)\right) \\
+  &= - \sum_{(w, c) \in \mathcal{D}} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} \right)
 \end{aligned}
 $$
 
