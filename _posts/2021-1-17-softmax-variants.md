@@ -288,6 +288,7 @@ As $$k \to \infty$$, $$\nabla_{\mathcal{\theta}} L_c \to -\sum_{w \in V} (P^{\ma
 
 Negative Sampling can be viewed as a special case of NCE when (1) $$k = \lvert V \rvert$$ and (2) $$P^-$$ is uniform. To see this, recall the monte-carlo-estimated form of the NCE loss and apply the substitutions of $$k = \lvert V \rvert$$ and $$P^-(w) = \frac{1}{\lvert V \rvert}$$, then we have:
 
+$$
 \begin{aligned}
 L
 &= - \sum_{(w, c) \in \mathcal{D}} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + \lvert V \rvert \cdot \frac{1}{\lvert V \rvert}} + \sum_{i=1, w' \sim P^-}^{\lvert V \rvert} \log \frac{\lvert V \rvert \cdot \frac{1}{\lvert V \rvert}}{\exp(S(w_i', c)) + \lvert V \rvert \cdot \frac{1}{\lvert V \rvert}} \right)\\
@@ -295,6 +296,7 @@ L
 &= - \sum_{(w, c) \in \mathcal{D}}\left( \log \frac{1}{1 + \exp(-S(w, c))} + \sum_{i=1, w' \sim P^-}^{\lvert V \rvert} \log \frac{1}{1 + \exp(S(w'_i, c))}\right) \\
 &= - \sum_{(w, c) \in \mathcal{D}}\left( \log \sigma[S(w, c)] + \sum_{i=1, w' \sim P^-}^{\lvert V \rvert} \log \sigma[-S(w'_i, c)] \right)
 \end{aligned}
+$$
 
 where $$\sigma{\cdot}$$ is the sigmoid function.
 
