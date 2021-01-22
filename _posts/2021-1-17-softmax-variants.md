@@ -298,7 +298,7 @@ L
 \end{aligned}
 $$
 
-where $$\sigma{\cdot}$$ is the sigmoid function.
+where $$\sigma{\cdot}$$ is the sigmoid function. To interpret $$P^-$$ as a uniform distribution, consider the whole corpus with each position having a "unique" token (the uniqueness is **in terms of the position, not the word**), it is clear that these "unique" tokens are uniformly distributed because each one of them has only one occurrence. 
 
 ### Conclusions
 ...
