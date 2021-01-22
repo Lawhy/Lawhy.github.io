@@ -3,7 +3,7 @@ layout: post
 title: "[Maths] Softmax and its Variants"
 date: 2021-1-17
 excerpt: "Softmax function is widely used in the output layer of neural network based model. However, it suffers from the time complexitiy problem resulted from normalizing over the whole vocabulary in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating/replacing softmax have been proposed, and this post introduces some of them as well as the maths behind them."
-tags: [softmax, softmax_variants, normalizing_constant, maths]
+tags: [softmax, softmax_variants, normalization, cross_entropy, maximum_likelihood_estimation, monte_carlo_estimation, sampling, maths]
 comments: true
 ---
 
