@@ -328,7 +328,7 @@ This post follows the same order of introducing the softmax variants as in Sebas
 ```
 @misc{yuan2020softmaxvariants,
 author = {He, Yuan},
-title = {{Softmax and its Variants}},
+title = {Softmax and its Variants},
 year = {2020},
 howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
 }
