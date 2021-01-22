@@ -313,10 +313,11 @@ All the approaches discussed in the previous sections attempt to approximate the
 ### Infrequent Normalization
 ...
 
-
-> **Note**: The softmax variants discussed in this post share some theoretical connections and are driven by one primary goal---to deal with the normalizing constant in the softmax function's denominator.
-
 ----------
+
+## Conclusions
+
+The softmax variants discussed in this post share some theoretical connections and are driven by one primary goal---to deal with the normalizing constant in the softmax function's denominator.
 
 ### Acknowledgements
 
