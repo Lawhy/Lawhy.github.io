@@ -320,9 +320,19 @@ All the approaches discussed in the previous sections attempt to approximate the
 
 ### Acknowledgements
 
-This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers [[2] - [6]](#ref4) but the **corresponding proofs are all written by myself**
+This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers ([[2] - [6]](#ref4)) but the **corresponding proofs are all written by myself**
 
 ### Citation
+
+```
+@misc{yuan2020softmaxvariants,
+author = {He, Yuan},
+title = {{Softmax and its Variants}},
+year = {2020},
+howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
+}
+```
+
 
 -------
 
