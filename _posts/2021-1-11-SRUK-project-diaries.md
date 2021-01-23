@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: post
 title: "[ProjDiaries] Oxford-SRUK-OntoAlign"
 date: 2021-1-11
 excerpt: "Notes on the plans and progress for the Oxford-SRUK-OntoAlign project ranged from January 2021 to June 2021 (tentative)."
