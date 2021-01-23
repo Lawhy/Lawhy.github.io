@@ -69,7 +69,7 @@ $$
 
 where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. The figure below demonstrates an example of computing the conditional probability $$P(blue \vert context)$$ in the hierarchical manner.
 
-| ![hsoftmax.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/materials/hsoftmax.png) | 
+| ![hsoftmax.jpg](/assets/img/posts/hsoftmax.png) | 
 |:--:| 
 | *Fig. 1: The example of applying the recursive cluster partitioning as in the balanced binary tree.* |
 
@@ -269,7 +269,7 @@ $$
 
 To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. <del> Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P^+$$ to help with the calculation </del>. Let $$LHS$$ and $$LHS'$$ denote the first and second parts, respectively ($$L_c = - LHS - LHS'$$), then we have:
 
-| ![nce-mle-proof.jpg](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/materials/nce-mle-proof.PNG) | 
+| ![nce-mle-proof.jpg](/assets/img/posts/nce-mle-proof.PNG) | 
 |:--:| 
 | *Fig. 2: The detailed calculation steps for the gradient of the NCE loss (divided into two parts for better comprehension) which is omitted in the original paper* |
 
