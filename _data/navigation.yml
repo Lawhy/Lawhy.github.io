@@ -1,4 +1,7 @@
 # Site navigation links
 
-# - title: Projects
-#   url: /projects/
+- title: Projects
+  url: /projects/
+
+- title: 文学作品
+  url: /chinese-literature/
