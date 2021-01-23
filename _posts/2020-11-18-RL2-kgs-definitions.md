@@ -110,7 +110,7 @@ Notes on reading the long survey: **Knowledge Graphs** (see References).
     
     16.4 <u>Relation Extraction</u>: The RE task extracts relations between entities in the text. 
     
-    ![Text-extraction](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/Materials/Text-extraction-example.PNG)
+    ![Text-extraction](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/_posts/materials/Text-extraction-example.PNG)
  
 ---
 ### References
