@@ -330,7 +330,7 @@ There are two important points to discuss here: (1) there is **some freedom** fo
 
 > **Note**: The second point disagrees with Ruder's post [[1]](#ref1) where he suggested that self-normalization works for accelerating the training speed.
 
-### Infrequent Normalization
+### Sampling-based Self-Normalization
 
 To improve the **computational efficiency in the training time**, Andreas and Klein (2015) [[9]](#ref9) proposed a sampling-based self-normalization model based on the observation that as long as a sufficiently large fraction of training examples are normalized, there will be some guarantee of high probability for $$Z(c) \approx 1$$ on the remaining training examples as well. Thus, the objective function was modified to the following:
 
