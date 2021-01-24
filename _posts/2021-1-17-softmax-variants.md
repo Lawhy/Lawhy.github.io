@@ -231,6 +231,9 @@ $$
 
 The next step is to approximate the normalizing constant $$Z(c)$$ for each context word $$c$$. The initial implementation of NCE training learned a log-normalizing constant $$\theta_c = \log(\theta'_c)$$ such that $$Z(c) \approx \exp(- \theta_c)$$ (the minus sign is inferred from the paper's equation) for each context in the training set, storing them in a hash table indexed by the context [[6]](#ref6). However, with a large number of observed contexts we will encounter the **scalability** issue. Surprisingly, Mnih and Teh (2012) [[6]](#ref6) discovered that fixing the normalizing constants as $$Z(c) = 1$$ instead of learning them does not affect the performance of the resulting models. The explanation is that because the neural model has **a huge parameter space**, it is flexible enough to **learn the normalization constraint specific to each context**. 
 
+> **Note**: For more theoretical explanation of the self-normalizing constraint $$Z(c) = 1$$ in NCE, please refer to Goldberger and Melamud's work [[7]](#ref7) which focuses on the properties of self-normalization in language models.
+
+
 Denote the data distribution by $$\mathcal{D} = \{ (w, c) \vert \text{$c$ is the context word of $w$} \}$$ and the data distribution given a fixed context $$c$$ by $$\mathcal{D}_c$$. We now have a binary classification problem with parameters that can be trained to minimize the negative conditional log-likelihood of the data portion conditioned on the context $$c$$, with each positive sample accompanied by $$k$$ negative samples:
 
 $$
@@ -326,7 +329,7 @@ The softmax variants discussed in this post share some theoretical connections a
 
 ### Acknowledgements
 
-This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the original papers ([[2] - [6]](#ref4)) but the **corresponding proofs are all written by myself**. Thanks for [Yixuan He](https://www.linkedin.com/in/yixuan-he-sheryl/?originalSubdomain=uk)'s effort of proofreading and review.
+This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the conference papers ([[2] - [7]](#ref4)) but the **corresponding proofs are all written by myself**. Thanks for [Yixuan He](https://www.linkedin.com/in/yixuan-he-sheryl/?originalSubdomain=uk)'s effort of proofreading and review.
 
 ### Citation
 
@@ -355,3 +358,5 @@ howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
 - [5] Gutmann, M. & Hyvärinen, A.. (2010). Noise-contrastive estimation: A new estimation principle for unnormalized statistical models. Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, in PMLR 9:297-304 <a name="ref5"></a>
 
 - [6] Mnih, A. and Y. Teh. “A fast and simple algorithm for training neural probabilistic language models.” ICML (2012). <a name="ref6"></a>
+
+- [7] Goldberger, J. and Oren Melamud. “Self-Normalization Properties of Language Modeling.” ArXiv abs/1806.00913 (2018): n. pag. <a name="ref7"></a>
