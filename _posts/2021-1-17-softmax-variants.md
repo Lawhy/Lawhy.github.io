@@ -316,8 +316,12 @@ All the approaches discussed in the previous sections attempt to approximate the
 The idea of self-normalizing softmax is to encourage the network to learn $$Z(c) = 1 \implies \log Z(c) = 0$$ [[7]](#ref7). To achieve this, it has the following objective function:
 
 $$
-L = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha (\log Z(c) - 0)^2\right] = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha \log^2 Z(c)\right]
+\begin{aligned}
+L &= - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha (\log Z(c) - 0)^2\right] \\
+  &= - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha \log^2 Z(c)\right]
+\end{aligned}
 $$
+
 And at the decoding time,  we can simply discard $$Z(c)$$ in $$P(w|c$$ ) such that $$P(w|c) \approx \exp[S(w, c)]$$ because our model has learnt $$\log Z(c) \approx 0$$. The author claimed that self-normalization increases the decoding speed by a factor of $$\sim 15 \times$$ for their implementation of the language model.
 
 > **Note**: Compared to the equation in the original paper [[7]](#ref7) which is to maximize the log-likelihood, we add the minus sign here which instead suggests minimization for consistency in this post. Moreover, the variables are replaced as in the scenario of learning word representations or language modelling.
