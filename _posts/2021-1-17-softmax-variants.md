@@ -258,13 +258,9 @@ $$
 
 The expression of $$L_c$$ suggests that **on average**, each positive sample given a fixed context $$c$$ is accompanied by $$k$$ negative samples. Thus, for the overall NCE loss, we can discard the average term and express it as each positive sample is indeed associated with $$k$$ negative samples:
 
-$$
-\begin{aligned}
-L &= - \mathbb{E}_{c \sim P^{\mathcal{D}}} \left[ L_c \right] \\
-  &= - \sum_{(w, c) \in \mathcal{D}} \left(\log P(D=1 | w, c) + \sum_{i=1, w' \sim P^-}^k \log P(D=0 | w'_i, c)\right) \\
-  &= - \sum_{(w, c) \in \mathcal{D}} \left( \log \frac{\exp(S(w, c))}{\exp(S(w, c)) + k \cdot P^-(w)} + \sum_{i=1, w' \sim P^-}^k \log \frac{k \cdot P^-(w_i')}{\exp(S(w_i', c)) + k \cdot P^-(w_i')} \right)
-\end{aligned}
-$$
+| ![nce-mle-proof.jpg](/assets/img/posts/total-nce-loss-proof.PNG) | 
+|:--:| 
+| *Fig. 2: The detailed calculation steps for the overall NCE loss.* |
 
 ### Asymtopic Analysis: Why NCE works?
 
@@ -278,7 +274,7 @@ To see why NCE works, we need to compute its gradient and compare it with the gr
 
 | ![nce-mle-proof.jpg](/assets/img/posts/nce-mle-proof.PNG) | 
 |:--:| 
-| *Fig. 2: The detailed calculation steps for the gradient of the NCE loss (divided into two parts for better comprehension) which is omitted in the original paper* |
+| *Fig. 3: The detailed calculation steps for the gradient of the NCE loss (divided into two parts for better comprehension) which is omitted in the original paper* |
 
 By combining the results, we can express the NCE loss as:
 
