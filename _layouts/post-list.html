@@ -26,7 +26,13 @@ layout: compress
                         {% if post.project == null and post.amateur == null  %}
                     <ul>
                         <li class="wow fadeInLeft" data-wow-duration="1.5s">
-                            <a class="zoombtn" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+                            <a class="zoombtn" href="{{ site.url }}{{ post.url }}">
+                                {% if post.highlight == true %} <i class="fa fa-star"></i> {% endif %}
+                            	{{ post.title }}
+                                {% if post.maths == true %} <i class="fa fa-calculator"></i> {% endif %}
+                                {% if post.paper == true %} <i class="fa fa-bookmark"></i> {% endif %}
+                                {% if post.review == true %} <i class="fa fa-book"></i> {% endif %}
+                            </a>
                             <h4>{{ post.date | date_to_string }}</h4>
                             <p>{{ post.excerpt }}</p>
                             <a href="{{ site.url }}{{ post.url }}" class="btn zoombtn">Read More</a>
@@ -35,6 +41,17 @@ layout: compress
                         {% endif %}
                     {% endfor %}
                 </div>
+                <h4>
+        	<div class="annotations">
+            		<span><i class="fa fa-calculator"></i>: Math-Heavy </span>
+            		<span><i class="fa fa-bookmark"></i>: Paper Reading </span>
+            		<span><i class="fa fa-book"></i>:  Literature Review </span> 
+            		<span><i class="fa fa-star"></i>:  Highlighted Post </span> 
+        	</div>
+        	</h4>
+        	<style>
+            		.annotations { display: flex; justify-content: space-between; }
+        	</style>
             </div>
         </div>
     </header>

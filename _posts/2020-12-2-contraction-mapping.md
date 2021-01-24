@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "[Maths] Contraction Mapping Theorem"
+title: "Contraction Mapping Theorem"
 date: 2020-12-2
 excerpt: "The proof and notes of the Contraction Mapping Theorem."
 tags: [contraction_mapping_theorem, topology, maths]
 comments: false
+highlight: false
+maths: true
+review: false
+paper: false
 ---
 
 ## Contraction Mapping Definition

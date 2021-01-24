@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "[LitRev] Knowledge Graphs"
+title: "Concepts in Knowledge Graphs"
 date: 2020-11-18
 excerpt: "A collection of definitions and concise points in the long survey of Knowledge Graphs (KGs)."
 tags: [knowledge_graph, kg, literature_review]
 comments: false
+highlight: false
+maths: false
+review: true
+paper: false
 ---
 
 Notes on reading the long survey: **Knowledge Graphs** (see References).
