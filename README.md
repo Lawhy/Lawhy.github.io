@@ -1,2 +1,2 @@
-# Homepage based on Moon Jekyll Theme
+# Yuan He's Homepage based on Moon Jekyll Theme
 
