@@ -346,7 +346,9 @@ where $$\mathcal{D}'$$ is the **sampled subset** of our corpus $$\mathcal{D}$$ a
 
 ## Conclusions
 
-The softmax variants discussed in this post share some theoretical connections and are driven by one primary goal---to deal with the normalizing constant in the softmax function's denominator.
+This post focuses on the theoretical side of the softmax family, with less practical results presented. A possible future work is to write a post for more practical purposes such as some real implementation and coding details or at least summarize the softmax variants used by the well-known language models and feature representation learning techniques. 
+
+> **Note**: The central question to be tackled by all the softmax variants in this post is to avoid expensive computation on the normalizing consant $$Z(c)$$.
 
 ### Acknowledgements
 
