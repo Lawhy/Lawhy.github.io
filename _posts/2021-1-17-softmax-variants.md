@@ -314,6 +314,7 @@ All the approaches discussed in the previous sections attempt to approximate the
 ### Self Normalization
 
 The idea of self-normalizing softmax is to encourage the network to learn $$Z(c) = 1 \implies \log Z(c) = 0$$ [[7]](#ref7). To achieve this, it has the following objective function:
+
 $$
 L = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha (\log Z(c) - 0)^2\right] = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha \log^2 Z(c)\right]
 $$
