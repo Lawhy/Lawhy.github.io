@@ -370,3 +370,5 @@ howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
 - [7] Devlin, J., Rabih Zbib, Zhongqiang Huang, Thomas Lamar, R. Schwartz and J. Makhoul. “Fast and Robust Neural Network Joint Models for Statistical Machine Translation.” ACL (2014). <a name="ref7"></a>
 
 - [8] Goldberger, J. and Oren Melamud. “Self-Normalization Properties of Language Modeling.” ArXiv abs/1806.00913 (2018): n. pag. <a name="ref8"></a>
+
+- [9] Andreas, Jacob and D. Klein. “When and why are log-linear models self-normalizing?” HLT-NAACL (2015). <a name="ref9"></a>
