@@ -312,7 +312,18 @@ All the approaches discussed in the previous sections attempt to approximate the
 
 
 ### Self Normalization
-...
+
+The idea of self-normalizing softmax is to encourage the network to learn $$Z(c) = 1 \implies \log Z(c) = 0$$ [[7]](#ref7). To achieve this, it has the following objective function:
+$$
+L = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha (\log Z(c) - 0)^2\right] = - \sum_{(w, c) \in \mathcal{D}} \left[ \log P(w|c) - \alpha \log^2 Z(c)\right]
+$$
+And at the decoding time,  we can simply discard $$Z(c)$$ in $$P(w|c$$ ) such that $$P(w|c) \approx \exp[S(w, c)]$$ because our model has learnt $$\log Z(c) \approx 0$$. The author claimed that self-normalization increases the decoding speed by a factor of $$\sim 15 \times$$ for their implementation of the language model.
+
+> **Note**: Compared to the equation in the original paper [[7]](#ref7) which is to maximize the log-likelihood, we add the minus sign here which instead suggests minimization for consistency in this post. Moreover, the variables are replaced as in the scenario of learning word representations or language modelling.
+
+There are two important points to discuss here: (1) there is **some freedom** for $$Z(c)$$ in self-normalizing softmax, compared to what is assumed in NCE ($$Z(c)$$ is strictly equal to $$1$$); (2) the proposed self-normalization technique **does not save the training time** because the model needs to learn how to force $$Z(c) \to 1$$ during training. 
+
+> **Note**: The second point disagrees with Ruder's post [[1]](#ref1) where he suggested that self-normalization works for accelerating the training speed.
 
 ### Infrequent Normalization
 ...
@@ -325,7 +336,7 @@ The softmax variants discussed in this post share some theoretical connections a
 
 ### Acknowledgements
 
-This post follows the same order of introducing the softmax variants as in Sebastian's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the conference papers ([[2] - [7]](#ref4)) but the **corresponding proofs are all written by myself**. Thanks for [Yixuan He](https://www.linkedin.com/in/yixuan-he-sheryl/?originalSubdomain=uk)'s effort of proofreading and review.
+This post follows the same order of introducing the softmax variants as in Ruder's post [[1]](#ref1), but it is **more mathematically inclined** while lacking some discussion of the practical sides. The theories involved in this post are based on the conference papers ([[2] - [7]](#ref4)) but the **corresponding proofs are all written by myself**. Thanks for [Yixuan He](https://www.linkedin.com/in/yixuan-he-sheryl/?originalSubdomain=uk)'s effort of proofreading and review.
 
 ### Citation
 
