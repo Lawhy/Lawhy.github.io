@@ -38,7 +38,7 @@ Hi! I am Yuan He, currently a CS PhD candidate supervised by [Professor Bernardo
 
 | Description | File |
 | :------------- | :--------------- |
-|Work on the Ontology Alignment project with [SRUK](https://research.samsung.com/sruk) (Jan 2021 - present)|  |
+|Work on the Ontology Alignment project with [SRUK](https://research.samsung.com/sruk) (Jan 2021 - present)| None |
 |Received First Prize (IMPACT project) in KYOTO International Entrepreneurship Contest For University Students (Dec 2020)|[<span style="color: #002147"> Link </span>](https://www.ie.education/)|
 |Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf), [<span style="color: #002147"> Video </span>](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s)|
 |Received Golden Award (IMPACT project) in China College Students 'Internet+' Innovation and Entrepreneurship Competition (Nov 2020)| [<span style="color: #002147"> Link </span>](https://cy.ncss.cn/information/8a80808d758bf61b0175da8689820041) |
