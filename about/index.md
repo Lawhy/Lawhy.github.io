@@ -9,8 +9,7 @@ comments: false
 <center>View my profile in Department of Computer Science <a href="https://www.cs.ox.ac.uk/people/yuan.he/"><b>People</b></a>.</center>
 
 ## Brief
-Hi! I am Yuan He, currently a CS PhD candidate supervised by <a href="https://www.cs.ox.ac.uk/people/bernardo.cuencagrau/">Professor Bernardo Cuenca Grau</a> 
-at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> but I also have a Natural Language Processing and Machine Learning background.
+Hi! I am Yuan He, currently a CS PhD candidate supervised by [Professor Bernardo Cuenca Grau](https://www.cs.ox.ac.uk/people/bernardo.cuencagrau/) and [Professor Ian Horrocks](https://www.cs.ox.ac.uk/people/ian.horrocks/) at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> but I also have a Natural Language Processing and Machine Learning background.
 
 ---------------------------
 
@@ -39,6 +38,7 @@ at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> bu
 
 | Description | File |
 | :------------- | :--------------- |
+|Work on the Ontology Alignment project with [SRUK](https://research.samsung.com/sruk) (Jan 2021 - present)|  |
 |Received First Prize (IMPACT project) in KYOTO International Entrepreneurship Contest For University Students (Dec 2020)|[<span style="color: #002147"> Link </span>](https://www.ie.education/)|
 |Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf), [<span style="color: #002147"> Video </span>](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s)|
 |Received Golden Award (IMPACT project) in China College Students 'Internet+' Innovation and Entrepreneurship Competition (Nov 2020)| [<span style="color: #002147"> Link </span>](https://cy.ncss.cn/information/8a80808d758bf61b0175da8689820041) |
