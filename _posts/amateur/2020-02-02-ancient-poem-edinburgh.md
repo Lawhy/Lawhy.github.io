@@ -20,3 +20,4 @@ comments: true
 |                    云低可曾触                     |
 |                    怀情翥上空                     |
 
+![poem-edin](/assets/img/posts/ancient-poem-edinburgh.jpg)
