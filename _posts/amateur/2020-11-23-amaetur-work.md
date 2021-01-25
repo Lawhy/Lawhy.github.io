@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Amaetur Work in Music Composition and Chinese Literature"
-date: 2020-11-18
+date: 2020-11-23
 excerpt: "Links to my personal amaetur work in music composition and Chinese literature."
 tags: [amaetur, music_composition, Chinese_literature]
 amateur: true
