@@ -5,6 +5,7 @@ date: 2014-04-19
 excerpt: "高中时曾寄宿于阳台山表姨家, 在往返校园的路上迸发灵感写下初作, 后于2020年微改."
 tags: [prose_in_mandarin, 散文, 老猫]
 feature: /assets/img/posts/old-cat.jpg
+readtime: 3
 amateur: true
 comments: true
 ---

@@ -21,7 +21,11 @@ layout: compress
                     {% if site.reading_time %}
                     <p class="reading-time">
                       <i class="fa fa-clock-o"></i>
-                      {% include read-time.html %}
+                      {% if page.readtime == null %}
+                          {% include read-time.html %}
+                      {% else %}
+                          Reading time ~{% if page.readtime <= 1 %}1 minute{% else %}{{ page.readtime }} minutes{% endif %}
+                      {% endif %}
                     </p><!-- /.entry-reading-time -->
                     {% endif %}
                     {% if page.project %}
