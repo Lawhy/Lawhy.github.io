@@ -50,7 +50,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## <i class="fa fa-email"></i> Contact
+## <i class="fa fa-envelope"></i> Contact
 
 Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/assets/img/email.png)
 
@@ -58,7 +58,7 @@ Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master
 
 ---------------------------
 
-## <i class="fa fa-pen-fancy"></i> Amateur Work
+## <i class="fa fa-pen"></i> Amateur Work
 
 I am also an amateur music composer and novel/poetry/prose writer (specific to Chinese literature), please check the post [here](https://lawhy.github.io/amaetur-work/) to view the links to my work if you are interested to know me beyond the academic scope. 
 
