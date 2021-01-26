@@ -58,7 +58,7 @@ Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master
 
 ---------------------------
 
-## <i class="fa fa-marker"></i> Amateur Work
+## <i class="fa fa-pencil"></i> Amateur Work
 
 I am also an amateur music composer and novel/poetry/prose writer (specific to Chinese literature), please check the post [here](https://lawhy.github.io/amaetur-work/) to view the links to my work if you are interested to know me beyond the academic scope. 
 
