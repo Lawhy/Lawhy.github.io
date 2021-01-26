@@ -8,7 +8,7 @@ comments: false
     
 <center>View my profile in Department of Computer Science <a href="https://www.cs.ox.ac.uk/people/yuan.he/"><b>People</b></a>.</center>
 
-## Brief
+## <i class="fa user"></i> Brief
 Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese, also known as Lawrence), currently a CS PhD candidate supervised by [Professor Bernardo Cuenca Grau](https://www.cs.ox.ac.uk/people/bernardo.cuencagrau/) and [Professor Ian Horrocks](https://www.cs.ox.ac.uk/people/ian.horrocks/) at University of Oxford. My research interest lies in <b>Knowledge Graphs</b> but I also have a Natural Language Processing and Machine Learning background.
 
 ---------------------------
@@ -23,7 +23,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## Publications
+## <i class="fa fa-book"></i> Publications
 
 * He, Yuan and Shay B. Cohen (Dec. 2020). [“English-toChinese Transliteration with Phonetic Auxiliary Task”](https://www.aclweb.org/anthology/2020.aacl-main.40/). 
   In: Proceedings of the 1st Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics
@@ -34,7 +34,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## Events
+## <i class="fa fa-clipboard-list"></i> Events
 
 | Description | File |
 | :------------- | :--------------- |
@@ -50,7 +50,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## Contact
+## <i class="fas fa-email"></i> Contact
 
 Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master/assets/img/email.png)
 
@@ -58,7 +58,7 @@ Email: ![address](https://raw.githubusercontent.com/Lawhy/Lawhy.github.io/master
 
 ---------------------------
 
-## Amateur Work
+## <i class="fas fa-pen-fancy"></i> Amateur Work
 
 I am also an amateur music composer and novel/poetry/prose writer (specific to Chinese literature), please check the post [here](https://lawhy.github.io/amaetur-work/) to view the links to my work if you are interested to know me beyond the academic scope. 
 
