@@ -34,7 +34,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## :clipboard: Events
+## Events
 
 | Description | File |
 | :------------- | :--------------- |
