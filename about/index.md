@@ -13,7 +13,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 ---------------------------
 
-## <i class="fas fa-graduation-cap"></i> Education 
+## <i class="fa fa-graduation-cap"></i> Education 
 
 | Degree | Institution | Time |
 | :------------- | :--------------- | :-------------- |
