@@ -12,7 +12,7 @@ This post records the project diaries for the collaborative research project con
 
 ---------------------
 
-### First Meeting with SRUK 11/01/2021
+### [1] Meeting with SRUK 11/01/2021
 
 **Key Points**
 
@@ -35,7 +35,7 @@ This post records the project diaries for the collaborative research project con
 
 ---------------------
 
-### Second Meeting with KRR 27/01/2021
+### [2] Meeting with KRR 27/01/2021
 
 **Key Points**
 
