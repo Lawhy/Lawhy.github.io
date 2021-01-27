@@ -34,3 +34,20 @@ This post records the project diaries for the collaborative research project con
 [ ] Read the remaining papers to gain more background knowledge.
 
 ---------------------
+
+### Second Meeting with KRR 27/01/2021
+
+**Key Points**
+
+- Decided to focus on the [LargeBio](http://www.cs.ox.ac.uk/isg/projects/SEALS/oaei/2020/) dataset which contains abundant ontologies.
+- Although NLP techniques can be used, should focus more on the ontology itself.
+
+**To Do List**
+
+[]  Download  [LargeBio](http://www.cs.ox.ac.uk/isg/projects/SEALS/oaei/2020/) dataset and conduct basic experiments on ontology matching, e.g. string matching.
+
+[] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
+
+-------------
+
+
