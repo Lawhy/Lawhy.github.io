@@ -29,7 +29,7 @@ This post records the project diaries for the collaborative research project con
 
 [$$\checkmark$$] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
 
-[ ] Go through the [OAEI datasets](http://oaei.ontologymatching.org/).
+[$$\checkmark$$] Go through the [OAEI datasets](http://oaei.ontologymatching.org/).
 
 [ ] Read the remaining papers to gain more background knowledge.
 
@@ -44,7 +44,9 @@ This post records the project diaries for the collaborative research project con
 
 **To Do List**
 
-[]  Download  [LargeBio](http://www.cs.ox.ac.uk/isg/projects/SEALS/oaei/2020/) dataset and conduct basic experiments on ontology matching, e.g. string matching.
+[$$\checkmark$$]  Download  [LargeBio](http://www.cs.ox.ac.uk/isg/projects/SEALS/oaei/2020/) dataset and figure out the evaluation script in Java.
+
+[] Conduct basic experiments on ontology matching, e.g. string matching, and evaluate it using the OAEI script.
 
 [] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
 
