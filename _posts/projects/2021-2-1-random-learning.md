@@ -8,3 +8,10 @@ comments: false
 project: true
 ---
 
+### Siamese Neural Network
+
+**Learning Goal**: Force the distance between Anchor and Positive to be small and that between Anchor and Negative to be large: $$d(A, P) + \alpha \leq d(A, N)$$.
+
+**Triplet Loss Function**: $$L_i(A, P, N) = \max\left(\|f(A) - f(P)\|^2 - \| f(A) - f(N) \|^2 + \alpha, 0\right)$$ where $$A, P, N$$ refer to Anchor, Positive, Negative; $$\alpha$$ is the margin that defines the threshold distance. Overall loss is $$L = \sum_{i=1}^m L_i$$.
+
+**Problem**: If triplets are randomly chosen, the inequality is easily satisfied.
