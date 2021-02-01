@@ -48,10 +48,28 @@ This post records the project diaries for the collaborative research project con
 
 [$$\checkmark$$] Learn OwlReady2 for Python.
 
-[$$\checkmark$$] Conduct basic experiments on ontology matching, e.g. string matching, and evaluate it using the OAEI script.
+[$$\checkmark$$] Conduct basic experiments on ontology matching, e.g. <del>string matching</del> LogMap, and evaluate it using the <del>OAEI script</del> evaluation script written by myself.
 
 [ ] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
 
 -------------
 
+### [2] Meeting with Jiaoyan 02/02/2021
 
+**Questions**
+
+- About the LogMap-java: 
+  - "Illegal Access" warnings during experiments?
+  - Incomplete rdf output?
+  - Relation ">"?
+  - Prominent discrepancy between the reported results and our results?
+
+**Key Points**
+
+- 
+
+**To Do List**
+
+[ ]  
+
+-------------
