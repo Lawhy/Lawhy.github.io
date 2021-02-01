@@ -46,11 +46,11 @@ This post records the project diaries for the collaborative research project con
 
 [$$\checkmark$$]  Download  [LargeBio](http://www.cs.ox.ac.uk/isg/projects/SEALS/oaei/2020/) dataset and figure out the evaluation script in Java.
 
-[] Learn OwlReady2 for Python.
+[$$\checkmark$$] Learn OwlReady2 for Python.
 
-[] Conduct basic experiments on ontology matching, e.g. string matching, and evaluate it using the OAEI script.
+[$$\checkmark$$] Conduct basic experiments on ontology matching, e.g. string matching, and evaluate it using the OAEI script.
 
-[] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
+[ ] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
 
 -------------
 
