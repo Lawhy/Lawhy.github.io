@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ProjDiaries] Oxford-SRUK-OntoAlign"
+title: "Oxford-SRUK-OntoAlign Project Diaries"
 date: 2021-1-11
 excerpt: "Notes on the plans and progress for the Oxford-SRUK-OntoAlign project ranged from January 2021 to June 2021 (tentative)."
 tags: [ontology_alignment, ontology_matching, symbolic, machine_learning, SRUK, project_diaries]
