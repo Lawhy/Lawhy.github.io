@@ -25,7 +25,7 @@ This post records the project diaries for the collaborative research project con
 
 [ ] Take a look on LogMap paper but don't dive into it as the whole system will be re-implemented from scratch.
 
-[ ] Go through the SiamNN model.
+[$$\checkmark$$] Go through the SiamNN model.
 
 [$$\checkmark$$] Go through the tutorial of [Protege OWL Visualisation Tool](http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf).
 
