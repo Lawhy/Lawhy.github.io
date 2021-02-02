@@ -79,9 +79,9 @@ This post records the project diaries for the collaborative research project con
 # example command
 java -Xms500M -Xmx4400M -DentityExpansionLimit=100000000 \
 -jar target/logmap-matcher-4.0.jar MATCHER \
-file:/C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_FMA_whole_ontology.owl \
-file:/C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_NCI_whole_ontology.owl \
-/C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/oaei-java/logmap-matcher/results/fma2nci/ \
+file:/C:/Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_FMA_whole_ontology.owl \
+file:/C:/Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_NCI_whole_ontology.owl \
+/C:/Users/lawhy/Work/Oxford-SRUK-OntoAlign/oaei-java/logmap-matcher/results/fma2nci/ \
 true
 ```
 
