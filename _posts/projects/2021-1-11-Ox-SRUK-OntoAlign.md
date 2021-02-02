@@ -8,7 +8,7 @@ comments: false
 project: true
 ---
 
-This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based ontology mapping model*. Idea Collection is available [here](https://unioxfordnexus-my.sharepoint.com/:w:/r/personal/coml0713_ox_ac_uk/_layouts/15/guestaccess.aspx?e=fjtPw5&CID=0f8a821f-2a74-676f-aae6-8d2d57f275a0&share=ER6fOsSh5rVIowB_l1W9ZQkBNqEE9CF83BsGKJ8_SnxQcw). Reference code from previous HeLis-FoodOn is available [here](https://gitlab.com/chen00217/pathontoalignment/-/tree/master/).
+This post records the project diaries for the collaborative research project concerning the Ontology Alignment Task. Key research directions include *cross-ontology class disjointness algorithm* and *machine learning based ontology mapping model*. Idea Collection is available [here](https://unioxfordnexus-my.sharepoint.com/:w:/r/personal/coml0713_ox_ac_uk/_layouts/15/guestaccess.aspx?e=fjtPw5&CID=0f8a821f-2a74-676f-aae6-8d2d57f275a0&share=ER6fOsSh5rVIowB_l1W9ZQkBNqEE9CF83BsGKJ8_SnxQcw).  Reference code from previous HeLis-FoodOn is available [here](https://gitlab.com/chen00217/pathontoalignment/-/tree/master/).
 
 ---------------------
 
@@ -31,8 +31,6 @@ This post records the project diaries for the collaborative research project con
 
 [$$\checkmark$$] Go through the [OAEI datasets](http://oaei.ontologymatching.org/).
 
-[ ] Read the remaining papers to gain more background knowledge.
-
 ---------------------
 
 ### [2] Meeting with KRR 27/01/2021
@@ -50,7 +48,7 @@ This post records the project diaries for the collaborative research project con
 
 [$$\checkmark$$] Conduct basic experiments on ontology matching, e.g. <del>string matching</del> LogMap, and evaluate it using the <del>OAEI script</del> evaluation script written by myself.
 
-[ ] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
+[$$\checkmark$$] Read the survey of Entity Alignment in KGs, gain some ideas for ontology alignment.
 
 -------------
 
@@ -58,18 +56,36 @@ This post records the project diaries for the collaborative research project con
 
 **Questions**
 
-- About the LogMap-java: 
-  - "Illegal Access" warnings during experiments?
-  - Incomplete rdf output?
-  - Relation ">"?
-  - Prominent discrepancy between the reported results and our results?
+- <del>About the LogMap-java: </del>
+  - <del>"Illegal Access" warnings during experiments? </del>
+  - <del>Incomplete rdf output? </del>
+  - <del>Relation ">"?</del>
+  - <del>Prominent discrepancy between the reported results and our results?</del>
+
+- About Entity Alignment survey:
+  - Can we use part of the UMLS mappings as seed? **Nope, stick on the unsupervised setting.**
+  - Previous work unsupervised/semi-supervised?  **It's distant supervision (considered as unsupervised).**
 
 **Key Points**
 
-- 
+- [Google LogMap](https://code.google.com/archive/p/logmap-matcher/wikis) was used in LogMap+ML work. 
+- Focus on the word embeddings solution for now.
 
 **To Do List**
 
-[ ]  
+[ $$\checkmark$$] Ask Ernesto about the LogMap errors (**All solved**).
+
+```java
+# example command
+java -Xms500M -Xmx4400M -DentityExpansionLimit=100000000 -jar target/logmap-matcher-4.0.jar MATCHER file:/C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_FMA_whole_ontology.owl file:/C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/largebio-dataset/oaei_NCI_whole_ontology.owl /C://Users/lawhy/Work/Oxford-SRUK-OntoAlign/oaei-java/logmap-matcher/results/fma2nci/ true
+```
+
+[ ]  Check if the evaluation script is correctly written (using OAEI results).
+
+[ ] Study the word embeddings approaches such as Word2Vec, BERT and [BioBert](https://www.aclweb.org/anthology/2020.coling-main.57.pdf).
+
+[ ] Study the embedding improvement papers: DeepAlignment, OntoEmma.
+
+[ ] Take a look on Jiaoyan's paper and understand the influence of seed mappings.
 
 -------------
