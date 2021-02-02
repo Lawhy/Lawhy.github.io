@@ -32,6 +32,7 @@ layout: compress
                                 {% if post.maths == true %} <i class="fa fa-calculator"></i> {% endif %}
                                 {% if post.paper == true %} <i class="fa fa-bookmark"></i> {% endif %}
                                 {% if post.review == true %} <i class="fa fa-book"></i> {% endif %}
+                                {% if post.note == true %} <i class="fa fa-sticky-note"></i> {% endif %}
                             </a>
                             <h4>{{ post.date | date_to_string }}</h4>
                             <p>{{ post.excerpt }}</p>
