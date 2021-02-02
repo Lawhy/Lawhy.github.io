@@ -5,7 +5,7 @@ date: 2021-2-1
 excerpt: "Quick notes on Siamese Neural Network"
 tags: [siamese_neural_network, quick_notes]
 comments: false
-paper: true
+notes: true
 ---
 
 ### Siamese Neural Network
