@@ -80,9 +80,7 @@ where $$AM, GM$$ and $$HM$$ are abbreviations of Arithmetic Mean, Geometric Mean
 
 
 
-**Proof**: 
-
-$$A$$ is clearly $\frac{a + b}{2}$, i.e. the radius $$r$$ of the circle. Thus, $$z = r - b = \frac{a-b}{2}$$. 
+**Proof**: $$A$$ is clearly $$\frac{a + b}{2}$$, i.e. the radius $$r$$ of the circle. Thus, $$z = r - b = \frac{a-b}{2}$$. 
 
 Since $$z = \frac{a - b}{2}$$, $$H + x = \frac{a + b}{2}$$, we have, by the Pythagorean Theorem, $G = \sqrt{ab}$. 
 
