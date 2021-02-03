@@ -48,7 +48,7 @@ where $$AM, GM$$ and $$HM$$ are abbreviations of Arithmetic Mean, Geometric Mean
 
     > **Note**: The arithmetic mean of rate $$\bar{x}_n$$ has no meaning here because the rates are not of equal weights.  
 
-  - Moreover, if we take $$x_n$$ as the **speed **of $$n$$th vehicle used  for travelling, then $$\frac{1}{x_n}$$ will be the **time** used for travelling a unit route with $$n$$th vehicle and the sum of all the reciprocals is the **mean time**. Thus $$HM$$ will be the **average speed** of the total trip divided into $$N$$ continuous parts with different vehicles.
+  - Moreover, if we take $$x_n$$ as the **speed** of $$n$$th vehicle used  for travelling, then $$\frac{1}{x_n}$$ will be the **time** used for travelling a unit route with $$n$$th vehicle and the sum of all the reciprocals is the **mean time**. Thus $$HM$$ will be the **average speed** of the total trip divided into $$N$$ continuous parts with different vehicles.
 
   - If $$P$$ gives the Precision ($$\frac{tp}{tp + fp}$$) and $R$ gives the Recall ($$\frac{tp}{tp + fn}$$), then we can interpret $P$ to be the **correct rate** of the machine and $$R$$ to be the **retrieval rate**. The two "vehicles" here are *Model* and *Data* in the sense that the rate of getting a correct (model) prediction is $$x_1$$ and the rate of retrieve a reference (from data) is $$x_2$$. 
 
@@ -99,4 +99,4 @@ $$
 \end{aligned}
 $$
 
-$$\blacksquare.$$
+$$\blacksquare$$.
