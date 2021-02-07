@@ -63,8 +63,8 @@ This post records the project diaries for the collaborative research project con
   - <del>Prominent discrepancy between the reported results and our results?</del>
 
 - About Entity Alignment survey:
-  - Can we use part of the UMLS mappings as seed? **Nope, stick on the unsupervised setting.**
-  - Previous work unsupervised/semi-supervised?  **It's distant supervision (considered as unsupervised).**
+  - Can we use part of the UMLS mappings as seed? Ans: Nope, stick on the unsupervised setting.
+  - Previous work unsupervised/semi-supervised?  Ans: It's distant supervision (considered as unsupervised).
 
 **Key Points**
 
@@ -73,7 +73,7 @@ This post records the project diaries for the collaborative research project con
 
 **To Do List**
 
-[ $$\checkmark$$] Ask Ernesto about the LogMap errors (**All solved**).
+[$$\checkmark$$] Ask Ernesto about the LogMap errors (**All solved**).
 
 ```bash
 # example command
@@ -82,7 +82,7 @@ java -Xms500M -Xmx4400M -DentityExpansionLimit=100000000 -jar target/logmap-matc
 
 [ ]  Check if the evaluation script is correctly written (using OAEI results).
 
-[ ] Study the word embeddings approaches such as Word2Vec, BERT and [BioBert](https://www.aclweb.org/anthology/2020.coling-main.57.pdf).
+[$$\checkmark$$] Study the word embeddings approaches such as Word2Vec, BERT and [BioBert](https://www.aclweb.org/anthology/2020.coling-main.57.pdf).
 
 [ ] Study the embedding improvement papers: DeepAlignment, OntoEmma.
 
