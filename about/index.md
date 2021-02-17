@@ -38,7 +38,7 @@ Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese
 
 | Description | File |
 | :------------- | :--------------- |
-|<i class="fa fa-cogs"></i> Work on the Ontology Alignment project with [SRUK](https://research.samsung.com/sruk) (Jan 2021 - present)| None |
+|<i class="fa fa-cogs"></i> Work on the funded Ontology Alignment project with [SRUK](https://research.samsung.com/sruk) (Jan 2021 - present)| None |
 |<i class="fa fa-trophy"></i> Received First Prize (IMPACT project) in KYOTO International Entrepreneurship Contest For University Students (Dec 2020)|[<span style="color: #002147"> Link </span>](https://www.ie.education/)|
 |<i class="fa fa-comments"></i> Main-conference long-paper presentation in AACL-IJCNLP (Dec 2020) | [<span style="color: #002147"> Slides </span>](https://github.com/Lawhy/Lawhy.github.io/raw/master/materials/aacl_presentation.pdf), [<span style="color: #002147"> Video </span>](https://www.youtube.com/watch?v=VzcCkX_MjWU&t=15s)|
 |<i class="fa fa-trophy"></i> Received Golden Award (IMPACT project) in China College Students 'Internet+' Innovation and Entrepreneurship Competition (Nov 2020)| [<span style="color: #002147"> Link </span>](https://cy.ncss.cn/information/8a80808d758bf61b0175da8689820041) |
