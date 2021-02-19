@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "\"Attentional Guidance\" to the Novel Transformer"
+title: "'Attentional Guidance' to the Novel Transformer"
 date: 2021-2-18
 feature: /assets/img/posts/sigmoid.jpg
 excerpt: "As stated in the title of the paper which proposed the powerful transduction model, Transformer, we do not need any recurrence or convolution to achieve the sequential predictions---all we need is attention."
