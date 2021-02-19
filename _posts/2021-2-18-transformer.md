@@ -2,7 +2,7 @@
 layout: post
 title: "\"Attentional Guidance\" to the Novel Transformer"
 date: 2021-2-18
-feature: https://cdn.theatlantic.com/thumbor/KP4ES-rmpV8uHwQIu1CvTxP4Qs4=/0x643:5000x3455/720x405/https://cdn.theatlantic.com/assets/media/img/mt/2015/02/shutterstock_140420398/original.jpg
+feature: https://thumbs.dreamstime.com/t/attention-please-vector-rectangular-illustration-with-red-arrows-to-grab-attention-96591987.jpg
 excerpt: "As stated in the title of the paper which proposed the powerful transduction model, Transformer, we do not need any recurrence or convolution to achieve the sequential predictions——all we need is attention."
 tags: [transformer, attention, positional_encoding, paper_reading, maths]
 comments: true
