@@ -61,7 +61,7 @@ Next, we compute the attention weights by feeding the scaled dot-product scores 
 
 We then apply the weight matrix (through ``MatMul`` block) to the set of values **V**, which again, refers the input sequence. The softmax weights reflect the *importance* of each word in the input. 
 
-To achieve multi-head attention, we perform $$H$$ times linear transformations on the **same** $$Q$$, $$K$$ and $$V$$ with **independently learned matrices**.  The three ``Linear`` blocks correspond to the separate (query, key and value) linear transformations of the input sequence with the matrices $$W_h^Q \in \mathbb{R}^{d_{model}\times d_k}$$, $$W_h^Q \in \mathbb{R}^{d_{model}\times d_q} $$ and $$W_h^V \mathbb{R}^{d_{model}\times d_v}$$, respectively, where the subscript $$h$$ refers to the $$h^{th}$$ **head** and $$d_q = d_k$$ for performing the dot-product. The expression of the multi-head attention is presented as:
+To achieve multi-head attention, we perform $$H$$ times linear transformations on the **same** $$Q$$, $$K$$ and $$V$$ with **independently learned matrices**.  The three ``Linear`` blocks correspond to the separate (query, key and value) linear transformations of the input sequence with the matrices $$W_h^Q \in \mathbb{R}^{d_{model}\times d_k}$$, $$W_h^Q \in \mathbb{R}^{d_{model}\times d_q} $$ and $$W_h^V \in \mathbb{R}^{d_{model}\times d_v}$$, respectively, where the subscript $$h$$ refers to the $$h^{th}$$ **head** and $$d_q = d_k$$ for performing the dot-product. The expression of the multi-head attention is presented as:
 
 $$
 \begin{aligned}
