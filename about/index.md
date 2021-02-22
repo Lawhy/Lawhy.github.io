@@ -9,7 +9,7 @@ comments: false
 <center>View my profile in Department of Computer Science <a href="https://www.cs.ox.ac.uk/people/yuan.he/"><b>People</b></a>.</center>
 
 ## <i class="fa fa-user"></i> Brief
-Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese, also known as Lawrence), currently a CS PhD candidate supervised by [Professor Bernardo Cuenca Grau](https://www.cs.ox.ac.uk/people/bernardo.cuencagrau/) and [Professor Ian Horrocks](https://www.cs.ox.ac.uk/people/ian.horrocks/) at University of Oxford. My primary research interest lies in <b>Knowledge Graphs</b> but I also have a Natural Language Processing and Machine Learning background.
+Hi! I am Yuan He (**<span stype="font-family: 楷体">何源</span>** in Chinese, also known as Lawrence), currently a CS PhD candidate supervised by [Professor Bernardo Cuenca Grau](https://www.cs.ox.ac.uk/people/bernardo.cuencagrau/) and [Professor Ian Horrocks](https://www.cs.ox.ac.uk/people/ian.horrocks/) at University of Oxford. My primary research interest lies in the area of <b>Knowledge Graphs</b>, but I also have a Natural Language Processing and Machine Learning background.
 
 ---------------------------
 
