@@ -223,12 +223,7 @@ cos(w_k \cdot \delta) & sin(w_k \cdot \delta)\\
 $$
 
 
-
-
-### Discussion
-
-
-
+The end.
 
 
 -------------------------
