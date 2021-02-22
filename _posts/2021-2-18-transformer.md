@@ -236,5 +236,5 @@ $$
 ### References
 
 - [1] Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, U., & Polosukhin, I. (2017). Attention is All You Need. Proceedings of the 31st International Conference on Neural Information Processing Systems, 6000–6010.  <a name="ref1"></a>
-- [2] Phi, Michael. "Illustrated Guide To Transformers- Step By Step Explanation". *Medium*, 2020, https://towardsdatascience.com/illustrated-guide-to-transformers-step-by-step-explanation-f74876522bc0.  <a name="ref2"></a>
-- [3] Kazemnejad, Amirhosein. "Transformer Architecture: The Positional Encoding - Amirhossein Kazemnejad's Blog". *Kazemnejad.Com*, 2021, https://kazemnejad.com/blog/transformer_architecture_positional_encoding/.
+- [2] Phi, Michael. "Illustrated Guide To Transformers- Step By Step Explanation". *Medium*, 2020, [link](https://towardsdatascience.com/illustrated-guide-to-transformers-step-by-step-explanation-f74876522bc0).  <a name="ref2"></a>
+- [3] Kazemnejad, Amirhosein. "Transformer Architecture: The Positional Encoding - Amirhossein Kazemnejad's Blog". *Kazemnejad.Com*, 2021, [link](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/). <a name="ref3"></a>
