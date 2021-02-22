@@ -213,14 +213,13 @@ $$
 
 
 By comparing the terms on both sides, we have found $$a, b, c$$ and $$d$$ independent of $$pos$$ such that:
+
 $$
-\begin{equation}
 F_k = 
 \begin{bmatrix} 
 cos(w_k \cdot \delta) & sin(w_k \cdot \delta)\\
 -sin(w_k \cdot \delta) & cos(w_k \cdot \delta)
 \end{bmatrix}
-\end{equation}
 $$
 
 
