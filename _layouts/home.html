@@ -19,41 +19,18 @@ layout: compress
                         <img src="{{ site.logo }}" class="img-circle zoombtn animated rotateIn">
                     </a>
                     <h3 class="title">
-                        <div class="row">
-                          <div class="column">
-                              <a class="zoombtn" href="{{ site.url }}">
-                                  <span style="font-size: 1.2em; font-weight:300">
-                                      <strong>{{ site.title }}</strong>
-                                  </span>
-                                  <span style="font-family: 楷体; font-size: 1.2em; font-weight:300">
-                                      <strong>(何源)</strong> 
-                                  </span>
-                                  <img src="{{ site.badge }}" class="img-responsive" style="max-height:50px;">
-                              </a>
-                          </div>
+                        <div class="box">
+                            <a class="zoombtn" href="{{ site.url }}">
+                                <span style="font-size: 1.2em; font-weight:300"><strong>{{ site.title }}</strong></span>
+                                <span style="font-family: 楷体; font-size: 1.2em; font-weight:300">
+                            </a>
+                            <img src="{{ site.badge }}" class="img-responsive" style="max-height:50px;">
                         </div>
                         <style>
-                            * {
-                              box-sizing: border-box;
-                            }
-
-                            .column {
-                              float: left;
-                              width: 100%;
-                              padding: 5px;
-                            }
-                            .column-badge {
-                              float: right;
-                              width: 30%;
-                              padding: 5px;
-                            }
-
-                            /* Clearfix (clear floats) */
-                            .row::after {
-                              content: "";
-                              clear: both;
-                              display: table;
-                            }
+                            .box {
+                                   display: flex;
+                                   align-items:center;
+                                }
                         </style>
                     </h3>
                     <hr class="hr-line">
