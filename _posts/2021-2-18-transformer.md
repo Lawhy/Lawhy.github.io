@@ -12,7 +12,7 @@ review: false
 paper: true
 ---
 
-Though RNN and its variants are capable of capturing the sequential information, they suffer from the limited context. The attention mechanism, in theory, has the complete context window given enough computational power [[2]](#ref2). While the attention mechanism can strengthen RNNs, there is a natural question: Why don't we rely fully on the attention mechanism?
+Though RNNs are capable of capturing sequential information, they suffer from the long-distance dependency problem when the sequence gets longer. The attention mechanism is able to capture the dependency regardless of the distance, but the positional information will be lost. While the attention mechanism can strengthen RNNs, there is a natural question: Why don't we rely fully on the attention mechanism and, meanwhile, use some technique to preserve the positional information?
 
 As stated in the title of the paper which proposed the powerful transduction model, Transformer, we do not need any recurrence or convolution to achieve the sequential predictions---all we need is **attention**. 
 
@@ -111,6 +111,121 @@ The techniques discussed in this section are design choices.
 
 ### Positional Encoding
 
+To amend the loss of the positional information in all the attention layers, we need some form of positional encoding to distinguish a word at different positions. The simplest idea is to let $$PE = pos $$$$\in \{0, 1, ..., T-1 \}$$ where $$pos$$ is the position/time-step of the current word and $$T$$ is the length of the input sequence. But this will result in the *unboundedness* of the positional values because $$\sup(pos) \to \infty$$. To address this problem, we could normalize the values as $$PE = \frac{pos}{T - 1}$$ such that $$0 \leq PE \leq 1$$. But the distance intervals are not consistent across input sentences of different lengths. Ideally, we need $$PE$$ to satisfy the following criteria [[3]](#ref3): 
+
+- *Unique* encoding for each position/time-step;
+
+- *Adaptive* to arbitrary input length;
+
+- *Bounded* values;
+
+- *Consistent* distance interval between any two positions;
+
+  > Here the consistency means that for any two positions $$pos_i$$ and $$pos_j$$, $$PE(pos_j) - PE(pos_i)$$  must be consistent across input sentences of different lengths---it **does not necessarily imply** that $$\forall i, j.$$  $$PE(pos_j) - PE(pos_i) = C$$ where $$C$$ is some constant.
+
+- *Deterministic*.
+
+The author suggests to use $$\sin$$ and $$\cos$$ functions to encode the positional information as they meet the criteria above. Note that the input embedding matrix has the shape of $$L \times d_{model}$$ where $$L$$ is the sequence length. The positional encoding matrix has the **same shape** as the input embedding matrix, and for each embedding dimension $$k$$, it has a slightly different encoded value. The expression of the positional encoding is as follows:
+
+
+$$
+PE[pos, k] = 
+\begin{cases}
+\sin(\frac{pos}{10000^{2i/d_{model}}}) & k=2i=0,2,4,...,d_{model}-2 \\
+\cos(\frac{pos}{10000^{2i/d_{model}}}) & k=2i+1=1,3,5,...,d_{model}-1 \\
+\end{cases}
+$$
+where $$i \in [0,...,\frac{d_{model}}{2})$$ with $$d_{model}$$ a even number. The matrix form of the positional encoder is thus:
+
+
+$$
+PE = 
+\begin{bmatrix}
+\sin(\frac{1}{10000^{0/d_{model}}}) & \ldots & \sin(\frac{T}{10000^{0/d_{model}}})\\
+\cos(\frac{1}{10000^{0/d_{model}}}) & \ldots & \cos(\frac{T}{10000^{0/d_{model}}})\\
+\vdots & \ddots & \vdots\\
+\sin(\frac{1}{10000^{(d_{model}-2)/d_{model}}}) & \ldots & \sin(\frac{T}{10000^{(d_{model}-2)/d_{model}}})\\
+\cos(\frac{1}{10000^{(d_{model}-2)/d_{model}}}) & \ldots & \cos(\frac{T}{10000^{(d_{model}-2)/d_{model}}})\\
+\end{bmatrix}^T\in [-1, 1]^{L \times d_{model} }
+$$
+
+
+
+
+Note that the scaling factor $$\frac{1}{10000^{2i/d_{model}}}$$ decreases as the embedding dimension increases. This results in a decrease of the value change in the deeper dimension. In the post of Kazemnejad [[3]](#ref3), he suggests that the intuitive interpretation of this behaviour is to think of the bit encoding, where **the rate of change of the bit decreases as we shift to the higher bit position**. 
+
+Another advantage of the proposed positional encoding is that for any **fixed offset** $$\delta$$, $$PE[pos+\delta, ] = f(PE[pos, ])$$  where $$f$$ is a linear function of $$PE[pos, ]$$. To see this, let $$F$$ be the corresponding linear transformation matrix of the shape $$d_{model} \times d_{model}$$. The equation holds if we can find a $$pos$$-independent solution $$F_k \in \mathbb{R}^{2\times2}$$ for the following:
+
+
+$$
+F_k 
+\begin{bmatrix}
+\sin(w_k \cdot pos) \\
+\cos(w_{k+1} \cdot pos)
+\end{bmatrix} = 
+\begin{bmatrix}
+a & b \\
+c & d 
+\end{bmatrix}
+\begin{bmatrix}
+\sin(w_k \cdot pos) \\
+\cos(w_{k+1} \cdot pos)
+\end{bmatrix} =
+\begin{bmatrix}
+\sin(w_{k} \cdot (pos + \delta)) \\
+\cos(w_{k+1} \cdot (pos + \delta))
+\end{bmatrix}
+$$
+  
+
+where $$w_k$$ is the scaling factor at an *even* dimension $$k$$, and by definition, $$w_{k} = w_{k+1}$$. If $$F_{k}$$ exists, then $$F$$ can be derived by concatenating all the submatrices $$F_k$$. The following proof is largely based on Kazemnejad's post [[3]](#ref3).
+
+**Proof:** Using the trigonometric addition formulas we have:
+
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d 
+\end{bmatrix}
+\begin{bmatrix}
+\sin(w_k \cdot pos) \\
+\cos(w_{k+1} \cdot pos)
+\end{bmatrix} =
+\begin{bmatrix}
+\sin(w_{k} \cdot pos)\cos(w_k \cdot \delta) + \cos(w_k \cdot pos) \sin(w_k \cdot \delta) \\
+\cos(w_{k} \cdot pos)\cos(w_k \cdot \delta) - \sin(w_{k} \cdot pos)\sin(w_k \cdot \delta)
+\end{bmatrix}
+$$
+
+
+Thus, we have the following equations:
+
+
+$$
+\begin{aligned}
+a \sin (w_k \cdot pos) + b \cos(w_{k} \cdot pos) &= \sin(w_{k} \cdot pos)\cos(w_k \cdot \delta) + \cos(w_k \cdot pos) \sin(w_k \cdot \delta) \\
+c \sin (w_k \cdot pos) + d \cos(w_{k} \cdot pos) &= - \sin(w_{k} \cdot pos)\sin(w_k \cdot \delta) + \cos(w_{k} \cdot pos)\cos(w_k \cdot \delta)
+\end{aligned}
+$$
+
+
+By comparing the terms on both sides, we have found $$a, b, c$$ and $$d$$ independent of $$pos$$ such that:
+$$
+F_k = 
+\begin{bmatrix} 
+cos(w_k \cdot \delta) & sin(w_k \cdot \delta)\\
+-sin(w_k \cdot \delta) & cos(w_k \cdot \delta)
+\end{bmatrix}
+$$
+
+
+.$$\blacksquare$$
+
+
+
+### Discussion
+
 
 
 -------------------------
@@ -119,3 +234,4 @@ The techniques discussed in this section are design choices.
 
 - [1] Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, U., & Polosukhin, I. (2017). Attention is All You Need. Proceedings of the 31st International Conference on Neural Information Processing Systems, 6000–6010.  <a name="ref1"></a>
 - [2] Phi, Michael. "Illustrated Guide To Transformers- Step By Step Explanation". *Medium*, 2020, https://towardsdatascience.com/illustrated-guide-to-transformers-step-by-step-explanation-f74876522bc0.  <a name="ref2"></a>
+- [3] Kazemnejad, Amirhosein. "Transformer Architecture: The Positional Encoding - Amirhossein Kazemnejad's Blog". *Kazemnejad.Com*, 2021, https://kazemnejad.com/blog/transformer_architecture_positional_encoding/.
