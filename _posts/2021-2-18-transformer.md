@@ -135,6 +135,8 @@ PE[pos, k] =
 \cos(\frac{pos}{10000^{2i/d_{model}}}) & k=2i+1=1,3,5,...,d_{model}-1 \\
 \end{cases}
 $$
+
+
 where $$i \in [0,...,\frac{d_{model}}{2})$$ with $$d_{model}$$ a even number. The matrix form of the positional encoder is thus:
 
 
@@ -212,19 +214,21 @@ $$
 
 By comparing the terms on both sides, we have found $$a, b, c$$ and $$d$$ independent of $$pos$$ such that:
 $$
+\begin{equation}
 F_k = 
 \begin{bmatrix} 
 cos(w_k \cdot \delta) & sin(w_k \cdot \delta)\\
 -sin(w_k \cdot \delta) & cos(w_k \cdot \delta)
 \end{bmatrix}
+\end{equation}
 $$
 
-
-.$$\blacksquare$$
 
 
 
 ### Discussion
+
+
 
 
 
