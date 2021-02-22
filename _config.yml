@@ -1,9 +1,9 @@
 # Site
 title:              Yuan He
-bio: 		    Hi! I am currently a PhD candidate in Computer Science.
+bio: 		        Hi! I am currently a PhD candidate in Computer Science.
 uni:                University of Oxford
 dept:               Department of Computer Science
-description:        PhD candidate in Computer Science at University of Oxford.
+description:        Hi! I am Yuan He (何源 in Chinese, also known as Lawrence), currently a CS PhD candidate supervised by Professor Bernardo Cuenca Grau and Professor Ian Horrocks at University of Oxford. My primary research interest lies in Knowledge Graphs but I also have a Natural Language Processing and Machine Learning background.
 reading_time:       true
 words_per_minute:   150
 logo:               'assets/img/20210125-circle-cropped.png'
