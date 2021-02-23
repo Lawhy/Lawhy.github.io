@@ -50,7 +50,7 @@ The ``Multi-Head Attention`` block employs the **self-attention** mechanism, whi
 
 Suppose the $$i^{th}$$ input sequence is the **query** $$Q_i$$; we want to compare it with a set of **keys** $$K_i$$, which in our context refers to the $$i^{th}$$ input sequence as well. We use the **scaled dot-product** to compute the similarity score between them as: $$\frac{Q_i K_i^T}{\sqrt d_{k_i}}$$, where $$d_{k_i}$$ is the *dimension of the keys*. We can pack the queries into a batch and mask out the scores of the extra paddings of the shorter sentences; then compute the score matrix as: $$\frac{Q K^T}{\sqrt d_k}$$. This step corresponds to the ``MatMul``$$\to$$``Scale`` block in Figure 2.The reason for adding the scaling factor stated in the original paper is shown below:
 
-> We suspect that for large values of $$d_k$$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. To counteract this effect, we scale the dot products by $$\frac{1}{d_k}$$ [[1]](#ref1).
+> We suspect that for large values of $$d_k$$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. To counteract this effect, we scale the dot products by $$\frac{1}{\sqrt{d_k}}$$ [[1]](#ref1).
 
 Next, we compute the attention weights by feeding the scaled dot-product scores into the ``SoftMax`` layer with the sum of each row (word) equal to $$1$$ (see Figure 3).
 
