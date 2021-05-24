@@ -6,7 +6,7 @@ dept:               Department of Computer Science
 description:        Hi! I am Yuan He (何源 in Chinese, also known as Lawrence), currently a CS PhD candidate supervised by Professor Bernardo Cuenca Grau and Professor Ian Horrocks at University of Oxford. My primary research interest lies in the area of Knowledge Graphs...
 reading_time:       true
 words_per_minute:   150
-logo:               'assets/img/20210125-circle-cropped.png'
+logo:               'assets/img/formal-cropped.png'
 background:         'https://images.pexels.com/photos/3774094/pexels-photo-3774094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
 tiled_bg:           true   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_UK
