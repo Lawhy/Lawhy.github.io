@@ -1,32 +1,39 @@
-primary_name: "Yuan He (何源 in Chinese)"
-secondary_name: ""
+primary_name: "Yuan He"
+secondary_name: "何源"
 navbar_name: "Yuan He's Wiki"
 
 positions:
-- logo: /assets/images/badges/MIT_Social_circle.png  # Logo is optional
-  name: Position 1 with logo
-- name: Position 2 without logo
+- name: Research Associate in Computer Science
+  logo: /assets/images/badges/Oxford_square.png
 
 
-email: "your@email.com"
+email: "yuan.he@cs.ox.ac.uk"
 # cv_link: link-to-your-cv-file
-gscholar: your_google_scholar_id
-github: your_github_id
-twitter: your_twitter_id
+gscholar: sCXUhQcAAAAJ&hl=en
+github: lawhy
+twitter: heyuan_AI
 # wechat_qrcode: /assets/images/etc/wechat.jpg
 # wechat_prompt: >-
 #   Please tell me your <strong>name</strong> and <strong>affiliation</strong> (current or past) when adding my wechat. Thanks!
-# linkedin: your-linked-in-id
+linkedin: yuan-he-0557781aa
 # orcid: 0000-0000-0000-0000
 
 short_bio: >-
   <p>
-    A <a href="https://en.wikipedia.org/wiki/Bicolor_cat" target="_blank">bicolor cat</a> is a cat with white fur combined with fur of some other colour, for example solid black, tabby, or colourpointed.
+    I am currently a postdoctoral Research Associate in the Knowledge Representation and Reasoning (KRR) group at the Department of Computer Science, University of Oxford.
   </p>
+
   <p>
-    There are various patterns of a bicolour cat. These range from the Van-patterned (colour on the crown of the head 
-    and the tail only) to a solid colour with a throat locket or medallion. Bicolour coats are found in many cat breeds, 
-    as well as being common in domestic longhair and domestic shorthair cats.
+    My research interests revolve around Natural Language Processing, Knowledge Engineering, and Deep Learning, currently with the following specific topics:
+
+    <ul>
+    <li>Large Language Models for Knowledge Engineering</li>
+    <li>Large Language Model Hallucinations and Interpretability</li>
+    <li>Retrieval-Augmented Generation with Large Language Models</li> 
+    <li>Geometric Language Models</li>
+    </ul>
+
+    I am also the main contributor of  several packages and resources, notably: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>, <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>, and <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>.
   </p>
 
 portrait_url: /assets/images/photos/portrait.jpg
@@ -34,27 +41,56 @@ portrait_caption: >-
   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
 education:
-- name: Massachusetts Institute of Technology
-  logo: /assets/images/badges/MIT_Social_circle.png
+- name: University of Oxford
+  logo: /assets/images/badges/Oxford_square.png
   position: >- 
-    Department of Electrical Engineering and Computer Science <br/>
-    Ph.D. Student
-  date: Sep. 2024 - present
-- name: Peking University
-  logo: /assets/images/badges/PKU_red.png
-  position: B.S. in Computer Science
-  date: Sep. 2019 - Jul. 2021
+    DPhil (PhD) in Computer Science </br>
+    <b>Thesis</b>: Language Models for Ontology Engineering <a href="http://dx.doi.org/10.5287/ora-pd7q5y157">[Link]</a> </br>
+    <b>Supervisor</b>: Prof. Ian Horrocks, Prof. Bernardo Cuenca Grau, Dr Jiaoyan Chen </br>
+    <b>Funding</b>: Fully funded by Samsung Research UK
 
-# experience:
-# - name: Peking University
-#   logo: /assets/images/badges/PKU_red.png
-#   position: Research Intern
-#   date: Sep. 2019 - Jul. 2021
+  date: Oct 2020 - Sep 2024
+- name: University of Edinburgh
+  logo: /assets/images/badges/UOE.png
+  position: >-
+    BSc (Hons) Artificial Intelligence and Mathematics </br>
+    <b>Thesis</b>: Incorporating Phonetic Information in Model Design for Machine Transliteration </br>
+    <b>Supervisor</b>: Dr. Shay Cohen </br>
+    <b>Grade</b>: First class and ranked top in the class
 
-awards:
-- name: Award Name 2
-  date: 2024
-- name: Award Name 1 
-  date: 2021
-- name: A quick brown fox jumps over the lazy dog and runs away award
-  date: 2021
+
+  date: Sep 2016 - May 2020
+
+experience:
+- name: University of Oxford
+  logo: /assets/images/badges/Oxford_square.png
+  position: Research Associate
+  date: Apr 2024 - now
+- name: 
+  position: Teaching Assistant (Structured Data)
+  date: Jun 2024 - Jun 2024
+- name: 
+  position: Class Tutor (KRR)
+  date: Jan 2022 - May 2023
+- name: University of Edinburgh
+  logo: /assets/images/badges/UOE.png
+  position: Lab Demonstrator (Reasoning and Agents)
+  date: Jan 2019 - May 2019
+- name:
+  position: Research Intern (Multi-lingual Machine Transliteration)
+  date: Jun 2018 - Aug 2018
+- name:
+  position: Research Assistant (NLP for Finance)
+  date: May 2017 - Dec 2019
+
+# awards:
+# - name: Best Resource Paper Runner-Up at the ACM International Conference on Information and Knowledge Management (CIKM)
+#   date: 2023
+# - name: Best Resource Paper Candidate at the International Semantic Web Conference (ISWC)
+#   date: 2022
+# - name: Best Research Report Award from the International Semantic Web Summer School (ISWS)
+#   date: 2022
+# - name: PhD Scholarship from Samsung Research UK
+#   date: 2021
+# - name: The 2020 Joint Class Prize (Ranked Top 1) for the degree of BSc in Artificial Intelligence and Mathematics
+#   date: 2020

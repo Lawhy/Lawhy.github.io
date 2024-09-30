@@ -5,14 +5,24 @@
                 <div class="row">
                     <div class="col">
                         <div class="h1 font-weight-normal">
-                            {{ site.data.profile.primary_name }} <small>{{ site.data.profile.secondary_name }}</small>
+                            {{ site.data.profile.primary_name }} 
+                            <span class="secondary-name">
+                                <small><small>({{ site.data.profile.secondary_name }})</small></small>
+                            </span>
                         </div>
+                        <style>
+                            .secondary-name {
+                                font-family: 'yuji-mai-regular', serif; /* Move font style here */
+                                margin-left: 5px; /* Add some space between the primary and secondary name */
+                                color: #575656; /* Light grey for secondary name */
+                            }
+                        </style>
                         <div class="text-profile-position">
                             {% for position in site.data.profile.positions %}
                             {% if position.logo -%}
                             <img src="{{ position.logo | relative_url }}" alt="Logo" class="inline-badge"/>
                             {%- endif %}
-                            {{ position.name }}<br/>
+                            <big>{{ position.name }}</big><br/>
                             {% endfor %}
                         </div>
                         <div class="text-profile-bio mt-3">
