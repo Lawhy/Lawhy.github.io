@@ -36,16 +36,16 @@ short_bio: >-
     I am also the main contributor of  several packages and resources, notably: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>, <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>, and <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>.
   </p>
 
-portrait_url: /assets/images/photos/portrait.jpg
-portrait_caption: >-
-  Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+portrait_url: /assets/images/photos/yuanhe_college.jpg
+# portrait_caption: >-
+#   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
 education:
 - name: University of Oxford
   logo: /assets/images/badges/Oxford_square.png
   position: >- 
     DPhil (PhD) in Computer Science </br>
-    <b>Thesis</b>: Language Models for Ontology Engineering <a href="http://dx.doi.org/10.5287/ora-pd7q5y157">[Link]</a> </br>
+    <b>Thesis</b>: Language Models for Ontology Engineering <small><a href="http://dx.doi.org/10.5287/ora-pd7q5y157">[Link]</a></small> </br>
     <b>Supervisor</b>: Prof. Ian Horrocks, Prof. Bernardo Cuenca Grau, Dr Jiaoyan Chen </br>
     <b>Funding</b>: Fully funded by Samsung Research UK
 
@@ -83,14 +83,21 @@ experience:
   position: Research Assistant (NLP for Finance)
   date: May 2017 - Dec 2019
 
-# awards:
-# - name: Best Resource Paper Runner-Up at the ACM International Conference on Information and Knowledge Management (CIKM)
-#   date: 2023
-# - name: Best Resource Paper Candidate at the International Semantic Web Conference (ISWC)
-#   date: 2022
-# - name: Best Research Report Award from the International Semantic Web Summer School (ISWS)
-#   date: 2022
-# - name: PhD Scholarship from Samsung Research UK
-#   date: 2021
-# - name: The 2020 Joint Class Prize (Ranked Top 1) for the degree of BSc in Artificial Intelligence and Mathematics
-#   date: 2020
+professional_services:
+- name: <b>Organiser & Chair</b>&colon; OAEI Bio-ML Track @ ISWC, ELMKE Workshop @EKAW
+- name: <b>Program Committee Member</b>&colon; CIKM, AAAI, ISWC, ESWC
+- name: <b>Conference Reviewer</b>&colon; ICLR, NeurIPS, ARR (ACL, EMNLP, NAACL, etc.), ECML PKDD
+- name: <b>Journal Review</b>&colon; Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
+
+
+awards:
+- name: Best Resource Paper Runner-Up at the ACM International Conference on Information and Knowledge Management (CIKM) <small><a href="/assets/images/certificates/cikm_resource.jpg">[Certificate]</a></small>
+  date: 2023
+- name: Best Resource Paper Candidate at the International Semantic Web Conference (ISWC) <small><a href="/assets/images/certificates/iswc_resource.jpg">[Nomination]</a></small>
+  date: 2022
+- name: Best Research Report Award from the International Semantic Web Summer School (ISWS) <small><a href="/assets/images/certificates/isws_best_paper.jpg">[Certificate]</a></small>
+  date: 2022
+- name: PhD Scholarship from Samsung Research UK
+  date: 2021
+- name: The 2020 Joint Class Prize (Ranked Top 1) for the degree of BSc in Artificial Intelligence and Mathematics <small><a href="/assets/images/certificates/uoe_class_prize.pdf">[Certificate]</a></small>
+  date: 2020
