@@ -2,7 +2,7 @@
 title:          "A Language Model based Framework for New Concept Placement in Ontologies"
 date:           2024-01-10 00:01:00 +0800
 selected:       false
-pub:            "The 21st Extended Semantic Web Conference (ESWC)"
+pub:            "ESWC"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
