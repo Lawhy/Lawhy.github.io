@@ -1,0 +1,53 @@
+{% assign item = include.item %}
+<div class="d-none d-md-block">
+    <div class="row no-gutters border-bottom border-gray">
+        <div class="col-md-12 p-3">
+            <!-- Post Title -->
+            <h5 class="font-weight-normal">
+                <a href="{{ item.url }}" class="text-dark">{{ item.title }}</a>
+            </h5>
+
+            <!-- Post Excerpt -->
+            <p class="text-muted">
+                {{ item.excerpt }}
+            </p>
+
+            <!-- Post Tags (Optional) -->
+            {% if item.tags %}
+            <p class="small">
+                <!-- <strong>Tags:</strong> -->
+                {% for tag in item.tags %}
+                <a href="/tags/{{ tag | downcase | slugify }}/" class="badge badge-light">{{ tag }}</a>
+                {% endfor %}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="card w-100 d-md-none border-top-0 border-right-0 border-left-0 rounded-0">
+    <div class="card-img-overlay d-flex align-items-start flex-column" style="background-color: rgba(255, 255, 255, 0.85);">
+        <div class="mb-auto"></div>
+        <div>
+            <!-- Mobile Version Post Title -->
+            <h5 class="font-weight-normal">
+                <a href="{{ item.url }}" class="text-dark">{{ item.title }}</a>
+            </h5>
+
+            <!-- Mobile Version Post Excerpt -->
+            <p class="text-muted">
+                {{ item.excerpt }}
+            </p>
+
+            <!-- Mobile Version Post Tags (Optional) -->
+            {% if item.tags %}
+            <p class="small">
+                <strong>Tags:</strong>
+                {% for tag in item.tags %}
+                <a href="/tags/{{ tag | downcase | slugify }}/" class="badge badge-light">{{ tag }}</a>
+                {% endfor %}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>

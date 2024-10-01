@@ -59,3 +59,50 @@ img.lazy {
     font-family: Courier, monospace;
 }
 
+/* Style for the preformatted text (code block) */
+pre {
+    background-color: #f5f5f5; /* Light grey background */
+    padding: 1em;              /* Padding around the code */
+    border-radius: 5px;         /* Rounded corners */
+    overflow-x: auto;           /* Horizontal scroll if code is too wide */
+    font-size: 0.95em;          /* Slightly smaller font size for code */
+    line-height: 1.5em;         /* Improve readability */
+    border: 1px solid #e1e1e8;  /* Light border to separate from the content */
+    white-space: pre-wrap;      /* Allow code to wrap within the block */
+  }
+  
+  /* Style for inline code */
+  code {
+    font-family: "Courier New", Courier, monospace; /* Monospace font for code */
+    background-color: #f5f5f5;                      /* Light grey background */
+    padding: 0.2em 0.4em;                           /* Padding around inline code */
+    border-radius: 4px;                             /* Rounded corners */
+    color: #d63384;                                 /* Code text color */
+    font-size: 0.9em;                               /* Slightly smaller than regular text */
+  }
+  
+  /* Improve appearance of line numbers (if enabled) */
+  td.rouge-gutter {
+    background-color: #f5f5f5; /* Same background as the code block */
+    padding-right: 1em;        /* Space between line numbers and code */
+  }
+  
+  
+/* Center images and add padding */
+.image-container {
+    text-align: center;
+    margin: 2em 0;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.image-caption {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0.5em;
+}
+  

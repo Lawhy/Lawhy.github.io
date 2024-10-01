@@ -16,9 +16,13 @@
 baseurl: "" # the subpath of your site, e.g. /blog
 
 # Build settings
+highlighter: rouge
 markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
 plugins:
   - jekyll-email-protect
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -37,4 +41,3 @@ plugins:
 collections:
   - publications
   - news
-  - awards
