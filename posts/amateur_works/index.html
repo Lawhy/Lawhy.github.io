@@ -10,6 +10,15 @@ body_attr: >-
 
 <div class="row">
     <div class="col-12 col-lg-10">
+
+        <!-- Include the Introductory Post -->
+        {% assign intro_post = site.posts | where: "category", "amateur-main" | first %}
+        {% if intro_post %}
+        <div class="my-3 p-0 bg-white shadow-sm rounded-sm">
+            {% include widgets/post_item.html item=intro_post %}
+        </div>
+        {% endif %}
+
         {% for year in post_by_year %}
         {% assign year_blog_posts = year.items | where: "category", "amateur" %}
         
