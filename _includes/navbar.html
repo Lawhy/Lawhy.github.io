@@ -8,9 +8,24 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 {% for item in site.data.navigation.pages %}
+                {% if item.subpages %}
+                <!-- Dropdown Menu for pages with subpages -->
+                <li class="nav-item dropdown {% if item.name == page.navbar_title %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ forloop.index }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ item.name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.index }}">
+                        {% for subitem in item.subpages %}
+                        <a class="dropdown-item" href="{{ subitem.url | relative_url }}">{{ subitem.name }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                {% else %}
+                <!-- Regular Link for pages without subpages -->
                 <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
                     <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>

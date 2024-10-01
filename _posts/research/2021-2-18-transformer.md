@@ -5,6 +5,7 @@ date: 2021-2-18
 feature: /assets/img/posts/attention.jpg
 excerpt: "A detailed breakdown of the Transformer architecture."
 tags: [transformer, attention_mechanism, positional_encoding, paper_reading, maths]
+category: blog
 ---
 
 Though RNNs are capable of capturing sequential information, they suffer from the long-distance dependency problem when the sequence gets longer. The attention mechanism is able to capture the dependency regardless of the distance, but the positional information will be lost. While the attention mechanism can strengthen RNNs, there is a natural question: Why don't we rely fully on the attention mechanism and, meanwhile, use some technique to preserve the positional information?

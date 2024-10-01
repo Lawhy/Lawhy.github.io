@@ -4,8 +4,7 @@ title: "Pythagorean Means"
 date: 2019-4-2
 excerpt: "We discuss the common three types of Pythagorean means (i.e. *Arithmetic Mean, Geometric Mean* and *Harmonic Mean*) in this post, with emphasis on the interpretation of the Harmonic Mean."
 tags: [pythagorean, Arithmetic Mean, Geometric Mean, Harmonic Mean, maths]
-comments: false
-maths: true
+category: blog
 ---
 
 We discuss the common three types of Pythagorean means (i.e. *Arithmetic Mean, Geometric Mean* and *Harmonic Mean*) in this post, with emphasis on the interpretation of the Harmonic Mean.

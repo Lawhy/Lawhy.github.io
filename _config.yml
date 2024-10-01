@@ -18,8 +18,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 # Build settings
 highlighter: rouge
 markdown: kramdown
-kramdown:
-  syntax_highlighter: rouge
 plugins:
   - jekyll-email-protect
 

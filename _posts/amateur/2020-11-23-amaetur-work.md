@@ -4,8 +4,7 @@ title: "Amaetur Work in Music Composition and Chinese Literature"
 date: 2020-11-23
 excerpt: "Links to my personal amaetur work in music composition and Chinese literature."
 tags: [amaetur, music_composition, Chinese_literature]
-amateur: true
-comments: false
+category: amateur
 ---
 
 Before specializing in the field of Computer Science, I had a 10-year experience of writing in Chinese literature under the pseudonym "知陌若". 

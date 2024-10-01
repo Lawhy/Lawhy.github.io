@@ -17,7 +17,7 @@
             <p class="small">
                 <!-- <strong>Tags:</strong> -->
                 {% for tag in item.tags %}
-                <a href="/tags/{{ tag | downcase | slugify }}/" class="badge badge-light">{{ tag }}</a>
+                <span class="badge badge-light">{{ tag }}</span>
                 {% endfor %}
             </p>
             {% endif %}

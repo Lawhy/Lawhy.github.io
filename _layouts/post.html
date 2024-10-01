@@ -19,7 +19,7 @@ layout: default
             <ul class="list-inline">
             {% for tag in page.tags %}
             <li class="list-inline-item">
-                <a href="/tags/{{ tag | downcase | slugify }}/" class="badge badge-light">{{ tag }}</a>
+                <span class="badge badge-light">{{ tag }}</span>
             </li>
             {% endfor %}
             </ul>

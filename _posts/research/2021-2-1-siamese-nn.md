@@ -4,8 +4,7 @@ title: "Siamese Neural Network"
 date: 2021-2-1
 excerpt: "Quick notes on Siamese Neural Network"
 tags: [siamese_neural_network, quick_notes]
-comments: false
-notes: true
+category: blog
 ---
 
 ### Siamese Neural Network

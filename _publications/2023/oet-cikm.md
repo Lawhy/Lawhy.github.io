@@ -5,7 +5,7 @@ selected:       false
 pub:            "CIKM"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
-pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Best Resource Paper Runner-Up</span>'
+pub_last:       ' <span class="badge badge-pill badge-publication badge-info">Best Resource Paper Runner-Up</span>'
 pub_date:       "2023"
 
 tldr: A dataset for biomedical ontology concept discovery and placement.

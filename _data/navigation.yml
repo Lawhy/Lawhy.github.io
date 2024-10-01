@@ -4,4 +4,9 @@ pages:
 - name: Publications
   url: /publications
 - name: Posts
+  subpages:
+    - name: Technical Posts
+      url: /posts/technical_posts
+    - name: Amateur Works
+      url: /posts/amateur_works
   url: /posts

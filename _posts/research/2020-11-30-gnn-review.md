@@ -4,11 +4,7 @@ title: "Graph Neural Network"
 date: 2020-11-18
 excerpt: "Notes on the original Graph Neural Network (GNN)."
 tags: [graph_neural_network, gnn, literature_review]
-comments: false
-highlight: false
-maths: false
-review: true
-paper: false
+category: blog
 ---
 
 The **Graph Neural Network** (GNN) implements a function $$\tau(G, n) \in \mathbb{R}^m$$ that maps a graph $$G$$ and one of its node $$n$$ into an $$m$$-dimensional Euclidean space. The originally proposed GNN is an extension of both *recursive neural networks* and *random walk models*. GNNs are based on an *information diffusion mechanism* (propagating the information to neighbors) which is constrained to ensure that a *unique* *stable* *equilibrium* always exists.

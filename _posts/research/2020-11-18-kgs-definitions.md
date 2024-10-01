@@ -4,11 +4,7 @@ title: "Concepts in Knowledge Graphs"
 date: 2020-11-18
 excerpt: "A collection of definitions and concise points in the long survey of Knowledge Graphs (KGs)."
 tags: [knowledge_graph, kg, literature_review]
-comments: false
-highlight: false
-maths: false
-review: true
-paper: false
+category: blog
 ---
 
 Notes on reading the long survey: **Knowledge Graphs** (see References).
@@ -114,7 +110,10 @@ Notes on reading the long survey: **Knowledge Graphs** (see References).
     
     16.4 <u>Relation Extraction</u>: The RE task extracts relations between entities in the text. 
     
-    ![Text-extraction](/assets/img/posts/text-extraction-exp.PNG)
+
+    <div class="image-container">
+        <img src="/assets/images/posts/text-extraction-exp.PNG" alt="text-extraction" style="zoom: 75%;" />
+    </div>
  
 ---
 ### References

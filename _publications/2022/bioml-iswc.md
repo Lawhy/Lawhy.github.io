@@ -5,7 +5,7 @@ selected:       false
 pub:            "ISWC"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
-pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Best Resource Paper Candidate</span>'
+pub_last:       ' <span class="badge badge-pill badge-publication badge-info">Best Resource Paper Candidate</span>'
 pub_date:       "2022"
 
 tldr: Resource paper for the OAEI Bio-ML track.

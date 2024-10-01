@@ -1,15 +1,11 @@
 ---
 layout: post
-title: "Softmax and its Variants"
+title: "Softmax and its Variants <span class='badge badge-pill'>Feature</span>" 
 date: 2021-1-17
 feature: /assets/img/posts/sigmoid.jpg
 excerpt: "Softmax function is widely used in the output layer of neural network based model. However, it suffers from the time complexitiy problem resulted from normalizing over the whole vocabulary in the NLP application (e.g. Word2Vec). To deal with it, various approaches for approximating/replacing softmax have been proposed, and this post introduces some of them as well as the maths behind them."
 tags: [softmax, softmax_variants, normalization, cross_entropy, maximum_likelihood_estimation, monte_carlo_estimation, sampling, maths]
-comments: true
-highlight: true
-maths: true
-review: true
-paper: false
+category: blog
 ---
 
 ## Introduction
@@ -74,9 +70,12 @@ $$
 
 where $$p^0(w) = w$$, $$P(root) = 1$$, and the path is of length $$\log \lvert V \rvert - 1$$. The figure below demonstrates an example of computing the conditional probability $$P(blue \vert context)$$ in the hierarchical manner.
 
-| ![hsoftmax.jpg](/assets/img/posts/hsoftmax.png) | 
-|:--:| 
-| *Fig. 1: The example of applying the recursive cluster partitioning as in the balanced binary tree.* |
+<div class="image-container">
+  <img src="/assets/images/posts/hsoftmax.png" alt="hsoftmax" style="zoom: 100%;" />
+  <p class="image-caption">
+  Fig. 1: An example of applying the recursive cluster partitioning as in the balanced binary tree.
+  </p>
+</div>
 
 Since we are searching in the binary tree, the probability function for each node can be the sigmoid function as proposed in the original work of H-Softmax [[2]](#ref3).
 
@@ -259,9 +258,12 @@ $$
 
 The expression of $$L_c$$ suggests that **on average**, each positive sample given a fixed context $$c$$ is accompanied by $$k$$ negative samples. Thus, for the overall NCE loss, we can discard the average term and express it as each positive sample is indeed associated with $$k$$ negative samples:
 
-| ![nce-mle-proof.jpg](/assets/img/posts/total-nce-loss-proof.PNG) | 
-|:--:| 
-| *Fig. 2: The detailed calculation steps for the overall NCE loss.* |
+<div class="image-container">
+  <img src="/assets/images/posts/total-nce-loss-proof.PNG" alt="nce-mle-proof" style="zoom: 100%;" />
+  <p class="image-caption">
+  Fig. 2: The detailed calculation steps for the overall NCE loss.
+  </p>
+</div>
 
 ### Asymtopic Analysis: Why NCE works?
 
@@ -273,9 +275,13 @@ $$
 
 To see why NCE works, we need to compute its gradient and compare it with the gradient of the negative log-likehood function. For clearer presentaiton, we divide the calculation into two parts with the first part including the terms involving positive samples and the second part including the negative ones. <del> Note that we can interchange $$P^{\mathcal{D}_c}$$ and $$P^+$$ to help with the calculation </del>. Let $$LHS$$ and $$LHS'$$ denote the gradients of the first half and the second half, respectively ($$\nabla L_c = - LHS - LHS'$$), then we have:
 
-| ![nce-mle-proof.jpg](/assets/img/posts/nce-mle-proof.PNG) | 
-|:--:| 
-| *Fig. 3: The detailed calculation steps for the gradient of the NCE loss (divided into two parts for better comprehension) which is omitted in the original paper* |
+
+<div class="image-container">
+  <img src="/assets/images/posts/nce-mle-proof.PNG" alt="nce-mle-proof" style="zoom: 100%;" />
+  <p class="image-caption">
+  Fig. 3: The detailed calculation steps for the gradient of the NCE loss (divided into two parts for better comprehension) which is omitted in the original paper.
+  </p>
+</div>
 
 By combining the results, we can express the NCE loss as:
 
@@ -357,12 +363,12 @@ This post follows the same order of introducing the softmax variants as in Ruder
 
 ### Citation
 
-```
+```bash
 @misc{yuan2020softmaxvariants,
-author = {He, Yuan},
-title = {Softmax and its Variants},
-year = {2020},
-howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
+  author = {He, Yuan},
+  title = {Softmax and its Variants},
+  year = {2020},
+  howpublished = {\url{https://lawhy.github.io//softmax-variants/}},
 }
 ```
 
