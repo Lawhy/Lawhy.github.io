@@ -12,7 +12,19 @@
             <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
             <p class="mt-0 mb-0 small">{% include widgets/author_list.html authors=item.authors %}</p>
             <p class="mt-0 mb-0 small">{{item.pub_pre}}<i>{{ item.pub }}</i>{{ item.pub_post }} {{ item.pub_date }} {{ item.pub_last }}</p>
-            <p class="mt-0 mb-0 small text-muted">{{ item.abstract }}</p>
+            
+            <!-- TL;DR Section with Icon -->
+            <p class="mt-0 mb-0 small text-muted">
+                <strong><i class="fas fa-lightbulb"></i> TL;DR:</strong> {{ item.tldr }}
+            </p>
+            
+            <!-- Full Abstract Section (Initially Hidden) -->
+            <p class="mt-0 mb-0 small text-muted d-none" id="full-abstract-{{ item.id }}">
+                <strong>Abstract:</strong> {{ item.abstract }}
+            </p>
+            
+            <!-- Toggle Button (Smaller Text) -->
+            <button class="btn btn-link p-0 text-muted" style="font-size: 0.85rem;" onclick="toggleAbstract('{{ item.id }}')">Show More</button>
             
             <p class="small pb-0 mb-0 lh-125 text-muted abstract-links">
                 {% for link in item.links %}
@@ -23,7 +35,6 @@
                 {% endif %}
                 {% endfor %}
             </p>
-
         </div>
     </div>
 </div>
@@ -40,7 +51,19 @@
             <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
             <p class="mt-0 mb-0 small">{% include widgets/author_list.html authors=item.authors %}</p>
             <p class="mt-0 mb-0 small">{{item.pub_pre}}<i>{{ item.pub }}</i>{{ item.pub_post }} {{ item.pub_date }} {{ item.pub_last }}</p>
-            <p class="mt-0 mb-0 small text-muted d-none d-sm-block">{{ item.abstract }}</p>
+            
+            <!-- TL;DR Section with Icon -->
+            <p class="mt-0 mb-0 small text-muted">
+                <strong><i class="fas fa-lightbulb"></i> TL;DR:</strong> {{ item.tldr }}
+            </p>
+            
+            <!-- Full Abstract Section (Initially Hidden) -->
+            <p class="mt-0 mb-0 small text-muted d-none" id="full-abstract-{{ item.id }}">
+                <strong>Abstract:</strong> {{ item.abstract }}
+            </p>
+            
+            <!-- Toggle Button (Smaller Text) -->
+            <button class="btn btn-link p-0 text-muted" style="font-size: 0.85rem;" onclick="toggleAbstract('{{ item.id }}')">Show More</button>
             
             <p class="small pb-0 mb-0 lh-125 text-muted abstract-links">
                 {% for link in item.links %}
@@ -54,3 +77,18 @@
         </div>
     </div>
 </div>
+
+<script>
+function toggleAbstract(id) {
+    var abstract = document.getElementById('full-abstract-' + id);
+    var button = abstract.nextElementSibling;
+    
+    if (abstract.classList.contains('d-none')) {
+        abstract.classList.remove('d-none');
+        button.textContent = 'Show Less';
+    } else {
+        abstract.classList.add('d-none');
+        button.textContent = 'Show More';
+    }
+}
+</script>
