@@ -2,6 +2,7 @@ homepage:
   show_experience: true
   show_news: true
   show_selected_publications: true
+  show_amateur: true
   show_awards: false
   num_news: 5
   num_awards: 1000
