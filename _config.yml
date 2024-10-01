@@ -39,3 +39,4 @@ plugins:
 collections:
   - publications
   - news
+  - presentations
