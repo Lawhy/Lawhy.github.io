@@ -24,4 +24,6 @@ authors:
 links:
   Preprint: https://arxiv.org/abs/2112.02682
   Paper: https://ojs.aaai.org/index.php/AAAI/article/view/20510
+  Slides: /assets/files/presentations/aaai_2022_bertmap.pdf
+  Poster: /assets/files/presentations/aaai_2022_bertmap_poster.pdf
 ---

@@ -22,4 +22,6 @@ authors:
 
 links:
   Paper: https://www.aclweb.org/anthology/2020.aacl-main.40
+  Slides: /assets/files/presentations/aacl_2020_en2ch.pdf
+  Video: https://youtu.be/VzcCkX_MjWU
 ---

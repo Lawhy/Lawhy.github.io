@@ -25,4 +25,5 @@ authors:
 links:
   Preprint: https://arxiv.org/abs/2302.06761
   Paper: https://aclanthology.org/2023.findings-acl.213/
+  Poster: /assets/files/presentations/acl_2023_ontolama_poster.pdf
 ---

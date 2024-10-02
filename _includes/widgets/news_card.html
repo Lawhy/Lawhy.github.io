@@ -83,7 +83,7 @@
             newsYears.forEach(function(newsYear) {
                 var year = parseInt(newsYear.getAttribute('data-year'));
                 var currentYear = getCurrentYear();
-                if (year < currentYear - 2) {
+                if (year <= currentYear - 2) {
                     newsYear.style.display = 'block'; // Show older news years
                     var items = newsYear.querySelectorAll('.news-item');
                     items.forEach(function(newsItem) {
