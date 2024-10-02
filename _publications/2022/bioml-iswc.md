@@ -27,4 +27,7 @@ links:
   Preprint: https://arxiv.org/abs/2205.03447
   Paper: https://link.springer.com/chapter/10.1007/978-3-031-19433-7_33
   Website: https://krr-oxford.github.io/OAEI-Bio-ML/
+  Slides: /assets/files/presentations/iswc_2022_bioml.pdf
+  Poster: /assets/files/presentations/iswc_2022_bioml_poster.pdf
+  Certificate: /assets/certificates/iswc_resouce.png
 ---

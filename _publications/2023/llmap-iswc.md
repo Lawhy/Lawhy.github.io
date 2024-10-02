@@ -23,4 +23,7 @@ authors:
 links:
   Preprint: https://arxiv.org/abs/2309.07172
   Paper: https://hozo.jp/ISWC2023_PD-Industry-proc/ISWC2023_paper_427.pdf
+  Poster: /assets/files/presentations/iswc_2023_llmap_poster.pdf
+  Minute Madness: /assets/files/presentations/iswc_2023_llmap_minute.pdf
+
 ---
