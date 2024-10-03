@@ -9,23 +9,21 @@
         
         <!-- Year Selection Buttons -->
         <!-- Button generation for the last two years and older news -->
-        <div id="news-filter" class="d-flex align-items-center">
+        <div id="news-filter" class="d-flex align-items-center flex-wrap">
             <!-- Most Recent Button -->
-            <button class="btn btn-outline-primary mr-2" onclick="filterNews('recent', '{{ recent_news_limit }}')">Recent</button>
+            <button class="btn btn-outline-primary mr-2 btn-sm" onclick="filterNews('recent', '{{ recent_news_limit }}')">Recent</button>
         
             {% assign current_year = 'now' | date: "%Y" %}
             {% assign recent_years = current_year | minus: 1 %}
             
             <!-- Generate buttons for the last two years dynamically -->
-            <button class="btn btn-outline-primary mr-2" onclick="filterNews('{{ current_year }}')">{{ current_year }}</button>
-            <button class="btn btn-outline-primary mr-2" onclick="filterNews('{{ recent_years }}')">{{ recent_years }}</button>
+            <button class="btn btn-outline-primary mr-2 btn-sm" onclick="filterNews('{{ current_year }}')">{{ current_year }}</button>
+            <button class="btn btn-outline-primary mr-2 btn-sm" onclick="filterNews('{{ recent_years }}')">{{ recent_years }}</button>
         
             <!-- Button for older news -->
-            <button class="btn btn-outline-primary mr-2" onclick="filterNews('older')">Pre-{{ recent_years }}</button>
+            <button class="btn btn-outline-primary mr-2 btn-sm" onclick="filterNews('older')">Pre-{{ recent_years }}</button>
         </div>
     </div>
-
-
 
     <!-- News Listing -->
     <div id="news-container" class="px-3 pb-1">
@@ -116,3 +114,12 @@
 </script>
 
     
+<style>
+    /* Custom scaling for extra-small devices */
+    @media (max-width: 576px) {
+        #news-filter button {
+            font-size: 0.75rem; /* Adjust font size for mobile */
+            padding: 0.25rem 0.5rem; /* Adjust padding for mobile */
+        }
+    }
+</style>
