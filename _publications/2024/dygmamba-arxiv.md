@@ -1,7 +1,7 @@
 ---
 title:          "DyGMamba: Efficiently Modeling Long-Term Temporal Dependency on Continuous-Time Dynamic Graphs with State Space Models"
 date:           2024-09-05 00:01:00 +0800
-selected:       true
+selected:       false
 pub:            "Arxiv"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'

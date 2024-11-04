@@ -1,7 +1,7 @@
 ---
 title:          "Contextual Semantic Embeddings for Ontology Subsumption Prediction"
 date:           2023-05-02 00:01:00 +0800
-selected:       false
+selected:       true
 pub:            "World Wide Web"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
