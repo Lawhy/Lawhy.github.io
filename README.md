@@ -1,4 +1,4 @@
-# Yuan He's Homepage
+# Lawhy.github.io
 
 Theme template credit to [Academic Pages](https://github.com/luost26/academic-homepage).
 
