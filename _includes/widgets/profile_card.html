@@ -5,15 +5,25 @@
                 <div class="row">
                     <div class="col">
                         <div class="h1 font-weight-normal">
-                            {{ site.data.profile.primary_name }} 
-                            <span class="secondary-name">
-                                <small><small>({{ site.data.profile.secondary_name }})</small></small>
+                            {{ site.data.profile.primary_name }}
+                            <span class="secondary-name" onclick="document.getElementById('pronunciation-audio').play();" style="cursor: pointer; font-size: 2rem">
+                                ❲{{ site.data.profile.secondary_name }}❳
                             </span>
                         </div>
+                        <audio id="pronunciation-audio" src="/assets/audio/chinese-name.mp3" style="display: none;"></audio>
                         <style>
+                            @font-face {
+                                font-family: "STXingkai";
+                                src: url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.eot");
+                                src: url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.eot?#iefix")format("embedded-opentype"),
+                                url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.woff2")format("woff2"),
+                                url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.woff")format("woff"),
+                                url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.ttf")format("truetype"),
+                                url("https://db.onlinewebfonts.com/t/242a828d266472665bf6ad46819772eb.svg#STXingkai")format("svg");
+                            }
                             .secondary-name {
-                                font-family: 'yuji-mai-regular', serif; /* Move font style here */
-                                margin-left: 5px; /* Add some space between the primary and secondary name */
+                                font-family: '华文行楷', 'STXingkai', 'Microsoft YaHei', sans-serif; /* Move font style here */
+                                margin-left: 0px; /* Add some space between the primary and secondary name */
                                 color: #575656; /* Light grey for secondary name */
                             }
                         </style>
@@ -99,4 +109,3 @@
         </div>        
     </div>
 </div>
-
