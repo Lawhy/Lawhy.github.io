@@ -28,10 +28,11 @@ short_bio: >-
     My research interests revolve around Natural Language Processing, Knowledge Engineering, and Deep Learning, currently with the following specific topics:
 
     <ul>
+    <li>Knowledge and Hallucinations in Large Language Models</li>
     <li>Large Language Models for Knowledge Engineering</li>
-    <li>Large Language Model Hallucinations and Interpretability</li>
-    <li>Retrieval-Augmented Generation with Large Language Models</li> 
-    <li>Geometric Language Models</li>
+    <li>Geometric Learning of Language Models</li>
+    <li>Domain-specific Training of Large Language Models</li>
+    <li>Multi-Agent (Agentic) Workflows</li> 
     </ul>
 
     I am also the main contributor of  several packages and resources, notably: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>, <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>, and <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>.
