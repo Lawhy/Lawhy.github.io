@@ -20,6 +20,7 @@ authors:
   - Ian Horrocks
 links:
   Preprint: https://arxiv.org/abs/2401.11374
-  # Code: https://github.com/KRR-Oxford/HierarchyTransformers
-  Website: https://huggingface.co/Hierarchy-Transformers
+  Poster & Slides: https://neurips.cc/virtual/2024/poster/95913
+  Website: https://krr-oxford.github.io/HierarchyTransformers/
+  HuggingFace: https://huggingface.co/Hierarchy-Transformers
 ---

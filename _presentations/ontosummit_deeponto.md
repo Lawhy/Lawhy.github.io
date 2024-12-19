@@ -6,4 +6,5 @@ excerpt: >-
 
 links:
   Slides: /assets/files/presentations/ontosummit_deeponto.pdf
+  Video: https://www.youtube.com/watch?v=OYJWARcH5B0
 ---
