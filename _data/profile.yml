@@ -58,12 +58,20 @@ education:
     BSc (Hons) Artificial Intelligence and Mathematics </br>
     <b>Thesis</b>: Incorporating Phonetic Information in Model Design for Machine Transliteration </br>
     <b>Supervisor</b>: Dr. Shay Cohen </br>
-    <b>Grade</b>: First class and ranked top in the class
+    <b>Grade</b>: First class and ranked #1
 
 
   date: Sep 2016 - May 2020
 
 experience:
+# - name: Amazon Rufus
+#   logo: /assets/images/badges/Amazon.png
+#   position: Applied Scientist
+#   date: Apr 2024 - now
+- name: CAMEL-AI
+  logo: /assets/images/badges/CAMEL-AI.png
+  position: Visiting Researcher
+  date: Nov 2024 - now
 - name: University of Oxford
   logo: /assets/images/badges/Oxford_square.png
   position: Research Associate
@@ -76,17 +84,17 @@ experience:
   date: Jan 2022 - May 2023
 - name: University of Edinburgh
   logo: /assets/images/badges/UOE.png
-  position: Lab Demonstrator (Reasoning and Agents)
+  position: Lab Demonstrator (Reasoning & Agents)
   date: Jan 2019 - May 2019
 - name:
-  position: Research Intern (Multi-lingual Machine Transliteration)
+  position: Research Intern (Multilingual Machine Transliteration)
   date: Jun 2018 - Aug 2018
 - name:
   position: Research Assistant (NLP for Finance)
   date: May 2017 - Dec 2019
 
 professional_services:
-- name: <b>Organiser & Chair</b>&colon; OAEI Bio-ML Track @ ISWC, ELMKE Workshop @EKAW
+- name: <b>Organiser & Chair</b>&colon; OAEI Bio-ML Track (ISWC), ELMKE Workshop (EKAW, ESWC)
 - name: <b>Program Committee Member</b>&colon; CIKM, AAAI, ISWC, ESWC
 - name: <b>Conference Reviewer</b>&colon; ICLR, NeurIPS, ARR (ACL, EMNLP, NAACL, etc.), ECML PKDD
 - name: <b>Journal Review</b>&colon; Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
@@ -103,6 +111,12 @@ awards:
   date: 2021
 - name: The 2020 Joint Class Prize (Ranked Top 1) for the degree of BSc in Artificial Intelligence and Mathematics <small><a href="/assets/files/certificates/uoe_class_prize.pdf">[Certificate]</a></small>
   date: 2020
+
+supervision:
+- name: Yujia Gu - MSc. in Computer Engineering - Technical University of Munich 
+  date: 2024 - 2025
+- name: Bingjie Hong - MSc. in Computer Science - University of Manchester 
+  date: 2024
 
 amateur: >-
   <ul>
