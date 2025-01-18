@@ -101,6 +101,8 @@ professional_services:
 
 
 awards:
+- name: Excellent Open-sourced Tool (DeepOnto) from OpenKG
+  date: 2024
 - name: Best Resource Paper Runner-Up at the ACM International Conference on Information and Knowledge Management (CIKM) <small><a href="/assets/files/certificates/cikm_resource.jpg">[Certificate]</a></small>
   date: 2023
 - name: Best Resource Paper Candidate at the International Semantic Web Conference (ISWC) <small><a href="/assets/files/certificates/iswc_resource.jpg">[Nomination]</a></small>
