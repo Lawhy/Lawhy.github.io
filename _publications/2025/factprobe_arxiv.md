@@ -15,9 +15,9 @@ abstract: >-
 
 cover: /assets/images/papers/factprobe.png
 authors:
-  - <b>Yuan He</b>
-  - Bailan He
-  - Zifeng Ding
+  - <b>Yuan He</b><sup>*</sup>
+  - Bailan He<sup>*</sup>
+  - Zifeng Ding<sup>*</sup>
   - Alisia Maria Lupidi
   - Yuqicheng Zhu
   - Shuo Chen
