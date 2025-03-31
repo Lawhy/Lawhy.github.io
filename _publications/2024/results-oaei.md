@@ -1,6 +1,6 @@
 ---
 title:          "Results of the Ontology Alignment Evaluation Initiative 2024"
-date:           2024-12-25 00:01:00 +0800
+date:           2024-12-30 00:01:00 +0800
 selected:       false
 pub:            "OM@ISWC"
 # pub_pre:        "Submitted to "
