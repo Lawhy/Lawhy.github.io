@@ -25,17 +25,7 @@ short_bio: >-
   </p>
 
   <p>
-    My research interests revolve around Natural Language Processing, Knowledge Engineering, and Deep Learning, currently with the following specific topics:
-
-    <ul>
-    <li>Knowledge and Hallucinations in Large Language Models</li>
-    <li>Large Language Models for Knowledge Engineering</li>
-    <li>Geometric Learning of Language Models</li>
-    <li>Domain-specific Training of Large Language Models</li>
-    <li>Large Language Model Reasoning</li>
-    </ul>
-
-    I am also the main contributor of  several packages and resources, notably: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>, <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>, and <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>.
+    My research centers on Natural Language Processing, Knowledge Engineering, and Deep Learning, with a particular focus on rethinking how knowledge and reasoning are represented and leveraged in the era of large language models.
   </p>
 
 portrait_url: /assets/images/photos/yuanhe_selfie.png
@@ -92,6 +82,18 @@ experience:
 - name:
   position: Research Assistant (NLP for Finance)
   date: May 2017 - Dec 2019
+
+opensource_tools:
+- name: <a href="https://github.com/CAMEL-AI/Loong">Loong</a>: An environment for verifiable synthetic long CoTs
+  date: 2025 - now
+- name: <a href="https://github.com/CAMEL-AI/CAMEL">CAMEL</a>: The first multi-agent framework for large language models
+  date: 2025 - now
+- name: <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>: A framework for hierarchy learning with language models
+  date: 2024 - now
+- name: <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>: A resource benchmark for ontology alignment systems
+  date: 2022 - now
+- name: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>: A Python package for ontology engineering with deep learning and language models
+  date: 2021 - now
 
 professional_services:
 - name: <b>Organiser & Chair</b>&colon; OAEI Bio-ML Track (ISWC), ELMKE Workshop (EKAW, ESWC)
