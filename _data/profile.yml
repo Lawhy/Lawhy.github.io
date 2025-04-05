@@ -84,20 +84,15 @@ experience:
   date: May 2017 - Dec 2019
 
 opensource_tools:
-- name: >- 
-  <a href="https://github.com/CAMEL-AI/Loong">Loong</a>: An environment for verifiable synthetic long CoTs
+- name: <a href="https://github.com/CAMEL-AI/Loong">Loong</a>&colon; An environment for verifiable synthetic long CoTs
   date: 2025 - now
-- name: >- 
-  <a href="https://github.com/CAMEL-AI/CAMEL">CAMEL</a>: The first multi-agent framework for large language models
+- name: <a href="https://github.com/CAMEL-AI/CAMEL">CAMEL</a>&colon; The first multi-agent framework for large language models
   date: 2025 - now
-- name: >-
-  <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>: A framework for hierarchy learning with language models
+- name: <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>&colon; A framework for hierarchy learning with language models
   date: 2024 - now
-- name: >- 
-  <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>: A resource benchmark for ontology alignment systems
+- name: <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>&colon; A resource benchmark for ontology alignment systems
   date: 2022 - now
-- name: >-
-  <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>: A Python package for ontology engineering with deep learning and language models
+- name: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>&colon; A Python package for ontology engineering with deep learning and language models
   date: 2021 - now
 
 professional_services:
