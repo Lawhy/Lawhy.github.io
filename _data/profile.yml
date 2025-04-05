@@ -88,11 +88,11 @@ opensource_tools:
   date: 2025 - now
 - name: <a href="https://github.com/CAMEL-AI/CAMEL">CAMEL</a>&colon; The first multi-agent framework for large language models
   date: 2025 - now
-- name: <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>&colon; A framework for hierarchy learning with language models
+- name: <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>&colon; Hierarchy learning for language models
   date: 2024 - now
 - name: <a href="https://krr-oxford.github.io/OAEI-Bio-ML/">OAEI Bio-ML</a>&colon; A resource benchmark for ontology alignment systems
   date: 2022 - now
-- name: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>&colon; A Python package for ontology engineering with deep learning and language models
+- name: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>&colon; A package for ontology engineering with deep learning
   date: 2021 - now
 
 professional_services:
