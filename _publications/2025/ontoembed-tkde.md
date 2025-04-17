@@ -1,6 +1,6 @@
 ---
 title:          "Ontology Embedding: A Survey of Methods, Applications and Resources"
-date:           2024-05-01 00:01:00 +0800
+date:           2025-04-10 00:01:00 +0800
 selected:       false
 pub:            "TKDE"
 # pub_pre:        "Submitted to "

@@ -1,7 +1,7 @@
 ---
 title:          "Evaluating Knowledge Graph Based Retrieval Augmented Generation Methods under Knowledge Incompleteness"
 date:           2025-04-07 00:01:00 +0800
-selected:       true
+selected:       false
 pub:            "Arxiv"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
