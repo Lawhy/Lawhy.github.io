@@ -64,23 +64,22 @@ experience:
   date: Dec 2024 - now
 - name: University of Oxford
   logo: /assets/images/badges/Oxford_square.png
+  position: Visiting Researcher
+  date: Apr 2025 - now
   position: Research Associate
-  date: Apr 2024 - now
+  date: Apr 2024 - Apr 2025
 - name: 
-  position: Teaching Assistant (Structured Data)
-  date: Jun 2024 - Jun 2024
-- name: 
-  position: Class Tutor (KRR)
-  date: Jan 2022 - May 2023
+  position: Teaching Assistant
+  date: Nov 2020 - Jun 2024
 - name: University of Edinburgh
   logo: /assets/images/badges/UOE.png
-  position: Lab Demonstrator (Reasoning & Agents)
+  position: Teaching Assistant
   date: Jan 2019 - May 2019
 - name:
-  position: Research Intern (Multilingual Machine Transliteration)
+  position: Research Intern
   date: Jun 2018 - Aug 2018
 - name:
-  position: Research Assistant (NLP for Finance)
+  position: Research Assistant
   date: May 2017 - Dec 2019
 
 opensource_tools:
