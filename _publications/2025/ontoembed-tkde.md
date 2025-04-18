@@ -2,7 +2,7 @@
 title:          "Ontology Embedding: A Survey of Methods, Applications and Resources"
 date:           2025-04-10 00:01:00 +0800
 selected:       false
-pub:            "TKDE"
+pub:            "IEEE Transactions on Knowledge and Data Engineering"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
