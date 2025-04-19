@@ -1,12 +1,12 @@
 ---
 title:          "DyGMamba: Efficiently Modeling Long-Term Temporal Dependency on Continuous-Time Dynamic Graphs with State Space Models"
-date:           2024-09-05 00:01:00 +0800
+date:           2025-04-19 00:01:00 +0800
 selected:       false
-pub:            "Arxiv"
+pub:            "TMLR"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
-pub_date:       "2024"
+pub_date:       "2025"
 
 tldr: We introduce DyGMamba, a model that utilizes state space models (SSMs) for continuous-time dynamic graph (CTDG) representation learning. 
 
@@ -26,4 +26,5 @@ authors:
 
 links:
   Preprint: https://arxiv.org/abs/2406.10964
+  OpenReview: https://openreview.net/forum?id=sq5AJvVuha
 ---
