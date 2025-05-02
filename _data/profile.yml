@@ -3,8 +3,8 @@ secondary_name: "何源"
 navbar_name: "Yuan He's Wiki"
 
 positions:
-- name: Research Associate in Computer Science
-  logo: /assets/images/badges/Oxford_square.png
+- name: Incoming Applied Scientist at Amazon Rufus
+  logo: /assets/images/badges/amazon.png
 
 
 email: "yuan.he@cs.ox.ac.uk"
@@ -21,7 +21,7 @@ orcid: 0000-0002-4486-1262
 
 short_bio: >-
   <p>
-    I am currently a postdoctoral Research Associate in the Knowledge Representation and Reasoning (KRR) group at the Department of Computer Science, University of Oxford, where I also obtained my PhD (DPhil) degree. I am also visiting at CAMEL-AI.org. I will join Amazon Rufus as an Applied Scientist in 2025.
+    I will join Amazon Rufus as an Applied Scientist in May 2025. I am also an academic visitor at both University of Oxford and CAMEL-AI.org. Prior to that, I was a postdoctoral Research Associate in the Knowledge Representation and Reasoning (KRR) group at the Department of Computer Science, University of Oxford, where I also obtained my PhD (DPhil) degree. 
   </p>
 
   <p>
@@ -54,10 +54,10 @@ education:
   date: Sep 2016 - May 2020
 
 experience:
-# - name: Amazon Rufus
-#   logo: /assets/images/badges/Amazon.png
-#   position: Applied Scientist
-#   date: Apr 2024 - now
+- name: Amazon Rufus
+  logo: /assets/images/badges/amazon.png
+  position: Applied Scientist (Incoming)
+  date: May 2025 - yet to start 
 - name: CAMEL-AI.org
   logo: /assets/images/badges/CAMEL-AI.png
   position: Visiting Research Scientist
