@@ -24,4 +24,5 @@ authors:
 
 links:
   Preprint: https://arxiv.org/abs/2406.10964
+  IEEE: https://ieeexplore.ieee.org/document/10962554
 ---

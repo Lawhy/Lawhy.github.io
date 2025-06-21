@@ -24,5 +24,6 @@ authors:
   - Steffen Staab
 
 links:
+  Preprint: https://arxiv.org/abs/2505.16877
   OpenReview: https://openreview.net/forum?id=878fSDbW7t
 ---
