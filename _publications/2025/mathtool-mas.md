@@ -29,6 +29,6 @@ authors:
     - Guohao Li
 
 links:
-#   Preprint: yet_to_release
+  Preprint: http://arxiv.org/abs/2506.19171
   OpenReview: https://openreview.net/forum?id=B92cb9JLfC
 ---
