@@ -96,9 +96,8 @@ opensource_tools:
   date: 2021 - now
 
 professional_services:
-- name: <b>Organiser & Chair</b>&colon; OAEI Bio-ML Track (ISWC), ELMKE Workshop (EKAW, ESWC)
-- name: <b>Program Committee Member</b>&colon; CIKM, AAAI, ISWC, ESWC
-- name: <b>Conference Reviewer</b>&colon; ICML, ICLR, NeurIPS, ARR (ACL, EMNLP, NAACL, etc.), ECML PKDD
+- name: <b>Organiser & Program Chair</b>&colon; SEA Workshop (NeurIPS), OAEI Bio-ML Track (ISWC), ELMKE Workshop (EKAW, ESWC)
+- name: <b>Program Committee Member</b>&colon; ICML, ICLR, NeurIPS, ARR (ACL, EMNLP, NAACL, etc.), AAAI, ECML PKDD, CIKM, ISWC, ESWC
 - name: <b>Journal Review</b>&colon; Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
 
 
