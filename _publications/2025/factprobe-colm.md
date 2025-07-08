@@ -1,8 +1,8 @@
 ---
 title:          "Supposedly Equivalent Facts That Aren’t? Entity Frequency in Pre-training Induces Asymmetry in LLMs"
-date:           2025-03-27 00:01:00 +0800
+date:           2025-07-07 00:01:00 +0800
 selected:       true
-pub:            "Arxiv"
+pub:            "COLM"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
