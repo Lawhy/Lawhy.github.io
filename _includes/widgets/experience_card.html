@@ -54,12 +54,44 @@
                     </div>
                     {% endif %}
 
-                    {% if site.data.profile.awards %}
+                    {% if site.data.profile.professional_services %}
                     <div class="col-md-6">
                         <div class="mx-2 my-1">
-                            <h6>Honours & Awards</h6>
+                            <h6>Professional Services</h6>
+                            <div>Organizer & Program Chair</div>
                             <ul class="list small pl-3 mb-1">
-                                {% for item in site.data.profile.awards %}
+                                {% for item in site.data.profile.professional_services.organizer_and_program_chair %}
+                                <li>
+                                    <div class="d-flex">
+                                        <div>{{ item.name }}</div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div>Program Committee Member</div>
+                            <ul class="list small pl-3 mb-1">
+                                {% for item in site.data.profile.professional_services.program_committee_member %}
+                                <li>
+                                    <div class="d-flex">
+                                        <div>{{ item.name }}</div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div>Journal Reviewer</div>
+                            <ul class="list small pl-3 mb-1">
+                                {% for item in site.data.profile.professional_services.journal_reviewer %}
+                                <li>
+                                    <div class="d-flex">
+                                        <div>{{ item.name }}</div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div>Invited Talks & Guest Lectures</div>
+                            <ul class="list small pl-3 mb-1">
+                                {% for item in site.data.profile.professional_services.invited_talks_and_guest_lectures
+                                %}
                                 <li>
                                     <div class="d-flex">
                                         <div>{{ item.name }}</div>
@@ -81,7 +113,7 @@
                                 <li>
                                     <div class="d-flex">
                                         <div>{{ item.name }}</div>
-                                        <div class="ml-auto mt-auto no-break"><em>{{ item.date }}</em></div>
+                                        <!-- <div class="ml-auto mt-auto no-break"><em>{{ item.date }}</em></div> -->
                                     </div>
                                 </li>
                                 {% endfor %}
@@ -90,12 +122,12 @@
                     </div>
                     {% endif %}
 
-                    {% if site.data.profile.professional_services %}
+                    {% if site.data.profile.awards %}
                     <div class="col-md-6">
                         <div class="mx-2 my-1">
-                            <h6>Professional Services</h6>
+                            <h6>Honours & Awards</h6>
                             <ul class="list small pl-3 mb-1">
-                                {% for item in site.data.profile.professional_services %}
+                                {% for item in site.data.profile.awards %}
                                 <li>
                                     <div class="d-flex">
                                         <div>{{ item.name }}</div>
@@ -107,7 +139,6 @@
                         </div>
                     </div>
                     {% endif %}
-
 
                     {% if site.data.profile.supervision %}
                     <div class="col-md-6">

@@ -95,10 +95,27 @@ opensource_tools:
 - name: <a href="https://krr-oxford.github.io/DeepOnto/">DeepOnto</a>&colon; A package for ontology engineering with deep learning
   date: 2021 - now
 
+
 professional_services:
-- name: <b>Organiser & Program Chair</b>&colon; SEA Workshop (NeurIPS), OAEI Bio-ML Track (ISWC), ELMKE Workshop (EKAW, ESWC)
-- name: <b>Program Committee Member</b>&colon; ICML, ICLR, NeurIPS, ARR (ACL, EMNLP, NAACL, etc.), AAAI, ECML PKDD, CIKM, ISWC, ESWC
-- name: <b>Journal Review</b>&colon; Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
+  organizer_and_program_chair:
+  - name: Scaling Environments for Agents (SEA) Workshop @ <a href="https://sea-workshop.github.io/" target="_blank">NeurIPS 2025</a>
+  - name: OAEI Bio-ML Track @ <a href="https://krr-oxford.github.io/OAEI-Bio-ML/" target="_blank">ISWC 2022-2024</a>
+  - name: Evaluation of Language Models in Knowledge Engineering (ELMKE) Workshop @ <a href="https://elmke-workshop.github.io/" target="_blank">EKAW 2024</a>, <a href="https://elmke-workshop.github.io/" target="_blank">ESWC 2025</a>
+  program_committee_member:
+  - name: NeurIPS, ICLR, ICML, ARR (ACL, EMNLP, NAACL, etc.), AAAI, ECML PKDD, CIKM, ISWC, ESWC
+  journal_reviewer:
+  - name: Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
+  invited_talks_and_guest_lectures:
+  - name: Guest Lecture at the VU Amsterdam&colon; TBD
+    date: Oct 2025
+  - name: Talkech by CGYS at UCL&colon; AI & STEM panel discussion <small><a href="/assets/files/presentations/ucl_ai_stem_panel.pdf">[Slides]</a></small>
+    date: Nov 2024
+  - name: GenAI BootsCamp by GetSeen Ventures&colon; RAG for LLMs <small><a href="/assets/files/presentations/genai_bootscamp_rag4llms.pdf">[Slides]</a></small> <small><a href="https://www.linkedin.com/posts/getseenventures_genai-genaibootcamp-getseenventures-activity-7234893634934837248-VVx_?utm_source=share&utm_medium=member_desktop&rcm=ACoAADDhIUEBbnVdBB1P-sTeWRrnOKZ00iwhg84">[LinkedIn Post]</a></small>
+    date: Aug 2024
+  - name: ISWC 2023&colon; BERT for OM <small><a href="/assets/files/presentations/bert4om_iswc.pdf">[Slides]</a></small>
+    date: Nov 2023
+  - name: Ontology Summit 2024&colon; DeepOnto for Ontology Engineering <small><a href="/assets/files/presentations/ontosummit_deeponto.pdf">[Slides]</a></small> <small><a href="https://www.youtube.com/watch?v=OYJWARcH5B0">[Video]</a></small>
+    date: Oct 2023
 
 
 awards:

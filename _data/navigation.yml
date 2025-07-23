@@ -3,8 +3,8 @@ pages:
   url: /
 - name: Publications
   url: /publications
-- name: Presentations
-  url: /presentations
+# - name: Presentations
+#   url: /presentations
 - name: Posts
   subpages:
     - name: Technical Posts
