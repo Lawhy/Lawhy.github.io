@@ -23,5 +23,5 @@ authors:
     - Ian Horrocks	
 
 links:
-  Preprint: http://arxiv.org/abs/not_ready
+  Preprint: https://www.arxiv.org/abs/2507.14334
 ---
