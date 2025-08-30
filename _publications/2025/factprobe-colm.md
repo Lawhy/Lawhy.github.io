@@ -29,4 +29,5 @@ authors:
 
 links:
   Preprint: https://arxiv.org/abs/2503.22362
+  OpenReview: https://openreview.net/forum?id=sX4OoLKSW2#discussion
 ---
