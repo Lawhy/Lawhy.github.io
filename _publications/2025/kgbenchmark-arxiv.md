@@ -2,7 +2,7 @@
 title:          "Evaluating Knowledge Graph Based Retrieval Augmented Generation Methods under Knowledge Incompleteness"
 date:           2025-04-07 00:01:00 +0800
 selected:       false
-pub:            "Arxiv"
+pub:            "IRISAI 2025 Symposium"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
