@@ -1,27 +1,33 @@
 ---
-title:          "Evaluating Knowledge Graph Based Retrieval Augmented Generation Methods under Knowledge Incompleteness"
-date:           2025-04-07 00:01:00 +0800
+title:          "What Breaks Knowledge Graph based RAG? Empirical Insights into Reasoning under Incomplete Knowledge"
+date:           2025-08-11 00:00:00 +0000
 selected:       false
-pub:            "IRISAI 2025 Symposium"
-# pub_pre:        "Submitted to "
-# pub_post:       'Under review.'
-# pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Poster</span>'
+pub:            "arXiv"
 pub_date:       "2025"
 
-tldr: Evaluating KG-based RAG on KG incompleteness
+tldr: Investigating KG-RAG performance breakdowns under incomplete knowledge
 
 abstract: >-
-    Knowledge Graph based Retrieval-Augmented Generation (KG-RAG) is a technique that enhances Large Language Model (LLM) inference in tasks like Question Answering (QA) by retrieving relevant information from knowledge graphs (KGs). However, real-world KGs are often incomplete, meaning that essential information for answering questions may be missing. Existing benchmarks do not adequately capture the impact of KG incompleteness on KG-RAG performance. In this paper, we systematically evaluate KG-RAG methods under incomplete KGs by removing triples using different methods and analyzing the resulting effects. We demonstrate that KG-RAG methods are sensitive to KG incompleteness, highlighting the need for more robust approaches in realistic settings.
+    Knowledge Graph–based Retrieval-Augmented Generation (KG-RAG) is an increasingly
+    explored approach for combining the reasoning capabilities of large language models
+    with the structured evidence of knowledge graphs. However, current evaluation practices
+    fall short: existing benchmarks often include questions that can be directly answered
+    using existing triples in the knowledge graph, making it unclear whether models perform
+    true reasoning or merely retrieval. This paper provides empirical insights into how
+    incomplete knowledge in the KG affects KG-RAG reasoning performance, identifying
+    weaknesses and proposing directions for building more robust benchmarks.
 
 cover: 
 authors:
   - Dongzhuoran Zhou
   - Yuqicheng Zhu
+  - Xiaxia Wang
+  - Hongkuan Zhou
   - <b>Yuan He</b>
   - Jiaoyan Chen
-  - Evgeny Kharlamov
   - Steffen Staab
+  - Evgeny Kharlamov
 
 links:
-  Preprint: https://arxiv.org/abs/2504.05163
+  Preprint: https://arxiv.org/abs/2508.08344
 ---
