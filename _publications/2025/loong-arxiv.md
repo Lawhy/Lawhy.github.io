@@ -2,7 +2,7 @@
 title:          "Loong: Synthesize Long Chain-of-Thoughts at Scale through Verifiers"
 date:           2025-09-04 00:01:00 +0800
 selected:       false
-pub:            "arXiv"
+pub:            "LAW@NeurIPS"
 pub_date:       "2025"
 
 tldr: Synthetic long CoT data generation environment through verfiable rationale and high-quality seed datapoints across domains.
