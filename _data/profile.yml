@@ -106,7 +106,9 @@ professional_services:
   journal_reviewer:
   - name: Journal of Bioinformatics, Journal of Biomedical Semantics, Journal of Web Semantics, Semantic Web Journal, Data Mining and Knowledge Discovery
   invited_talks_and_guest_lectures:
-  - name: Guest Lecture at the VU Amsterdam&colon; TBD
+  - name: Discord AMA by <a href="https://allenai.org/" target="_blank">Ai2</a>&colon; Research Works with Olmo Models <small><a href="https://x.com/allen_ai/status/1981790161798049834">[X-Post]</a></small>
+    date: Oct 2025
+  - name: Guest Lecture at the VU Amsterdam&colon; Language Models for Ontology Alignment <small><a href="/assets/files/presentations/vu_kandd_guest_lecture.pdf">[Slides]</a></small>
     date: Oct 2025
   - name: Talkech by CGYS at UCL&colon; AI & STEM panel discussion <small><a href="/assets/files/presentations/ucl_ai_stem_panel.pdf">[Slides]</a></small>
     date: Nov 2024
