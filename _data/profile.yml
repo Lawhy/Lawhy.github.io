@@ -21,11 +21,13 @@ orcid: 0000-0002-4486-1262
 
 short_bio: >-
   <p>
-    I am an Applied Scientist at Amazon Stores Foundational AI (SFAI), working for developing foundation models behind Rufus -- Amazon's shopping GenAI assistant. I also maintain academic and open-source activities mainly at University of Oxford and CAMEL-AI.org. Prior to that, I was a postdoctoral Research Associate in the Knowledge Representation and Reasoning (KRR) group at the Department of Computer Science, University of Oxford, where I also obtained my PhD (DPhil) degree. 
+    [1] Applied Scientist at Amazon Stores Foundational AI (SFAI), focusing on training and evaluation of foundation models powering Rufus — Amazon’s generative AI shopping assistant.
   </p>
-
   <p>
-    My research centers on Natural Language Processing, Knowledge Engineering, and Deep Learning, with a particular focus on rethinking how knowledge and reasoning are represented and leveraged in the era of large language models.
+    [2] Active researcher and open-source contributor, affiliated with the University of Oxford and CAMEL-AI.org.
+  </p>
+  <p>
+    [3] Obtained my DPhil (PhD) in Computer Science at the University of Oxford.
   </p>
 
 portrait_url: /assets/images/photos/yuanhe_selfie.png
