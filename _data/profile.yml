@@ -84,9 +84,12 @@ experience:
   date: May 2017 - Dec 2019
 
 opensource_tools:
-- name: <a href="https://github.com/CAMEL-AI/Loong">Loong</a>&colon; An environment for verifiable synthetic long CoTs
-  date: 2025 - now
 - name: <a href="https://github.com/CAMEL-AI/CAMEL">CAMEL</a>&colon; The first multi-agent framework for large language models
+  date: 2025 - now
+- name: <a href="https://github.com/THUDM/slime">Slime</a>&colon; An LLM post-training framework for RL Scaling.
+  date: 2025 - now
+- name <a href="https://github.com/meta-pytorch/OpenEnv">OpenEnv</a>&colon; An interface library for RL post training with environments.
+- name: <a href="https://github.com/CAMEL-AI/Loong">Loong</a>&colon; An environment for verifiable synthetic long CoTs
   date: 2025 - now
 - name: <a href="https://huggingface.co/Hierarchy-Transformers">HierarchyTransformers</a>&colon; Hierarchy learning for language models
   date: 2024 - now
