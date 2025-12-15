@@ -21,7 +21,7 @@ orcid: 0000-0002-4486-1262
 
 short_bio: >-
   <p>
-    I am an Applied Scientist at Amazon Stores Foundational AI (SFAI) working on post-training, agentic RL, rubric RL, and evaluation of large language models for shopping.
+    I am an Applied Scientist at AmazonRufus working on post-training, agentic RL, rubric RL, and evaluation of large language models for shopping.
   </p>
   <p>
     I'm also an active open-source contributor working on everything related to AI agents at CAMEL-AI.org.
@@ -57,7 +57,7 @@ education:
   date: Sep 2016 - May 2020
 
 experience:
-- name: Amazon SFAI
+- name: Amazon Rufus
   logo: /assets/images/badges/amazon.png
   position: Applied Scientist
   date: May 2025 - now 
