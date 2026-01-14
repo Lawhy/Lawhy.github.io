@@ -7,12 +7,4 @@ tags: [agentic_rl, agent_scaffolding, post_training, rl_training]
 category: blog
 ---
 
-- Notion Blog: https://www.notion.so/Bridging-Agent-Scaffolding-and-RL-Training-with-Strands-SGLang-2e655dc580e680e28c78f6d743ab987f?source=copy_link
-- GitHub Repo: https://github.com/horizon-rl/strands-sglang
-
-<iframe
-  src="https://www.notion.so/Bridging-Agent-Scaffolding-and-RL-Training-with-Strands-SGLang-2e655dc580e680e28c78f6d743ab987f?source=copy_link"
-  style="width:100%; height:900px; border:0; border-radius:12px;"
-  allow="clipboard-write; fullscreen"
-  loading="lazy"
-></iframe>
+<iframe src="https://splendid-farmer-2d0.notion.site/ebd//2e655dc580e680e28c78f6d743ab987f" width="100%" height="600" frameborder="0" allowfullscreen />
