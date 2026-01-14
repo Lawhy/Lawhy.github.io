@@ -9,3 +9,10 @@ category: blog
 
 - Notion Blog: https://www.notion.so/Bridging-Agent-Scaffolding-and-RL-Training-with-Strands-SGLang-2e655dc580e680e28c78f6d743ab987f?source=copy_link
 - GitHub Repo: https://github.com/horizon-rl/strands-sglang
+
+<iframe
+  src="https://www.notion.so/Bridging-Agent-Scaffolding-and-RL-Training-with-Strands-SGLang-2e655dc580e680e28c78f6d743ab987f?source=copy_link"
+  style="width:100%; height:900px; border:0; border-radius:12px;"
+  allow="clipboard-write; fullscreen"
+  loading="lazy"
+></iframe>
