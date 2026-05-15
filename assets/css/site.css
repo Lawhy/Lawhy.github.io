@@ -1,12 +1,12 @@
 :root {
-  /* Anthropic palette */
-  --bg: #F5F4ED;
-  --ink: #1A1A18;
+  /* news/blog cream */
+  --bg: #FAF9F5;
+  --ink: #141413;
   --muted: #6B6B66;
-  --muted-2: #8E8E89;
-  --accent: #CC785C;
-  --rule: rgba(26, 26, 24, 0.10);
-  --aside-bg: rgba(26, 26, 24, 0.025);
+  --muted-2: #87867F;
+  --accent: #D97757;
+  --rule: rgba(20, 20, 19, 0.10);
+  --aside-bg: rgba(20, 20, 19, 0.025);
 
   /* TML-pattern type stack */
   --display: "Newsreader", "Source Serif 4", Georgia, serif;
@@ -752,13 +752,13 @@ body {
 .post-body code {
   font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
   font-size: 0.88em;
-  background: rgba(26, 26, 24, 0.05);
+  background: rgba(20, 20, 19, 0.05);
   padding: 0.12em 0.35em;
   border-radius: 3px;
 }
 
 .post-body pre {
-  background: rgba(26, 26, 24, 0.04);
+  background: rgba(20, 20, 19, 0.04);
   border: 1px solid var(--rule);
   border-radius: 4px;
   padding: 0.9rem 1rem;
@@ -798,7 +798,7 @@ body {
 }
 
 .post-body th {
-  background: rgba(26, 26, 24, 0.04);
+  background: rgba(20, 20, 19, 0.04);
   font-family: var(--sans);
   font-weight: 500;
 }
