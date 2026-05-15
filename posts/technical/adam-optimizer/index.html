@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How the Adam Optimizer Steers the Gradient Descent Path — Yuan He</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../../assets/css/site.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page__hero page__hero--post">
+      <a class="post-back" href="../../../index.html">← Yuan He</a>
+      <h1 class="post-title">How the Adam Optimizer Steers the Gradient Descent Path</h1>
+      <p class="post-meta">Mar 2026</p>
+    </header>
+
+    <div class="page__shell">
+      <nav class="left-toc" aria-label="Table of contents">
+        <span class="toc-marker" aria-hidden="true"></span>
+        <ul>
+          <li><a href="#part-i-momentum-from-follow-the-slope-to-build-velocity" data-toc>Part I: Momentum — from &amp;ldquo;follow the slope&amp;rdquo; to &amp;ldquo;build velocity&amp;rdquo;</a></li>
+          <li><a href="#part-ii-rmsprop-from-one-learning-rate-to-adaptive-step-sizes" data-toc>Part II: RMSProp — from &amp;ldquo;one learning rate&amp;rdquo; to &amp;ldquo;adaptive step sizes&amp;rdquo;</a></li>
+          <li><a href="#adam-momentum-rmsprop-with-bias-correction" data-toc>Adam: Momentum + RMSProp (with bias correction)</a></li>
+          <li><a href="#appendix-why-the-gradient-points-toward-the-steepest-increase" data-toc>Appendix: Why the gradient points toward the steepest increase</a></li>
+        </ul>
+      </nav>
+
+      <article class="content">
+        <div class="post-body">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>State</th>
+<th>Update Rule</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vanilla GD</td>
+<td>none</td>
+<td>$\theta_{t+1}=\theta_t-\alpha \nabla f(\theta_t)$</td>
+<td>Follow the current gradient; can zig-zag in narrow valleys</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>$m_t$ for direction</td>
+<td>$m_t=\beta m_{t-1}+(1-\beta)\nabla f(\theta_t);\;\theta_{t+1}=\theta_t-\alpha m_t$</td>
+<td>Smooth gradients to build inertia: accelerate consistent directions, damp oscillations</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>$v_t$ for scale</td>
+<td>$v_t=\rho v_{t-1}+(1-\rho)(\nabla f(\theta_t))^{\odot 2};\;\theta_{t+1}=\theta_t-\alpha\frac{\nabla f(\theta_t)}{\sqrt{v_t}+\epsilon}$</td>
+<td>Adapt step size per-parameter: big recent gradients → smaller steps</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>$m_t$ and $v_t$</td>
+<td>$\hat m_t=\frac{m_t}{1-\beta_1^t},\;\hat v_t=\frac{v_t}{1-\beta_2^t};\;\theta_{t+1}=\theta_t-\alpha\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$</td>
+<td>Direction + normalization with early-step bias correction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-i-momentum-from-follow-the-slope-to-build-velocity">Part I: Momentum — from &ldquo;follow the slope&rdquo; to &ldquo;build velocity&rdquo;</h2>
+<p><img alt="Fig 1, SGD without (left) and with (right) momentum; illustration produced using Claude Opus 4.6 via Claude Code (Anthropic)." src="images/momentum.png" /></p>
+<h3 id="vanilla-gradient-descent-reactive-step-by-step">Vanilla gradient descent: reactive, step-by-step</h3>
+<p>Let&rsquo;s start from the most basic update rule. Suppose we want to minimize an objective $f(\theta)$. <strong>Vanilla gradient descent</strong> updates parameters by moving against the gradient:</p>
+<p>$$
+\theta_{t+1} = \theta_t - \alpha \nabla f(\theta_t)
+$$</p>
+<p>where $\alpha$ is the learning rate.</p>
+<p>This rule is <strong>fully reactive</strong>: the step at time $t$ depends only on the current gradient. That can work, but it has a well-known failure mode in ill-conditioned landscapes (think &ldquo;long narrow valleys&rdquo;):</p>
+<ul>
+<li>Along the steep direction, gradients are large → updates overshoot and flip sign.</li>
+<li>Along the flat direction, gradients are small → progress is slow.</li>
+<li>Net effect: <strong>zig-zagging</strong> and wasted steps.</li>
+</ul>
+<p>A useful mental image: vanilla GD is like a person who looks at the slope under their feet each step and immediately turns to face the steepest downhill direction. In a narrow valley, they keep bouncing between the two sides instead of making steady progress along the valley floor.</p>
+<h3 id="a-small-idea-dont-forget-the-past">A small idea: don&rsquo;t forget the past</h3>
+<p>If gradients keep pointing in a roughly consistent direction (even if noisy), we can exploit that by <strong>accumulating</strong> them. Instead of directly using $\nabla f(\theta_t)$ as the step, we maintain a <em>running direction</em> that blends history with the present.</p>
+<p>This is the core of <strong>momentum</strong>:</p>
+<ul>
+<li>keep a momentum vector $m_t$,</li>
+<li>update it as an exponential moving average of gradients,</li>
+<li>update parameters using that momentum.</li>
+</ul>
+<h3 id="gradient-descent-with-momentum-add-velocity">Gradient descent with momentum: add velocity</h3>
+<p>One common form (often called <strong>heavy-ball momentum</strong>) is:</p>
+<p>$$
+m_t = \beta m_{t-1} + \nabla f(\theta_t), \quad \theta_{t+1} = \theta_t - \alpha m_t
+$$</p>
+<p>where $\beta \in [0,1)$ is the <strong>momentum coefficient</strong> (often $0.9$).</p>
+<ul>
+<li>$m_t$ is a <strong>smoothed gradient</strong>: it keeps a memory of where gradients have been pointing.</li>
+<li>When gradients are consistent, $m_t$ grows in that direction → <strong>accelerates</strong> progress.</li>
+<li>When gradients oscillate (like across a valley wall), the positive/negative contributions partially cancel → <strong>damps</strong> zig-zagging.</li>
+</ul>
+<p>You can also view this as an exponential moving average (EMA). Unrolling the recursion gives roughly:</p>
+<p>$$
+m_t \approx \sum_{k=0}^{t} \beta^{\,t-k} \nabla f(\theta_k)
+$$</p>
+<p>so older gradients are still present, but exponentially down-weighted.</p>
+<h2 id="part-ii-rmsprop-from-one-learning-rate-to-adaptive-step-sizes">Part II: RMSProp — from &ldquo;one learning rate&rdquo; to &ldquo;adaptive step sizes&rdquo;</h2>
+<h3 id="why-momentum-isnt-the-full-story">Why momentum isn&rsquo;t the full story</h3>
+<p>Momentum fixes a key weakness of vanilla gradient descent: it reduces zig-zagging by smoothing gradients over time and building a <em>velocity</em> in consistent directions.</p>
+<p>But momentum still uses a <strong>single global learning rate</strong> $\alpha$ for all parameters and all directions. In many objectives, different coordinates can have very different curvature / gradient scales.</p>
+<h3 id="the-core-idea-normalize-by-recent-gradient-magnitude">The core idea: normalize by recent gradient magnitude</h3>
+<p>RMSProp maintains a running (exponentially-decayed) average of squared gradients:</p>
+<p>$$
+v_t = \rho v_{t-1} + (1-\rho)\, \nabla f(\theta_t)^{\odot2}
+$$</p>
+<p>where $\rho \in [0,1)$ is typically close to $1$ (e.g. $0.9$ or $0.99$).</p>
+<p>Then update parameters by dividing by the root mean square of recent gradients:</p>
+<p>$$
+\theta_{t+1} = \theta_t - \alpha \frac{\nabla f(\theta_t)}{\sqrt{v_t} + \epsilon}
+$$</p>
+<p>Because of the denominator $\sqrt{v_t}$:</p>
+<ul>
+<li>If a coordinate has <strong>large gradients consistently</strong>, $v_t$ becomes large, so the effective step size in that coordinate shrinks.</li>
+<li>If a coordinate has <strong>small gradients consistently</strong>, $v_t$ stays small, so the effective step size becomes relatively larger.</li>
+</ul>
+<p>So RMSProp behaves like an automatic, per-parameter learning-rate tuner: it helps stabilize steep directions <em>without</em> forcing the whole optimizer to slow down.</p>
+<h2 id="adam-momentum-rmsprop-with-bias-correction">Adam: Momentum + RMSProp (with bias correction)</h2>
+<p>At this point we have two complementary ideas:</p>
+<ul>
+<li><strong>Momentum</strong> smooths gradients over time, reducing zig-zagging and helping consistent progress.</li>
+<li><strong>RMSProp</strong> rescales updates using a running average of squared gradients, giving <strong>per-parameter adaptive step sizes</strong>.</li>
+</ul>
+<p><strong>Adam</strong> (Adaptive Moment Estimation) combines both by tracking:</p>
+<ul>
+<li>a <strong>first-moment</strong> estimate (EMA of gradients), and</li>
+<li>a <strong>second-moment</strong> estimate (EMA of squared gradients),</li>
+</ul>
+<p>then using the ratio to form the update.</p>
+<h3 id="step-1-exponential-moving-averages-of-the-1st-and-2nd-moments">Step 1: Exponential moving averages of the 1st and 2nd moments</h3>
+<p>$$
+m_t = \beta_1 m_{t-1} + (1-\beta_1)\,\nabla f(\theta_t)
+$$</p>
+<p>$$
+v_t = \beta_2 v_{t-1} + (1-\beta_2)\,(\nabla f(\theta_t))^{\odot 2}
+$$</p>
+<ul>
+<li>$\beta_1$ plays the role of <strong>momentum</strong> (typical: $0.9$).</li>
+<li>$\beta_2$ controls how slowly the second-moment estimate changes (typical: $0.999$).</li>
+</ul>
+<h3 id="step-2-bias-correction">Step 2: Bias correction</h3>
+<p>We usually initialize $m_0 = 0$ and $v_0 = 0$. Early in training, these EMAs are <strong>biased toward zero</strong> because they haven&rsquo;t had time to &ldquo;warm up&rdquo;. Adam corrects this using:</p>
+<p>$$
+\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \qquad
+\hat{v}_t = \frac{v_t}{1-\beta_2^t}
+$$</p>
+<p>Bias correction matters most at the beginning; later, $(1-\beta_1^t)$ and $(1-\beta_2^t)$ approach 1, so the correction fades out.</p>
+<h3 id="step-3-the-adam-update">Step 3: The Adam update</h3>
+<p>$$
+\theta_{t+1} = \theta_t - \alpha \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}
+$$</p>
+<p>This mirrors the &ldquo;RMSProp normalization&rdquo; idea, but replaces the raw gradient with a momentum-like direction $\hat{m}_t$.</p>
+<h2 id="appendix-why-the-gradient-points-toward-the-steepest-increase">Appendix: Why the gradient points toward the steepest increase</h2>
+<p>At a point $\theta$, the gradient $\nabla f(\theta)$ points in the direction of <strong>steepest increase</strong> of $f$, and its magnitude gives the <strong>maximum rate of increase</strong>.</p>
+<p>Take a small step from $\theta$ in some direction $u$ with $|u|_2 = 1$. Using a first-order Taylor expansion,</p>
+<p>$$
+f(\theta+\epsilon u) \approx f(\theta) + \epsilon \nabla f(\theta)^\top u
+$$</p>
+<p>so the directional derivative is $D_u f(\theta) = \nabla f(\theta)^\top u$.</p>
+<p>By Cauchy–Schwarz, this is maximized when $u$ is aligned with the gradient. Therefore the <strong>steepest ascent direction</strong> is $u^\star = \frac{\nabla f(\theta)}{|\nabla f(\theta)|_2}$, and gradient descent uses its negative.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
+  <script src="../../../assets/js/scrollspy.js" defer></script>
+</body>
+</html>

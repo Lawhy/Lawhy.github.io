@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making Softmax Cheaper: A Theoretical Lens — Yuan He</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../../assets/css/site.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page__hero page__hero--post">
+      <a class="post-back" href="../../../index.html">← Yuan He</a>
+      <h1 class="post-title">Making Softmax Cheaper: A Theoretical Lens</h1>
+      <p class="post-meta">Jan 2021</p>
+    </header>
+
+    <div class="page__shell">
+      <nav class="left-toc" aria-label="Table of contents">
+        <span class="toc-marker" aria-hidden="true"></span>
+        <ul>
+          <li><a href="#introduction" data-toc>Introduction</a></li>
+          <li><a href="#non-sampling-softmax-variants" data-toc>Non-Sampling Softmax Variants</a></li>
+          <li><a href="#monte-carlo-softmax-approximations" data-toc>Monte Carlo Softmax Approximations</a></li>
+          <li><a href="#noise-contrastive-estimation-nce" data-toc>Noise-Contrastive Estimation (NCE)</a></li>
+          <li><a href="#tackling-the-normalizing-constant-directly" data-toc>Tackling the Normalizing Constant Directly</a></li>
+          <li><a href="#conclusions" data-toc>Conclusions</a></li>
+          <li><a href="#references" data-toc>References</a></li>
+        </ul>
+      </nav>
+
+      <article class="content">
+        <div class="post-body">
+<h2 id="introduction">Introduction</h2>
+<p>The <strong>softmax</strong> function is widely used in the output layer of neural-network models for classification. In the <em>binary case</em>, it reduces to the familiar <strong>sigmoid</strong> mapping.</p>
+<p>Given a score (logit) vector $x=(x_1,x_2)$, the softmax probabilities are</p>
+<p>$$
+P(X=x_1)=\frac{\exp(x_1)}{\exp(x_1)+\exp(x_2)},\quad
+P(X=x_2)=\frac{\exp(x_2)}{\exp(x_1)+\exp(x_2)}
+$$</p>
+<p>In particular,</p>
+<p>$$
+P(X=x_1)=\sigma(x_1-x_2)
+$$</p>
+<p>where $\sigma(z)=\frac{1}{1+\exp(-z)}$ is the sigmoid function.</p>
+<p>In NLP applications, however, softmax can be expensive because it requires <strong>normalizing over the full vocabulary</strong>. For example, in the Continuous Bag-of-Words (CBOW) model,</p>
+<p>$$
+P(w\mid c)=\frac{\exp(S(w,c))}{\sum_{v\in V}\exp(S(v,c))}
+$$</p>
+<p>where $S(w,c)$ is a scoring function. Computing the denominator requires summing over $|V|$ vocabulary items, which is $O(|V|)$ per update in a naïve implementation. To address this, <strong>various approximations and alternatives</strong> to softmax have been proposed.</p>
+<h2 id="non-sampling-softmax-variants">Non-Sampling Softmax Variants</h2>
+<p>These methods avoid sampling-based objectives and keep an exactly normalized probability model.</p>
+<h3 id="hierarchical-softmax-h-softmax">Hierarchical Softmax (H-Softmax)</h3>
+<p>Hierarchical Softmax reduces the cost of computing a normalized distribution by <strong>factorizing</strong> the probability over a hierarchy of <strong>clusters</strong> (typically organized as a tree).</p>
+<p>If the clusters are <strong>non-overlapping</strong>, each outcome $Y$ belongs to exactly one cluster $C(Y)$, and we obtain</p>
+<p>$$
+P(Y \mid X) = P(Y \mid C(Y), X)\,P(C(Y)\mid X)
+$$</p>
+<p>H-Softmax applies this factorization <strong>recursively</strong> by organizing the vocabulary as a (usually binary) tree. For a <strong>balanced binary tree</strong> over a vocabulary $V$, the path length from root to any leaf is $O(\log |V|)$, so we can compute $P(w\mid c)$ by multiplying probabilities along the path rather than summing over all $|V|$ words.</p>
+<p><img alt="H-Softmax binary tree: $P(\text{blue}\mid \text{context})$ is the product of probabilities along the root-to-leaf path." src="images/h-softmax.png" /></p>
+<p>H-Softmax reduces the <em>per-example</em> cost of computing $P(w\mid c)$ during training from $O(|V|)$ to $O(\log |V|)$.</p>
+<h3 id="differentiated-softmax-d-softmax">Differentiated Softmax (D-Softmax)</h3>
+<p>Differentiated Softmax is motivated by a simple observation: <strong>word frequencies are highly skewed</strong>, and allocating the same embedding/output dimensionality to every word can be wasteful. D-Softmax <strong>assigns different representation sizes to different frequency bands</strong>: frequent words get higher-dimensional vectors, rare words use lower-dimensional vectors.</p>
+<h3 id="character-level-softmax">Character-level Softmax</h3>
+<p>Predict <strong>characters (or subword units)</strong> instead of whole words. The model generates a word as a sequence of characters and applies a softmax at each step over a much smaller character set.</p>
+<h2 id="monte-carlo-softmax-approximations">Monte Carlo Softmax Approximations</h2>
+<p>These approaches use <strong>Monte Carlo sampling</strong> to approximate the <em>softmax expectation</em> in the gradient.</p>
+<h3 id="cross-entropy-loss-with-softmax">Cross-Entropy Loss with Softmax</h3>
+<p>For a target word index $i$ with logits $\mathbf{z}$ and predicted distribution $\hat{\mathbf{y}}=\mathrm{softmax}(\mathbf{z})$:</p>
+<p>$$
+L_i = -z_i + \log\left(\sum_{j=1}^{|V|} \exp(z_j)\right)
+$$</p>
+<h3 id="gradient-and-the-expectation-form">Gradient and the &ldquo;expectation&rdquo; form</h3>
+<p>$$
+\nabla L_i = -\nabla z_i + \mathbb{E}_{k\sim \hat{\mathbf{y}}}!\left[\nabla z_k\right]
+$$</p>
+<p>The expectation under the model distribution requires summing over all $|V|$ items. Sampling-based methods replace this full sum with a <strong>Monte Carlo estimate</strong>.</p>
+<h3 id="importance-sampling">Importance Sampling</h3>
+<p>Sample from an easier <strong>proposal</strong> $Q$ and reweight:</p>
+<p>$$
+\mathbb{E}<em Q="Q" X_sim="X\sim">{X\sim P}[f(X)] = \mathbb{E}</em>\right]
+$$}!\left[f(X)\frac{P(X)}{Q(X)</p>
+<p>Self-normalized importance sampling gives a ratio estimator that doesn&rsquo;t require computing $Z$ exactly, but is <strong>biased</strong> in general.</p>
+<h2 id="noise-contrastive-estimation-nce">Noise-Contrastive Estimation (NCE)</h2>
+<p>NCE reformulates learning as a <strong>binary classification</strong> problem: distinguish data samples from noise samples using the same underlying scoring function.</p>
+<p>Let $D$ be a binary label where $D=1$ means $(w,c)$ comes from the <strong>data</strong> distribution $P^+$, and $D=0$ means $w$ comes from a <strong>noise</strong> distribution $P^-$. Using Bayes&rsquo; rule,</p>
+<p>$$
+P(D=1\mid w,c)=\frac{P^+(w\mid c)}{P^+(w\mid c)+k\,P^-(w)}
+$$</p>
+<p>Many implementations <strong>fix</strong> $Z(c)=1$ (often called <strong>self-normalization</strong>), so $P^+(w\mid c)\approx \exp(S(w,c))$.</p>
+<h3 id="why-does-nce-work">Why does NCE work?</h3>
+<p>As $k\to\infty$ (the noise-to-data ratio grows), $\frac{kP^-}{P^+ + kP^-} \to 1$, and the <strong>negative</strong> NCE gradient approaches the maximum-likelihood gradient:</p>
+<p>$$
+\nabla_\theta L_c
+\to
+-\sum_{w\in V}
+\left(P^{\mathcal{D}<em>c}(w) - P^+(w\mid c)\right)
+\nabla</em>\theta \log P^+(w\mid c)
+$$</p>
+<p>This shares the same stationary points as maximum-likelihood training.</p>
+<h3 id="negative-sampling">Negative Sampling</h3>
+<p>Negative sampling is often presented as a simplified, more practical variant of NCE. With a self-normalized approximation $P^+(w\mid c)\approx \exp(S(w,c))$, uniform noise $P^-(w)=1/|V|$, and $k=|V|$ (so $kP^-(w)=1$):</p>
+<p>$$
+L = -\sum_{(w,c)\in\mathcal{D}}
+\left[
+\log \sigma(S(w,c))
++ \sum_{i=1}^{|V|} \log \sigma(-S(w&rsquo;_i,c))
+\right]
+$$</p>
+<p>This is the familiar <strong>logistic loss</strong> form: push up scores for positive pairs, push down scores for sampled negatives. In practice, negative sampling uses $k\ll |V|$ and a non-uniform noise distribution.</p>
+<h2 id="tackling-the-normalizing-constant-directly">Tackling the Normalizing Constant Directly</h2>
+<h3 id="self-normalization">Self-Normalization</h3>
+<p>Encourage the model to produce scores such that $Z(c)\approx 1$ by adding a penalty:</p>
+<p>$$
+L = -\sum_{(w,c)\in \mathcal{D}} \log P(w\mid c)
++ \alpha \sum_{(w,c)\in \mathcal{D}} (\log Z(c))^2
+$$</p>
+<p>At decoding time we then approximate $P(w\mid c) \approx \exp(S(w,c))$ because the model has been trained to keep $\log Z(c)$ close to $0$.</p>
+<h3 id="sampling-based-self-normalization">Sampling-Based Self-Normalization</h3>
+<p>Andreas and Klein (2015) [9] apply the penalty only on a sampled subset $\mathcal{D}&rsquo;\subseteq \mathcal{D}$:</p>
+<p>$$
+L = -\sum_{(w,c)\in \mathcal{D}} \log P(w\mid c)
++ \frac{\alpha}{\gamma}\sum_{c\in \mathcal{D}&rsquo;} (\log Z(c))^2
+$$</p>
+<p>where $\gamma\in(0,1)$ is the sampling rate. This reduces the work spent on explicitly controlling $Z(c)$ during training while still encouraging self-normalization.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>The central challenge addressed by most softmax variants is how to <strong>avoid the expensive computation of the normalizing constant</strong> $Z(c)$ during training and/or inference.</p>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>This post follows the high-level ordering of variants from Ruder&rsquo;s post [1], but takes a more <strong>math-oriented</strong> approach. The derivations and proofs presented here were written by me. Special thanks to <a href="https://sherylhyx.github.io/">Yixuan He</a> for proofreading and helpful feedback.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>[1] Sebastian Ruder. <a href="https://www.ruder.io/word-embeddings-softmax/">On word embeddings — Part 2: Approximating the Softmax</a>, 2016.</li>
+<li>[2] Morin, F. and Yoshua Bengio. &ldquo;Hierarchical Probabilistic Neural Network Language Model.&rdquo; AISTATS (2005).</li>
+<li>[3] Chen, Grangier, Auli. &ldquo;Strategies for Training Large Vocabulary Neural Language Models.&rdquo; ACL (2016).</li>
+<li>[4] Bengio and Senecal. &ldquo;Quick Training of Probabilistic Neural Nets by Importance Sampling.&rdquo; AISTATS (2003).</li>
+<li>[5] Gutmann &amp; Hyvärinen. &ldquo;Noise-contrastive estimation.&rdquo; AISTATS (2010).</li>
+<li>[6] Mnih, A. and Y. Teh. &ldquo;A fast and simple algorithm for training neural probabilistic language models.&rdquo; ICML (2012).</li>
+<li>[7] Devlin et al. &ldquo;Fast and Robust Neural Network Joint Models for Statistical Machine Translation.&rdquo; ACL (2014).</li>
+<li>[8] Goldberger, J. and Oren Melamud. &ldquo;Self-Normalization Properties of Language Modeling.&rdquo; arXiv:1806.00913 (2018).</li>
+<li>[9] Andreas and Klein. &ldquo;When and why are log-linear models self-normalizing?&rdquo; HLT-NAACL (2015).</li>
+</ul>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
+  <script src="../../../assets/js/scrollspy.js" defer></script>
+</body>
+</html>
