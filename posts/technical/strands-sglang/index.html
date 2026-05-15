@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
   <link rel="stylesheet" href="../../../assets/css/site.css">
+  <link rel="stylesheet" href="../../../assets/css/syntax.css">
 </head>
 <body>
   <main class="page">
@@ -98,25 +99,26 @@ Agent **serving** and agent **training** look similar on the surface (both run a
 </ul>
 <h2 id="minimal-example">Minimal example</h2>
 <p>You run a normal Strands agent — but now you can directly read token-level artifacts from the model:</p>
-<pre><code class="language-python">from transformers import AutoTokenizer
-from strands import Agent
-from strands_tools import calculator
-from strands_sglang import SGLangModel
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">strands</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">strands_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">strands_sglang</span><span class="w"> </span><span class="kn">import</span> <span class="n">SGLangModel</span>
 
-# Suppose Qwen3-8B is served at http://localhost:30000
-agent = Agent(
-    model=SGLangModel(
-        tokenizer=AutoTokenizer.from_pretrained(&quot;Qwen/Qwen3-8B&quot;),
-        base_url=&quot;http://localhost:30000&quot;),
-    tools=[calculator],
-)
-result = await agent.invoke_async(&quot;What is (25 * 17)^3 ?&quot;)
+<span class="c1"># Suppose Qwen3-8B is served at http://localhost:30000</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">SGLangModel</span><span class="p">(</span>
+        <span class="n">tokenizer</span><span class="o">=</span><span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;Qwen/Qwen3-8B&quot;</span><span class="p">),</span>
+        <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:30000&quot;</span><span class="p">),</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">calculator</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke_async</span><span class="p">(</span><span class="s2">&quot;What is (25 * 17)^3 ?&quot;</span><span class="p">)</span>
 
-tm = model.token_manager
-print(&quot;token_ids:&quot;, tm.token_ids)
-print(&quot;loss_mask:&quot;, tm.loss_mask)
-print(&quot;logprobs:&quot;, tm.logprobs)
-</code></pre>
+<span class="n">tm</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">token_manager</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;token_ids:&quot;</span><span class="p">,</span> <span class="n">tm</span><span class="o">.</span><span class="n">token_ids</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;loss_mask:&quot;</span><span class="p">,</span> <span class="n">tm</span><span class="o">.</span><span class="n">loss_mask</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;logprobs:&quot;</span><span class="p">,</span> <span class="n">tm</span><span class="o">.</span><span class="n">logprobs</span><span class="p">)</span>
+</code></pre></div>
+
 <p>This is the key: the rollout is <em>already</em> in the form that RL training wants, and you don&rsquo;t need to worry about writing ad-hoc agent loop code.</p>
 <h2 id="experiments">Experiments</h2>
 <p>We demonstrate the impact of maintaining token-in/token-out (TITO) using a math reasoning agent (with a Python execution tool) with a <a href="https://huggingface.co/Qwen/Qwen3-8B">Qwen3-8B (thinking)</a> backend.</p>

@@ -76,7 +76,21 @@ def render_markdown(body: str):
     body = normalize_math(body)
     toc_ext = TocExtension(toc_depth="2-3", marker="")
     md = md_lib.Markdown(
-        extensions=["extra", "sane_lists", "smarty", "fenced_code", toc_ext]
+        extensions=[
+            "extra",
+            "sane_lists",
+            "smarty",
+            "fenced_code",
+            "codehilite",
+            toc_ext,
+        ],
+        extension_configs={
+            "codehilite": {
+                "css_class": "highlight",
+                "guess_lang": False,
+                "linenums": False,
+            },
+        },
     )
     html = md.convert(body)
     return html, md.toc_tokens
