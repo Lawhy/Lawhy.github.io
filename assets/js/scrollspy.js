@@ -112,3 +112,13 @@
   // First paint
   updateActive();
 })();
+
+// Margin-note markers sit visually next to their notes (right gutter on
+// desktop, inline callout on mobile), so the default anchor-jump behaviour
+// just yanks the page around for no reason. Swallow the click.
+(function () {
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('.margin-marker a');
+    if (a) e.preventDefault();
+  });
+})();

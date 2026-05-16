@@ -12,7 +12,7 @@ authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 | Vanilla GD | none | $\theta_{t+1}=\theta_t-\alpha \nabla f(\theta_t)$ | Follow the gradient; can zig-zag in narrow valleys. |
 | Momentum | $m_t$ for direction | $m_t=\beta m_{t-1}+(1-\beta)\nabla f(\theta_t)$ <br> $\theta_{t+1}=\theta_t-\alpha m_t$ | Build inertia: accelerate consistent directions, damp oscillations. |
 | RMSProp | $v_t$ for scale | $v_t=\rho v_{t-1}+(1-\rho)(\nabla f(\theta_t))^{\odot 2}$ <br> $\theta_{t+1}=\theta_t-\alpha\frac{\nabla f(\theta_t)}{\sqrt{v_t}+\epsilon}$ | Per-parameter step size: large recent gradients → smaller steps. |
-| Adam | $m_t$ and $v_t$ | $\hat m_t=\frac{m_t}{1-\beta_1^t},\;\hat v_t=\frac{v_t}{1-\beta_2^t}$ <br> $\theta_{t+1}=\theta_t-\alpha\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$ | Direction + normalization, with bias correction. |
+| Adam | $m_t$ and $v_t$ | $\hat m_t=\frac{m_t}{1-\beta_1^t}$ <br> $\hat v_t=\frac{v_t}{1-\beta_2^t}$ <br> $\theta_{t+1}=\theta_t-\alpha\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$ | Direction + normalization, with bias correction. |
 
 ## Momentum: building velocity
 

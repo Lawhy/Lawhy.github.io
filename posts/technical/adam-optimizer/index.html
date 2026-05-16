@@ -64,7 +64,7 @@
 <tr>
 <td>Adam</td>
 <td>$m_t$ and $v_t$</td>
-<td>$\hat m_t=\frac{m_t}{1-\beta_1^t},\;\hat v_t=\frac{v_t}{1-\beta_2^t}$ <br> $\theta_{t+1}=\theta_t-\alpha\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$</td>
+<td>$\hat m_t=\frac{m_t}{1-\beta_1^t}$ <br> $\hat v_t=\frac{v_t}{1-\beta_2^t}$ <br> $\theta_{t+1}=\theta_t-\alpha\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$</td>
 <td>Direction + normalization, with bias correction.</td>
 </tr>
 </tbody>
@@ -253,7 +253,7 @@ $$</p>
 
 <h2 id="appendix-steepest-descent">Appendix: steepest descent</h2>
 <p>This appendix explains a key geometric fact used throughout optimization: At a point $\theta$, the gradient $\nabla f(\theta)$ points in the direction of <strong>steepest increase</strong><sup class="margin-marker"><a href="#note-norm">3</a></sup><span class="margin-note" id="note-norm"><span class="margin-note__label">Note 3</span>The &ldquo;steepest direction = gradient direction&rdquo; statement is with respect to the <strong>Euclidean norm</strong>. If you measure step size with a different norm or metric, the &ldquo;steepest&rdquo; direction changes.</span> of $f$, and its magnitude gives the <strong>maximum rate of increase</strong>.</p>
-<h3 id="directional-derivative-how-fast-does-math0091-change-if-i-move-this-way">Directional derivative: &ldquo;how fast does $f$ change if I move this way?&rdquo;</h3>
+<h3 id="directional-derivative-how-fast-does-math0092-change-if-i-move-this-way">Directional derivative: &ldquo;how fast does $f$ change if I move this way?&rdquo;</h3>
 <p>Take a small step from $\theta$ in some direction $u$ with $\|u\|_2 = 1$: $\theta(\epsilon) = \theta + \epsilon u$. The instantaneous rate of change of $f$ along direction $u$ is the <strong>directional derivative</strong>:</p>
 <p>$$
 D_u f(\theta) := \left.\frac{d}{d\epsilon} f(\theta+\epsilon u)\right|_{\epsilon=0}
