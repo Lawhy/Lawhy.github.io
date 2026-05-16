@@ -110,4 +110,4 @@ Without TITO, training collapsed before step 50 despite a similar initial reward
 - [1] Strands Agents SDK: <https://github.com/strands-agents/sdk-python>
 - [2] [No More Retokenization Drift: Returning Token IDs via the OpenAI Compatible API Matters in Agent RL](https://blog.vllm.ai/2025/10/22/agent-lightning.html)
 - [3] SGLang: <https://docs.sglang.io/>
-- [4] Slime: <https://github.com/THUDM/slime/tree/main>
+- [4] Slime: <https://github.com/THUDM/slime>
