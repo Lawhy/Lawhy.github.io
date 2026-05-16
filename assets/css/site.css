@@ -1129,6 +1129,32 @@ body {
   margin: 0.7rem 0;
 }
 
+/* Long display equations: scroll within the column rather than pushing the
+   page sideways. overflow-y: hidden suppresses the phantom vertical bar
+   KaTeX's descenders can trigger. Scrollbar styled to match the site theme
+   (mirrors .post-list-scroll). */
+.post-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.post-body .katex-display::-webkit-scrollbar {
+  height: 6px;
+}
+.post-body .katex-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+.post-body .katex-display::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 3px;
+}
+.post-body .katex-display::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-2);
+}
+
 /* Post-level aside: floats into the right gutter (like section__aside but for posts) */
 .post-aside {
   float: right;
