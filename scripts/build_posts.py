@@ -148,9 +148,16 @@ def render_post(md_path: Path, template: str):
 
     html_body, toc_tokens = render_markdown(body)
     toc_html = render_toc(toc_tokens)
+    authors = fm.get("authors", "")
+    authors_html = (
+        f'<span class="post-meta__authors">{authors}</span> &middot; '
+        if authors
+        else ""
+    )
 
     page = template
     page = page.replace("{{title}}", escape(str(title)))
+    page = page.replace("{{authors_line}}", authors_html)
     page = page.replace("{{date_display}}", date_display)
     page = page.replace("{{meta_extra}}", meta_extra)
     page = page.replace("{{root}}", "../../../")

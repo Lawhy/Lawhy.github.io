@@ -4,40 +4,43 @@ date: 2026-01-14
 tags: [AI Agents, Agent Scaffolds, Agentic RL, SGLang, slime]
 slug: strands-sglang
 summary: ""
+authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitianlian.github.io/">Chengxing Xie</a>'
 ---
 
-**Authors**: [Yuan He](https://www.yuanhe.wiki/), [Chengxing Xie](https://yitianlian.github.io/)
-**GitHub**: [strands-rl/strands-sglang](https://github.com/strands-rl/strands-sglang)
-**Page on Strands**: [SGLang](https://strandsagents.com/docs/community/model-providers/sglang/)
-**Example on Slime**: [slime/examples/strands_sglang](https://github.com/THUDM/slime/tree/main/examples/strands_sglang)
-
----
-
-> **TL;DR:** Existing agent scaffolds like **Strands-Agents** [1] make it easy to serve tool-using agents but face a key challenge: they operate on **text** (usually with OpenAI endpoint) while RL training requires exact **token IDs** (token-in, token-out). This mismatch causes **retokenization drift** [2] — the tokens used for computing logprobs/gradients no longer match the tokens that were actually generated — leading to effectively **off-policy** updates and potentially unstable RL training. **Strands-SGLang** bridges this gap by extending **Strands-Agents** with SGLang's native endpoint [3] while keeping the same customizable agent loop.
+<aside class="post-aside">
+<h3>Resources</h3>
+<ul>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=github.com&sz=32" alt=""><a href="https://github.com/strands-rl/strands-sglang">strands-rl/strands-sglang</a></li>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=strandsagents.com&sz=32" alt=""><a href="https://strandsagents.com/docs/community/model-providers/sglang/">Strands · SGLang docs</a></li>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=github.com&sz=32" alt=""><a href="https://github.com/THUDM/slime/tree/main/examples/strands_sglang">slime · examples</a></li>
+</ul>
+</aside>
 
 | Component | Agent scaffold / loop | Token-in/token-out |
 |---|---|---|
-| Strands-Agents | ✅ | ❌ (text-based) |
-| SGLang | ❌ | ✅ |
-| **Strands-SGLang** | ✅ | ✅ |
+| Strands-Agents | <span class="yes">✓</span> | <span class="no">✗</span> *(text-based)* |
+| SGLang | <span class="no">✗</span> | <span class="yes">✓</span> |
+| **Strands-SGLang** | <span class="yes">✓</span> | <span class="yes">✓</span> |
+
+<p class="post-lede">Existing agent scaffolds like <em>Strands-Agents</em> [1] make it easy to serve tool-using agents, but face a key challenge: they operate on <strong>text</strong> (usually an OpenAI-compatible endpoint) while RL training requires exact <strong>token IDs</strong> (token-in, token-out). This mismatch causes <em>retokenization drift</em> [2] — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. <strong>Strands-SGLang</strong> bridges this gap by extending Strands-Agents with SGLang's native endpoint [3] while preserving the customizable agent loop.</p>
 
 ## The challenge: making agent scaffolds training-ready
 
-Most agent scaffolds provide a great **agent loop** (tool orchestration, iteration control, tracing), but their model interface is typically **text-based**. For RL training, text alone is insufficient: the training pipeline must consume the *exact* **token-level trajectory** produced by the backend.
+Most agent scaffolds provide an agent loop (tool orchestration, iteration control, tracing), but their model interface is typically *text-based*. For RL training, text alone is insufficient: the training pipeline must consume the exact *token-level trajectory* produced by the backend.
 
-If token IDs are reconstructed later by retokenizing the rendered text messages, **retokenization drift** can occur, making updates effectively **off-policy** and potentially destabilizing RL training.
+If token IDs are reconstructed later by retokenizing the rendered text messages, *retokenization drift* can occur, making updates effectively off-policy and potentially destabilizing RL training.
 
 **Strands-SGLang addresses this by bridging both worlds:**
 
-- ✅ **Strands** for the customizable agent scaffold / loop
-- ✅ **SGLang** native generation for **end-to-end token-in/token-out** rollouts
+- <span class="yes">✓</span> **Strands** for the customizable agent scaffold / loop
+- <span class="yes">✓</span> **SGLang** native generation for end-to-end token-in/token-out rollouts
 
-So you can keep the same agent loop for **serving** while producing **training-ready** trajectories by construction.
+So you can keep the same agent loop for serving while producing training-ready trajectories by construction.
 
-<details>
+<details markdown="1">
 <summary>Optional read: Differences between agent serving and training</summary>
 
-Agent **serving** and agent **training** look similar on the surface (both run an agent loop that calls tools and produces answers), but they optimize for *different aspects and failure modes*.
+Agent *serving* and agent *training* look similar on the surface (both run an agent loop that calls tools and produces answers), but they optimize for different aspects and failure modes.
 
 | Aspect | Agent Servicing (production) | Agent Training (RL / post-training) |
 |---|---|---|
@@ -81,7 +84,7 @@ print("loss_mask:", tm.loss_mask)
 print("logprobs:", tm.logprobs)
 ```
 
-This is the key: the rollout is *already* in the form that RL training wants, and you don't need to worry about writing ad-hoc agent loop code.
+The key insight: the rollout is *already* in the form that RL training wants — no ad-hoc agent loop code required.
 
 ## Experiments
 

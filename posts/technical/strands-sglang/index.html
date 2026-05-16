@@ -16,7 +16,7 @@
     <header class="page__hero page__hero--post">
       <a class="post-back" href="../../../index.html">← Yuan He</a>
       <h1 class="post-title">Bridging Agent Scaffolding and RL Training with Strands-SGLang</h1>
-      <p class="post-meta">Jan 2026</p>
+      <p class="post-meta"><span class="post-meta__authors"><a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitianlian.github.io/">Chengxing Xie</a></span> &middot; Jan 2026</p>
     </header>
 
     <div class="page__shell">
@@ -33,14 +33,15 @@
 
       <article class="content">
         <div class="post-body">
-<p><strong>Authors</strong>: <a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitianlian.github.io/">Chengxing Xie</a>
-<strong>GitHub</strong>: <a href="https://github.com/strands-rl/strands-sglang">strands-rl/strands-sglang</a>
-<strong>Page on Strands</strong>: <a href="https://strandsagents.com/docs/community/model-providers/sglang/">SGLang</a>
-<strong>Example on Slime</strong>: <a href="https://github.com/THUDM/slime/tree/main/examples/strands_sglang">slime/examples/strands_sglang</a></p>
-<hr />
-<blockquote>
-<p><strong>TL;DR:</strong> Existing agent scaffolds like <strong>Strands-Agents</strong> [1] make it easy to serve tool-using agents but face a key challenge: they operate on <strong>text</strong> (usually with OpenAI endpoint) while RL training requires exact <strong>token IDs</strong> (token-in, token-out). This mismatch causes <strong>retokenization drift</strong> [2] — the tokens used for computing logprobs/gradients no longer match the tokens that were actually generated — leading to effectively <strong>off-policy</strong> updates and potentially unstable RL training. <strong>Strands-SGLang</strong> bridges this gap by extending <strong>Strands-Agents</strong> with SGLang&rsquo;s native endpoint [3] while keeping the same customizable agent loop.</p>
-</blockquote>
+<aside class="post-aside">
+<h3>Resources</h3>
+<ul>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=github.com&sz=32" alt=""><a href="https://github.com/strands-rl/strands-sglang">strands-rl/strands-sglang</a></li>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=strandsagents.com&sz=32" alt=""><a href="https://strandsagents.com/docs/community/model-providers/sglang/">Strands · SGLang docs</a></li>
+  <li><img class="favicon" src="https://www.google.com/s2/favicons?domain=github.com&sz=32" alt=""><a href="https://github.com/THUDM/slime/tree/main/examples/strands_sglang">slime · examples</a></li>
+</ul>
+</aside>
+
 <table>
 <thead>
 <tr>
@@ -52,44 +53,67 @@
 <tbody>
 <tr>
 <td>Strands-Agents</td>
-<td>✅</td>
-<td>❌ (text-based)</td>
+<td><span class="yes">✓</span></td>
+<td><span class="no">✗</span> <em>(text-based)</em></td>
 </tr>
 <tr>
 <td>SGLang</td>
-<td>❌</td>
-<td>✅</td>
+<td><span class="no">✗</span></td>
+<td><span class="yes">✓</span></td>
 </tr>
 <tr>
 <td><strong>Strands-SGLang</strong></td>
-<td>✅</td>
-<td>✅</td>
+<td><span class="yes">✓</span></td>
+<td><span class="yes">✓</span></td>
 </tr>
 </tbody>
 </table>
+<p class="post-lede">Existing agent scaffolds like <em>Strands-Agents</em> [1] make it easy to serve tool-using agents, but face a key challenge: they operate on <strong>text</strong> (usually an OpenAI-compatible endpoint) while RL training requires exact <strong>token IDs</strong> (token-in, token-out). This mismatch causes <em>retokenization drift</em> [2] — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. <strong>Strands-SGLang</strong> bridges this gap by extending Strands-Agents with SGLang's native endpoint [3] while preserving the customizable agent loop.</p>
+
 <h2 id="the-challenge-making-agent-scaffolds-training-ready">The challenge: making agent scaffolds training-ready</h2>
-<p>Most agent scaffolds provide a great <strong>agent loop</strong> (tool orchestration, iteration control, tracing), but their model interface is typically <strong>text-based</strong>. For RL training, text alone is insufficient: the training pipeline must consume the <em>exact</em> <strong>token-level trajectory</strong> produced by the backend.</p>
-<p>If token IDs are reconstructed later by retokenizing the rendered text messages, <strong>retokenization drift</strong> can occur, making updates effectively <strong>off-policy</strong> and potentially destabilizing RL training.</p>
+<p>Most agent scaffolds provide an agent loop (tool orchestration, iteration control, tracing), but their model interface is typically <em>text-based</em>. For RL training, text alone is insufficient: the training pipeline must consume the exact <em>token-level trajectory</em> produced by the backend.</p>
+<p>If token IDs are reconstructed later by retokenizing the rendered text messages, <em>retokenization drift</em> can occur, making updates effectively off-policy and potentially destabilizing RL training.</p>
 <p><strong>Strands-SGLang addresses this by bridging both worlds:</strong></p>
 <ul>
-<li>✅ <strong>Strands</strong> for the customizable agent scaffold / loop</li>
-<li>✅ <strong>SGLang</strong> native generation for <strong>end-to-end token-in/token-out</strong> rollouts</li>
+<li><span class="yes">✓</span> <strong>Strands</strong> for the customizable agent scaffold / loop</li>
+<li><span class="yes">✓</span> <strong>SGLang</strong> native generation for end-to-end token-in/token-out rollouts</li>
 </ul>
-<p>So you can keep the same agent loop for <strong>serving</strong> while producing <strong>training-ready</strong> trajectories by construction.</p>
+<p>So you can keep the same agent loop for serving while producing training-ready trajectories by construction.</p>
 <details>
 <summary>Optional read: Differences between agent serving and training</summary>
-
-Agent **serving** and agent **training** look similar on the surface (both run an agent loop that calls tools and produces answers), but they optimize for *different aspects and failure modes*.
-
-| Aspect | Agent Servicing (production) | Agent Training (RL / post-training) |
-|---|---|---|
-| **Response I/O** | Text messages | Token IDs |
-| **Tool Parsing** | Lenient (with post-processing fallbacks) | Strict (respects true policy distribution) |
-| **Client** | Optimized for reliability + UX | Optimized for high-throughput rollouts |
-| **Streaming** | Optional (for UX) | No (reducing client overhead) |
-
+<p>Agent <em>serving</em> and agent <em>training</em> look similar on the surface (both run an agent loop that calls tools and produces answers), but they optimize for different aspects and failure modes.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Agent Servicing (production)</th>
+<th>Agent Training (RL / post-training)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Response I/O</strong></td>
+<td>Text messages</td>
+<td>Token IDs</td>
+</tr>
+<tr>
+<td><strong>Tool Parsing</strong></td>
+<td>Lenient (with post-processing fallbacks)</td>
+<td>Strict (respects true policy distribution)</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>Optimized for reliability + UX</td>
+<td>Optimized for high-throughput rollouts</td>
+</tr>
+<tr>
+<td><strong>Streaming</strong></td>
+<td>Optional (for UX)</td>
+<td>No (reducing client overhead)</td>
+</tr>
+</tbody>
+</table>
 </details>
-
 <h2 id="what-strands-sglang-provides">What Strands-SGLang provides</h2>
 <p>Strands-SGLang implements a new model class <code>SGLangModel</code> backed by SGLang&rsquo;s native <code>/generate</code> endpoint, so you can reuse Strands&rsquo; agent loop while exposing RL-relevant internals:</p>
 <ul>
@@ -119,7 +143,7 @@ Agent **serving** and agent **training** look similar on the surface (both run a
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;logprobs:&quot;</span><span class="p">,</span> <span class="n">tm</span><span class="o">.</span><span class="n">logprobs</span><span class="p">)</span>
 </code></pre></div>
 
-<p>This is the key: the rollout is <em>already</em> in the form that RL training wants, and you don&rsquo;t need to worry about writing ad-hoc agent loop code.</p>
+<p>The key insight: the rollout is <em>already</em> in the form that RL training wants — no ad-hoc agent loop code required.</p>
 <h2 id="experiments">Experiments</h2>
 <p>We demonstrate the impact of maintaining token-in/token-out (TITO) using a math reasoning agent (with a Python execution tool) with a <a href="https://huggingface.co/Qwen/Qwen3-8B">Qwen3-8B (thinking)</a> backend.</p>
 <h3 id="implementations">Implementations</h3>

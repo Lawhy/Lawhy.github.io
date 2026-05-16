@@ -36,8 +36,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
   font-variation-settings: "opsz" 14;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -205,9 +205,11 @@ body {
   margin: 0 0 1.5rem;
 }
 
-/* About prose paragraphs */
+/* About prose paragraphs — only "reading prose" on the page, slightly larger */
 .section p {
   margin: 0 0 1.25rem;
+  font-size: 17px;
+  line-height: 1.65;
 }
 .section p:last-child {
   margin-bottom: 0;
@@ -453,8 +455,8 @@ body {
 
 .post-list__title {
   font-family: var(--serif);
-  font-variation-settings: "opsz" 18;
-  font-size: 1.075rem;
+  font-variation-settings: "opsz" 16;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.35;
   transition: color 0.2s ease;
@@ -635,7 +637,7 @@ body {
   margin: 0;
   flex: 1;
   color: var(--muted);
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -679,11 +681,11 @@ body {
 .post-title {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 2.25rem;
+  font-size: 2rem;
   line-height: 1.2;
   letter-spacing: -0.012em;
   margin: 0 0 0.5rem;
-  font-variation-settings: "opsz" 36;
+  font-variation-settings: "opsz" 32;
 }
 
 .post-meta {
@@ -693,28 +695,45 @@ body {
   margin: 0;
 }
 
+.post-meta__authors {
+  color: var(--ink);
+}
+
+.post-meta__authors a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.post-meta__authors a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 .post-body {
   font-family: var(--serif);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.65;
   color: var(--ink);
 }
 
 .post-body h2 {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   line-height: 1.3;
-  margin: 2.5rem 0 1rem;
+  margin: 2.4rem 0 1rem;
   scroll-margin-top: 1.5rem;
 }
 
 .post-body h3 {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   line-height: 1.35;
-  margin: 1.75rem 0 0.6rem;
+  margin: 1.65rem 0 0.55rem;
   scroll-margin-top: 1.5rem;
 }
 
@@ -775,7 +794,7 @@ body {
 }
 
 .post-body figure {
-  margin: 1.5rem 0;
+  margin: 1.75rem auto;
 }
 
 .post-body img {
@@ -784,23 +803,95 @@ body {
   display: block;
 }
 
-.post-body table {
-  border-collapse: collapse;
-  margin: 1.25rem 0;
-  font-size: 0.9rem;
-  width: 100%;
+/* Standalone images in markdown get wrapped in <p>. Treat those as figures:
+   white card surface so screenshot whitespace blends in, rounded edges so the
+   figure sits naturally on the cream page. */
+.post-body p > img:only-child,
+.post-body figure > img {
+  background: #FFFFFF;
+  padding: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 2px 8px rgba(20, 20, 19, 0.05),
+    0 1px 2px rgba(20, 20, 19, 0.04);
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-.post-body th, .post-body td {
-  border: 1px solid var(--rule);
-  padding: 0.5rem 0.75rem;
+.post-body p:has(> img:only-child) {
+  text-align: center;
+  margin: 1.75rem auto;
+}
+
+/* Editorial table — horizontal rules only, no vertical borders.
+   Slight horizontal inset + extra vertical margin so the table reads
+   as a distinct comparison panel separate from the body prose. */
+.post-body table {
+  width: 100%;
+  max-width: calc(100% - 1.5rem);
+  margin: 2.5rem auto;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  border-collapse: collapse;
+}
+
+.post-body thead tr {
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.post-body tbody tr {
+  border-bottom: 1px solid var(--rule);
+}
+
+.post-body tbody tr:last-child {
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.post-body th,
+.post-body td {
+  padding: 0.8rem 1rem;
   text-align: left;
+  border: 0;
+  vertical-align: top;
 }
 
 .post-body th {
-  background: rgba(20, 20, 19, 0.04);
-  font-family: var(--sans);
   font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  padding-bottom: 0.55rem;
+}
+
+.post-body td:first-child {
+  color: var(--ink);
+}
+
+.post-body td em {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Yes/no markers tuned to palette (replaces ✅/❌) */
+.post-body .yes,
+.post-body .no {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.05em;
+  line-height: 1;
+  font-family: var(--sans);
+}
+
+.post-body .yes {
+  color: var(--accent);
+}
+
+.post-body .no {
+  color: var(--muted-2);
 }
 
 .post-body details {
@@ -819,6 +910,90 @@ body {
 
 .post-body details[open] summary {
   margin-bottom: 0.6rem;
+}
+
+/* Post-level aside: floats into the right gutter (like section__aside but for posts) */
+.post-aside {
+  float: right;
+  clear: right;
+  width: var(--aside-width);
+  margin-right: calc(-1 * (var(--aside-width) + var(--aside-gap)));
+  margin-left: var(--aside-gap);
+  margin-top: 0.4rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.post-aside h3 {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted-2);
+  margin: 0 0 0.75rem;
+}
+
+.post-aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-aside li {
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-aside .favicon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.post-aside a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  min-width: 0;
+}
+
+.post-aside a:hover {
+  color: var(--accent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+@media (max-width: 1100px) {
+  .post-aside {
+    float: none;
+    width: auto;
+    margin: 0 0 1.75rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--aside-bg);
+    border-left: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: 2px;
+  }
+}
+
+/* Pure typographic lede / abstract — no box, no border, just bigger serif with breathing room. */
+.post-body .post-lede {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 1.5rem 0 2.25rem;
+  font-variation-settings: "opsz" 17;
+}
+
+.post-body .post-lede strong {
+  font-weight: 600;
 }
 
 @media (max-width: 1100px) {
