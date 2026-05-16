@@ -868,6 +868,46 @@ body {
   display: block;
 }
 
+/* Literature post bodies render in 楷体 (LXGW WenKai) — matches the typographic
+   feel used in the homepage 文学 panel. */
+.post-body--literature {
+  font-family: var(--xingkai);
+  line-height: 1.85;
+}
+
+/* Post cover image: opt-in via `cover:` in front matter. Sits flush at the
+   top of the post body (no card chrome) and breaks slightly outside the body
+   column on each side — a Thinking-Machines-style hero treatment that gives
+   the cover more visual presence than an inline figure. */
+.post-body > .post-cover {
+  margin: 0 -3rem 2.25rem;
+}
+
+.post-body > .post-cover > img {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  box-shadow:
+    0 2px 8px rgba(20, 20, 19, 0.06),
+    0 1px 2px rgba(20, 20, 19, 0.04);
+  /* Enforce a uniform 16:9 hero box. Off-ratio sources are cropped via
+     object-fit; object-position biases the crop toward the top so footer
+     watermarks ("公众号 · 知陌若" etc.) get trimmed off the bottom. */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+@media (max-width: 800px) {
+  .post-body > .post-cover {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 /* Standalone images in markdown get wrapped in <p>. Treat those as figures:
    white card surface so screenshot whitespace blends in, rounded edges so the
    figure sits naturally on the cream page. */
@@ -1002,6 +1042,15 @@ body {
   font-size: 0.82rem;
   line-height: 1.55;
   color: var(--muted);
+  text-align: left;
+}
+
+/* Literature posts: margin notes flow in 楷体 to match the body, slightly
+   smaller than the tech-post sans default for a quieter scholarly feel. */
+.post-body--literature .margin-note {
+  font-family: var(--xingkai);
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 .post-body .margin-note__label {
@@ -1060,6 +1109,94 @@ body {
     border-left: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: 2px;
   }
+}
+
+/* Classical prose block (e.g. 燋食): unpunctuated 古散文 rendered in 楷体 with
+   ideographic spaces between phrases. Slightly larger and looser than regular
+   body text for breathing room and an ink-on-paper feel. */
+.post-body .prose-classical {
+  margin: 2.5rem 0;
+  font-family: var(--xingkai);
+  font-size: 17px;
+  line-height: 2.1;
+  text-align: justify;
+}
+
+.post-body .prose-classical p {
+  margin: 0 0 1.5em;
+  text-indent: 0;
+}
+
+.post-body .prose-classical p:last-child {
+  margin-bottom: 0;
+}
+
+/* The original handwritten scan, kept as a manuscript artifact above the
+   typed prose. Centered, modest in width so it sits as an artifact rather
+   than dominating the page. */
+.post-body .prose-classical__scan {
+  margin: 0 auto 2.5rem;
+  max-width: 480px;
+  text-align: center;
+}
+
+.post-body .prose-classical__scan figcaption {
+  margin-top: 0.6rem;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+/* Classical poem block (e.g. 春折): a centered "stele" of 楷体 with generous
+   breathing room. Margin notes attached to individual lines pin the
+   commentary into the right gutter on desktop. */
+.post-body .poem {
+  margin: 3rem 0 1.5rem;
+  text-align: center;
+  font-family: var(--xingkai);
+  font-size: 1.3rem;
+  line-height: 2.4;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+}
+
+.post-body .poem .poem__line {
+  position: relative;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Markers on poem lines: zero-width inline-block so they render at their
+   normal superscript position but don't widen the line — keeps the Chinese
+   characters centered identically across all lines (with or without notes). */
+.post-body .poem .margin-marker {
+  display: inline-block;
+  width: 0;
+  overflow: visible;
+}
+
+.post-body .poem-coda {
+  margin: 2rem auto 0;
+  max-width: 28em;
+  text-align: center;
+  font-family: var(--xingkai);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.post-body .poem-attribution {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
 }
 
 /* Footnotes (markdown's footnotes extension renders them in .footnote at end of body). */

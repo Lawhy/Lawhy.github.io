@@ -3,7 +3,9 @@ title: 新双城记
 date: 2025-12-27
 tags: [文学, 散文]
 slug: xin-shuang-cheng-ji
-summary: "二〇一三年夏天，十六岁的少年，藉着游学的名义，第一次坐进新世界的老旧地铁，从伦敦东南一路向西北，日复一日，持续近一个月。"
+authors: 知陌若
+cover: images/cover.jpg
+summary: ""
 ---
 
 二〇二五年十二月二十五日，圣诞节。我在 101 公路上开着车，雨水难得大到妨碍驾驶的视线。

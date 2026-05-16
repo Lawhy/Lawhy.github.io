@@ -238,6 +238,12 @@ def render_post(md_path: Path, template: str, css_versions: dict):
     date_display, meta_extra = format_date_display(fm, category)
 
     html_body, toc_tokens = render_markdown(body)
+    cover = (fm.get("cover") or "").strip()
+    if cover:
+        html_body = (
+            f'<figure class="post-cover"><img src="{escape(cover)}" alt=""></figure>\n'
+            + html_body
+        )
     toc_html = render_toc(toc_tokens)
     authors = fm.get("authors", "")
     authors_html = (
@@ -254,6 +260,7 @@ def render_post(md_path: Path, template: str, css_versions: dict):
     page = page.replace("{{root}}", "../../../")
     page = page.replace("{{toc}}", toc_html)
     page = page.replace("{{content}}", html_body)
+    page = page.replace("{{category}}", category)
     page = page.replace("{{css_v_site}}", css_versions["site"])
     page = page.replace("{{css_v_syntax}}", css_versions["syntax"])
 
