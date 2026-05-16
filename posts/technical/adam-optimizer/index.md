@@ -3,7 +3,7 @@ title: How Adam Steers Gradient Descent
 date: 2025-08-01
 tags: [Machine Learning, Optimization, Math Proofs]
 slug: adam-optimizer
-summary: ""
+summary: "Understanding the Adam optimizer through its building blocks — momentum, adaptive step sizes, and bias correction."
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 ---
 
@@ -18,7 +18,7 @@ authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 
 <figure>
   <img src="images/momentum.png" alt="SGD without (left) and with (right) momentum">
-  <figcaption>Fig 1. SGD without (left) and with (right) momentum. Illustration produced using Claude Opus 4.6 via Claude Code (Anthropic).</figcaption>
+  <figcaption>Fig 1. SGD without (left) and with (right) momentum.</figcaption>
 </figure>
 
 ### Vanilla gradient descent: reactive, step-by-step

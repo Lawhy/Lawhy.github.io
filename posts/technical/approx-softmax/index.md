@@ -3,7 +3,7 @@ title: Approximating the Softmax Function
 date: 2021-01-17
 tags: [softmax, Machine Learning, Math Proofs]
 slug: approx-softmax
-summary: ""
+summary: "A math-first tour of softmax approximations when normalizing over a large vocabulary becomes the bottleneck."
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 ---
 

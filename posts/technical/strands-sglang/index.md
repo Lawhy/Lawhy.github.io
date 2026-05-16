@@ -3,7 +3,7 @@ title: "Strands-SGLang: Bridging Agent Scaffolding and RL Training"
 date: 2026-01-14
 tags: [AI Agents, Agent Scaffolds, Agentic RL, SGLang, slime]
 slug: strands-sglang
-summary: ""
+summary: "Extending Strands-Agents with SGLang's token-level endpoint for on-policy agentic RL training."
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitianlian.github.io/">Chengxing Xie</a>'
 ---
 

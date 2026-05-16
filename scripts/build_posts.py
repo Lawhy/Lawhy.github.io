@@ -13,6 +13,7 @@ Then inline the blog list into homepage index.html between
 Run: python3 scripts/build_posts.py
 """
 
+import hashlib
 import re
 import sys
 from datetime import date as _date
@@ -33,6 +34,13 @@ ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "posts"
 INDEX = ROOT / "index.html"
 TEMPLATE = ROOT / "scripts" / "post-template.html"
+SITE_CSS = ROOT / "assets" / "css" / "site.css"
+SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
+
+
+def asset_version(path: Path) -> str:
+    """Short content hash for cache-busting an asset URL."""
+    return hashlib.md5(path.read_bytes()).hexdigest()[:8]
 
 CATEGORIES = ("technical", "literature")
 CATEGORY_LABEL = {"technical": "TECHNICAL", "literature": "LITERATURE"}
@@ -122,6 +130,51 @@ def render_markdown(body: str):
     return html, md.toc_tokens
 
 
+def auto_summary(body: str, max_chars: int = 320) -> str:
+    """Extract the first real prose paragraph for a list excerpt.
+
+    Skips headings, code, math, tables, and block-level raw HTML (figure/aside/
+    details) so we don't pull in the post's furniture as the excerpt. The
+    rendered excerpt is visually clamped to two lines via CSS line-clamp, so
+    we deliberately do NOT append our own "…" — the browser handles it
+    based on actual rendered width.
+    """
+    text = body
+    text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)
+    text = re.sub(r"<(aside|figure|details|table)\b.*?</\1>", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"\$\$.+?\$\$", "", text, flags=re.DOTALL)
+
+    for raw in re.split(r"\n\s*\n", text):
+        p = raw.strip()
+        if not p or p.startswith("#") or p.startswith("|") or "---|" in p:
+            continue
+        if re.match(r"^-{3,}$", p):
+            continue
+        if p.startswith("<") and not re.match(r"<p\b", p, re.IGNORECASE):
+            continue
+        # Strip markup. Order matters: drop HTML before reference brackets so
+        # patterns like [<a href="#ref-1">1</a>] collapse cleanly to nothing.
+        p = re.sub(r"!\[.*?\]\(.*?\)", "", p)
+        p = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", p)
+        p = re.sub(r"<[^>]+>", "", p)
+        p = re.sub(r"\[\s*\d+(?:\s*,\s*\d+)*\s*\]", "", p)
+        p = re.sub(r"`([^`]+)`", r"\1", p)
+        p = re.sub(r"\$[^$\n]+\$", "", p)  # inline math removed entirely
+        p = re.sub(r"\*\*([^*]+)\*\*", r"\1", p)
+        p = re.sub(r"\*([^*]+)\*", r"\1", p)
+        p = re.sub(r"_([^_]+)_", r"\1", p)
+        p = re.sub(r"\s+", " ", p).strip()
+        # Tidy orphan punctuation left by removed math/HTML (e.g. "objective .")
+        p = re.sub(r"\s+([.,;:!?])", r"\1", p)
+        p = p.rstrip(".,;:!? ")
+        if not p:
+            continue
+        if len(p) > max_chars:
+            p = p[:max_chars].rsplit(" ", 1)[0]
+        return p + "…"
+    return ""
+
+
 def category_for(md_path: Path) -> str:
     return md_path.parent.parent.name
 
@@ -162,14 +215,21 @@ def render_toc(toc_tokens) -> str:
     )
 
 
-def render_post(md_path: Path, template: str):
+def render_post(md_path: Path, template: str, css_versions: dict):
     text = md_path.read_text(encoding="utf-8")
     fm, body = parse_frontmatter(text)
     category = category_for(md_path)
     slug = slug_for(md_path)
     title = fm.get("title", slug)
     date_raw = fm.get("date", "")
-    summary = fm.get("summary", "")
+    # Technical posts derive their excerpt from the body's opening paragraph
+    # (à la Lilian Weng's blog). Literature posts use the curated frontmatter
+    # summary so the excerpt can be a poetic lede rather than the post's first
+    # line of prose.
+    if category == "technical":
+        summary = auto_summary(body)
+    else:
+        summary = fm.get("summary", "")
     date_display, meta_extra = format_date_display(fm, category)
 
     html_body, toc_tokens = render_markdown(body)
@@ -189,6 +249,8 @@ def render_post(md_path: Path, template: str):
     page = page.replace("{{root}}", "../../../")
     page = page.replace("{{toc}}", toc_html)
     page = page.replace("{{content}}", html_body)
+    page = page.replace("{{css_v_site}}", css_versions["site"])
+    page = page.replace("{{css_v_syntax}}", css_versions["syntax"])
 
     (md_path.parent / "index.html").write_text(page, encoding="utf-8")
 
@@ -236,14 +298,33 @@ def replace_marker(html: str, name: str, replacement: str) -> str:
     return pattern.sub(lambda _m: new_block, html)
 
 
+CSS_LINK_RE = re.compile(
+    r'(href="(?:[^"]*?/)?assets/css/(site|syntax)\.css)(?:\?v=[^"]*)?"'
+)
+
+
+def stamp_css_versions(html: str, css_versions: dict) -> str:
+    """Rewrite any assets/css/{site,syntax}.css link to carry ?v=<hash>."""
+
+    def _sub(m: re.Match) -> str:
+        return f'{m.group(1)}?v={css_versions[m.group(2)]}"'
+
+    return CSS_LINK_RE.sub(_sub, html)
+
+
 def main():
     if not TEMPLATE.exists():
         sys.exit(f"Missing template: {TEMPLATE}")
     template = TEMPLATE.read_text(encoding="utf-8")
 
+    css_versions = {
+        "site": asset_version(SITE_CSS),
+        "syntax": asset_version(SYNTAX_CSS),
+    }
+
     posts_by_cat = {c: [] for c in CATEGORIES}
     for md_path in sorted(POSTS_DIR.glob("*/*/index.md")):
-        info = render_post(md_path, template)
+        info = render_post(md_path, template, css_versions)
         if info["category"] in posts_by_cat:
             posts_by_cat[info["category"]].append(info)
 
@@ -254,6 +335,7 @@ def main():
     for cat in CATEGORIES:
         items = "\n".join(render_list_item(p) for p in posts_by_cat[cat])
         html = replace_marker(html, f"BLOG_{CATEGORY_LABEL[cat]}", items)
+    html = stamp_css_versions(html, css_versions)
     INDEX.write_text(html, encoding="utf-8")
 
     counts = " · ".join(f"{len(v)} {k}" for k, v in posts_by_cat.items())

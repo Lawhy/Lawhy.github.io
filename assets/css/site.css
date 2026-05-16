@@ -1,17 +1,25 @@
 :root {
   /* news/blog cream */
-  --bg: #FAF9F5;
+  --bg: #faf9f5;
   --ink: #141413;
-  --muted: #6B6B66;
-  --muted-2: #87867F;
-  --accent: #D97757;
-  --rule: rgba(20, 20, 19, 0.10);
+  --muted: #6b6b66;
+  --muted-2: #87867f;
+  --accent: #d97757;
+  --rule: rgba(20, 20, 19, 0.1);
   --aside-bg: rgba(20, 20, 19, 0.025);
 
   /* TML-pattern type stack */
   --display: "Newsreader", "Source Serif 4", Georgia, serif;
-  --serif: "Source Serif 4", "Iowan Old Style", "Iowan Old Style BT", Georgia, "Times New Roman", serif;
-  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif:
+    "Source Serif 4", "Iowan Old Style", "Iowan Old Style BT", Georgia,
+    "Times New Roman", serif;
+  --sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  /* 楷体 stack for literature: LXGW WenKai (jsDelivr) then system 楷体 fallbacks. */
+  --xingkai:
+    "LXGW WenKai", "LXGW WenKai Screen", "STKaiti", "KaiTi", "楷体",
+    "Source Serif 4", serif;
 
   /* Layout */
   --content-width: 660px;
@@ -22,14 +30,26 @@
   --shell-max: 1200px;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html, body { margin: 0; padding: 0; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -133,7 +153,6 @@ body {
   position: relative;
 }
 
-
 .left-toc a {
   color: var(--muted-2);
   text-decoration: none;
@@ -163,7 +182,9 @@ body {
   opacity: 0;
   pointer-events: none;
   transform: translateY(0);
-  transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
+  transition:
+    transform 0.55s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.25s ease;
   will-change: transform;
 }
 
@@ -206,13 +227,15 @@ body {
   margin: 0 0 1.5rem;
 }
 
-/* About prose paragraphs — only "reading prose" on the page, slightly larger */
-.section p {
+/* About prose paragraphs — only "reading prose" on the page, slightly larger.
+   Scoped to direct children so nested <p>s (e.g. .post-list__excerpt) aren't
+   inadvertently pulled up to 17px. */
+.section > p {
   margin: 0 0 1.25rem;
   font-size: 17px;
   line-height: 1.65;
 }
-.section p:last-child {
+.section > p:last-child {
   margin-bottom: 0;
 }
 
@@ -222,7 +245,9 @@ body {
   text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  transition:
+    text-decoration-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .section a:hover {
@@ -477,10 +502,30 @@ body {
 }
 
 .post-list__excerpt {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.55;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Literature panel: 楷体 (LXGW WenKai). Sized slightly larger than the tech
+   panel because Chinese characters need more pixel area for the same legibility. */
+#panel-lit .post-list__title {
+  font-family: var(--xingkai);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+#panel-lit .post-list__excerpt {
+  font-family: var(--xingkai);
+  font-size: 14px;
+  line-height: 1.75;
 }
 
 /* ===================================================================
@@ -543,7 +588,9 @@ body {
   border-bottom: 1px solid transparent;
   padding-bottom: 1px;
   margin-left: 0.25em;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
   white-space: nowrap;
 }
 
@@ -626,7 +673,9 @@ body {
   text-decoration: none;
   border-bottom: 1px solid transparent;
   padding-bottom: 1px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .oss-item dt a:hover {
@@ -705,7 +754,9 @@ body {
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
   padding-bottom: 1px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .post-meta__authors a:hover {
@@ -747,7 +798,9 @@ body {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
   text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  transition:
+    text-decoration-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .post-body a:hover {
@@ -820,7 +873,7 @@ body {
    figure sits naturally on the cream page. */
 .post-body p > img:only-child,
 .post-body figure > img {
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 0.9rem;
   border-radius: 6px;
   border: 1px solid var(--rule);
@@ -1074,8 +1127,8 @@ body {
 .post-body .references li {
   margin: 0 0 0.55rem;
   padding-left: 1.6rem;
-  text-indent: -1.6rem;        /* hanging indent: [N] sits at the left edge */
-  scroll-margin-top: 1.5rem;   /* anchor-jump offset */
+  text-indent: -1.6rem; /* hanging indent: [N] sits at the left edge */
+  scroll-margin-top: 1.5rem; /* anchor-jump offset */
 }
 
 .post-body .references li:target {
@@ -1204,7 +1257,9 @@ body {
   text-decoration: none;
   border-bottom: 1px solid transparent;
   padding-bottom: 1px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
   min-width: 0;
 }
 
@@ -1240,8 +1295,12 @@ body {
 }
 
 @media (max-width: 1100px) {
-  .post-title { font-size: 1.85rem; }
-  .post-body { font-size: 1rem; }
+  .post-title {
+    font-size: 1.85rem;
+  }
+  .post-body {
+    font-size: 1rem;
+  }
 }
 
 /* ===================================================================
@@ -1307,9 +1366,15 @@ body {
 }
 
 @media (max-width: 640px) {
-  .page__hero { padding: 3.5rem 1.25rem 2rem; }
-  .hero__name { font-size: 1.7rem; }
-  .section { margin-bottom: 3rem; }
+  .page__hero {
+    padding: 3.5rem 1.25rem 2rem;
+  }
+  .hero__name {
+    font-size: 1.7rem;
+  }
+  .section {
+    margin-bottom: 3rem;
+  }
   .post-list a {
     flex-direction: column;
     gap: 0.2rem;
