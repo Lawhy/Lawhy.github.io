@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Approximating the Softmax Function — Yuan He</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../../assets/css/site.css">
+  <link rel="stylesheet" href="../../../assets/css/syntax.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page__hero page__hero--post">
+      <a class="post-back" href="../../../index.html">← Yuan He</a>
+      <h1 class="post-title">Approximating the Softmax Function</h1>
+      <p class="post-meta"><span class="post-meta__authors"><a href="https://www.yuanhe.wiki/">Yuan He</a></span> &middot; Jan 2021</p>
+    </header>
+
+    <div class="page__shell">
+      <nav class="left-toc" aria-label="Table of contents">
+        <span class="toc-marker" aria-hidden="true"></span>
+        <ul>
+          <li><a href="#introduction" data-toc>Introduction</a></li>
+          <li><a href="#non-sampling-softmax-variants" data-toc>Non-Sampling Softmax Variants</a></li>
+          <li><a href="#monte-carlo-softmax-approximations" data-toc>Monte Carlo Softmax Approximations</a></li>
+          <li><a href="#noise-contrastive-estimation" data-toc>Noise-Contrastive Estimation</a></li>
+          <li><a href="#tackling-the-normalizing-constant-directly" data-toc>Tackling the normalizing constant directly</a></li>
+          <li><a href="#conclusions" data-toc>Conclusions</a></li>
+          <li><a href="#references" data-toc>References</a></li>
+        </ul>
+      </nav>
+
+      <article class="content">
+        <div class="post-body">
+<h2 id="introduction">Introduction</h2>
+<p>The <strong>softmax</strong> function is widely used in the output layer of neural-network models for classification. In the <em>binary case</em>, it reduces to the familiar <strong>sigmoid</strong> mapping.</p>
+<p>Given a score (logit) vector $x=(x_1,x_2)$, the softmax probabilities are</p>
+<p>$$
+P(X=x_1)=\frac{\exp(x_1)}{\exp(x_1)+\exp(x_2)},\quad
+P(X=x_2)=\frac{\exp(x_2)}{\exp(x_1)+\exp(x_2)}
+$$</p>
+<p>In particular,</p>
+<p>$$
+P(X=x_1)=\frac{\exp(x_1)}{\exp(x_1)+\exp(x_2)}=\sigma(x_1-x_2)
+$$</p>
+<p>where $\sigma(z)=\frac{1}{1+\exp(-z)}$ is the sigmoid function.</p>
+<p>More generally, softmax can be viewed as <strong>normalizing positive weights</strong> obtained from log-scale inputs. If we write $x_i=\log y_i$ with $y_i>0$, then</p>
+<p>$$
+\mathrm{softmax}(x_i)=\frac{\exp(x_i)}{\sum_j \exp(x_j)}
+=\frac{y_i}{\sum_j y_j}
+$$</p>
+<p>i.e., exponentiation converts log-weights into unnormalized weights, and softmax normalizes them into a probability distribution.</p>
+<p>Compared with some other normalizations, softmax can produce <strong>sharper</strong> (more peaked) distributions as the logit gaps grow, and in the limit it approaches an <strong>argmax-like</strong> behavior. Crucially, it is differentiable, which makes it convenient for gradient-based optimization (especially when paired with cross-entropy loss).</p>
+<p>In NLP applications, however, softmax can be expensive because it requires <strong>normalizing over the full vocabulary</strong>. For example, in the Continuous Bag-of-Words (CBOW) model, the conditional probability of predicting a target (center) word $w$ given a context representation $c$ is</p>
+<p>$$
+P(w\mid c)=\frac{\exp(S(w,c))}{\sum_{v\in V}\exp(S(v,c))}
+$$</p>
+<p>where $S(w,c)$ is a scoring function measuring compatibility (or similarity) between $w$ and $c$. Computing the denominator requires summing over $|V|$ vocabulary items, which is $O(|V|)$ per update in a naïve implementation. To address this, <strong>various approximations and alternatives</strong> to softmax have been proposed; this post introduces several of them and the math behind them.</p>
+<hr />
+<h2 id="non-sampling-softmax-variants">Non-Sampling Softmax Variants</h2>
+<p>These methods avoid sampling-based objectives and keep an exactly normalized probability model, either by factorizing the distribution (H-softmax), reallocating capacity (D-softmax), or changing the output units (character/subword softmax).</p>
+<h3 id="hierarchical-softmax-h-softmax">Hierarchical Softmax (H-Softmax)</h3>
+<p>Hierarchical Softmax (H-Softmax) reduces the cost of computing a normalized distribution by <strong>factorizing</strong> the probability over a hierarchy of <strong>clusters</strong> (typically organized as a tree). The key idea starts from a simple partitioning argument.</p>
+<p>Suppose the outcomes of a variable $Y$ are partitioned into disjoint clusters $\{C_k\}$. Then, by the law of total probability,</p>
+<p>$$
+P(Y \mid X) \;=\; \sum_k P(Y, C_k \mid X)
+\;=\; \sum_k P(Y \mid C_k, X)\,P(C_k \mid X)
+$$</p>
+<p>where $C_k$ denotes the $k$-th cluster. If the clusters are <strong>non-overlapping</strong>, each outcome $Y$ belongs to exactly one cluster, denoted $C(Y)$. In that case, all terms except the one corresponding to $C(Y)$ vanish, and we obtain the factorization</p>
+<p>$$
+P(Y \mid X) \;=\; P(Y \mid C(Y), X)\,P(C(Y)\mid X)
+$$</p>
+<p>H-Softmax applies this factorization <strong>recursively</strong> by organizing the vocabulary as a (usually binary) tree: internal nodes represent clusters, and leaves correspond to words. For a <strong>balanced binary tree</strong> over a vocabulary $V$, the path length from root to any leaf is $O(\log |V|)$, so we can compute $P(w\mid c)$ by multiplying probabilities along the path rather than summing over all $|V|$ words as in full softmax.</p>
+<p>Let $p(w)$ denote the parent of the leaf corresponding to word $w$, and more generally let $p^i(w)$ be the $i$-th ancestor on the path to the root, with $p^0(w)=w$. Then we can write</p>
+<p>$$
+P(w \mid c) \;=\; P(w \mid p(w), c)\,P(p(w)\mid c)
+$$</p>
+<p>Applying the same idea upward through the tree yields a product over decisions along the path:</p>
+<p>$$
+P(w \mid c)
+\;=\;
+\prod_{i=0}^{L-1} P\!\big(p^i(w)\mid p^{i+1}(w), c\big) \cdot P(\text{root})
+$$</p>
+<p>where $p^L(w)=\text{root}$ and $P(\text{root})=1$. For a balanced binary tree, $L \approx \log |V| - 1$.</p>
+<p>Because each internal node in a binary tree corresponds to a <strong>binary decision</strong> (e.g., go left vs. go right), the conditional probability at each node can be modeled with a <strong>sigmoid function</strong>, as in the original H-Softmax formulation.</p>
+<p>H-Softmax reduces the <em>per-example</em> cost of computing $P(w\mid c)$ during training from $O(|V|)$ to $O(\log |V|)$, because only the nodes on the target word&rsquo;s path are visited.</p>
+<p>At inference time, however, if one needs the full distribution over all words, computing $P(w\mid c)$ for every $w\in V$ still requires evaluating all paths (or all leaves), which is $O(|V|)$ overall. In practice, H-Softmax is often most beneficial when training requires repeated probability computations for observed targets.</p>
+<p>More broadly, internal nodes can be viewed as latent variables, and H-Softmax performance depends heavily on the <strong>tree construction</strong> (i.e., how words are clustered). A common intuition is that placing semantically or distributionally similar words under nearby subtrees can improve efficiency and accuracy.</p>
+<h3 id="differentiated-softmax-d-softmax">Differentiated Softmax (D-Softmax)</h3>
+<p>Differentiated Softmax (D-Softmax) is motivated by a simple observation: <strong>word frequencies are highly skewed</strong>, and allocating the same embedding/output dimensionality to every word can be wasteful. Instead of using a single dense output weight matrix of uniform dimensionality (as in vanilla softmax), D-Softmax <strong>assigns different representation sizes to different frequency bands</strong>. Concretely, frequent words are given higher-dimensional vectors (more capacity), while rare words use lower-dimensional vectors, yielding a <strong>block-structured (effectively sparse) output layer</strong> and reducing both memory and compute [<a href="#ref-3">3</a>].</p>
+<p>Intuitively, this preserves expressiveness where it matters most (common words dominate the loss) while keeping the tail of the vocabulary cheap.</p>
+<h3 id="character-level-softmax">Character-level Softmax</h3>
+<p>Another way to avoid a large word-level normalization is to predict <strong>characters (or subword units)</strong> instead of whole words. Rather than computing a softmax over a vocabulary of size $|V|$, the model generates a word as a sequence of characters and applies a softmax at each step over a much smaller character set (or subword vocabulary). This can significantly reduce the per-step normalization cost, at the expense of <strong>longer sequences</strong> and potentially more complex decoding.</p>
+<hr />
+<h2 id="monte-carlo-softmax-approximations">Monte Carlo Softmax Approximations</h2>
+<p>The approaches discussed in this section use <strong>Monte Carlo sampling</strong> to approximate the <em>softmax expectation</em> that appears in the gradient, thereby avoiding the expensive full-vocabulary computation of the normalizing term. Before introducing these methods, it is helpful to review a key property of combining <strong>softmax</strong> with <strong>cross-entropy</strong>.</p>
+<h3 id="cross-entropy-loss-with-softmax">Cross-Entropy Loss with Softmax</h3>
+<p>In the Word2Vec setting, consider a single training instance whose target is word index $i$. Let $\mathbf{y}\in\mathbb{R}^{|V|}$ be the one-hot target vector with $y_i=1$ and $y_j=0$ for $j\neq i$. Let $\mathbf{z}\in\mathbb{R}^{|V|}$ be the vector of logits (unnormalized scores), and let $\hat{\mathbf{y}}=\mathrm{softmax}(\mathbf{z})$ be the predicted distribution:</p>
+<p>$$
+\hat{y}_j = \frac{\exp(z_j)}{\sum_{t=1}^{|V|} \exp(z_t)}
+$$</p>
+<p>The cross-entropy loss for this single instance is</p>
+<p>$$
+\begin{aligned}
+L_i
+&= H(\mathbf{y}, \hat{\mathbf{y}})
+= -\sum_{j=1}^{|V|} y_j \log \hat{y}_j \\
+&= -\log \hat{y}_i
+= -\log\left(\frac{\exp(z_i)}{\sum_{j=1}^{|V|} \exp(z_j)}\right) \\
+&= -z_i + \log\left(\sum_{j=1}^{|V|} \exp(z_j)\right)
+\end{aligned}
+$$</p>
+<p>In Word2Vec (and other context-dependent models), one typically has $z_i = S(w_i, c)$ for some scoring function $S(\cdot,\cdot)$ given context $c$. For clarity, we omit the context dependence in this section.</p>
+<blockquote>
+<p>With one-hot targets, minimizing cross-entropy is equivalent to maximizing the conditional log-likelihood (i.e., <strong>Maximum Likelihood Estimation</strong>) under the model.</p>
+</blockquote>
+<h3 id="gradient-and-the-expectation-form">Gradient and the &ldquo;expectation&rdquo; form</h3>
+<p>For backpropagation, we need $\nabla L_i$ with respect to model parameters (implicitly through their effect on $\mathbf{z}$). Differentiating the expression above gives</p>
+<p>$$
+\begin{aligned}
+\nabla L_i
+&= -\,\nabla z_i \;+\; \nabla \log\left(\sum_{j=1}^{|V|}\exp(z_j)\right) \\
+&= -\,\nabla z_i \;+\; \frac{1}{\sum_{j=1}^{|V|}\exp(z_j)} \sum_{k=1}^{|V|} \exp(z_k)\,\nabla z_k \\
+&= -\,\nabla z_i \;+\; \sum_{k=1}^{|V|} \frac{\exp(z_k)}{\sum_{j=1}^{|V|}\exp(z_j)}\,\nabla z_k \\
+&= -\,\nabla z_i \;+\; \sum_{k=1}^{|V|} \hat{y}_k \,\nabla z_k \\
+&= -\,\nabla z_i \;+\; \mathbb{E}_{k\sim \hat{\mathbf{y}}}\!\left[\nabla z_k\right]
+\end{aligned}
+$$</p>
+<p>This final expression highlights the computational bottleneck: the gradient contains an <strong>expectation under the model distribution</strong> $\hat{\mathbf{y}}$, which in the naïve form requires summing over all $|V|$ vocabulary items. Sampling-based methods replace this full sum with a <strong>Monte Carlo estimate</strong>.</p>
+<blockquote>
+<p>During training we primarily need the <em>gradient</em>. Sampling-based methods approximate the expectation term to obtain a cheaper (possibly biased/noisy) gradient estimate. In contrast, computing the exact loss value or the full distribution can still be useful for monitoring and evaluation.</p>
+</blockquote>
+<h3 id="monte-carlo-estimate">Monte-Carlo Estimate</h3>
+<p>Recall that the gradient of the softmax cross-entropy loss can be written in the form</p>
+<p>$$
+\nabla L_i = -\,\nabla z_i + \mathbb{E}_{k\sim P}\!\left[\nabla z_k\right]
+$$</p>
+<p>where $P$ is the <strong>model distribution</strong> induced by the softmax. A natural idea is to approximate the expectation term with a <strong>Monte Carlo (MC) average</strong>:</p>
+<p>$$
+\mathbb{E}_{k\sim P}\!\left[\nabla z_k\right]
+\;\approx\;
+\frac{1}{m}\sum_{r=1}^{m} \nabla z_{k_r}
+$$</p>
+<p>Here, each $k_r$ is an index sampled from $P$, and $\nabla z_{k_r}$ is the corresponding gradient contribution.</p>
+<p>This approximation is justified by the <strong>Law of Large Numbers (LLN)</strong>: as $m\to\infty$, the sample average converges to the true expectation under mild conditions.</p>
+<ul>
+<li><strong>Strong LLN (almost sure convergence):</strong> $\Pr\!\left(\lim_{m\to\infty}\bar{X}_m = \mu\right) = 1$. Intuitively, the sample average converges to the mean with probability 1 (events where it does not converge are possible in principle but have probability 0).</li>
+<li><strong>Weak LLN (convergence in probability):</strong> $\forall\,\epsilon>0,\quad \lim_{m\to\infty}\Pr\!\left(|\bar{X}_m - \mu| > \epsilon\right)=0$. Equivalently, for large $m$, the probability that the sample average deviates from $\mu$ by more than $\epsilon$ becomes arbitrarily small. A standard proof uses Chebyshev&rsquo;s inequality.</li>
+</ul>
+<p>In practice, if $m \ll |V|$, then replacing the full-vocabulary sum with $m$ samples can substantially reduce computation. However, there are two major obstacles:</p>
+<ol>
+<li><strong>Sampling from $P$ is expensive.</strong> The distribution $P$ is the softmax distribution over the vocabulary, and sampling exactly from it typically requires knowing (or computing) the normalizing constant, which already involves an $O(|V|)$ pass.</li>
+<li><strong>The normalizer still appears implicitly.</strong> Even if we only need gradients, the softmax probabilities depend on $\sum_{j=1}^{|V|}\exp(z_j)$, so we still need a way to avoid computing this term exactly.</li>
+</ol>
+<p>The next section addresses both issues using <strong>importance sampling</strong>, which replaces sampling from $P$ with sampling from a cheaper proposal distribution and applies appropriate reweighting.</p>
+<h3 id="importance-sampling">Importance Sampling</h3>
+<p>The key idea of <strong>importance sampling</strong> is to avoid sampling directly from the model distribution $P$ (the softmax over the vocabulary), which is expensive because it depends on the normalizing constant. Instead, we sample from an easier <strong>proposal distribution</strong> $Q$ (e.g., a unigram distribution) and reweight samples to obtain an estimate under $P$.</p>
+<p>For any function $f$ and any proposal $Q$ such that $Q(x) > 0$ whenever $P(x) > 0$, we can rewrite the expectation:</p>
+<p>$$
+\mathbb{E}_{X\sim P}[f(X)]
+= \int f(x)\,P(x)\,dx
+= \int f(x)\,\frac{P(x)}{Q(x)}\,Q(x)\,dx
+= \mathbb{E}_{X\sim Q}\!\left[f(X)\frac{P(X)}{Q(X)}\right]
+$$</p>
+<p>A Monte Carlo approximation using $m$ samples $x_1,\dots,x_m \sim Q$ is then</p>
+<p>$$
+\mathbb{E}_{X\sim P}[f(X)]
+\approx
+\frac{1}{m}\sum_{r=1}^{m} f(x_r)\frac{P(x_r)}{Q(x_r)}
+$$</p>
+<p>Applying this to our context (with $f$ playing the role of a gradient contribution), we obtain</p>
+<p>$$
+\mathbb{E}_{k\sim P}[\nabla z_k] = \mathbb{E}_{k\sim Q}\!\left[\nabla z_k \frac{P(k)}{Q(k)}\right]
+\approx
+\frac{1}{m}\sum_{r=1}^{m}\nabla z_{k_r}\frac{P(k_r)}{Q(k_r)}
+$$</p>
+<p>At this point we have addressed the first obstacle, i.e., <strong>how to draw samples without sampling from $P$</strong>, but we still face the second: we do not want to compute the softmax normalizer.</p>
+<p>Recall that $P(k)=\frac{\exp(z_k)}{Z}$, with $Z=\sum_{j\in V}\exp(z_j)$. A convenient way to estimate $Z$ is to view it as an expectation under the uniform distribution over the vocabulary. Let $n=|V|$. If $U$ is uniform over indices $\{1,\dots,n\}$, then</p>
+<p>$$
+\mathbb{E}_{U}[\exp(z_U)] = \frac{1}{n}\sum_{j=1}^{n}\exp(z_j)
+\;\;\Rightarrow\;\;
+Z = n\,\mathbb{E}_{U}[\exp(z_U)]
+$$</p>
+<p>Using importance sampling to replace $U$ with the same proposal $Q$ gives</p>
+<p>$$
+\mathbb{E}_{U}[\exp(z_U)]=
+\mathbb{E}_{k\sim Q}\!\left[\exp(z_k)\frac{U(k)}{Q(k)}\right]=
+\mathbb{E}_{k\sim Q}\!\left[\exp(z_k)\frac{1/n}{Q(k)}\right]
+$$</p>
+<p>Therefore, with samples $k_1,\dots,k_m\sim Q$,</p>
+<p>$$
+Z = n\,\mathbb{E}_{U}[\exp(z_U)]
+\approx
+n\cdot\frac{1}{m}\sum_{r=1}^{m}\exp(z_{k_r})\frac{1/n}{Q(k_r)}=
+\frac{1}{m}\sum_{r=1}^{m}\frac{\exp(z_{k_r})}{Q(k_r)}
+$$</p>
+<p>Plugging $P(k)=\exp(z_k)/Z$ into the importance-sampling estimate yields a ratio form. Using the same sampled set for numerator and denominator leads to the <strong>self-normalized importance sampling</strong> estimator:</p>
+<p>$$
+\mathbb{E}_{k\sim P}[\nabla z_k]
+=\mathbb{E}_{k\sim Q}\!\left[\nabla z_k\frac{\exp(z_k)/Z}{Q(k)}\right]
+\approx
+\frac{\sum_{r=1}^{m}\nabla z_{k_r}\,\frac{\exp(z_{k_r})}{Q(k_r)}}
+{\sum_{r=1}^{m}\frac{\exp(z_{k_r})}{Q(k_r)}}
+$$</p>
+<p>This estimator is <strong>biased</strong> in general, because it is a ratio of random quantities (and in general $\mathbb{E}[A/B]\neq \mathbb{E}[A]/\mathbb{E}[B]$) [<a href="#ref-4">4</a>]. In practice, the bias often decreases as $m$ grows, and the variance can be substantially lower than naive sampling.</p>
+<p>Finally, in the Word2Vec case the logits are typically given by a similarity score, i.e. $z_k = S(w_k, c)$.</p>
+<blockquote>
+<p>Many other sampling techniques exist (e.g., rejection sampling, MCMC). Some work also proposes adaptive importance sampling, where the proposal $Q$ is adjusted over time to better match the target distribution $P$.</p>
+</blockquote>
+<hr />
+<h2 id="noise-contrastive-estimation">Noise-Contrastive Estimation</h2>
+<p>Compared with importance sampling, <strong>Noise-Contrastive Estimation (NCE)</strong> [<a href="#ref-5">5</a>] often behaves more stably in practice because it avoids large or highly variable importance weights when the proposal distribution is a poor match to the model distribution. Instead of estimating the softmax probabilities directly, NCE reformulates learning as a <strong>binary classification</strong> problem: distinguish data samples from noise samples using the same underlying scoring function.</p>
+<p>Let $D$ be a binary label where:</p>
+<ul>
+<li>$D=1$: the pair $(w,c)$ comes from the <strong>data</strong> (positive) distribution $P^+$,</li>
+<li>$D=0$: the word $w$ comes from a <strong>noise</strong> (negative) distribution $P^-$.</li>
+</ul>
+<p>For each positive pair $(w,c)$, we draw $k$ negative words $w'_1,\dots,w'_k \sim P^-$. Under the common mixture interpretation (one data sample vs. $k$ noise samples), the joint distribution of $(D,w)$ conditioned on context $c$ is</p>
+<p>$$
+P(D,w\mid c) \propto P(D) \cdot P(w \mid c,D) =
+\begin{cases}
+\frac{1}{1+k}\,P^+(w\mid c) & D=1 \\[6pt]
+\frac{k}{1+k}\,P^-(w) & D=0
+\end{cases}
+$$</p>
+<p>where we assume $P^-(w)$ is <strong>context-independent</strong> for simplicity. Using Bayes&rsquo; rule,</p>
+<p>$$
+P(D=1\mid w,c)=\frac{P^+(w\mid c)}{P^+(w\mid c)+k\,P^-(w)}
+$$</p>
+<p>$$
+P(D=0\mid w,c)=\frac{k\,P^-(w)}{P^+(w\mid c)+k\,P^-(w)}
+$$</p>
+<p>In our setting, the model assigns an (unnormalized) score $S(w,c)$, and the corresponding <strong>softmax</strong> model is</p>
+<p>$$
+P^+(w\mid c)=\frac{\exp(S(w,c))}{\sum_{v\in V}\exp(S(v,c))}=\frac{\exp(S(w,c))}{Z(c)}
+$$</p>
+<blockquote>
+<p>NCE is not restricted to softmax or discrete outcomes. In its original form, it can be used to train unnormalized probabilistic models by introducing noise and learning through classification.</p>
+</blockquote>
+<p>A practical issue is that $Z(c)$ is expensive to compute. Early NCE formulations treated (a function of) the normalizer as an additional parameter to learn (e.g., a learned $\log Z(c)$ per context), but this can be difficult to scale when the number of distinct contexts is large.</p>
+<p>Empirically, many implementations <strong>fix</strong> $Z(c)=1$ (often called <strong>self-normalization</strong>), i.e.,</p>
+<p>$$
+P^+(w\mid c)\approx \exp(S(w,c))
+$$</p>
+<p>and rely on the model capacity to learn scores consistent with normalization constraints.</p>
+<blockquote>
+<p>If you want a theoretical discussion of when/why self-normalization is reasonable, see Goldberger and Melamud&rsquo;s work [<a href="#ref-8">8</a>], which focuses on the properties of self-normalization in language models.</p>
+</blockquote>
+<p>Let the dataset of observed pairs be $\mathcal{D}=\{(w,c)\}$, and for each observed $(w,c)$ sample $k$ negatives $w'_1,\dots,w'_k\sim P^-$. The NCE objective is the negative conditional log-likelihood of the binary labels:</p>
+<p>$$
+L = - \sum_{(w,c)\in\mathcal{D}}
+\left[
+\log P(D=1\mid w,c)
++
+\sum_{i=1}^{k}\log P(D=0\mid w'_i,c)
+\right]
+$$</p>
+<p>Substituting the class-posteriors above, and using the self-normalized choice $Z(c)=1$ (so $P^+(w\mid c)=\exp(S(w,c))$), we obtain:</p>
+<p>$$
+- \sum_{(w,c)\in\mathcal{D}}
+\left[
+\log \frac{\exp(S(w,c))}{\exp(S(w,c)) + k\,P^-(w)}
++
+\sum_{i=1,\,w'_i\sim P^-}^{k}
+\log \frac{k\,P^-(w'_i)}{\exp(S(w'_i,c)) + k\,P^-(w'_i)}
+\right]
+$$</p>
+<details>
+<summary>Derivation of the overall loss from per-context averaging</summary>
+<p>$$
+\begin{aligned}
+L &= \mathbb{E}_{c \sim P^{\mathcal{D}}}\!\left[L_c\right]
+= \sum_{c \in V} P^{\mathcal{D}}(c)\,L_c
+= \sum_{c \in V} \frac{|\mathcal{D}_c|}{|\mathcal{D}|}\,L_c \\[6pt]
+&= \sum_{c \in V} \frac{|\mathcal{D}_c|}{|\mathcal{D}|}\left(- \sum_{(w,c)\in \mathcal{D}_c}\frac{1}{|\mathcal{D}_c|}\log P(D=1\mid w,c)- \sum_{i=1,\; w'_i\sim P^-}^{k}\log P(D=0\mid w'_i,c)\right) \\[8pt]
+&= -\left(\sum_{c \in V}\sum_{(w,c)\in \mathcal{D}_c}\frac{1}{|\mathcal{D}|}\log P(D=1\mid w,c)+\frac{1}{|\mathcal{D}|}\sum_{c \in V}|\mathcal{D}_c|\sum_{i=1,\; w'_i\sim P^-}^{k}\log P(D=0\mid w'_i,c)\right) \\[10pt]
+&= -\left(\sum_{(w,c)\in \mathcal{D}}\frac{1}{|\mathcal{D}|}\log P(D=1\mid w,c)+\sum_{(w,c)\in \mathcal{D}}\frac{1}{|\mathcal{D}|}\sum_{i=1,\; w'_i\sim P^-}^{k}\log P(D=0\mid w'_i,c)\right) \\[10pt]
+&\propto -\sum_{(w,c)\in \mathcal{D}}\left(\log P(D=1\mid w,c)+\sum_{i=1,\; w'_i\sim P^-}^{k}\log P(D=0\mid w'_i,c)\right) \\[10pt]
+&= -\sum_{(w,c)\in \mathcal{D}}\left(\log \frac{\exp(S(w,c))}{\exp(S(w,c)) + k\,P^-(w)}+\sum_{i=1,\; w'_i\sim P^-}^{k}\log \frac{k\,P^-(w'_i)}{\exp(S(w'_i,c)) + k\,P^-(w'_i)}\right)
+\end{aligned}
+$$</p>
+</details>
+<p>Intuitively, each positive pair competes against $k$ noise words: the model is trained to assign higher scores to true data pairs than to sampled noise words.</p>
+<h3 id="asymptotic-analysis-why-does-nce-work">Asymptotic analysis: why does NCE work?</h3>
+<p>Recall the per-context NCE objective. For a fixed context $c$, we can write the loss as the negative sum of two expectations: one over positive (data) words and one over negative (noise) words. Using a compact notation where $P^+=P^+(w\mid c)$ and $P^-=P^-(w)$, we have</p>
+<p>$$
+L_c = -\sum_{w\in V} P^{\mathcal{D}_c}(w)\,\log\frac{P^+}{P^+ + kP^-}
+\;-\;
+k\sum_{w\in V} P^-(w)\,\log\frac{kP^-}{P^+ + kP^-}
+$$</p>
+<p>To see why NCE recovers maximum-likelihood learning, we compute the gradient $\nabla_{\theta} L_c$ and examine its behavior as $k\to\infty$. Note that $P^+$ depends on parameters $\theta$, while $P^-$ and $P^{\mathcal{D}_{c}}$ are fixed distributions and thus have zero gradient.</p>
+<p><strong>Part I: Gradient of the data (positive) term</strong></p>
+<p>Define</p>
+<p>$$
+\mathrm{LHS}
+=\nabla_{\theta} \sum_{w\in V} P^{\mathcal{D}_{c}}(w)\,
+\log\frac{P^+}{P^+ + kP^-}
+$$</p>
+<p>Since $\nabla_{\theta} P^{\mathcal{D}_{c}}(w)=0$, we have:</p>
+<p>$$
+\begin{aligned}
+\mathrm{LHS}
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\nabla_{\theta} \log\frac{P^+}{P^+ + kP^-} \\[4pt]
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\frac{P^+ + kP^-}{P^+}\cdot
+\nabla_{\theta} \left(\frac{P^+}{P^+ + kP^-}\right) \\[6pt]
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\frac{P^+ + kP^-}{P^+}\cdot
+\left(
+\frac{\nabla_{\theta} P^+}{P^+ + kP^-}
+- \frac{P^+\cdot \nabla_{\theta}(P^+ + kP^-)}{(P^+ + kP^-)^2}
+\right) \\[6pt]
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\frac{P^+ + kP^-}{P^+}\cdot
+\left(
+\frac{\nabla_{\theta} P^+}{P^+ + kP^-}
+- \frac{P^+\cdot \nabla_{\theta} P^+}{(P^+ + kP^-)^2}
+\right)\\[6pt]
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\frac{\nabla_{\theta} P^+}{P^+}
+\left(1 - \frac{P^+}{P^+ + kP^-}\right) \\[6pt]
+&= \sum_{w\in V}
+P^{\mathcal{D}_{c}}(w)\cdot
+\nabla_{\theta} \log(P^+)\cdot \frac{kP^-}{P^+ + kP^-} \\[6pt]
+&= \mathbb{E}_{w\sim P^{\mathcal{D}_{c}}}
+\left[\nabla_{\theta} \log(P^+)\cdot \frac{kP^-}{P^+ + kP^-}\right]
+\end{aligned}
+$$</p>
+<p><strong>Part II: Gradient of the noise (negative) term</strong></p>
+<p>Similarly define:</p>
+<p>$$
+\mathrm{LHS}'
+=\nabla_{\theta} \; k\sum_{w\in V} P^-(w)\,
+\log\frac{kP^-}{P^+ + kP^-}
+$$</p>
+<p>Then,</p>
+<p>$$
+\begin{aligned}
+\mathrm{LHS}'
+&= k\sum_{w\in V} P^-(w)\,
+\nabla_{\theta} \left(\log(kP^-) - \log(P^+ + kP^-)\right) \\[4pt]
+&= -k\sum_{w\in V} P^-(w)\,
+\frac{1}{P^+ + kP^-}\,\nabla_{\theta}(P^+ + kP^-) \\[4pt]
+&= -k\sum_{w\in V} P^-(w)\,
+\frac{1}{P^+ + kP^-}\,\nabla_{\theta} P^+ \\[6pt]
+&= -k\sum_{w\in V} P^-(w)\,
+\nabla_{\theta} \log(P^+)\cdot \frac{P^+}{P^+ + kP^-} \\[6pt]
+&= -k\,\mathbb{E}_{w\sim P^-}
+\left[\nabla_{\theta} \log(P^+)\cdot \frac{P^+}{P^+ + kP^-}\right]
+\end{aligned}
+$$</p>
+<p><strong>Part III: Putting both parts together</strong></p>
+<p>Since $\nabla_{\theta} L_c = -\mathrm{LHS} - \mathrm{LHS}'$, we obtain</p>
+<p>$$
+\begin{aligned}
+\nabla_{\theta} L_c
+&=
+-\sum_{w\in V} P^{\mathcal{D}_{c}}(w)\,
+\nabla_{\theta} \log(P^+)\cdot \frac{kP^-}{P^+ + kP^-}
+\;+\;
+k\sum_{w\in V} P^-(w)\,
+\nabla_{\theta} \log(P^+)\cdot \frac{P^+}{P^+ + kP^-} \\[6pt]
+&=
+-\sum_{w\in V}
+\frac{kP^-}{P^+ + kP^-}
+\left(P^{\mathcal{D}_{c}}(w) - P^+(w\mid c)\right)
+\nabla_{\theta} \log P^+(w\mid c)
+\end{aligned}
+$$</p>
+<p>As $k\to\infty$ (the noise-to-data ratio grows), $\frac{kP^-}{P^+ + kP^-} \to 1$, and therefore</p>
+<p>$$
+\nabla_{\theta} L_c
+\to
+-\sum_{w\in V}
+\left(P^{\mathcal{D}_{c}}(w) - P^+(w\mid c)\right)
+\nabla_{\theta} \log P^+(w\mid c)
+$$</p>
+<p>This shares the same stationary points as maximum-likelihood training: at an optimum the model distribution matches the empirical conditional distribution, and the gradient vanishes. In other words, as $k$ increases, the <strong>negative</strong> NCE gradient approaches the maximum-likelihood gradient, explaining why NCE can serve as an effective surrogate for full softmax training.</p>
+<h3 id="negative-sampling">Negative sampling</h3>
+<p>Negative sampling is often presented as a simplified, more practical variant of NCE. Rather than explicitly fitting a normalized conditional distribution $P(w\mid c)$, it trains the scoring function $S(w,c)$ using a <strong>binary logistic loss</strong> that encourages observed (positive) pairs to score higher than randomly drawn (negative) pairs.</p>
+<blockquote>
+<p><strong>Important note</strong>: It is not accurate to say negative sampling is the special case of NCE with (1) $k=|V|$ and (2) $P^-$ uniform. In practice, negative sampling typically uses a small $k$ (e.g., 5–20) and a non-uniform noise distribution (often a smoothed unigram). The correct relationship is: negative sampling is a closely related NCE-style objective, but it is not equivalent to NCE under those substitutions.</p>
+</blockquote>
+<p>That said, starting from the NCE-style per-instance objective with $k$ negatives,</p>
+<p>$$
+L =
+- \sum_{(w,c)\in\mathcal{D}}
+\left[
+\log P(D=1\mid w,c)
++
+\sum_{i=1}^{k}\log P(D=0\mid w'_i,c)
+\right]
+$$</p>
+<p>and using the common self-normalized approximation $P^+(w\mid c)\approx \exp(S(w,c))$ (i.e., $Z(c)=1$), we have</p>
+<p>$$
+P(D=1\mid w,c)=\frac{\exp(S(w,c))}{\exp(S(w,c)) + kP^-(w)}
+$$</p>
+<p>$$
+P(D=0\mid w,c)=\frac{kP^-(w)}{\exp(S(w,c)) + kP^-(w)}
+$$</p>
+<p>If we further assume a uniform noise distribution $P^-(w)=\frac{1}{|V|}$ and set $k=|V|$, then $kP^-(w)=1$ and the objective becomes</p>
+<p>$$
+\begin{aligned}
+L
+&=
+-\sum_{(w,c)\in\mathcal{D}}
+\left[
+\log \frac{\exp(S(w,c))}{\exp(S(w,c)) + 1}
++
+\sum_{i=1}^{|V|}
+\log \frac{1}{\exp(S(w'_i,c)) + 1}
+\right] \\[6pt]
+&=
+-\sum_{(w,c)\in\mathcal{D}}
+\left[
+\log \frac{1}{1+\exp(-S(w,c))}
++
+\sum_{i=1}^{|V|}
+\log \frac{1}{1+\exp(S(w'_i,c))}
+\right] \\[6pt]
+&=
+-\sum_{(w,c)\in\mathcal{D}}
+\left[
+\log \sigma\!\big(S(w,c)\big)
++
+\sum_{i=1}^{|V|}
+\log \sigma\!\big(-S(w'_i,c)\big)
+\right]
+\end{aligned}
+$$</p>
+<p>where $\sigma$ is the sigmoid function.</p>
+<p>This is exactly the familiar <strong>logistic loss</strong> form used by negative sampling: push up scores for positive pairs and push down scores for sampled negatives.</p>
+<p>In practice, negative sampling uses $k\ll |V|$ and a carefully chosen $P^-$ (often frequency-based), which makes training much cheaper while working well empirically.</p>
+<hr />
+<h2 id="tackling-the-normalizing-constant-directly">Tackling the normalizing constant directly</h2>
+<p>Most approaches above avoid the full-vocabulary normalizer $Z(c)=\sum_{v\in V}\exp(S(v,c))$ either by restructuring the output layer (e.g., H-softmax), changing the parameterization (e.g., D-softmax), or approximating the training objective via sampling (e.g., NCE, negative sampling). A natural question is: <strong>can we handle the normalizer more directly?</strong></p>
+<h3 id="self-normalization">Self-normalization</h3>
+<p>The idea of <strong>self-normalizing softmax</strong> is to encourage the model to produce scores such that</p>
+<p>$$
+Z(c)\approx 1
+\Longleftrightarrow
+\log Z(c)\approx 0
+$$</p>
+<p>so that the model behaves like an <em>approximately normalized</em> distribution without explicitly computing $Z(c)$ at decoding time [<a href="#ref-7">7</a>].</p>
+<p>A common way to enforce this is to add a penalty term on $\log Z(c)$ to the (negative) log-likelihood objective:</p>
+<p>$$
+\begin{aligned}
+L
+&= - \sum_{(w,c)\in \mathcal{D}}
+\left[
+\log P(w\mid c) - \alpha(\log Z(c))^2
+\right] \\
+&= - \sum_{(w,c)\in \mathcal{D}} \log P(w\mid c)
+\;+\;
+\alpha \sum_{(w,c)\in \mathcal{D}} (\log Z(c))^2
+\end{aligned}
+$$</p>
+<p>where $\alpha>0$ controls the strength of the self-normalization constraint.</p>
+<p>At decoding time, one may then approximate</p>
+<p>$$
+P(w\mid c)
+=\frac{\exp(S(w,c))}{Z(c)}
+\approx
+\exp(S(w,c))
+$$</p>
+<p>because the model has been trained to keep $\log Z(c)$ close to $0$. The original work reports substantial decoding speedups in their implementation (e.g., on the order of $\sim 15\times$) [<a href="#ref-7">7</a>].</p>
+<blockquote>
+<p>Some papers write the objective as a maximization problem; here we use the equivalent minimization form for consistency.</p>
+</blockquote>
+<p>Two practical caveats are worth noting:</p>
+<ol>
+<li><strong>Self-normalization is approximate.</strong> Unlike the hard constraint sometimes adopted in NCE implementations (e.g., fixing $Z(c)=1$), this method only <em>encourages</em> $Z(c)$ to stay near $1$ via a soft penalty.</li>
+<li><strong>It does not automatically reduce training cost.</strong> Unless the penalty itself is estimated cheaply, training still requires computing (or approximating) $Z(c)$ in order to evaluate $\log P(w\mid c)$ and the penalty term.</li>
+</ol>
+<h3 id="sampling-based-self-normalization">Sampling-based self-normalization</h3>
+<p>To improve training-time efficiency, Andreas and Klein (2015) [<a href="#ref-9">9</a>] proposed a <strong>sampling-based</strong> variant. The key observation is that enforcing normalization on a sufficiently large subset of contexts can still encourage approximate normalization more broadly.</p>
+<p>Instead of penalizing $\log Z(c)$ for every training example, they apply the penalty only on a sampled subset $\mathcal{D}'\subseteq \mathcal{D}$:</p>
+<p>$$
+L = -\sum_{(w,c)\in \mathcal{D}} \log P(w\mid c)
+\;+\;
+\frac{\alpha}{\gamma}\sum_{c\in \mathcal{D}'} (\log Z(c))^2
+$$</p>
+<p>where $\gamma\in(0,1)$ is the sampling rate such that $|\mathcal{D}'|=\gamma|\mathcal{D}|$. The factor $\alpha/\gamma$ keeps the expected contribution of the penalty term comparable as $\gamma$ changes.</p>
+<p>This reduces the amount of work spent on explicitly controlling $Z(c)$ during training while still encouraging self-normalization in the learned model.</p>
+<hr />
+<h2 id="conclusions">Conclusions</h2>
+<p>This post focused primarily on the <strong>theoretical</strong> side of the softmax family, with relatively fewer practical details. A natural next step would be to complement it with a more implementation-oriented follow-up, e.g., coding patterns, engineering trade-offs, and a brief survey of which softmax variants are commonly used in modern language models and representation learning systems.</p>
+<blockquote>
+<p>The central challenge addressed by most softmax variants in this post is how to <strong>avoid the expensive computation of the normalizing constant</strong> $Z(c)$ (or, more broadly, full-vocabulary normalization) during training and/or inference.</p>
+</blockquote>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>This post follows the same high-level ordering of variants as Ruder&rsquo;s post [<a href="#ref-1">1</a>], but takes a more <strong>math-oriented</strong> approach and correspondingly includes less discussion of practical considerations. The core results are based on the original papers [<a href="#ref-2">2</a>]–[<a href="#ref-7">7</a>], while the derivations and proofs presented here were written by me (in 2021), and later polished by ChatGPT-5.2 (in 2026). Special thanks to <a href="https://sherylhyx.github.io/">Yixuan He</a> for proofreading and helpful feedback.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul class="references">
+<li id="ref-1">[1] Sebastian Ruder. <a href="https://www.ruder.io/word-embeddings-softmax/"><em>On word embeddings — Part 2: Approximating the Softmax.</em></a> 2016.</li>
+<li id="ref-2">[2] Morin, F. and Yoshua Bengio. <em>Hierarchical Probabilistic Neural Network Language Model.</em> AISTATS, 2005.</li>
+<li id="ref-3">[3] Chen, Wenlin, David Grangier, and M. Auli. <em>Strategies for Training Large Vocabulary Neural Language Models.</em> ACL, 2016.</li>
+<li id="ref-4">[4] Bengio, Yoshua and Jean-Sébastien Senecal. <em>Quick Training of Probabilistic Neural Nets by Importance Sampling.</em> AISTATS, 2003.</li>
+<li id="ref-5">[5] Gutmann, M. and Hyvärinen, A. <em>Noise-contrastive estimation: A new estimation principle for unnormalized statistical models.</em> AISTATS, 2010.</li>
+<li id="ref-6">[6] Mnih, A. and Y. Teh. <em>A fast and simple algorithm for training neural probabilistic language models.</em> ICML, 2012.</li>
+<li id="ref-7">[7] Devlin, J., Rabih Zbib, Zhongqiang Huang, Thomas Lamar, R. Schwartz and J. Makhoul. <em>Fast and Robust Neural Network Joint Models for Statistical Machine Translation.</em> ACL, 2014.</li>
+<li id="ref-8">[8] Goldberger, J. and Oren Melamud. <em>Self-Normalization Properties of Language Modeling.</em> <a href="https://arxiv.org/abs/1806.00913">arXiv:1806.00913</a>, 2018.</li>
+<li id="ref-9">[9] Andreas, Jacob and D. Klein. <em>When and why are log-linear models self-normalizing?</em> HLT-NAACL, 2015.</li>
+</ul>
+        </div>
+      </article>
+    </div>
+
+    <footer class="page-footer">
+      <span>&copy; 2026 Yuan He &middot; 何源</span>
+    </footer>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
+  <script src="../../../assets/js/scrollspy.js" defer></script>
+</body>
+</html>

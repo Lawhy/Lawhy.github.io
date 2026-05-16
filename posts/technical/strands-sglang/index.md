@@ -1,5 +1,5 @@
 ---
-title: Bridging Agent Scaffolding and RL Training with Strands-SGLang
+title: "Strands-SGLang: Bridging Agent Scaffolding and RL Training"
 date: 2026-01-14
 tags: [AI Agents, Agent Scaffolds, Agentic RL, SGLang, slime]
 slug: strands-sglang
@@ -22,9 +22,9 @@ authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitia
 | SGLang | <span class="no">✗</span> | <span class="yes">✓</span> |
 | **Strands-SGLang** | <span class="yes">✓</span> | <span class="yes">✓</span> |
 
-<p class="post-lede">Existing agent scaffolds like <em>Strands-Agents</em> [1] make it easy to serve tool-using agents, but face a key challenge: they operate on <strong>text</strong> (usually an OpenAI-compatible endpoint) while RL training requires exact <strong>token IDs</strong> (token-in, token-out). This mismatch causes <em>retokenization drift</em> [2] — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. <strong>Strands-SGLang</strong> bridges this gap by extending Strands-Agents with SGLang's native endpoint [3] while preserving the customizable agent loop.</p>
+<p class="post-lede">Existing agent scaffolds like <em>Strands-Agents</em> [<a href="#ref-1">1</a>] make it easy to serve tool-using agents, but face a key challenge: they operate on <strong>text</strong> (usually an OpenAI-compatible endpoint) while RL training requires exact <strong>token IDs</strong> (token-in, token-out). This mismatch causes <em>retokenization drift</em> [<a href="#ref-2">2</a>] — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. <strong>Strands-SGLang</strong> bridges this gap by extending Strands-Agents with SGLang's native endpoint [<a href="#ref-3">3</a>] while preserving the customizable agent loop.</p>
 
-## The challenge: making agent scaffolds training-ready
+## The challenge
 
 Most agent scaffolds provide an agent loop (tool orchestration, iteration control, tracing), but their model interface is typically *text-based*. For RL training, text alone is insufficient: the training pipeline must consume the exact *token-level trajectory* produced by the backend.
 
@@ -51,7 +51,7 @@ Agent *serving* and agent *training* look similar on the surface (both run an ag
 
 </details>
 
-## What Strands-SGLang provides
+## The bridge
 
 Strands-SGLang implements a new model class `SGLangModel` backed by SGLang's native `/generate` endpoint, so you can reuse Strands' agent loop while exposing RL-relevant internals:
 
@@ -59,7 +59,15 @@ Strands-SGLang implements a new model class `SGLangModel` backed by SGLang's nat
 - **Strict, on-policy tool-call parsing**: no heuristic repair or post-processing; tool calls are parsed exactly as emitted by the model
 - **Native SGLang API**: high-throughput, non-streaming rollouts
 
-## Minimal example
+<details markdown="1">
+<summary><em>Other details</em></summary>
+
+- Iteration limiting hook to cap tool loops cleanly
+- Rollout-friendly client defaults aligned with Slime
+
+</details>
+
+## Example
 
 You run a normal Strands agent — but now you can directly read token-level artifacts from the model:
 
@@ -107,7 +115,9 @@ Without TITO, training collapsed before step 50 despite a similar initial reward
 
 ## References
 
-- [1] Strands Agents SDK: <https://github.com/strands-agents/sdk-python>
-- [2] [No More Retokenization Drift: Returning Token IDs via the OpenAI Compatible API Matters in Agent RL](https://blog.vllm.ai/2025/10/22/agent-lightning.html)
-- [3] SGLang: <https://docs.sglang.io/>
-- [4] Slime: <https://github.com/THUDM/slime>
+<ul class="references">
+<li id="ref-1">[1] Strands Agents SDK. <a href="https://github.com/strands-agents/sdk-python">github.com/strands-agents/sdk-python</a></li>
+<li id="ref-2">[2] <em>No More Retokenization Drift: Returning Token IDs via the OpenAI Compatible API Matters in Agent RL.</em> <a href="https://blog.vllm.ai/2025/10/22/agent-lightning.html">vLLM blog</a>, 2025.</li>
+<li id="ref-3">[3] SGLang documentation. <a href="https://docs.sglang.io/">docs.sglang.io</a></li>
+<li id="ref-4">[4] Slime: LLM post-training framework for RL scaling. <a href="https://github.com/THUDM/slime">github.com/THUDM/slime</a></li>
+</ul>

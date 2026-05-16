@@ -43,7 +43,7 @@ Call `mcp__notion__notion-fetch` with the post's `id`. Parse the `<properties>` 
 
 - **Category**: `"literature"` if any tag is `"文学"`, `"古诗词"`, `"古散文"`, or `"散文"`; otherwise `"technical"`.
 - **Slug**:
-  - **English titles** → kebab-case (lowercase, hyphenate words, strip punctuation). Example: `"Making Softmax Cheaper: A Theoretical Lens"` → `softmax-cheaper`.
+  - **English titles** → kebab-case (lowercase, hyphenate words, strip punctuation). Example: `"Approximating the Softmax: A Math-First Tour"` → `approx-softmax`.
   - **Chinese titles** → Pinyin **syllables** joined with hyphens. Example: `春折` → `chun-zhe`; `登爱城山座` → `deng-ai-cheng-shan-zuo`.
   - If `posts/<cat>/<slug>/index.md` already exists with this title, reuse the existing slug to avoid renames.
 

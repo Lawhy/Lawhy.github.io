@@ -50,6 +50,9 @@
     clearTimeout(lockTimer);
     lockTimer = setTimeout(() => {
       lockedId = null;
+      // If the user has stopped scrolling before the lock expired, no scroll
+      // event will fire to re-check. Resync once with current scroll position.
+      updateActive();
     }, 1500);
   };
 

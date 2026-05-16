@@ -71,9 +71,30 @@ def normalize_math(body: str) -> str:
     return NOTION_INLINE_MATH_RE.sub(r"$\1$", body)
 
 
+DISPLAY_MATH_RE = re.compile(r"\$\$(.+?)\$\$", re.DOTALL)
+INLINE_MATH_RE = re.compile(r"\$([^\$\n]+)\$")
+
+
 def render_markdown(body: str):
-    """Render markdown and return (html, toc_html)."""
+    """Render markdown and return (html, toc_html).
+
+    Math blocks (`$$...$$` and `$...$`) are stashed before markdown processing
+    so the underscore-italic parser etc. don't mangle LaTeX content. They get
+    restored verbatim afterwards so KaTeX can render them in the browser.
+    """
     body = normalize_math(body)
+
+    # Stash math blocks with placeholders
+    math_blocks: dict[str, str] = {}
+
+    def _stash(m: re.Match) -> str:
+        key = f"@@MATH{len(math_blocks):04d}@@"
+        math_blocks[key] = m.group(0)
+        return key
+
+    body = DISPLAY_MATH_RE.sub(_stash, body)
+    body = INLINE_MATH_RE.sub(_stash, body)
+
     toc_ext = TocExtension(toc_depth="2-3", marker="")
     md = md_lib.Markdown(
         extensions=[
@@ -93,6 +114,11 @@ def render_markdown(body: str):
         },
     )
     html = md.convert(body)
+
+    # Restore math blocks verbatim
+    for key, content in math_blocks.items():
+        html = html.replace(key, content)
+
     return html, md.toc_tokens
 
 
@@ -125,15 +151,15 @@ def format_date_display(fm: dict, category: str) -> tuple[str, str]:
 
 
 def render_toc(toc_tokens) -> str:
-    """Render the post's heading tree as left-toc-style links."""
+    """Render the post's H2s as flat left-toc links. H3 headings still get IDs
+    from the markdown TOC extension (for direct anchor links) but aren't shown
+    in the rail — we keep the navigation single-level for visual restraint."""
     if not toc_tokens:
         return ""
-    lines = []
-    for t in toc_tokens:
-        lines.append(
-            f'          <li><a href="#{t["id"]}" data-toc>{escape(t["name"])}</a></li>'
-        )
-    return "\n".join(lines)
+    return "\n".join(
+        f'          <li><a href="#{t["id"]}" data-toc>{t["name"]}</a></li>'
+        for t in toc_tokens
+    )
 
 
 def render_post(md_path: Path, template: str):
