@@ -36,6 +36,7 @@ INDEX = ROOT / "index.html"
 TEMPLATE = ROOT / "scripts" / "post-template.html"
 SITE_CSS = ROOT / "assets" / "css" / "site.css"
 SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
+PAGEVIEWS_JS = ROOT / "assets" / "js" / "pageviews.js"
 
 
 def asset_version(path: Path) -> str:
@@ -224,7 +225,7 @@ def render_toc(toc_tokens) -> str:
     )
 
 
-def render_post(md_path: Path, template: str, css_versions: dict):
+def render_post(md_path: Path, template: str, css_versions: dict, js_versions: dict):
     text = md_path.read_text(encoding="utf-8")
     fm, body = parse_frontmatter(text)
     category = category_for(md_path)
@@ -267,6 +268,7 @@ def render_post(md_path: Path, template: str, css_versions: dict):
     page = page.replace("{{category}}", category)
     page = page.replace("{{css_v_site}}", css_versions["site"])
     page = page.replace("{{css_v_syntax}}", css_versions["syntax"])
+    page = stamp_js_versions(page, js_versions)
 
     (md_path.parent / "index.html").write_text(page, encoding="utf-8")
 
@@ -317,6 +319,9 @@ def replace_marker(html: str, name: str, replacement: str) -> str:
 CSS_LINK_RE = re.compile(
     r'(href="(?:[^"]*?/)?assets/css/(site|syntax)\.css)(?:\?v=[^"]*)?"'
 )
+JS_LINK_RE = re.compile(
+    r'(src="(?:[^"]*?/)?assets/js/(pageviews)\.js)(?:\?v=[^"]*)?"'
+)
 
 
 def stamp_css_versions(html: str, css_versions: dict) -> str:
@@ -328,6 +333,15 @@ def stamp_css_versions(html: str, css_versions: dict) -> str:
     return CSS_LINK_RE.sub(_sub, html)
 
 
+def stamp_js_versions(html: str, js_versions: dict) -> str:
+    """Rewrite any assets/js/<name>.js src to carry ?v=<hash>."""
+
+    def _sub(m: re.Match) -> str:
+        return f'{m.group(1)}?v={js_versions[m.group(2)]}"'
+
+    return JS_LINK_RE.sub(_sub, html)
+
+
 def main():
     if not TEMPLATE.exists():
         sys.exit(f"Missing template: {TEMPLATE}")
@@ -337,10 +351,13 @@ def main():
         "site": asset_version(SITE_CSS),
         "syntax": asset_version(SYNTAX_CSS),
     }
+    js_versions = {
+        "pageviews": asset_version(PAGEVIEWS_JS),
+    }
 
     posts_by_cat = {c: [] for c in CATEGORIES}
     for md_path in sorted(POSTS_DIR.glob("*/*/index.md")):
-        info = render_post(md_path, template, css_versions)
+        info = render_post(md_path, template, css_versions, js_versions)
         if info["category"] in posts_by_cat:
             posts_by_cat[info["category"]].append(info)
 
@@ -352,15 +369,16 @@ def main():
         items = "\n".join(render_list_item(p) for p in posts_by_cat[cat])
         html = replace_marker(html, f"BLOG_{CATEGORY_LABEL[cat]}", items)
     html = stamp_css_versions(html, css_versions)
+    html = stamp_js_versions(html, js_versions)
     INDEX.write_text(html, encoding="utf-8")
 
     # Stamp the cache-buster on any other root-level HTML pages (e.g. 404.html)
     for extra in (ROOT / "404.html",):
         if extra.exists():
-            extra.write_text(
-                stamp_css_versions(extra.read_text(encoding="utf-8"), css_versions),
-                encoding="utf-8",
-            )
+            content = extra.read_text(encoding="utf-8")
+            content = stamp_css_versions(content, css_versions)
+            content = stamp_js_versions(content, js_versions)
+            extra.write_text(content, encoding="utf-8")
 
     counts = " · ".join(f"{len(v)} {k}" for k, v in posts_by_cat.items())
     print(f"Built {sum(len(v) for v in posts_by_cat.values())} posts ({counts}).")
