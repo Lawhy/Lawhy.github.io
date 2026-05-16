@@ -706,6 +706,43 @@ body {
 }
 
 /* ===================================================================
+   VISITORS MAP (mapmyvisitors widget)
+   =================================================================== */
+
+.visitors-map {
+  text-align: center;
+}
+
+/* Hosted in an iframe to isolate the widget's document.write CSS injection
+   from the main page (otherwise its styles leak in as visible text).
+   Height is generous enough to fit the auto-sized widget plus its pageview
+   counter, so no inner scrollbar appears. The iframe gets scrolling="no"
+   in the HTML and the iframe body sets overflow: hidden as belt-and-braces. */
+.visitors-map iframe {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: 180px;
+  border: 0;
+  background: transparent;
+}
+
+/* Visitors aside in the Amateur section — placed before the section title
+   in DOM so the float anchors at the section's top edge, putting "VISITORS"
+   on the same baseline as "AMATEUR". */
+#visitors {
+  margin-top: 0;
+}
+
+#visitors h3 {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+/* ===================================================================
    POST PAGES
    =================================================================== */
 
@@ -1452,7 +1489,26 @@ body {
   font-family: var(--sans);
   font-size: 12.5px;
   color: var(--muted);
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.page-footer__views {
+  color: var(--muted-2);
+}
+
+.page-footer__views a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.page-footer__views a:hover {
+  color: var(--ink);
+  border-bottom-color: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
 /* ===================================================================

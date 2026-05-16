@@ -354,6 +354,14 @@ def main():
     html = stamp_css_versions(html, css_versions)
     INDEX.write_text(html, encoding="utf-8")
 
+    # Stamp the cache-buster on any other root-level HTML pages (e.g. 404.html)
+    for extra in (ROOT / "404.html",):
+        if extra.exists():
+            extra.write_text(
+                stamp_css_versions(extra.read_text(encoding="utf-8"), css_versions),
+                encoding="utf-8",
+            )
+
     counts = " · ".join(f"{len(v)} {k}" for k, v in posts_by_cat.items())
     print(f"Built {sum(len(v) for v in posts_by_cat.values())} posts ({counts}).")
 
