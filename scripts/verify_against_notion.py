@@ -9,7 +9,6 @@ The Notion source strings are pasted inline below for each post.
 """
 
 import re
-import sys
 from pathlib import Path
 
 
@@ -104,7 +103,7 @@ def verify(name: str, notion_source: str, local_path: Path) -> None:
         for eq in missing_eqs:
             print(f"  • {eq[:120]}...")
     else:
-        print(f"  ✓ all equations present")
+        print("  ✓ all equations present")
 
     missing_paras = find_missing(notion_paras, local_text_norm)
     if missing_paras:
@@ -112,7 +111,7 @@ def verify(name: str, notion_source: str, local_path: Path) -> None:
         for p in missing_paras:
             print(f"  • {p[:140]}...")
     else:
-        print(f"  ✓ all paragraphs present")
+        print("  ✓ all paragraphs present")
 
 
 if __name__ == "__main__":
