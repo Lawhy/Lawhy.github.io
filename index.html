@@ -91,21 +91,21 @@
                 <span class="post-list__title">Strands-SGLang: Bridging Agent Scaffolding and RL Training</span>
                 <span class="post-list__date">Jan 2026</span>
               </a>
-              <p class="post-list__excerpt">Existing agent scaffolds like Strands-Agents make it easy to serve tool-using agents, but face a key challenge: they operate on text (usually an OpenAI-compatible endpoint) while RL training requires exact token IDs (token-in, token-out). This mismatch causes retokenization drift — the tokens used for computing…</p>
+              <p class="post-list__excerpt">Existing agent scaffolds like Strands-Agents make it easy to serve tool-using agents, but face a key challenge: they operate on text (usually an OpenAI-compatible endpoint) while RL training requires exact token IDs (token-in, token-out). This mismatch causes retokenization drift — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. Strands-SGLang bridges this gap by extending Strands-Agents with SGLang&#x27;s native endpoint while preserving the customizable agent loop…</p>
             </li>
             <li>
               <a href="posts/technical/adam-optimizer/">
                 <span class="post-list__title">How Adam Steers Gradient Descent</span>
                 <span class="post-list__date">Aug 2025</span>
               </a>
-              <p class="post-list__excerpt">Let&#x27;s start from the most basic update rule. Suppose we want to minimize an objective. Vanilla gradient descent updates parameters by moving against the gradient…</p>
+              <p class="post-list__excerpt">Let&#x27;s start from the most basic update rule. Suppose we want to minimize an objective. Vanilla gradient descent updates parameters by moving against the gradient: where is the learning rate. This rule is fully reactive: the step at time depends only on the current gradient. That can work, but it has a well-known failure mode in ill-conditioned landscapes (think &quot;long narrow valleys&quot;)…</p>
             </li>
             <li>
               <a href="posts/technical/approx-softmax/">
                 <span class="post-list__title">Approximating the Softmax Function</span>
                 <span class="post-list__date">Jan 2021</span>
               </a>
-              <p class="post-list__excerpt">The softmax function is widely used in the output layer of neural-network models for classification. In the binary case, it reduces to the familiar sigmoid mapping…</p>
+              <p class="post-list__excerpt">The softmax function is widely used in the output layer of neural-network models for classification. In the binary case, it reduces to the familiar sigmoid mapping. Given a score (logit) vector, the softmax probabilities are In particular, where is the sigmoid function. More generally, softmax can be viewed as normalizing positive weights obtained from log-scale inputs. If we write with, then…</p>
             </li>
             <!-- BLOG_TECHNICAL_END -->
           </ul>

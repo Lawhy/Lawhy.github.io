@@ -130,20 +130,38 @@ def render_markdown(body: str):
     return html, md.toc_tokens
 
 
-def auto_summary(body: str, max_chars: int = 320) -> str:
-    """Extract the first real prose paragraph for a list excerpt.
+def _strip_inline_markup(p: str) -> str:
+    """Plain-text-ify a paragraph. Order matters: drop HTML before reference
+    brackets so patterns like [<a href="#ref-1">1</a>] collapse to nothing."""
+    p = re.sub(r"!\[.*?\]\(.*?\)", "", p)
+    p = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", p)
+    p = re.sub(r"<[^>]+>", "", p)
+    p = re.sub(r"\[\s*\d+(?:\s*,\s*\d+)*\s*\]", "", p)
+    p = re.sub(r"`([^`]+)`", r"\1", p)
+    p = re.sub(r"\$[^$\n]+\$", "", p)
+    p = re.sub(r"\*\*([^*]+)\*\*", r"\1", p)
+    p = re.sub(r"\*([^*]+)\*", r"\1", p)
+    p = re.sub(r"_([^_]+)_", r"\1", p)
+    p = re.sub(r"\s+", " ", p).strip()
+    p = re.sub(r"\s+([.,;:!?])", r"\1", p)
+    return p
 
-    Skips headings, code, math, tables, and block-level raw HTML (figure/aside/
-    details) so we don't pull in the post's furniture as the excerpt. The
-    rendered excerpt is visually clamped to two lines via CSS line-clamp, so
-    we deliberately do NOT append our own "…" — the browser handles it
-    based on actual rendered width.
+
+def auto_summary(body: str, target_chars: int = 280) -> str:
+    """Lilian-Weng-style preview: ~2 lines of opening prose, hard-truncated and
+    always terminated with "…". Concatenates successive paragraphs when the
+    first is too short to fill the 2-line clamp.
+
+    Skips headings, code, math, tables, and block-level raw HTML so we don't
+    pull in the post's furniture as the excerpt.
     """
     text = body
     text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)
     text = re.sub(r"<(aside|figure|details|table)\b.*?</\1>", "", text, flags=re.DOTALL | re.IGNORECASE)
     text = re.sub(r"\$\$.+?\$\$", "", text, flags=re.DOTALL)
 
+    collected: list[str] = []
+    total = 0
     for raw in re.split(r"\n\s*\n", text):
         p = raw.strip()
         if not p or p.startswith("#") or p.startswith("|") or "---|" in p:
@@ -152,27 +170,18 @@ def auto_summary(body: str, max_chars: int = 320) -> str:
             continue
         if p.startswith("<") and not re.match(r"<p\b", p, re.IGNORECASE):
             continue
-        # Strip markup. Order matters: drop HTML before reference brackets so
-        # patterns like [<a href="#ref-1">1</a>] collapse cleanly to nothing.
-        p = re.sub(r"!\[.*?\]\(.*?\)", "", p)
-        p = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", p)
-        p = re.sub(r"<[^>]+>", "", p)
-        p = re.sub(r"\[\s*\d+(?:\s*,\s*\d+)*\s*\]", "", p)
-        p = re.sub(r"`([^`]+)`", r"\1", p)
-        p = re.sub(r"\$[^$\n]+\$", "", p)  # inline math removed entirely
-        p = re.sub(r"\*\*([^*]+)\*\*", r"\1", p)
-        p = re.sub(r"\*([^*]+)\*", r"\1", p)
-        p = re.sub(r"_([^_]+)_", r"\1", p)
-        p = re.sub(r"\s+", " ", p).strip()
-        # Tidy orphan punctuation left by removed math/HTML (e.g. "objective .")
-        p = re.sub(r"\s+([.,;:!?])", r"\1", p)
-        p = p.rstrip(".,;:!? ")
+        p = _strip_inline_markup(p)
         if not p:
             continue
-        if len(p) > max_chars:
-            p = p[:max_chars].rsplit(" ", 1)[0]
-        return p + "…"
-    return ""
+        collected.append(p)
+        total += len(p) + 1
+        if total >= target_chars:
+            break
+
+    if not collected:
+        return ""
+    joined = " ".join(collected).rstrip(".,;:!? ")
+    return joined + "…"
 
 
 def category_for(md_path: Path) -> str:
@@ -222,14 +231,10 @@ def render_post(md_path: Path, template: str, css_versions: dict):
     slug = slug_for(md_path)
     title = fm.get("title", slug)
     date_raw = fm.get("date", "")
-    # Technical posts derive their excerpt from the body's opening paragraph
-    # (à la Lilian Weng's blog). Literature posts use the curated frontmatter
-    # summary so the excerpt can be a poetic lede rather than the post's first
-    # line of prose.
-    if category == "technical":
-        summary = auto_summary(body)
-    else:
-        summary = fm.get("summary", "")
+    # Use the curated frontmatter summary when present; otherwise derive one
+    # from the body's opening paragraphs (Lilian-Weng-style 2-line preview).
+    fm_summary = (fm.get("summary") or "").strip()
+    summary = fm_summary or auto_summary(body)
     date_display, meta_extra = format_date_display(fm, category)
 
     html_body, toc_tokens = render_markdown(body)

@@ -3,7 +3,7 @@ title: How Adam Steers Gradient Descent
 date: 2025-08-01
 tags: [Machine Learning, Optimization, Math Proofs]
 slug: adam-optimizer
-summary: "Understanding the Adam optimizer through its building blocks — momentum, adaptive step sizes, and bias correction."
+summary: ""
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 ---
 
