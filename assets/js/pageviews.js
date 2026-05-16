@@ -12,7 +12,11 @@
   function fetchCount(key) {
     return fetch(base + "/counter/" + encodeURIComponent(key) + ".json")
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) { return d ? (d.count_unique || d.count) : null; })
+      .then(function (d) {
+        if (!d) return null;
+        var n = d.count;
+        return (n && n !== "0") ? n : null;
+      })
       .catch(function () { return null; });
   }
 
@@ -23,10 +27,10 @@
   Promise.all(tasks).then(function (vals) {
     var parts = [];
     if (isHome) {
-      if (vals[0]) parts.push(vals[0] + " sitewide");
+      if (vals[0]) parts.push(vals[0] + " sitewide (pageviews)");
     } else {
       if (vals[0]) parts.push(vals[0] + " here");
-      if (vals[1]) parts.push(vals[1] + " sitewide");
+      if (vals[1]) parts.push(vals[1] + " sitewide (pageviews)");
     }
     if (!parts.length) return;
     var a = document.createElement("a");
