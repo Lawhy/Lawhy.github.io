@@ -5,7 +5,7 @@ tags: [文学, 古散文]
 slug: nuan-ding-xiao-ji
 authors: 知陌若
 cover: images/cover.png
-summary: "甲午年甲戌月甲寅日，试术初毕，众人恍恍而皆惫，忽臆巴蜀暖鼎辛香，遂与友约，疲亦忘焉。"
+summary: ""
 ---
 
 <div class="prose-classical">

@@ -6,7 +6,7 @@ slug: lao-mao
 authors: 知陌若
 cover: images/cover.png
 cover_position: center 75%
-summary: "阳台山、老城区、放学路。"
+summary: ""
 ---
 
 老城区的安详，似在入夜之后愈若酒窖开封，夜香萦绕之处，十里静默，与世隔绝。
