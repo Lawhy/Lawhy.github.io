@@ -240,8 +240,12 @@ def render_post(md_path: Path, template: str, css_versions: dict):
     html_body, toc_tokens = render_markdown(body)
     cover = (fm.get("cover") or "").strip()
     if cover:
+        cover_pos = (fm.get("cover_position") or "").strip()
+        style_attr = (
+            f' style="object-position: {escape(cover_pos)}"' if cover_pos else ""
+        )
         html_body = (
-            f'<figure class="post-cover"><img src="{escape(cover)}" alt=""></figure>\n'
+            f'<figure class="post-cover"><img src="{escape(cover)}" alt=""{style_attr}></figure>\n'
             + html_body
         )
     toc_html = render_toc(toc_tokens)
