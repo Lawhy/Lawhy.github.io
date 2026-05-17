@@ -36,7 +36,7 @@ INDEX = ROOT / "index.html"
 TEMPLATE = ROOT / "scripts" / "post-template.html"
 SITE_CSS = ROOT / "assets" / "css" / "site.css"
 SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
-PAGEVIEWS_JS = ROOT / "assets" / "js" / "pageviews.js"
+GOATCOUNTER_JS = ROOT / "assets" / "js" / "goatcounter.js"
 
 
 def asset_version(path: Path) -> str:
@@ -320,7 +320,7 @@ CSS_LINK_RE = re.compile(
     r'(href="(?:[^"]*?/)?assets/css/(site|syntax)\.css)(?:\?v=[^"]*)?"'
 )
 JS_LINK_RE = re.compile(
-    r'(src="(?:[^"]*?/)?assets/js/(pageviews)\.js)(?:\?v=[^"]*)?"'
+    r'(src="(?:[^"]*?/)?assets/js/(goatcounter)\.js)(?:\?v=[^"]*)?"'
 )
 
 
@@ -352,7 +352,7 @@ def main():
         "syntax": asset_version(SYNTAX_CSS),
     }
     js_versions = {
-        "pageviews": asset_version(PAGEVIEWS_JS),
+        "goatcounter": asset_version(GOATCOUNTER_JS),
     }
 
     posts_by_cat = {c: [] for c in CATEGORIES}
