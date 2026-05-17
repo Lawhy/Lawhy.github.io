@@ -38,6 +38,9 @@ SITE_CSS = ROOT / "assets" / "css" / "site.css"
 SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
 GOATCOUNTER_JS = ROOT / "assets" / "js" / "goatcounter.js"
 
+SITE_URL = "https://yuanhe.wiki"
+DEFAULT_OG_IMAGE = "/assets/images/seal.png"
+
 
 def asset_version(path: Path) -> str:
     """Short content hash for cache-busting an asset URL."""
@@ -257,6 +260,17 @@ def render_post(md_path: Path, template: str, css_versions: dict, js_versions: d
         else ""
     )
 
+    canonical_url = f"{SITE_URL}/posts/{category}/{slug}/"
+    description = " ".join(summary.split())
+    if len(description) > 200:
+        description = description[:197].rsplit(" ", 1)[0] + "..."
+    if cover:
+        og_image = f"{SITE_URL}/posts/{category}/{slug}/{cover}"
+        twitter_card = "summary_large_image"
+    else:
+        og_image = ""
+        twitter_card = "summary"
+
     page = template
     page = page.replace("{{title}}", escape(str(title)))
     page = page.replace("{{authors_line}}", authors_html)
@@ -268,6 +282,15 @@ def render_post(md_path: Path, template: str, css_versions: dict, js_versions: d
     page = page.replace("{{category}}", category)
     page = page.replace("{{css_v_site}}", css_versions["site"])
     page = page.replace("{{css_v_syntax}}", css_versions["syntax"])
+    page = page.replace("{{description}}", escape(description))
+    page = page.replace("{{canonical_url}}", canonical_url)
+    page = page.replace("{{og_image}}", og_image)
+    page = page.replace("{{twitter_card}}", twitter_card)
+    if not cover:
+        # No cover → strip the og:image / twitter:image lines entirely so we
+        # don't ship empty content="" meta tags.
+        page = re.sub(r'\n\s*<meta property="og:image" content="">', "", page)
+        page = re.sub(r'\n\s*<meta name="twitter:image" content="">', "", page)
     page = stamp_js_versions(page, js_versions)
 
     (md_path.parent / "index.html").write_text(page, encoding="utf-8")
@@ -340,6 +363,7 @@ def stamp_js_versions(html: str, js_versions: dict) -> str:
         return f'{m.group(1)}?v={js_versions[m.group(2)]}"'
 
     return JS_LINK_RE.sub(_sub, html)
+
 
 
 def main():
