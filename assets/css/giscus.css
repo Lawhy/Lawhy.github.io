@@ -1,0 +1,85 @@
+/* Custom giscus theme tuned to yuanhe.wiki's palette.
+   Loaded by giscus's iframe via `data-theme=<this-file>`. Overriding the
+   GitHub Primer CSS custom properties propagates through every element. */
+
+main {
+  /* Site palette (mirrors site.css :root) */
+  --color-canvas-default: #FAF9F5;
+  --color-canvas-overlay: #FAF9F5;
+  --color-canvas-inset: #F2F0E8;
+  --color-canvas-subtle: #F2F0E8;
+
+  --color-fg-default: #141413;
+  --color-fg-muted: #6B6B66;
+  --color-fg-subtle: #87867F;
+  --color-fg-on-emphasis: #FAF9F5;
+
+  --color-border-default: rgba(20, 20, 19, 0.12);
+  --color-border-muted: rgba(20, 20, 19, 0.08);
+
+  --color-neutral-muted: rgba(135, 134, 127, 0.16);
+  --color-neutral-subtle: rgba(135, 134, 127, 0.08);
+
+  --color-accent-fg: #D97757;
+  --color-accent-emphasis: #D97757;
+  --color-accent-muted: rgba(217, 119, 87, 0.3);
+  --color-accent-subtle: rgba(217, 119, 87, 0.08);
+
+  /* Primary CTA → site accent (terracotta) */
+  --color-btn-primary-text: #FAF9F5;
+  --color-btn-primary-bg: #D97757;
+  --color-btn-primary-border: rgba(20, 20, 19, 0.05);
+  --color-btn-primary-shadow: none;
+  --color-btn-primary-inset-shadow: none;
+  --color-btn-primary-hover-bg: #C56A4D;
+  --color-btn-primary-hover-border: rgba(20, 20, 19, 0.12);
+  --color-btn-primary-disabled-text: rgba(250, 249, 245, 0.8);
+  --color-btn-primary-disabled-bg: rgba(217, 119, 87, 0.6);
+
+  /* Secondary buttons → subtle cream */
+  --color-btn-text: #141413;
+  --color-btn-bg: #FAF9F5;
+  --color-btn-border: rgba(20, 20, 19, 0.12);
+  --color-btn-shadow: none;
+  --color-btn-inset-shadow: none;
+  --color-btn-hover-bg: #F2F0E8;
+  --color-btn-hover-border: rgba(20, 20, 19, 0.18);
+  --color-btn-active-bg: #ECE9DD;
+
+  /* Code/syntax inside comments — light, low-contrast */
+  --color-prettylights-syntax-comment: #87867F;
+  --color-prettylights-syntax-constant: #D97757;
+  --color-prettylights-syntax-entity: #6B6B66;
+  --color-prettylights-syntax-keyword: #141413;
+  --color-prettylights-syntax-string: #6B6B66;
+}
+
+/* Use the site's body font inside the iframe. We don't @import Inter here
+   to avoid an extra network hop inside the comments iframe — system fonts
+   match closely enough for a comment widget. */
+body,
+.markdown-body,
+.Box,
+.gsc-comments,
+.gsc-comment-box,
+.gsc-reactions {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Soften the comment-box chrome */
+.gsc-comment-box {
+  border-radius: 6px;
+  border-color: var(--color-border-muted) !important;
+}
+
+.gsc-comment-box-tabs {
+  background: transparent !important;
+}
+
+/* "0 reactions" heading is too loud at default size */
+.gsc-reactions-count {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--color-fg-muted) !important;
+}
