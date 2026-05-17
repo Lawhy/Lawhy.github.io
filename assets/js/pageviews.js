@@ -27,10 +27,10 @@
   Promise.all(tasks).then(function (vals) {
     var parts = [];
     if (isHome) {
-      if (vals[0]) parts.push(vals[0] + " sitewide (pageviews)");
+      if (vals[0]) parts.push(vals[0] + " sitewide (visits)");
     } else {
       if (vals[0]) parts.push(vals[0] + " here");
-      if (vals[1]) parts.push(vals[1] + " sitewide (pageviews)");
+      if (vals[1]) parts.push(vals[1] + " sitewide (visits)");
     }
     if (!parts.length) return;
     var a = document.createElement("a");
