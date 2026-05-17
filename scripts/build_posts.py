@@ -365,6 +365,55 @@ def stamp_js_versions(html: str, js_versions: dict) -> str:
     return JS_LINK_RE.sub(_sub, html)
 
 
+def _rfc822(date_str: str) -> str:
+    """Convert ISO date (or year) to the RFC 822 format RSS requires."""
+    if not date_str:
+        d = _date.today()
+    else:
+        try:
+            d = _date.fromisoformat(date_str)
+        except ValueError:
+            try:
+                d = _date(int(date_str), 1, 1)
+            except (ValueError, TypeError):
+                d = _date.today()
+    return d.strftime("%a, %d %b %Y 00:00:00 GMT")
+
+
+def write_feed(posts_by_cat: dict) -> None:
+    """Emit feed.xml (RSS 2.0) listing every post, newest first."""
+    all_posts = []
+    for posts in posts_by_cat.values():
+        all_posts.extend(posts)
+    all_posts.sort(key=lambda p: p.get("date") or "", reverse=True)
+
+    build_date = _date.today().strftime("%a, %d %b %Y 00:00:00 GMT")
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+        "  <channel>",
+        "    <title>Yuan He</title>",
+        f"    <link>{SITE_URL}/</link>",
+        "    <description>Personal site of Yuan He.</description>",
+        "    <language>en</language>",
+        f'    <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />',
+        f"    <lastBuildDate>{build_date}</lastBuildDate>",
+    ]
+    for p in all_posts:
+        url = f"{SITE_URL}/posts/{p['category']}/{p['slug']}/"
+        summary = (p.get("summary") or "").strip()
+        lines.append("    <item>")
+        lines.append(f"      <title>{escape(str(p['title']))}</title>")
+        lines.append(f"      <link>{url}</link>")
+        lines.append(f"      <guid>{url}</guid>")
+        lines.append(f"      <pubDate>{_rfc822(p.get('date', ''))}</pubDate>")
+        lines.append(f"      <description><![CDATA[{summary}]]></description>")
+        lines.append("    </item>")
+    lines.append("  </channel>")
+    lines.append("</rss>")
+    (ROOT / "feed.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def write_sitemap(posts_by_cat: dict) -> None:
     """Emit sitemap.xml listing the homepage and every published post."""
     today = _date.today().isoformat()
@@ -428,6 +477,7 @@ def main():
             extra.write_text(content, encoding="utf-8")
 
     write_sitemap(posts_by_cat)
+    write_feed(posts_by_cat)
 
     counts = " · ".join(f"{len(v)} {k}" for k, v in posts_by_cat.items())
     print(f"Built {sum(len(v) for v in posts_by_cat.values())} posts ({counts}).")

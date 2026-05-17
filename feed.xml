@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yuan He</title>
+    <link>https://yuanhe.wiki/</link>
+    <description>Personal site of Yuan He.</description>
+    <language>en</language>
+    <atom:link href="https://yuanhe.wiki/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Strands-SGLang: Bridging Agent Scaffolding and RL Training</title>
+      <link>https://yuanhe.wiki/posts/technical/strands-sglang/</link>
+      <guid>https://yuanhe.wiki/posts/technical/strands-sglang/</guid>
+      <pubDate>Wed, 14 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Existing agent scaffolds like Strands-Agents make it easy to serve tool-using agents, but face a key challenge: they operate on text (usually an OpenAI-compatible endpoint) while RL training requires exact token IDs (token-in, token-out). This mismatch causes retokenization drift — the tokens used for computing logprobs and gradients no longer match the tokens that were actually generated — leading to effectively off-policy updates and unstable RL training. Strands-SGLang bridges this gap by extending Strands-Agents with SGLang's native endpoint while preserving the customizable agent loop…]]></description>
+    </item>
+    <item>
+      <title>新双城记</title>
+      <link>https://yuanhe.wiki/posts/literature/xin-shuang-cheng-ji/</link>
+      <guid>https://yuanhe.wiki/posts/literature/xin-shuang-cheng-ji/</guid>
+      <pubDate>Sat, 27 Dec 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[二〇二五年十二月二十五日，圣诞节。我在 101 公路上开着车，雨水难得大到妨碍驾驶的视线。 但对我来说，这一切又是那么理所当然——这不过是英国的日常罢了：在风雨雪雾混杂交织的夜晚，胆战心惊地驶过杳无人烟的山路。除却极端的自然灾害，还能再恶劣否？ 二〇二四年八月底，我拿到全职工作的 offer，为"彻底"离开英国挂上了倒计时。学生身份结束后，我从牛津搬到了更乡下的比斯特，住进一个几乎只属于成家之人的社区。门外是偌大的公园，早、中、晚都鲜有人影。 如今回看，那似乎是我性格开始向外偏移之前，最后一次沉浸的隔断。 按理说，疫情期间我已体验过极致的独处，没想到在疫情结束一年多之后，我仍然选择继续收缩自己。比斯特的生活并无太多变化：偶尔去牛津，偶尔去伦敦，更多时候是在公园里走走，在小区里买菜，在家中办公。日子稀松平常，而离别的信号，却在满是不确定性的美签办理中缓慢推进。…]]></description>
+    </item>
+    <item>
+      <title>How Adam Steers Gradient Descent</title>
+      <link>https://yuanhe.wiki/posts/technical/adam-optimizer/</link>
+      <guid>https://yuanhe.wiki/posts/technical/adam-optimizer/</guid>
+      <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Let's start from the most basic update rule. Suppose we want to minimize an objective. Vanilla gradient descent updates parameters by moving against the gradient: where is the learning rate. This rule is fully reactive: the step at time depends only on the current gradient. That can work, but it has a well-known failure mode in ill-conditioned landscapes (think "long narrow valleys")…]]></description>
+    </item>
+    <item>
+      <title>Approximating the Softmax Function</title>
+      <link>https://yuanhe.wiki/posts/technical/approx-softmax/</link>
+      <guid>https://yuanhe.wiki/posts/technical/approx-softmax/</guid>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 GMT</pubDate>
+      <description><![CDATA[The softmax function is widely used in the output layer of neural-network models for classification. In the binary case, it reduces to the familiar sigmoid mapping. Given a score (logit) vector, the softmax probabilities are In particular, where is the sigmoid function. More generally, softmax can be viewed as normalizing positive weights obtained from log-scale inputs. If we write with, then…]]></description>
+    </item>
+    <item>
+      <title>登爱城山座</title>
+      <link>https://yuanhe.wiki/posts/literature/deng-ai-cheng-shan-zuo/</link>
+      <guid>https://yuanhe.wiki/posts/literature/deng-ai-cheng-shan-zuo/</guid>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 GMT</pubDate>
+      <description><![CDATA[己亥年 丁丑月 乙亥日 问学爱城 登山名座有感]]></description>
+    </item>
+    <item>
+      <title>春折</title>
+      <link>https://yuanhe.wiki/posts/literature/chun-zhe/</link>
+      <guid>https://yuanhe.wiki/posts/literature/chun-zhe/</guid>
+      <pubDate>Fri, 24 Apr 2015 00:00:00 GMT</pubDate>
+      <description><![CDATA[杨柳娇而春溺 腊梅傲而雪藏 世寻弄姿作气 而鲜觅体蕴之香 是匮也]]></description>
+    </item>
+    <item>
+      <title>暖鼎小记</title>
+      <link>https://yuanhe.wiki/posts/literature/nuan-ding-xiao-ji/</link>
+      <guid>https://yuanhe.wiki/posts/literature/nuan-ding-xiao-ji/</guid>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 GMT</pubDate>
+      <description><![CDATA[甲午年甲戌月甲寅日，试术初毕，众人恍恍而皆惫，忽臆巴蜀暖鼎辛香，遂与友约，疲亦忘焉。 向未至其地，乃相与步履，昏然昼夜，曳步迟迟。同行者饥声载道，时色漫漶，惘然略计之，犹余百步。夫食者之欲，行者之竭，盖因而果也。俄见其门，众遂掠步而趋；向之疲惫，慨然顿失。古而蜀道难，天府之邦，猿猱亦愁焉。然若复盛食宴之，酒酣意壮，虽险莫御也。 川人吾友，寻道异乡。既闻之，遂引同行。芽笼也，烟花之地，糜华为乐。而乐者乐，食者食，固无相涉，各行其是也。 至若食者纵，必营古方，而川渝之地无他，燋火油碟，难亡仙味。油碟者，盈之香油，味盐清许，蒜泥香菜，蚝油倾焉。余心窃问，何故盆钵盈腻，无怪乎市井之揶揄也。…]]></description>
+    </item>
+    <item>
+      <title>老猫</title>
+      <link>https://yuanhe.wiki/posts/literature/lao-mao/</link>
+      <guid>https://yuanhe.wiki/posts/literature/lao-mao/</guid>
+      <pubDate>Sat, 19 Apr 2014 00:00:00 GMT</pubDate>
+      <description><![CDATA[老城区的安详，似在入夜之后愈若酒窖开封，夜香萦绕之处，十里静默，与世隔绝。 纵然置身于繁杂闹市、马路轰鸣，可仅需踱步片刻，老城区便像是张开了结界一般，屏蔽了尘碌。倘若依山而傍，蕴籍着自然之力，结界的强度更是令人惊叹。岁逢春回大地，清晨叫醒老城居民的绝非惹人嫌的车笛声，而是清脆悦耳的鸟雀鸣——即使醒来时倦困未去，心里也不会骤起怨意，毕竟又有谁能不折服于这自然的天籁？ 闲游老城区的人，形形色色，有晨练买菜等日常琐事，亦有邂逅相伴之眷景佳话。青年人告别灯红酒绿，跨过结界后顿时放松了一直绷紧的弦；小孩子们嬉戏打闹，童真随着老城里掠过的和风洋溢。至于老年人，参天大树的年轮，岁月磨蚀冲刷下的鹅卵石，他们既不在意些什么，亦没有注意些什么。脚底踩着的是安逸随性的步调，却非放肆不羁，仿佛纹路之于木头，迂回之于流水，司空见惯，自是波澜不惊。他们就这样静默地走过小巷，矍铄的精神对抗着颓圮的皱纹，竟衍生出一番与红霞相衬的温润。若不是高大挺拔的高压电线杆出现在画面里，可就真要误以为时光倒流了。…]]></description>
+    </item>
+  </channel>
+</rss>
