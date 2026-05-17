@@ -1462,6 +1462,26 @@ body {
   color: var(--muted-2);
 }
 
+/* ===================================================================
+   POST COMMENTS (giscus)
+   =================================================================== */
+
+.post-comments {
+  margin-top: 4.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.post-comments__title {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
 .page-footer__views a {
   color: inherit;
   text-decoration: none;
