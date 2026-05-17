@@ -5,6 +5,7 @@ tags: [文学, 散文]
 slug: xin-shuang-cheng-ji
 authors: 知陌若
 cover: images/cover.webp
+cover_position: center 80%
 summary: ""
 ---
 
