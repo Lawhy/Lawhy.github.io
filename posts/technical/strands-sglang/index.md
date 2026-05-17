@@ -5,6 +5,7 @@ tags: [AI Agents, Agent Scaffolds, Agentic RL, SGLang, slime]
 slug: strands-sglang
 summary: ""
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>, <a href="https://yitianlian.github.io/">Chengxing Xie</a>'
+comments: true
 ---
 
 <aside class="post-aside">

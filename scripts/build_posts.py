@@ -291,6 +291,16 @@ def render_post(md_path: Path, template: str, css_versions: dict, js_versions: d
         # don't ship empty content="" meta tags.
         page = re.sub(r'\n\s*<meta property="og:image" content="">', "", page)
         page = re.sub(r'\n\s*<meta name="twitter:image" content="">', "", page)
+    # Opt-in comments: only render the giscus block when frontmatter sets
+    # `comments: true`. Default off — most posts don't want a discussion.
+    comments_on = str(fm.get("comments", "")).strip().lower() in ("true", "1", "yes")
+    if not comments_on:
+        page = re.sub(
+            r'\s*<section class="post-comments".*?</section>',
+            "",
+            page,
+            flags=re.DOTALL,
+        )
     page = stamp_js_versions(page, js_versions)
 
     (md_path.parent / "index.html").write_text(page, encoding="utf-8")
