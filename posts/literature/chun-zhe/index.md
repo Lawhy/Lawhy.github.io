@@ -4,7 +4,7 @@ date: 2015-04-24
 tags: [文学, 古诗词]
 slug: chun-zhe
 authors: 知陌若
-cover: images/cover.png
+cover: images/cover.webp
 summary: "杨柳娇而春溺 腊梅傲而雪藏 世寻弄姿作气 而鲜觅体蕴之香 是匮也"
 ---
 

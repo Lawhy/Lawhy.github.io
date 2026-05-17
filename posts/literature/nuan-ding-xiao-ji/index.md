@@ -4,7 +4,7 @@ date: 2014-10-11
 tags: [文学, 古散文]
 slug: nuan-ding-xiao-ji
 authors: 知陌若
-cover: images/cover.png
+cover: images/cover.webp
 summary: ""
 ---
 

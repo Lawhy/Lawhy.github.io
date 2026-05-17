@@ -4,7 +4,7 @@ date: 2014-04-19
 tags: [文学, 散文]
 slug: lao-mao
 authors: 知陌若
-cover: images/cover.png
+cover: images/cover.webp
 cover_position: center 75%
 summary: ""
 ---

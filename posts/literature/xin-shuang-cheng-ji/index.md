@@ -4,7 +4,7 @@ date: 2025-12-27
 tags: [文学, 散文]
 slug: xin-shuang-cheng-ji
 authors: 知陌若
-cover: images/cover.jpg
+cover: images/cover.webp
 summary: ""
 ---
 

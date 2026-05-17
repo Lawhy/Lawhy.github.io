@@ -4,7 +4,7 @@ date: 2020-02-09
 tags: [文学, 古诗词]
 slug: deng-ai-cheng-shan-zuo
 authors: 知陌若
-cover: images/cover.jpg
+cover: images/cover.webp
 summary: "己亥年 丁丑月 乙亥日 问学爱城 登山名座有感"
 ---
 
