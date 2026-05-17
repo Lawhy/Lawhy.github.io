@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Rebuild posts + sitemap before every commit so artifacts stay in sync
+# with source markdown. Activated via `git config core.hooksPath .github/hooks`.
+set -e
+
+cd "$(git rev-parse --show-toplevel)"
+
+if [[ ! -x .venv/bin/python ]]; then
+  echo "pre-commit: .venv/bin/python missing — skipping build" >&2
+  exit 0
+fi
+
+.venv/bin/python scripts/build_posts.py
+
+# Stage any artifacts the build regenerated. Git will no-op these if unchanged.
+git add index.html 404.html sitemap.xml robots.txt
+git add posts/*/*/index.html
