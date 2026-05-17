@@ -39,7 +39,7 @@ SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
 GOATCOUNTER_JS = ROOT / "assets" / "js" / "goatcounter.js"
 
 SITE_URL = "https://yuanhe.wiki"
-DEFAULT_OG_IMAGE = "/assets/images/seal.png"
+DEFAULT_OG_IMAGE = "/assets/images/og-default.png"
 
 
 def asset_version(path: Path) -> str:
@@ -266,10 +266,9 @@ def render_post(md_path: Path, template: str, css_versions: dict, js_versions: d
         description = description[:197].rsplit(" ", 1)[0] + "..."
     if cover:
         og_image = f"{SITE_URL}/posts/{category}/{slug}/{cover}"
-        twitter_card = "summary_large_image"
     else:
-        og_image = ""
-        twitter_card = "summary"
+        og_image = f"{SITE_URL}{DEFAULT_OG_IMAGE}"
+    twitter_card = "summary_large_image"
 
     page = template
     page = page.replace("{{title}}", escape(str(title)))
@@ -286,11 +285,8 @@ def render_post(md_path: Path, template: str, css_versions: dict, js_versions: d
     page = page.replace("{{canonical_url}}", canonical_url)
     page = page.replace("{{og_image}}", og_image)
     page = page.replace("{{twitter_card}}", twitter_card)
-    if not cover:
-        # No cover → strip the og:image / twitter:image lines entirely so we
-        # don't ship empty content="" meta tags.
-        page = re.sub(r'\n\s*<meta property="og:image" content="">', "", page)
-        page = re.sub(r'\n\s*<meta name="twitter:image" content="">', "", page)
+    # og:image is now always set (default banner falls back when no cover),
+    # so we no longer strip those meta tags.
     # Opt-in comments: only render the giscus block when frontmatter sets
     # `comments: true`. Default off — most posts don't want a discussion.
     comments_on = str(fm.get("comments", "")).strip().lower() in ("true", "1", "yes")
