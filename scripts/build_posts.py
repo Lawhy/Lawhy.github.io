@@ -365,6 +365,29 @@ def stamp_js_versions(html: str, js_versions: dict) -> str:
     return JS_LINK_RE.sub(_sub, html)
 
 
+def write_sitemap(posts_by_cat: dict) -> None:
+    """Emit sitemap.xml listing the homepage and every published post."""
+    today = _date.today().isoformat()
+    entries = [(f"{SITE_URL}/", today, "1.0")]
+    for posts in posts_by_cat.values():
+        for p in posts:
+            loc = f"{SITE_URL}/posts/{p['category']}/{p['slug']}/"
+            lastmod = (p.get("date") or today)[:10]
+            entries.append((loc, lastmod, "0.8"))
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for loc, lastmod, priority in entries:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{loc}</loc>")
+        lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        lines.append(f"    <priority>{priority}</priority>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+    (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
 
 def main():
     if not TEMPLATE.exists():
@@ -403,6 +426,8 @@ def main():
             content = stamp_css_versions(content, css_versions)
             content = stamp_js_versions(content, js_versions)
             extra.write_text(content, encoding="utf-8")
+
+    write_sitemap(posts_by_cat)
 
     counts = " · ".join(f"{len(v)} {k}" for k, v in posts_by_cat.items())
     print(f"Built {sum(len(v) for v in posts_by_cat.values())} posts ({counts}).")
