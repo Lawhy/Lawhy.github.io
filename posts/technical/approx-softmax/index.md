@@ -1,7 +1,6 @@
 ---
 title: Approximating the Softmax Function
 date: 2021-01-17
-tags: [softmax, Machine Learning, Math Proofs]
 slug: approx-softmax
 summary: ""
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
