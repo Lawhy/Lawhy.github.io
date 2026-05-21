@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building BPE from Scratch — Yuan He</title>
+  <meta name="description" content="Modern language models don&#x27;t read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design...">
+  <link rel="canonical" href="https://yuanhe.wiki/posts/technical/bpe/">
+  <link rel="alternate" type="application/rss+xml" title="Yuan He — RSS" href="/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yuan He">
+  <meta property="og:title" content="Building BPE from Scratch">
+  <meta property="og:description" content="Modern language models don&#x27;t read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design...">
+  <meta property="og:url" content="https://yuanhe.wiki/posts/technical/bpe/">
+  <meta property="og:image" content="https://yuanhe.wiki/assets/images/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building BPE from Scratch">
+  <meta name="twitter:description" content="Modern language models don&#x27;t read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design...">
+  <meta name="twitter:image" content="https://yuanhe.wiki/assets/images/og-default.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../../assets/css/site.css?v=47357482">
+  <link rel="stylesheet" href="../../../assets/css/syntax.css?v=b0d391e6">
+</head>
+<body>
+  <main class="page">
+    <header class="page__hero page__hero--post">
+      <a class="post-back" href="../../../">← Yuan He</a>
+      <h1 class="post-title">Building BPE from Scratch</h1>
+      <p class="post-meta"><span class="post-meta__authors"><a href="https://www.yuanhe.wiki/">Yuan He</a></span> &middot; May 2026</p>
+    </header>
+
+    <div class="page__shell">
+      <nav class="left-toc" aria-label="Table of contents">
+        <span class="toc-marker" aria-hidden="true"></span>
+        <ul>
+          <li><a href="#why-bytes-not-characters" data-toc>Why bytes, not characters</a></li>
+          <li><a href="#the-training-algorithm" data-toc>The training algorithm</a></li>
+          <li><a href="#a-worked-example" data-toc>A worked example</a></li>
+          <li><a href="#from-algorithm-to-system" data-toc>From algorithm to system</a></li>
+          <li><a href="#vocab-initialization-and-pre-tokenization" data-toc>Vocab initialization and pre-tokenization</a></li>
+          <li><a href="#parallel-pre-tokenization" data-toc>Parallel pre-tokenization</a></li>
+          <li><a href="#the-merge-loop-made-tractable" data-toc>The merge loop, made tractable</a></li>
+          <li><a href="#training-on-tinystories" data-toc>Training on TinyStories</a></li>
+          <li><a href="#encoding-and-decoding" data-toc>Encoding and decoding</a></li>
+          <li><a href="#what-we-built-whats-next" data-toc>What we built, what&rsquo;s next</a></li>
+          <li><a href="#references" data-toc>References</a></li>
+        </ul>
+      </nav>
+
+      <article class="content">
+        <div class="post-body post-body--technical">
+<p>Modern language models don&rsquo;t read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design question is what those chunks should be.</p>
+<p>Word-level tokenization needs a huge vocabulary and still hits out-of-vocabulary failures on misspellings, neologisms, and non-English text. Character-level avoids OOVs but inflates sequence lengths and forces the model to relearn morphology every batch. <strong>Byte-Pair Encoding (BPE)</strong> sits in the middle: start from the smallest possible alphabet, then <em>learn</em> from a training corpus which adjacent pairs deserve to become single tokens. Common patterns like <code>the</code> or <code>ing</code> collapse into single IDs; rare strings stay decomposed. The vocabulary size is a knob you turn, and the algorithm fills it with whatever the data says is worth a token.</p>
+<h2 id="why-bytes-not-characters">Why bytes, not characters</h2>
+<p>The &ldquo;smallest possible alphabet&rdquo; for natural text is debatable — characters? Unicode code points? — but byte-level BPE sidesteps the question. Three properties matter:</p>
+<ul>
+<li><strong>OOV-free.</strong> Any UTF-8 text decomposes into bytes, so the tokenizer never encounters an input it can&rsquo;t represent.</li>
+<li><strong>Small and standardized.</strong> Exactly 256 byte values, regardless of script. Compare to Unicode&rsquo;s ~150 000 code points, most of which any single corpus will never touch.</li>
+<li><strong>Language-agnostic.</strong> English, Chinese, code, and emoji reduce to the same alphabet. No per-language design baked into the tokenizer.</li>
+</ul>
+<p>The cost: every piece of linguistic structure — word boundaries, common suffixes, anything a script-aware tokenizer would get for free — has to be <em>discovered</em> through merges. That&rsquo;s the trade BPE accepts.</p>
+<h2 id="the-training-algorithm">The training algorithm</h2>
+<p>Given a corpus and a target vocabulary size, training is the loop below:</p>
+<figure class="algorithm">
+  <div class="algorithm__title">Algorithm 1 — BPE Training</div>
+  <div class="algorithm__io">
+    <div><span class="algorithm__label">Input</span> corpus C, target vocab size V</div>
+    <div><span class="algorithm__label">Output</span> vocab, merges</div>
+  </div>
+  <ol>
+    <li>vocab &larr; {0, 1, &hellip;, 255} <span class="algorithm__cmt">one ID per byte</span></li>
+    <li>merges &larr; [ ] <span class="algorithm__cmt">ordered list, not a set</span></li>
+    <li>while |vocab| &lt; V do</li>
+    <li class="indent">(a, b) &larr; argmax<sub>p</sub> freq(p, C) <span class="algorithm__cmt">most frequent pair across C</span></li>
+    <li class="indent">t &larr; concat(a, b)</li>
+    <li class="indent">C &larr; replace(C, (a, b), t) <span class="algorithm__cmt">collapse every (a, b) in one pass</span></li>
+    <li class="indent">vocab.add(t)</li>
+    <li class="indent">merges.append((a, b))</li>
+    <li>return vocab, merges</li>
+  </ol>
+</figure>
+
+<p>Inference replays the merges in order<sup class="margin-marker"><a href="#note-1">1</a></sup><span class="margin-note" id="note-1"><span class="margin-note__label">Note 1</span><code>merges</code> is a <em>sequence</em>, not a set: <code>(ab, c)</code> only becomes possible after <code>(a, b) → ab</code> has fired. Lose the order and the encoder&rsquo;s output diverges from training.</span>: starting from the byte sequence, apply each learned merge wherever it matches.</p>
+<p>That&rsquo;s the entire idea. Every line of the production implementation exists to make this loop run on gigabytes of text without taking days.</p>
+<h2 id="a-worked-example">A worked example</h2>
+<p>Walking the merge loop on a toy corpus<sup class="margin-marker"><a href="#note-2">2</a></sup><span class="margin-note" id="note-2"><span class="margin-note__label">Note 2</span>After pre-tokenization (covered later), the corpus is stored as <code>{tuple(bytes_in_pretoken): count}</code> — each pre-token contributes its <code>count</code> to every pair it contains.</span> &mdash; each letter is its single-byte atom, ties break by preferring the lexicographically greater pair<sup class="margin-marker"><a href="#note-3">3</a></sup><span class="margin-note" id="note-3"><span class="margin-note__label">Note 3</span>Any deterministic rule works — lex-greater is the ecosystem convention (GPT-2, HuggingFace, tiktoken) so reference implementations yield byte-identical merge lists.</span>:</p>
+<figure class="algorithm-stepper" aria-label="BPE training trace on toy corpus">
+  <div class="algorithm-stepper__header">
+    <span class="algorithm-stepper__title">Trace &mdash; setup + 4 iterations</span>
+    <button class="algorithm-stepper__play" type="button" aria-pressed="false" aria-label="Play">&#9654;</button>
+    <div class="algorithm-stepper__nav">
+      <button class="algorithm-stepper__prev" type="button" aria-label="Previous step">&lsaquo;</button>
+      <span class="algorithm-stepper__dots" role="tablist" aria-label="Steps">
+        <button class="algorithm-stepper__dot" type="button" aria-label="Setup (initial state)"></button>
+        <button class="algorithm-stepper__dot" type="button" aria-label="Iteration 1"></button>
+        <button class="algorithm-stepper__dot" type="button" aria-label="Iteration 2"></button>
+        <button class="algorithm-stepper__dot" type="button" aria-label="Iteration 3"></button>
+        <button class="algorithm-stepper__dot" type="button" aria-label="Iteration 4"></button>
+      </span>
+      <button class="algorithm-stepper__next" type="button" aria-label="Next step">&rsaquo;</button>
+    </div>
+  </div>
+  <div class="algorithm-stepper__frames">
+    <div class="algorithm-stepper__frame">
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">init</span><span class="algorithm-stepper__meta">byte-level atoms, no merges yet</span></div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">corpus</span>(l, o, w) &times; 2&nbsp;&nbsp;&nbsp;&nbsp;(l, o, w, e, r) &times; 1</div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">pairs</span>(l, o): 3&nbsp;&nbsp;&nbsp;&nbsp;(o, w): 3&nbsp;&nbsp;&nbsp;&nbsp;(w, e): 1&nbsp;&nbsp;&nbsp;&nbsp;(e, r): 1</div>
+    </div>
+    <div class="algorithm-stepper__frame">
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">merge</span><span class="pair-hl">(o, w)</span><span class="algorithm-stepper__meta">tied with (l, o) at 3; lex-greater wins</span></div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">corpus</span>(l, <span class="pair-hl">ow</span>) &times; 2&nbsp;&nbsp;&nbsp;&nbsp;(l, <span class="pair-hl">ow</span>, e, r) &times; 1</div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">pairs</span>(l, <span class="pair-hl">ow</span>): 3&nbsp;&nbsp;&nbsp;&nbsp;(<span class="pair-hl">ow</span>, e): 1&nbsp;&nbsp;&nbsp;&nbsp;(e, r): 1</div>
+    </div>
+    <div class="algorithm-stepper__frame">
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">merge</span><span class="pair-hl">(l, ow)</span><span class="algorithm-stepper__meta">count 3, uncontested</span></div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">corpus</span>(<span class="pair-hl">low</span>,) &times; 2&nbsp;&nbsp;&nbsp;&nbsp;(<span class="pair-hl">low</span>, e, r) &times; 1</div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">pairs</span>(<span class="pair-hl">low</span>, e): 1&nbsp;&nbsp;&nbsp;&nbsp;(e, r): 1</div>
+    </div>
+    <div class="algorithm-stepper__frame">
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">merge</span><span class="pair-hl">(low, e)</span><span class="algorithm-stepper__meta">tied with (e, r) at 1; lex-greater wins</span></div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">corpus</span>(low,) &times; 2&nbsp;&nbsp;&nbsp;&nbsp;(<span class="pair-hl">lowe</span>, r) &times; 1</div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">pairs</span>(<span class="pair-hl">lowe</span>, r): 1</div>
+    </div>
+    <div class="algorithm-stepper__frame">
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">merge</span><span class="pair-hl">(lowe, r)</span><span class="algorithm-stepper__meta">count 1</span></div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">corpus</span>(low,) &times; 2&nbsp;&nbsp;&nbsp;&nbsp;(<span class="pair-hl">lower</span>,) &times; 1</div>
+      <div class="algorithm-stepper__row"><span class="algorithm-stepper__row-label">pairs</span>&empty;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;stop</div>
+    </div>
+  </div>
+</figure>
+
+<p>The final vocabulary gained <code>ow</code>, <code>low</code>, <code>lowe</code>, <code>lower</code> in that order, with <code>merges = [(o,w), (l,ow), (low,e), (lowe,r)]</code>. Two things worth noticing:</p>
+<ul>
+<li>By iteration 2, the atoms being counted aren&rsquo;t all single bytes — <code>low</code> is a three-byte merged atom that participates in pair counting just like a single byte does. What you&rsquo;re counting at iteration 50 is <em>atom pairs</em>, not byte pairs in any literal sense.</li>
+<li>The deterministic tiebreak fires at iterations 1 and 3 and produces a stable, reproducible merge order. At inference time, replaying these four merges on a fresh occurrence of &ldquo;lower&rdquo; walks the input through the same four-step collapse.</li>
+</ul>
+<h2 id="from-algorithm-to-system">From algorithm to system</h2>
+<p>Forty lines of Python implement everything above. At realistic scale — vocab 32 000 on an 11 GB OpenWebText corpus — the naive version is unusable: counting every adjacent pair across the whole corpus every iteration is roughly $O(N \cdot V)$ where $N$ is the corpus size in bytes and $V$ is the vocab size, and $N$ dominates.</p>
+<p>The rest of this post is about the engineering moves that turn the loop above into a tokenizer that finishes in minutes instead of days.</p>
+<h2 id="vocab-initialization-and-pre-tokenization">Vocab initialization and pre-tokenization</h2>
+<p>Two preparation steps run before the merge loop: build the initial vocab, and split the corpus into pre-tokens.</p>
+<div class="highlight"><pre><span></span><code><span class="n">vocab</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)}</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">special_tokens</span><span class="p">:</span>
+    <span class="n">vocab</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>256 byte-value entries plus one per special token (e.g., <code>&lt;|endoftext|&gt;</code>, document separators), assigned sequential IDs. Each later merge appends one more; training stops at <code>vocab_size</code>.</p>
+<p>Pre-tokenization splits the corpus into word-like units <em>before</em> the merge loop sees the data, and the contract is <strong>no merge can ever span a pre-token boundary</strong>. Without that fence, the most frequent byte pair in English text is something like <code>b' t'</code> (space then <code>t</code> — every <em>the / to / that / this / there</em> contributes). The first few merges would absorb whitespace into tokens (<code>b' the '</code>), and subsequent merges would happily cross word boundaries (<code>b' of the '</code>). The vocab budget burns on byte-frequency junk instead of linguistic units.</p>
+<p>The standard splitter is the GPT-2 regex:</p>
+<div class="highlight"><pre><span></span><code><span class="n">PAT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;&#39;(?:[sdmt]|ll|ve|re)| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&quot;&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Six alternatives in order — contractions, letter runs, digit runs, punctuation, trailing whitespace, any other whitespace. The load-bearing branch is <code>' ?\p{L}+'</code>: an optional leading space followed by a run of letters. <strong>That leading space is the trick that holds the whole tokenizer together</strong> — it absorbs the preceding whitespace into the word, so <code>" the"</code> becomes one pre-token with a single canonical form, instead of splitting vocab across <code>the</code> / <code>' the'</code> / <code>' the '</code>.</p>
+<p>Each pre-token is stored as a tuple of single-byte <code>bytes</code> objects:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># bytes iterates as ints (0–255); bytes([t]) wraps each back to a 1-byte bytes object.</span>
+<span class="n">token</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">bytes</span><span class="p">([</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<p>The tempting one-character variant silently breaks:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># WRONG because character c doesn&#39;t necessarily map to a single byte</span>
+<span class="n">token</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+
+<p>It iterates by character, so a non-ASCII character (e.g. <code>"€"</code> → <code>b"\xe2\x82\xac"</code>) becomes a single 3-byte atom that doesn&rsquo;t exist in the 256-byte vocab and can never be built up from merges. ASCII-only tests pass; real input produces garbage IDs.</p>
+<h2 id="parallel-pre-tokenization">Parallel pre-tokenization</h2>
+<p>The previous section established <em>what</em> pre-tokenization computes. On gigabytes of text, <em>how fast</em> it computes matters. Single-threaded pre-tokenization on the OpenWebText corpus is minutes-to-an-hour of pure regex; parallelizing it across CPU cores drops that to seconds.</p>
+<p>Since pre-tokenization parallelizes into similar-size chunks and each chunk&rsquo;s processing is CPU-bound (regex scans, dict updates, byte-tuple construction), <code>ProcessPoolExecutor</code><sup class="margin-marker"><a href="#note-4">4</a></sup><span class="margin-note" id="note-4"><span class="margin-note__label">Note 4</span><code>asyncio.to_thread</code> (or raw threading) only delivers concurrency when the work <em>releases the GIL</em> — blocking I/O syscalls like <code>socket.recv</code>/<code>file.read</code> do, and C extensions like NumPy or PyTorch do during their compute kernels. Pure-Python CPU work doesn&rsquo;t. Pre-tokenization is regex + dict updates in Python — GIL held throughout, threads serialize. Processes get separate interpreters with separate GILs, so they actually parallelize.</span> is the natural fit.</p>
+<p>For the workers to be independent, each chunk must start (and end) on a special-token boundary. Otherwise a document gets sliced across two workers, and the worker that owns the second half sees a pre-token that started mid-word — bad data.</p>
+<p>The naive approach is to read the whole file and split on the special-token byte string. For an 11 GB corpus that&rsquo;s slow and memory-hungry. The cleverer move: start from N+1 uniformly spaced byte offsets, then <em>snap each offset forward</em> to the next occurrence of the first special token, scanning a small window at a time.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mini_chunk_size</span> <span class="o">=</span> <span class="mi">4096</span>  <span class="c1"># scan ahead in 4 KB increments</span>
+<span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">initial_position</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">mini_chunk</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mini_chunk_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mini_chunk</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">chunk_boundaries</span><span class="p">[</span><span class="n">bi</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_size</span>
+        <span class="k">break</span>
+    <span class="n">found_at</span> <span class="o">=</span> <span class="n">mini_chunk</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">split_special_token</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">found_at</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">chunk_boundaries</span><span class="p">[</span><span class="n">bi</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_position</span> <span class="o">+</span> <span class="n">found_at</span>
+        <span class="k">break</span>
+    <span class="n">initial_position</span> <span class="o">+=</span> <span class="n">mini_chunk_size</span>
+</code></pre></div>
+
+<p>Read 4 KB. Search for the delimiter byte string. Hit → snap the boundary to that byte offset, done. Miss → advance the position and try the next window. Total I/O per boundary is roughly the average distance from a uniform guess to the next delimiter — typically kilobytes, not gigabytes. The outer routine handles the boundary array, the EOF case, and dedup (two guesses can snap to the same delimiter, especially near document-sparse regions).</p>
+<p>So the entire parallelism story reduces to: find chunk boundaries, then process each chunk in its own worker<sup class="margin-marker"><a href="#note-5">5</a></sup><span class="margin-note" id="note-5"><span class="margin-note__label">Note 5</span>Concretely: pre-tokenization on the TinyStories validation set (~22 MB plain text) finishes in ~5 s with 4 workers.</span>. Pre-tokenization itself is $O(N)$ in corpus bytes — roughly $O(N / P)$ wall-clock with $P$ workers, until disk bandwidth becomes the binding constraint. The merge loop is up next, and that&rsquo;s where the algorithm&rsquo;s real cost lives.</p>
+<h2 id="the-merge-loop-made-tractable">The merge loop, made tractable</h2>
+<p>The naive merge loop recomputes pair counts from scratch every iteration: scan the whole corpus, count every adjacent pair, pick the max. With $N$ corpus bytes and $V$ merges, that&rsquo;s $O(N \cdot V)$. For OpenWebText (~11 GB ≈ $10^{10}$ bytes) and vocab 32 000, $N \cdot V$ is on the order of $10^{14}$ counter increments — many hours on a single core, with most of the work redundant: the corpus state at iteration $K{+}1$ is nearly identical to iteration $K$&rsquo;s.</p>
+<p>The fix is to maintain pair statistics <em>incrementally</em> across iterations. Two indices, both keyed by adjacent pair:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pair_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>                          <span class="c1"># forward: pair → count</span>
+<span class="n">pair_to_pretokens</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="c1"># reverse: pair → pre-tokens containing it</span>
+</code></pre></div>
+
+<p><code>pair_counts</code> gives the current frequency of every pair. <code>pair_to_pretokens</code> is the load-bearing trick: for any pair, it names <em>exactly which pre-token shapes currently contain it</em>. When a merge fires, only those pre-tokens need updating — typically a tiny fraction of distinct shapes.</p>
+<p>The merge loop body:</p>
+<div class="highlight"><pre><span></span><code><span class="n">best_pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pair_counts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">pair_counts</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">p</span><span class="p">))</span>
+<span class="n">merged_token</span> <span class="o">=</span> <span class="n">best_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">best_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">merges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best_pair</span><span class="p">)</span>
+<span class="n">vocab</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)]</span> <span class="o">=</span> <span class="n">merged_token</span>
+
+<span class="n">affected_pretokens</span> <span class="o">=</span> <span class="n">pair_to_pretokens</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">best_pair</span><span class="p">)</span>
+<span class="n">pair_counts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">best_pair</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">old_pretoken</span> <span class="ow">in</span> <span class="n">affected_pretokens</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">pretoken_counts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">old_pretoken</span><span class="p">)</span>
+
+    <span class="c1"># withdraw: subtract old contributions to every pair except best_pair</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">old_pretoken</span><span class="p">,</span> <span class="n">old_pretoken</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">best_pair</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">pair_counts</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span> <span class="o">-=</span> <span class="n">n</span>
+        <span class="k">if</span> <span class="n">pair_counts</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pair_counts</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">containing</span> <span class="o">=</span> <span class="n">pair_to_pretokens</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">containing</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">containing</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">old_pretoken</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">containing</span><span class="p">:</span>
+                <span class="n">pair_to_pretokens</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+    <span class="c1"># rewrite: collapse best_pair in one left-to-right pass</span>
+    <span class="n">new_pretoken</span> <span class="o">=</span> <span class="n">_apply_merge</span><span class="p">(</span><span class="n">old_pretoken</span><span class="p">,</span> <span class="n">best_pair</span><span class="p">,</span> <span class="n">merged_token</span><span class="p">)</span>
+
+    <span class="c1"># register: add the new shape&#39;s contributions</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">new_pretoken</span><span class="p">,</span> <span class="n">new_pretoken</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">pair_counts</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <span class="n">pair_counts</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span>
+        <span class="n">pair_to_pretokens</span><span class="o">.</span><span class="n">setdefault</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_pretoken</span><span class="p">)</span>
+
+    <span class="n">pretoken_counts</span><span class="p">[</span><span class="n">new_pretoken</span><span class="p">]</span> <span class="o">=</span> <span class="n">pretoken_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">new_pretoken</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span>
+</code></pre></div>
+
+<p>Three phases per affected pre-token: <strong>withdraw</strong> the old shape&rsquo;s pair contributions, <strong>rewrite</strong> the pre-token with the merge applied, <strong>register</strong> the new shape&rsquo;s contributions<sup class="margin-marker"><a href="#note-6">6</a></sup><span class="margin-note" id="note-6"><span class="margin-note__label">Note 6</span>Withdraw and register <em>look</em> symmetric but aren&rsquo;t. For pairs that survive the merge — <code>(y, z)</code> in <code>(x, a, b, y, z) → (x, ab, y, z)</code> — the count round-trips to net zero, but the pre-token reference in <code>pair_to_pretokens</code> swaps <code>old → new</code>. Pairs destroyed by the merge (<code>(x, a)</code>, <code>(b, y)</code>) only fire withdraw; pairs newly created (<code>(x, ab)</code>, <code>(ab, y)</code>) only fire register. Handling all three cases uniformly is simpler than diffing old-pairs against new-pairs.</span>. Cost per iteration becomes $O(|\text{affected}|)$ instead of $O(N)$ — typically well under 5% of distinct pre-token shapes.</p>
+<p>Two correctness details. <code>best_pair</code> is popped <em>wholesale</em> from both indices before the withdraw loop runs — per-pre-token deduction would just drive its count to zero and require removal anyway, so the wholesale pop saves the bookkeeping. Cleanup pops on zero-count and empty-set keep the invariant: every key in either index represents live state in the current corpus. Without them, <code>max(pair_counts, ...)</code> could pick a stale zero-count entry.</p>
+<p>The rewrite step uses <code>_apply_merge</code>, a single left-to-right scan:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_apply_merge</span><span class="p">(</span><span class="n">pretoken</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">merged_token</span><span class="p">):</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pretoken</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pretoken</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">pair</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">merged_token</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pretoken</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The non-obvious correctness point: for a pre-token like <code>(b'a', b'b', b'a', b'b')</code> merging <code>(b'a', b'b')</code>, this collapses cleanly to <code>(b'ab', b'ab')</code> in one pass — both occurrences resolved together. A &ldquo;find first occurrence and recurse&rdquo; approach would produce chained partial variants, and the corpus state would drift away from what training intended.</p>
+<p>One more compounding optimization sits behind all of this. The corpus is stored as <code>{pretoken_tuple: frequency}</code>, not as a flat list of N duplicates. The multiplier <code>n</code> rides through every counter update (<code>pair_counts[(a, b)] -= n</code>), so the merge loop iterates <em>distinct pre-token shapes</em> — tens of thousands for OpenWebText — rather than <em>total occurrences</em> — billions. Compounded with the inverted index, this is what drops merge-loop wall time from &ldquo;single-core, days&rdquo; to &ldquo;single-core, minutes&rdquo;.</p>
+<h2 id="training-on-tinystories">Training on TinyStories</h2>
+<p>Putting it all together on TinyStories — a ~2 GB English corpus of children&rsquo;s stories, <code>vocab_size = 10 000</code>, 4 worker processes for pre-tokenization, single <code>&lt;|endoftext|&gt;</code> as the document-separator special token. End-to-end:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wall time</td>
+<td>~700 s (11 min 41 s)</td>
+</tr>
+<tr>
+<td>Peak process RSS</td>
+<td>~125 MiB</td>
+</tr>
+<tr>
+<td>Final vocab</td>
+<td>10,000 = 256 bytes + 1 special + 9,743 merges</td>
+</tr>
+<tr>
+<td>Longest token</td>
+<td><code>b' accomplishment'</code> (15 bytes)</td>
+</tr>
+</tbody>
+</table>
+<p>The longest token is empirical confirmation of the leading-space trick from earlier. <code>' accomplishment'</code> is the canonical form because the <code>' ?\p{L}+'</code> branch absorbed the preceding space at pre-tokenization time — every occurrence of &rdquo; accomplishment&rdquo; in the corpus shares that one pre-token shape, and 9 743 merges of vocab budget could afford to collapse it all the way down to a single atom. Without leading-space absorption, the budget would have split across <code>accomplishment</code>, <code>' accomplishment'</code>, <code>' accomplishment '</code>, and would have run out long before this depth.</p>
+<p>Where does the wall time actually go? After the incremental pair-count optimization, pre-tokenization (~5 s parallel across 4 workers) and the merge loop are within an order of magnitude of each other on the full training run. Before that optimization, the naive merge loop was 95%+ of wall time, growing as $O(N \cdot V)$. The inverted index didn&rsquo;t make the merge loop free — it dropped per-iteration cost to $O(|\text{affected}|)$, which is what brought the merge loop into balance with pre-tok.</p>
+<p>What ships out of training is a <code>BPETokenizer(vocab, merges, special_tokens)</code> instance — a few hundred KB of durable state (the dict + the ordered list of merge pairs + the special-token list), ready to encode arbitrary text. The training scratch (<code>pair_counts</code>, <code>pair_to_pretokens</code>, <code>pretoken_counts</code>) lives only as locals inside <code>train()</code> and is discarded when the function returns. Encoding and decoding are what the next section is about.</p>
+<h2 id="encoding-and-decoding">Encoding and decoding</h2>
+<p><code>encode(text)</code> runs three steps: split on special tokens, pre-tokenize each non-special segment with the same GPT-2 regex as training, and replay the learned merges on each pre-token.</p>
+<p>The first step uses <code>re.split</code> with the special-token pattern wrapped in a capturing group:</p>
+<div class="highlight"><pre><span></span><code><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">sorted_specials</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The capturing group is the load-bearing detail: without it, <code>re.split</code> discards the delimiters; <em>with</em> it, the delimiters come back interleaved with the text segments. That&rsquo;s what lets <code>encode</code> emit each special token&rsquo;s pre-assigned vocab ID directly, bypassing the merge replay (special tokens aren&rsquo;t learned merges and shouldn&rsquo;t go through the GPT-2 regex). One subtle gotcha: special tokens are sorted by length descending before joining, because regex alternation is <strong>leftmost-wins, not longest-wins</strong> — without sorting, <code>&lt;|endoftext|&gt;</code> could match before <code>&lt;|endoftext|&gt;&lt;|endoftext|&gt;</code> and emit two single-special tokens instead of one double-special token.</p>
+<p>For non-special segments, pre-tokenization uses the same regex and the same <code>tuple(bytes([t]) for t in ...)</code> representation as training. Each pre-token is then collapsed through the learned merges:</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">token_bytes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">priority_pair</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">priority_pair_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">token_bytes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="n">token_bytes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">token_bytes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_priorities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">priority_pair</span> <span class="ow">is</span> <span class="kc">None</span>
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_priorities</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_priorities</span><span class="p">[</span><span class="n">priority_pair</span><span class="p">]):</span>
+                <span class="n">priority_pair</span> <span class="o">=</span> <span class="n">pair</span>
+                <span class="n">priority_pair_index</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="n">priority_pair_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">token_bytes</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">token_bytes</span><span class="p">[:</span><span class="n">priority_pair_index</span><span class="p">]</span>
+        <span class="o">+</span> <span class="p">[</span><span class="n">priority_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">priority_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="o">+</span> <span class="n">token_bytes</span><span class="p">[</span><span class="n">priority_pair_index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>Find the adjacent pair with the smallest <code>merge_priorities</code> value (earliest learned at training time), apply just that one merge, repeat. The loop terminates when no adjacent pair has a learned merge — typically 0–10 iterations for short pre-tokens.</p>
+<p>The non-obvious correctness point: the merge picked is the <strong>earliest-learned applicable merge</strong>, not the leftmost applicable one. Greedy left-to-right is wrong. Worked counter-example: pre-token <code>[a, b, c]</code> with <code>merges = [(b, c), (a, b)]</code> (so <code>(b, c)</code> has priority 0, <code>(a, b)</code> has priority 1).</p>
+<ul>
+<li><strong>Greedy left-to-right</strong>: scan from the left, find <code>(a, b)</code> first, merge → <code>[ab, c]</code>. No further merges. Done.</li>
+<li><strong>Priority-based</strong>: scan all pairs, <code>(b, c)</code> has lower priority (0 &lt; 1), pick it, merge → <code>[a, bc]</code>. No further merges. Done.</li>
+</ul>
+<p>Only the priority version replays what training would have produced — training learned <code>(b, c)</code> first, so it would have fired before <code>(a, b)</code> could be considered. Greedy left-to-right yields an output that no training run could have produced; the encoder and the trained vocab diverge<sup class="margin-marker"><a href="#note-7">7</a></sup><span class="margin-note" id="note-7"><span class="margin-note__label">Note 7</span>The contract from Note 1 made flesh: <code>merges</code> is an ordered sequence, and inference must respect that order. A later merge can depend on an earlier one (<code>(ab, c)</code> only exists after <code>(a, b) → ab</code> has fired) — replaying by priority is how we preserve that dependency at encode time.</span>.</p>
+<p>In production, encoding is rarely a single <code>encode()</code> call on a short string — it&rsquo;s batch-tokenizing entire corpora into integer ID files for downstream model training. The same fence rule that justified parallelism at training time applies here: non-special segments are independent of each other, and pre-tokens within a segment are independent of each other. So you can hand each document (or each segment) to its own worker process and get bit-identical output. Production tokenizers like HuggingFace&rsquo;s <code>tokenizers</code> and OpenAI&rsquo;s <code>tiktoken</code> parallelize batch encoding across documents internally, and both are Rust-backed to release the GIL during the CPU-bound work.</p>
+<p><code>decode</code> is a one-liner:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_ids</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">token_ids</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Concatenate the vocab bytes for each ID and decode as UTF-8. <code>errors="replace"</code> handles the case where a user constructs ID sequences whose bytes don&rsquo;t form valid UTF-8 — those positions become <code>U+FFFD</code> instead of raising. Round-tripping <code>encode → decode</code> is always valid by construction, so the fallback only fires for hand-built ID lists.</p>
+<h2 id="what-we-built-whats-next">What we built, what&rsquo;s next</h2>
+<p>What ships from training is small: a <code>vocab</code> dict (a few hundred KB at vocab 32 000), an ordered <code>merges</code> list, and the special-token list. The encode/decode pair operates on those artifacts and nothing else. The training scratch — <code>pair_counts</code>, <code>pair_to_pretokens</code>, <code>pretoken_counts</code> — lives only inside <code>train()</code> and is thrown away. Four engineering moves carried the loop from &ldquo;single-core, days&rdquo; to &ldquo;single-core, minutes&rdquo;: </p>
+<ol>
+<li>parallel pre-tokenization across worker processes, snapping chunk boundaries forward to the next special token; </li>
+<li>an inverted index (<code>pair_to_pretokens</code>) so each merge only touches the pre-tokens that contain it; </li>
+<li>a three-phase <strong>withdraw → rewrite → register</strong> update that keeps both indices live; </li>
+<li>a <code>{shape: count}</code> corpus representation so the merge loop iterates distinct pre-token shapes (tens of thousands) instead of total occurrences (billions).</li>
+</ol>
+<p>What&rsquo;s next, honestly: a larger real-world pre-training corpus wasn&rsquo;t actually run end-to-end. Beyond Python, no Rust port — production tokenizers like <code>tiktoken</code> and HuggingFace <code>tokenizers</code> are typically 10–100× faster per core because they release the GIL and avoid Python&rsquo;s per-op interpreter overhead.</p>
+<p>The implementation here is correct, trains end-to-end on TinyStories in eleven minutes on a laptop, and is structured the way a production tokenizer is.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol class="references">
+  <li id="ref-1">[1] Sennrich, R., Haddow, B., &amp; Birch, A. (2015). <em>Neural Machine Translation of Rare Words with Subword Units</em>. <a href="https://arxiv.org/abs/1508.07909">arXiv:1508.07909</a> &mdash; the paper that brought BPE from data compression into NLP.</li>
+  <li id="ref-2">[2] Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., &amp; Sutskever, I. (2019). <em>Language Models are Unsupervised Multitask Learners</em>. <a href="https://github.com/openai/gpt-2">github.com/openai/gpt-2</a> &mdash; the GPT-2 release; source of the pre-tokenization regex used throughout this post.</li>
+  <li id="ref-3">[3] OpenAI. <em>tiktoken</em>. <a href="https://github.com/openai/tiktoken">github.com/openai/tiktoken</a> &mdash; Rust implementation of byte-level BPE; canonical fast reference for OpenAI-family tokenizers.</li>
+  <li id="ref-4">[4] HuggingFace. <em>tokenizers</em>. <a href="https://github.com/huggingface/tokenizers">github.com/huggingface/tokenizers</a> &mdash; Rust-backed Python tokenizer library covering BPE, WordPiece, and Unigram.</li>
+</ol>
+        </div>
+      </article>
+    </div>
+
+    <footer class="page-footer">
+      <span>&copy; 2026 Yuan He &middot; All rights reserved</span>
+      <span class="page-footer__views" id="pagevisits" hidden></span>
+    </footer>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
+  <script src="../../../assets/js/scrollspy.js" defer></script>
+  <script src="../../../assets/js/algorithm-stepper.js?v=d892068a" defer></script>
+  <script data-goatcounter="https://yuanhe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script src="../../../assets/js/goatcounter.js?v=2d3b9dac" defer></script>
+</body>
+</html>

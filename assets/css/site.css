@@ -1319,6 +1319,250 @@ body {
   margin: 0.7rem 0;
 }
 
+/* Textbook-style algorithm block. Title strip, Input/Output header,
+   monospace numbered steps with continuous numbering. */
+.post-body .algorithm {
+  margin: 1.75rem 0;
+  padding: 0.95rem 1.2rem 1.05rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  text-align: left; /* override default <figure> centering */
+}
+
+.post-body .algorithm__title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.55rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.post-body .algorithm__io {
+  font-size: 0.94rem;
+  color: var(--muted);
+  margin: 0 0 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.post-body .algorithm__io > div {
+  margin: 0.15rem 0;
+}
+
+.post-body .algorithm__io .algorithm__label {
+  display: inline-block;
+  min-width: 4.25rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.post-body .algorithm ol {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 2.6rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.post-body .algorithm ol li {
+  padding-left: 0.25rem;
+}
+
+.post-body .algorithm ol li.indent {
+  margin-left: 1.75rem;
+}
+
+.post-body .algorithm ol li::marker {
+  color: var(--muted-2);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.post-body .algorithm__cmt {
+  color: var(--muted);
+  margin-left: 1.1rem;
+}
+
+.post-body .algorithm__cmt::before {
+  content: "▷ ";
+  color: var(--muted-2);
+}
+
+/* Algorithm stepper: animated/interactive trace of an algorithm. Header has
+   title + play button + step dots + prev/next; body holds N frames, one
+   visible at a time via the .is-active toggle from algorithm-stepper.js. */
+.post-body .algorithm-stepper {
+  margin: 1.75rem 0;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  overflow: hidden;
+  text-align: left;
+}
+
+.post-body .algorithm-stepper__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  flex-wrap: wrap;
+}
+
+.post-body .algorithm-stepper__title {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-right: auto;
+}
+
+.post-body .algorithm-stepper__play {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 0.72rem;
+  line-height: 1;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.post-body .algorithm-stepper__play:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
+}
+
+.post-body .algorithm-stepper__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.post-body .algorithm-stepper__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0 0.2rem;
+  padding: 0;
+}
+
+.post-body .algorithm-stepper__dot {
+  appearance: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--muted-2);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.post-body .algorithm-stepper__dot:hover {
+  border-color: var(--accent);
+  transform: scale(1.15);
+}
+
+.post-body .algorithm-stepper__dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.post-body .algorithm-stepper__prev,
+.post-body .algorithm-stepper__next {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1;
+  padding: 0.15rem 0.4rem;
+  transition: color 0.15s ease;
+}
+
+.post-body .algorithm-stepper__prev:hover:not(:disabled),
+.post-body .algorithm-stepper__next:hover:not(:disabled) {
+  color: var(--ink);
+}
+
+.post-body .algorithm-stepper__prev:disabled,
+.post-body .algorithm-stepper__next:disabled {
+  color: var(--rule);
+  cursor: default;
+}
+
+.post-body .algorithm-stepper__frames {
+  padding: 0.9rem 1.2rem 1rem;
+  min-height: 6.5rem; /* prevent vertical jitter as frames swap */
+}
+
+.post-body .algorithm-stepper__frame {
+  display: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.75;
+}
+
+.post-body .algorithm-stepper__frame.is-active {
+  display: block;
+  animation: algorithm-stepper-fade 0.22s ease-out;
+}
+
+@keyframes algorithm-stepper-fade {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.post-body .algorithm-stepper__row {
+  margin: 0.2rem 0;
+}
+
+.post-body .algorithm-stepper__row-label {
+  display: inline-block;
+  min-width: 4.5rem;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.post-body .algorithm-stepper__meta {
+  color: var(--muted);
+  font-style: italic;
+  margin-left: 0.6rem;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+
+.post-body .pair-hl {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--ink);
+  padding: 0 0.22rem;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
 /* Long display equations: scroll within the column rather than pushing the
    page sideways. overflow-y: hidden suppresses the phantom vertical bar
    KaTeX's descenders can trigger. Scrollbar styled to match the site theme

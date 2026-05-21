@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
-  <link rel="stylesheet" href="assets/css/site.css?v=90428fa2">
+  <link rel="stylesheet" href="assets/css/site.css?v=47357482">
 </head>
 <body>
   <main class="page">
@@ -100,6 +100,13 @@
           <div class="post-list-scroll">
           <ul class="post-list" id="panel-tech" role="tabpanel" aria-labelledby="tab-tech">
             <!-- BLOG_TECHNICAL_START -->
+            <li>
+              <a href="posts/technical/bpe/">
+                <span class="post-list__title">Building BPE from Scratch</span>
+                <span class="post-list__date">May 2026</span>
+              </a>
+              <p class="post-list__excerpt">Modern language models don&#x27;t read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design question is what those chunks should be. Word-level tokenization needs a huge vocabulary and still hits out-of-vocabulary failures on misspellings, neologisms, and non-English text. Character-level avoids OOVs but inflates sequence lengths and forces the model to relearn morphology every batch. Byte-Pair Encoding (BPE) sits in the middle: start from the smallest possible alphabet, then learn from a training corpus which adjacent pairs deserve to become single tokens. Common patterns like the or ing collapse into single IDs; rare strings stay decomposed. The vocabulary size is a knob you turn, and the algorithm fills it with whatever the data says is worth a token…</p>
+            </li>
             <li>
               <a href="posts/technical/strands-sglang/">
                 <span class="post-list__title">Strands-SGLang: Bridging Agent Scaffolding and RL Training</span>

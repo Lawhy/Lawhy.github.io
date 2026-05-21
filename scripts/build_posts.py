@@ -37,6 +37,7 @@ TEMPLATE = ROOT / "scripts" / "post-template.html"
 SITE_CSS = ROOT / "assets" / "css" / "site.css"
 SYNTAX_CSS = ROOT / "assets" / "css" / "syntax.css"
 GOATCOUNTER_JS = ROOT / "assets" / "js" / "goatcounter.js"
+ALGORITHM_STEPPER_JS = ROOT / "assets" / "js" / "algorithm-stepper.js"
 
 SITE_URL = "https://yuanhe.wiki"
 DEFAULT_OG_IMAGE = "/assets/images/og-default.png"
@@ -349,7 +350,7 @@ CSS_LINK_RE = re.compile(
     r'(href="(?:[^"]*?/)?assets/css/(site|syntax)\.css)(?:\?v=[^"]*)?"'
 )
 JS_LINK_RE = re.compile(
-    r'(src="(?:[^"]*?/)?assets/js/(goatcounter)\.js)(?:\?v=[^"]*)?"'
+    r'(src="(?:[^"]*?/)?assets/js/(goatcounter|algorithm-stepper)\.js)(?:\?v=[^"]*)?"'
 )
 
 
@@ -455,6 +456,7 @@ def main():
     }
     js_versions = {
         "goatcounter": asset_version(GOATCOUNTER_JS),
+        "algorithm-stepper": asset_version(ALGORITHM_STEPPER_JS),
     }
 
     posts_by_cat = {c: [] for c in CATEGORIES}

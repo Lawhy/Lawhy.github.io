@@ -6,7 +6,14 @@
     <description>Personal site of Yuan He.</description>
     <language>en</language>
     <atom:link href="https://yuanhe.wiki/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 17 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Building BPE from Scratch</title>
+      <link>https://yuanhe.wiki/posts/technical/bpe/</link>
+      <guid>https://yuanhe.wiki/posts/technical/bpe/</guid>
+      <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Modern language models don't read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design question is what those chunks should be. Word-level tokenization needs a huge vocabulary and still hits out-of-vocabulary failures on misspellings, neologisms, and non-English text. Character-level avoids OOVs but inflates sequence lengths and forces the model to relearn morphology every batch. Byte-Pair Encoding (BPE) sits in the middle: start from the smallest possible alphabet, then learn from a training corpus which adjacent pairs deserve to become single tokens. Common patterns like the or ing collapse into single IDs; rare strings stay decomposed. The vocabulary size is a knob you turn, and the algorithm fills it with whatever the data says is worth a token…]]></description>
+    </item>
     <item>
       <title>Strands-SGLang: Bridging Agent Scaffolding and RL Training</title>
       <link>https://yuanhe.wiki/posts/technical/strands-sglang/</link>
