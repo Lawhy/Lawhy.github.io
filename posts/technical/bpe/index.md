@@ -8,7 +8,7 @@ authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 
 Modern language models don't read text — they read sequences of integer IDs. The tokenizer is the bridge: it splits a string into chunks and maps each chunk to a vocabulary index. The design question is what those chunks should be.
 
-Word-level tokenization needs a huge vocabulary and still hits out-of-vocabulary failures on misspellings, neologisms, and non-English text. Character-level avoids OOVs but inflates sequence lengths and forces the model to relearn morphology every batch. **Byte-Pair Encoding (BPE)** sits in the middle: start from the smallest possible alphabet, then *learn* from a training corpus which adjacent pairs deserve to become single tokens. Common patterns like ` the` or `ing` collapse into single IDs; rare strings stay decomposed. The vocabulary size is a knob you turn, and the algorithm fills it with whatever the data says is worth a token.
+Word-level tokenization needs a huge vocabulary and still hits out-of-vocabulary failures on misspellings, neologisms, and non-English text. Character-level avoids OOVs but inflates sequence lengths and forces the model to relearn morphology every batch. **Byte-Pair Encoding (BPE)** [<a href="#ref-1">1</a>] sits in the middle: start from the smallest possible alphabet, then *learn* from a training corpus which adjacent pairs deserve to become single tokens. Common patterns like ` the` or `ing` collapse into single IDs; rare strings stay decomposed. The vocabulary size is a knob you turn, and the algorithm fills it with whatever the data says is worth a token.
 
 ## Why bytes, not characters
 
@@ -121,7 +121,7 @@ for s in special_tokens:
 
 Pre-tokenization splits the corpus into word-like units *before* the merge loop sees the data, and the contract is **no merge can ever span a pre-token boundary**. Without that fence, the most frequent byte pair in English text is something like `b' t'` (space then `t` — every *the / to / that / this / there* contributes). The first few merges would absorb whitespace into tokens (`b' the '`), and subsequent merges would happily cross word boundaries (`b' of the '`). The vocab budget burns on byte-frequency junk instead of linguistic units.
 
-The standard splitter is the GPT-2 regex:
+The standard splitter is the GPT-2 regex [<a href="#ref-2">2</a>]:
 
 ```python
 PAT = re.compile(r"""'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
@@ -308,7 +308,7 @@ The non-obvious correctness point: the merge picked is the **earliest-learned ap
 
 Only the priority version replays what training would have produced — training learned `(b, c)` first, so it would have fired before `(a, b)` could be considered. Greedy left-to-right yields an output that no training run could have produced; the encoder and the trained vocab diverge<sup class="margin-marker"><a href="#note-7">7</a></sup><span class="margin-note" id="note-7"><span class="margin-note__label">Note 7</span>The contract from Note 1 made flesh: `merges` is an ordered sequence, and inference must respect that order. A later merge can depend on an earlier one (`(ab, c)` only exists after `(a, b) → ab` has fired) — replaying by priority is how we preserve that dependency at encode time.</span>.
 
-In production, encoding is rarely a single `encode()` call on a short string — it's batch-tokenizing entire corpora into integer ID files for downstream model training. The same fence rule that justified parallelism at training time applies here: non-special segments are independent of each other, and pre-tokens within a segment are independent of each other. So you can hand each document (or each segment) to its own worker process and get bit-identical output. Production tokenizers like HuggingFace's `tokenizers` and OpenAI's `tiktoken` parallelize batch encoding across documents internally, and both are Rust-backed to release the GIL during the CPU-bound work.
+In production, encoding is rarely a single `encode()` call on a short string — it's batch-tokenizing entire corpora into integer ID files for downstream model training. The same fence rule that justified parallelism at training time applies here: non-special segments are independent of each other, and pre-tokens within a segment are independent of each other. So you can hand each document (or each segment) to its own worker process and get bit-identical output. Production tokenizers like HuggingFace's `tokenizers` [<a href="#ref-4">4</a>] and OpenAI's `tiktoken` [<a href="#ref-3">3</a>] parallelize batch encoding across documents internally, and both are Rust-backed to release the GIL during the CPU-bound work.
 
 `decode` is a one-liner:
 
