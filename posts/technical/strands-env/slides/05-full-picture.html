@@ -1,0 +1,85 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>The Full Picture</h2>
+    <p>The environment orchestrates agentic rollouts as a <strong>decoupled service</strong> from rollout engine and training engine.</p>
+
+    <svg class="arch-diagram" viewBox="0 0 1500 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ad" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8">
+          <path d="M 0 0 L 5 10 L 10 0 z" fill="#141413"/>
+        </marker>
+      </defs>
+
+      <!-- Spine at x=460 -->
+
+      <!-- ══════ Data Sampler ══════ -->
+      <rect x="310" y="4" width="300" height="58" rx="8" fill="#141413"/>
+      <text x="460" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#faf9f5">Data Sampler</text>
+
+      <!-- ↓ Action -->
+      <line x1="460" y1="62" x2="460" y2="110" stroke="#141413" stroke-width="1.5" marker-end="url(#ad)"/>
+      <text x="486" y="94" font-family="Source Code Pro, monospace" font-size="17" fill="#141413" font-weight="500">Action(prompt, task_context)</text>
+
+      <!-- ══════ Environment box ══════ -->
+      <rect x="160" y="118" width="600" height="500" rx="10" fill="none" stroke="#141413" stroke-width="2"/>
+      <text x="188" y="148" font-family="Inter, sans-serif" font-size="21" font-weight="600" fill="#141413">Environment</text>
+      <text x="348" y="148" font-family="Inter, sans-serif" font-size="16" fill="#6b6b66">(per rollout)</text>
+
+      <!-- reset() -->
+      <text x="460" y="192" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18" fill="#6b6b66">↓ reset()</text>
+
+      <!-- ── step() box ── -->
+      <rect x="204" y="221" width="512" height="340" rx="8" fill="none" stroke="#141413" stroke-width="1.2" stroke-dasharray="6 3"/>
+      <text x="228" y="243" font-family="Source Code Pro, monospace" font-size="18" font-weight="600" fill="#141413">step()</text>
+
+      <!-- ── Agent Loop box ── -->
+      <rect x="244" y="257" width="428" height="172" rx="6" fill="none" stroke="#d97757" stroke-width="1.5"/>
+      <text x="268" y="279" font-family="Source Code Pro, monospace" font-size="17" fill="#d97757" font-weight="500">Agent Loop ↻</text>
+
+      <!-- Inference Client -->
+      <rect x="310" y="291" width="280" height="52" rx="6" fill="#f0efeb" stroke="#141413" stroke-width="1.2"/>
+      <text x="450" y="323" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="500" fill="#141413">Inference Client</text>
+
+      <!-- Tool Execution -->
+      <rect x="310" y="353" width="280" height="52" rx="6" fill="#f0efeb" stroke="#141413" stroke-width="1.2"/>
+      <text x="450" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="500" fill="#141413">Tool Execution</text>
+
+      <!-- Loop output label -->
+      <text x="460" y="449" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="17" fill="#6b6b66">↓ observation, termination</text>
+
+      <!-- Reward Service -->
+      <rect x="310" y="461" width="280" height="52" rx="6" fill="#f0efeb" stroke="#141413" stroke-width="1.2"/>
+      <text x="450" y="493" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="500" fill="#141413">Reward Service</text>
+
+      <!-- reward label -->
+      <text x="460" y="527" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="17" fill="#6b6b66">↓ reward</text>
+
+      <!-- cleanup() -->
+      <text x="460" y="590" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18" fill="#6b6b66">↓ cleanup()</text>
+
+      <!-- ══════ Rollout Engine ══════ -->
+      <rect x="970" y="281" width="320" height="76" rx="10" fill="#d97757"/>
+      <text x="1130" y="313" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#faf9f5">Rollout Engine</text>
+      <text x="1130" y="337" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="16" fill="rgba(250,249,245,0.8)">(SGLang / ...)</text>
+
+      <!-- Inference Client → Rollout Engine (generate) -->
+      <line x1="590" y1="309" x2="964" y2="309" stroke="#d97757" stroke-width="1.5"/>
+      <polygon points="960,305 970,309 960,313" fill="#d97757"/>
+      <text x="850" y="301" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="16" fill="#d97757">generate</text>
+
+      <!-- Rollout Engine → Inference Client (tokens, logprobs) -->
+      <line x1="970" y1="329" x2="600" y2="329" stroke="#d97757" stroke-width="1.5"/>
+      <polygon points="600,325 590,329 600,333" fill="#d97757"/>
+      <text x="850" y="347" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="16" fill="#d97757">tokens, logprobs</text>
+
+      <!-- ══════ ↓ StepResult → Training ══════ -->
+      <line x1="460" y1="618" x2="460" y2="664" stroke="#141413" stroke-width="1.5" marker-end="url(#ad)"/>
+      <text x="486" y="650" font-family="Source Code Pro, monospace" font-size="16" fill="#141413" font-weight="500">StepResult(observation, reward, termination)</text>
+
+      <!-- ══════ Training Engine ══════ -->
+      <rect x="300" y="672" width="320" height="66" rx="8" fill="#141413"/>
+      <text x="460" y="700" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#faf9f5">Training Engine</text>
+      <text x="460" y="722" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="15" fill="rgba(250,249,245,0.5)">(Megatron / ...)</text>
+    </svg>
+  </div>
+</section>

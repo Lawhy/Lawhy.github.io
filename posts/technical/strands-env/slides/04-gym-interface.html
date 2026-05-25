@@ -1,0 +1,78 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>The Gym-Like Interface</h2>
+    <p>Each <code>step()</code> is a <strong>full agent episode</strong> — the environment author specifies what's unique to the task.</p>
+
+    <div class="cols" style="gap: 32px; align-items: start;">
+      <!-- Left: Contract -->
+      <div>
+        <h3>Contract</h3>
+        <pre class="env-contract"><code><span class="kw">class</span> <span class="cl">Environment</span>:
+<span class="env-method" data-target="ex-reset">    <span class="kw">async def</span> <span class="fn">reset</span>(self):
+        <span class="st">"""Async resource initialization."""</span></span>
+<span class="env-method active" data-target="ex-step">    <span class="kw">async def</span> <span class="fn">step</span>(self, action) -> StepResult:
+        <span class="st">"""Run one full agent episode."""</span></span>
+<span class="env-method" data-target="ex-cleanup">    <span class="kw">async def</span> <span class="fn">cleanup</span>(self):
+        <span class="st">"""Async resource teardown."""</span></span>
+<span class="env-method" data-target="ex-tools">    <span class="kw">def</span> <span class="fn">get_tools</span>(self) -> list[Tool]:
+        <span class="st">"""Tools available to the agent."""</span></span>
+<span class="env-method" data-target="ex-hooks">    <span class="kw">def</span> <span class="fn">get_hooks</span>(self) -> list[HookProvider]:
+        <span class="st">"""Additional agent hooks."""</span></span></code></pre>
+      </div>
+
+      <!-- Right: Examples (one visible at a time) -->
+      <div class="env-examples">
+        <h3>Example</h3>
+
+        <pre class="env-ex" id="ex-reset"><code><span class="cm"># Docker environment example</span>
+<span class="kw">async def</span> <span class="fn">reset</span>(self):
+    self.docker_env = <span class="cl">DockerEnvironment</span>(...)
+    <span class="kw">await</span> self.docker_env.<span class="fn">init</span>()</code></pre>
+
+        <pre class="env-ex active" id="ex-step"><code><span class="kw">async def</span> <span class="fn">step</span>(self, action):
+    agent = <span class="cl">Agent</span>(model, tools, hooks)
+    error = None
+    <span class="kw">try</span>:
+        <span class="cm"># run the agent loop</span>
+        <span class="kw">await</span> agent.<span class="fn">invoke_async</span>(action.message)
+    <span class="kw">except</span> <span class="cl">Exception</span> <span class="kw">as</span> e:
+        error = e
+    termination = <span class="cl">TerminationReason</span>.<span class="fn">from_error</span>(error)
+    observation = <span class="fn">build_observation</span>(agent)
+    reward = <span class="kw">await</span> self.reward_fn.<span class="fn">compute</span>(...)
+    <span class="kw">return</span> <span class="cl">StepResult</span>(observation, reward, termination)</code></pre>
+
+        <pre class="env-ex" id="ex-cleanup"><code><span class="cm"># Docker environment example</span>
+<span class="kw">async def</span> <span class="fn">cleanup</span>(self):
+    <span class="kw">await</span> self.docker_env.<span class="fn">stop</span>()</code></pre>
+
+        <pre class="env-ex" id="ex-tools"><code><span class="cm"># Web search environment example</span>
+<span class="kw">@tool</span>
+<span class="kw">def</span> <span class="fn">search</span>(query: str, topk: int):
+    <span class="st">"""Search the web for a query."""</span>
+
+<span class="kw">@tool</span>
+<span class="kw">def</span> <span class="fn">scrape</span>(url: str, summary_instruction: str):
+    <span class="st">"""Scrape a URL and summarize content."""</span>
+
+<span class="kw">def</span> <span class="fn">get_tools</span>(self):
+    <span class="kw">return</span> [search, scrape]</code></pre>
+
+        <pre class="env-ex" id="ex-hooks"><code><span class="kw">def</span> <span class="fn">get_hooks</span>(self):
+    <span class="kw">return</span> [
+        <span class="cl">ToolLimiter</span>(
+            max_tool_iters=<span class="st">10</span>,
+            max_tool_calls=<span class="st">50</span>,
+            max_parallel_tool_calls=<span class="st">5</span>,
+        )
+    ]</code></pre>
+      </div>
+    </div>
+
+    <div class="frag">
+      <div class="callout">
+        <p>Environments are <strong>per-rollout</strong> — each prompt maps to a different task, so each rollout gets its own environment instance with fresh state.</p>
+      </div>
+    </div>
+  </div>
+</section>

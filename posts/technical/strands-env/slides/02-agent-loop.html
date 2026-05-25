@@ -1,0 +1,68 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>The Agent Loop</h2>
+    <p>At its core, every tool-calling agent runs the following loop:</p>
+
+    <svg class="loop-diagram" viewBox="0 0 1440 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#141413"/>
+        </marker>
+        <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757"/>
+        </marker>
+      </defs>
+
+      <!-- ── Prompt ── -->
+      <rect x="40" y="100" width="160" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="120" y="142" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" fill="#141413">Prompt</text>
+
+      <!-- Arrow: Prompt → model.generate() -->
+      <line x1="200" y1="136" x2="280" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ── model.generate() ── -->
+      <rect x="288" y="100" width="240" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="408" y="142" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" fill="#141413">model.generate()</text>
+
+      <!-- Arrow: model.generate() → diamond -->
+      <line x1="528" y1="136" x2="618" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ── Diamond: tool calls? ── -->
+      <polygon points="700,76 782,136 700,196 618,136" fill="#faf9f5" stroke="#141413" stroke-width="1.5"/>
+      <text x="700" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="500" fill="#141413">tool</text>
+      <text x="700" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="500" fill="#141413">calls?</text>
+
+      <!-- Arrow: diamond → execute_tools() (Yes, right) -->
+      <line x1="782" y1="136" x2="870" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="826" y="124" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#6b6b66">Yes</text>
+
+      <!-- ── execute_tools() ── -->
+      <rect x="878" y="100" width="240" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="998" y="142" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" fill="#141413">execute_tools()</text>
+
+      <!-- Loop-back: execute_tools() → model.generate() (top arc) -->
+      <path d="M 998 100 L 998 40 Q 998 20 978 20 L 428 20 Q 408 20 408 40 L 408 95"
+            stroke="#d97757" stroke-width="2" fill="none" stroke-dasharray="8 4" marker-end="url(#arrow-accent)"/>
+
+      <!-- Arrow: diamond → Terminated (No, down) -->
+      <line x1="700" y1="196" x2="700" y2="296" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="720" y="248" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#6b6b66">No</text>
+
+      <!-- ── Terminated (end state) ── -->
+      <rect x="610" y="300" width="180" height="72" rx="36" fill="#d97757" stroke="#d97757" stroke-width="2"/>
+      <text x="700" y="342" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#faf9f5">Terminated</text>
+
+
+    </svg>
+
+    <div class="frag">
+      <p style="margin-top: 8px;">But the moment you want to <em>deploy</em> this loop:</p>
+      <ul>
+        <li>How do you track the <span class="accent">token trajectory</span> faithfully for on-policy RL?</li>
+        <li>How do you <span class="accent">intervene</span> at the right points — limit tools, manage context, simulate human feedback?</li>
+        <li>How do you <span class="accent">classify terminations</span> — max tokens, context overflow, timeout, tool limit?</li>
+        <li>How do you <span class="accent">scale</span> from one to thousands concurrent rollouts (and with mixed environments)?</li>
+      </ul>
+    </div>
+  </div>
+</section>
