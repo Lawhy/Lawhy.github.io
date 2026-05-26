@@ -368,3 +368,8 @@ Environment (gym-like interface: step/reset/cleanup)
 ```
 
 The event-based hook system is what makes this composable rather than monolithic. Hooks observe and influence the agent loop without the environment or the model knowing about each other. The exception-to-termination mapping unifies diverse failure modes into a structured enum. The factory pattern separates "what model" from "how it's created." And the config serialization boundary (`TypedDict` for JSON-safe, named params for objects) enables the same environment to run locally or distributed without code changes.
+
+
+tool parser: <think> as draft
+
+async not enough? When to use distributed: even api calls from 512 batch size 5s to <1s
