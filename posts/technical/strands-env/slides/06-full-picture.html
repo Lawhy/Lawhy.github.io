@@ -1,0 +1,102 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>The Full Picture</h2>
+
+    <svg class="arch-diagram" viewBox="0 0 1500 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ad" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8">
+          <path d="M 0 0 L 5 10 L 10 0 z" fill="#141413" />
+        </marker>
+      </defs>
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- LEFT: Decoupled services (no panel label)                   -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+
+      <!-- Data Sampler (shifted up 40 for vertical centering) -->
+      <rect x="340" y="120" width="320" height="80" rx="8" fill="#2c2c2a"/>
+      <text x="500" y="168" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="600" fill="#faf9f5">Data Sampler</text>
+
+      <!-- ↓ Action -->
+      <line x1="500" y1="202" x2="500" y2="278" stroke="#141413" stroke-width="1.5" marker-end="url(#ad)"/>
+      <text x="518" y="248" font-family="Source Code Pro, monospace" font-size="24" font-weight="500" fill="#141413">Action</text>
+
+      <!-- Environment (focus) -->
+      <rect x="340" y="280" width="320" height="140" rx="10" fill="rgba(217,119,87,0.08)" stroke="#d97757" stroke-width="2"/>
+      <text x="500" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="34" font-weight="600" fill="#141413">Environment</text>
+      <text x="500" y="372" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#6b6b66">(per rollout)</text>
+
+      <!-- Rollout Engine (narrower so the via-client arrows have more room) -->
+      <rect x="20" y="310" width="200" height="80" rx="10" fill="#d97757"/>
+      <text x="120" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" font-weight="600" fill="#faf9f5">Rollout Engine</text>
+
+      <!-- Bidirectional arrows (longer — gap widened by narrowing Rollout) -->
+      <line x1="338" y1="328" x2="224" y2="328" stroke="#d97757" stroke-width="1.5"/>
+      <polygon points="228,324 220,328 228,332" fill="#d97757"/>
+
+      <line x1="220" y1="372" x2="336" y2="372" stroke="#d97757" stroke-width="1.5"/>
+      <polygon points="332,368 340,372 332,376" fill="#d97757"/>
+
+      <!-- "via client" inline label between the arrows -->
+      <text x="280" y="356" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18" font-weight="600" fill="#d97757">via client</text>
+
+      <!-- ↓ StepResult -->
+      <line x1="500" y1="422" x2="500" y2="498" stroke="#141413" stroke-width="1.5" marker-end="url(#ad)"/>
+      <text x="518" y="468" font-family="Source Code Pro, monospace" font-size="24" font-weight="500" fill="#141413">StepResult</text>
+
+      <!-- Training Engine -->
+      <rect x="340" y="500" width="320" height="80" rx="8" fill="#2c2c2a"/>
+      <text x="500" y="548" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="600" fill="#faf9f5">Training Engine</text>
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- ZOOM-IN: magnifier lines from Env corners to right panel   -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+
+      <line x1="660" y1="280" x2="760" y2="60" stroke="#d97757" stroke-width="2" stroke-dasharray="6 4" opacity="0.85"/>
+      <line x1="660" y1="420" x2="760" y2="660" stroke="#d97757" stroke-width="2" stroke-dasharray="6 4" opacity="0.85"/>
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- RIGHT: Zoomed-in Environment (single tinted container)     -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+
+      <!-- Outer container: the "expanded Env" (shifted left 40) -->
+      <rect x="760" y="60" width="680" height="600" rx="14" fill="rgba(217,119,87,0.05)" stroke="#d97757" stroke-width="1.5"/>
+
+      <!-- reset() pill -->
+      <rect x="1020" y="86" width="160" height="36" rx="18" fill="rgba(217,119,87,0.15)"/>
+      <text x="1100" y="111" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="24" font-weight="500" fill="#d97757">reset()</text>
+      <line x1="1100" y1="118" x2="1100" y2="150" stroke="#d97757" stroke-width="1.5" marker-end="url(#ad)" opacity="0.6"/>
+
+      <!-- step() block -->
+      <rect x="800" y="160" width="600" height="400" rx="10" fill="#faf9f5" stroke="#141413" stroke-width="1.5"/>
+      <text x="822" y="192" font-family="Source Code Pro, monospace" font-size="24" font-weight="700" fill="#141413">step()</text>
+
+      <!-- Agent Loop -->
+      <rect x="830" y="212" width="540" height="220" rx="8" stroke="#d97757" stroke-width="1.5" fill="rgba(217,119,87,0.04)"/>
+      <text x="852" y="244" font-family="Source Code Pro, monospace" font-size="22" font-weight="500" fill="#d97757">Agent Loop ↻</text>
+
+      <!-- Inference Client (matches Rollout Engine style) -->
+      <rect x="850" y="258" width="500" height="70" rx="10" fill="#d97757"/>
+      <text x="1100" y="302" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="600" fill="#faf9f5">Inference Client</text>
+
+      <!-- Tool Execution -->
+      <rect x="850" y="340" width="500" height="70" rx="6" fill="#f0efeb" stroke="#141413" stroke-width="1.2"/>
+      <text x="1100" y="384" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="500" fill="#141413">Tool Execution</text>
+
+      <!-- Connector: Agent Loop → Reward Service (short, no label) -->
+      <line x1="1100" y1="438" x2="1100" y2="464" stroke="#141413" stroke-width="1.2" marker-end="url(#ad)" opacity="0.5"/>
+
+      <!-- Reward Service (width matches Tool Execution) -->
+      <rect x="850" y="470" width="500" height="70" rx="6" fill="#f0efeb" stroke="#141413" stroke-width="1.2"/>
+      <text x="1100" y="514" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="500" fill="#141413">Reward Service</text>
+
+      <!-- cleanup arrow (from step block bottom down to cleanup label) -->
+      <line x1="1100" y1="566" x2="1100" y2="596" stroke="#d97757" stroke-width="1.5" marker-end="url(#ad)" opacity="0.6"/>
+
+      <!-- cleanup() pill -->
+      <rect x="1020" y="602" width="160" height="36" rx="18" fill="rgba(217,119,87,0.15)"/>
+      <text x="1100" y="627" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="24" font-weight="500" fill="#d97757">cleanup()</text>
+
+    </svg>
+  </div>
+</section>

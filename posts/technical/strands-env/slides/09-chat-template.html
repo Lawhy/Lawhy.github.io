@@ -1,0 +1,55 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>Chat Template Rendering</h2>
+    <p>The full prompt needs to be rendered incrementally per turn to preserve TITO.</p>
+
+    <div class="cht-buffer">
+
+      <!-- Stage 1: always visible — initial context (env input) -->
+      <div class="cht-row cht-row--env">
+        <div class="cht-row__body">
+          <span class="cht-tok">&lt;|im_start|&gt;</span><span class="cht-role">system</span><br>
+          <span class="cht-text">You are a research assistant.</span><br>
+          <span class="cht-text"># Tools</span><br>
+          <span class="cht-text">&lt;tools&gt;</span><br>
+          <span class="cht-text">{"name": "search", "description": "...", "parameters": {...}}</span><br>
+          <span class="cht-text">{"name": "scrape", "description": "...", "parameters": {...}}</span><br>
+          <span class="cht-text">&lt;/tools&gt;</span><span class="cht-tok">&lt;|im_end|&gt;</span><br>
+          <span class="cht-tok">&lt;|im_start|&gt;</span><span class="cht-role">user</span><br>
+          <span class="cht-text">Summarize DeepSeek-V3's key innovations and compare with its peer models.</span><span class="cht-tok">&lt;|im_end|&gt;</span><br>
+          <span class="cht-tok">&lt;|im_start|&gt;</span><span class="cht-role">assistant</span>
+        </div>
+        <div class="cht-row__tag">
+          <div class="cht-row__tag-name">tokenized</div>
+          <div class="cht-row__tag-sub">initial context</div>
+        </div>
+      </div>
+
+      <!-- Stage 2: frag — model output (preserved) -->
+      <div class="cht-row cht-row--model frag">
+        <div class="cht-row__body">
+          <span class="cht-think">&lt;think&gt;I should find the report...&lt;/think&gt;</span><br>
+          <span class="cht-think">&lt;tool_call&gt;{"name":"search","arguments":{...}}&lt;/tool_call&gt;</span><span class="cht-tok">&lt;|im_end|&gt;</span>
+        </div>
+        <div class="cht-row__tag">
+          <div class="cht-row__tag-name">preserved</div>
+          <div class="cht-row__tag-sub">model output</div>
+        </div>
+      </div>
+
+      <!-- Stage 3: frag — incremental env input -->
+      <div class="cht-row cht-row--env frag">
+        <div class="cht-row__body">
+          <span class="cht-tok">&lt;|im_start|&gt;</span><span class="cht-role">user</span><br>
+          <span class="cht-text">&lt;tool_response&gt;"[1] arxiv… [2] huggingface…"&lt;/tool_response&gt;</span><span class="cht-tok">&lt;|im_end|&gt;</span><br>
+          <span class="cht-tok">&lt;|im_start|&gt;</span><span class="cht-role">assistant</span>
+        </div>
+        <div class="cht-row__tag">
+          <div class="cht-row__tag-name">tokenized</div>
+          <div class="cht-row__tag-sub">incremental</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

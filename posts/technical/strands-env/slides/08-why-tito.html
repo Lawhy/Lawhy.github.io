@@ -1,0 +1,41 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>Retokenization Drift</h2>
+
+    <!-- ── PROBLEM: drift formula + concrete example, one panel ── -->
+    <div class="why-problem">
+      <div class="why-problem__eq"><code>tokens &ne; encode(decode(tokens))</code></div>
+      <div class="why-problem__example">
+        <code class="why-step why-step--ok">['&lt;', 'tool_call&gt;']</code>
+        <span class="why-op">decode &rarr;</span>
+        <code class="why-step">"&lt;tool_call&gt;"</code>
+        <span class="why-op">encode &rarr;</span>
+        <code class="why-step why-step--bad">['&lt;tool_call&gt;']</code>
+      </div>
+    </div>
+
+    <!-- ── Single connector ── -->
+    <div class="why-connector">&darr; breaks</div>
+
+    <!-- ── CONSEQUENCES: 2 cards ── -->
+    <div class="why-consequences">
+      <div class="why-card why-card--correctness frag">
+        <div class="why-card__tag">Correctness</div>
+        <h3 class="why-card__head">Per-token metadata misalignment</h3>
+        <p class="why-card__body">
+          <code>logprobs</code> must be recomputed; <code>routed_experts</code> cannot be replayed.
+        </p>
+        <div class="why-card__result">&rarr; training collapse</div>
+      </div>
+
+      <div class="why-card why-card--efficiency frag">
+        <div class="why-card__tag">Efficiency</div>
+        <h3 class="why-card__head">KV cache miss</h3>
+        <p class="why-card__body">
+          Prefix caching breaks at the first drifted token; multi-turn agents lose KV reuse across turns.
+        </p>
+        <div class="why-card__result">&rarr; slow, expensive rollouts at scale</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>The Gym-Like Interface</h2>
+
+    <div class="gym-flow">
+      <div class="gym-flow__box gym-flow__io">
+        <div class="gym-flow__tag">Input</div>
+        <div class="gym-flow__name"><code>Action</code></div>
+        <ul class="gym-flow__fields">
+          <li><code>message</code></li>
+          <li><code>task_context</code></li>
+          <li class="gym-flow__ph">&middot;</li>
+        </ul>
+      </div>
+
+      <div class="gym-flow__arrow">&rarr;</div>
+
+      <div class="gym-flow__box gym-flow__step">
+        <div class="gym-flow__tag">Call</div>
+        <div class="gym-flow__name"><code>await env.step(action)</code></div>
+        <ul class="gym-flow__fields gym-flow__fields--steps">
+          <li>run agent loop</li>
+          <li>collect observation</li>
+          <li>compute reward</li>
+        </ul>
+      </div>
+
+      <div class="gym-flow__arrow">&rarr;</div>
+
+      <div class="gym-flow__box gym-flow__io">
+        <div class="gym-flow__tag">Output</div>
+        <div class="gym-flow__name"><code>StepResult</code></div>
+        <ul class="gym-flow__fields">
+          <li><code>observation</code></li>
+          <li><code>reward</code></li>
+          <li><code>termination</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="env-extend frag">
+      <div class="env-extend__label">Extend <code>Environment</code> by overriding</div>
+      <div class="env-extend__grid">
+        <div class="env-extend__group">
+          <div class="env-extend__group-label">Behaviour</div>
+          <div class="env-extend__method">
+            <code>get_tools()</code>
+            <span>tools the agent can call</span>
+          </div>
+          <div class="env-extend__method">
+            <code>get_hooks()</code>
+            <span>custom event handlers</span>
+          </div>
+        </div>
+        <div class="env-extend__divider"></div>
+        <div class="env-extend__group">
+          <div class="env-extend__group-label">Lifecycle</div>
+          <div class="env-extend__method">
+            <code>reset()</code>
+            <span>async resource init</span>
+          </div>
+          <div class="env-extend__method">
+            <code>cleanup()</code>
+            <span>async resource teardown</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

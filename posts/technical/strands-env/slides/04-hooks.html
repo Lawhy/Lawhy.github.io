@@ -1,0 +1,96 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>Event-Based Hooks</h2>
+    <p>The same loop, but with customizable <span class="accent">hooks</span> at every transition:</p>
+
+    <svg class="loop-diagram" style="margin-top: 60px;" viewBox="0 -50 1440 570" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#141413"/>
+        </marker>
+        <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757"/>
+        </marker>
+      </defs>
+
+      <!-- ══ Identical diagram from slide 2 ══ -->
+
+      <!-- ── Prompt ── -->
+      <rect x="78" y="100" width="160" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="158" y="146" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="28" fill="#141413">Prompt</text>
+
+      <!-- Arrow: Prompt → model.generate() -->
+      <line x1="238" y1="136" x2="318" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ── model.generate() ── -->
+      <rect x="318" y="100" width="320" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="478" y="146" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="28" fill="#141413">model.generate()</text>
+
+      <!-- Arrow: model.generate() → diamond -->
+      <line x1="638" y1="136" x2="718" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ── Diamond: tool calls? ── -->
+      <polygon points="800,76 882,136 800,196 718,136" fill="#faf9f5" stroke="#141413" stroke-width="1.5"/>
+      <text x="800" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" font-weight="500" fill="#141413">tool</text>
+      <text x="800" y="156" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" font-weight="500" fill="#141413">calls?</text>
+
+      <!-- Arrow: diamond → execute_tools() (Yes, right) -->
+      <line x1="882" y1="136" x2="962" y2="136" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="922" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#6b6b66">Yes</text>
+
+      <!-- ── execute_tools() ── -->
+      <rect x="962" y="100" width="300" height="72" rx="8" fill="#f0efeb" stroke="#141413" stroke-width="1.5"/>
+      <text x="1112" y="146" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="28" fill="#141413">execute_tools()</text>
+
+      <!-- Loop-back: execute_tools() → model.generate() (top arc) -->
+      <path d="M 1112 100 L 1112 40 Q 1112 20 1092 20 L 498 20 Q 478 20 478 40 L 478 95"
+            stroke="#d97757" stroke-width="2" fill="none" stroke-dasharray="8 4" marker-end="url(#arrow-accent)"/>
+
+      <!-- Arrow: diamond → Terminated (No, down) -->
+      <line x1="800" y1="196" x2="800" y2="296" stroke="#141413" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="820" y="252" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#6b6b66">No</text>
+
+      <!-- ── Terminated (end state) ── -->
+      <rect x="710" y="300" width="180" height="72" rx="36" fill="#d97757" stroke="#d97757" stroke-width="2"/>
+      <text x="800" y="346" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#faf9f5">Terminated</text>
+
+      <!-- ══ Event annotations ══ -->
+
+      <!-- BeforeModelCallEvent (above arrow Prompt → model.generate) -->
+      <circle class="evt" cx="278" cy="136" r="6"/>
+      <line class="evt" x1="278" y1="130" x2="278" y2="82" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt" x="278" y="74" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">BeforeModelCallEvent</text>
+
+      <!-- AfterModelCallEvent (below arrow model.generate → diamond) -->
+      <circle class="evt" cx="678" cy="136" r="6"/>
+      <line class="evt" x1="678" y1="142" x2="678" y2="210" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt" x="678" y="228" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">AfterModelCallEvent</text>
+
+      <!-- BeforeToolCallEvent (above arrow diamond → execute_tools, mirrors BeforeModelCall) -->
+      <circle class="evt" cx="922" cy="136" r="6"/>
+      <line class="evt" x1="922" y1="130" x2="922" y2="82" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt" x="922" y="74" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">BeforeToolCallEvent</text>
+
+      <!-- AfterToolCallEvent (on loop-back arc at execute_tools exit, text right) -->
+      <circle class="evt" cx="1112" cy="60" r="6"/>
+      <line class="evt" x1="1118" y1="60" x2="1150" y2="60" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt" x="1158" y="65" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">AfterToolCallEvent</text>
+
+      <!-- MessageAddedEvent (on loop-back arc top, label above the arc in extended viewBox) -->
+      <circle class="evt evt-msgadd" cx="700" cy="20" r="6"/>
+      <line class="evt evt-msgadd" x1="700" y1="14" x2="700" y2="-22" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt evt-msgadd" x="700" y="-30" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">MessageAddedEvent</text>
+      <text class="hook-tag hook-tag-msgadd" x="870" y="-30" font-family="Inter, sans-serif" font-size="22" font-weight="600">→ Early exit if message count exceeds limit.</text>
+
+      <!-- AfterInvocationEvent (below Terminated, with extra breathing room for highlight) -->
+      <circle class="evt evt-afterinv" cx="800" cy="378" r="6"/>
+      <line class="evt evt-afterinv" x1="800" y1="384" x2="800" y2="425" stroke-width="1" stroke-dasharray="3 2"/>
+      <text class="evt evt-afterinv" x="800" y="442" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="20" font-weight="500">AfterInvocationEvent</text>
+      <text class="hook-tag hook-tag-afterinv" x="970" y="442" font-family="Inter, sans-serif" font-size="22" font-weight="600">→ Simulate human feedback and continue.</text>
+    </svg>
+
+    <!-- Frag triggers (invisible spacers; sequencing only) -->
+    <div class="frag frag-msgadd hook-trigger"></div>
+    <div class="frag frag-afterinv hook-trigger"></div>
+  </div>
+</section>

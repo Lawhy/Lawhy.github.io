@@ -1,5 +1,13 @@
 /* slides.css — Reusable slide deck styles for yuanhe.wiki
-   Fixed 1920×1080 canvas, scaled to fit any viewport. */
+   Fixed 1920×1080 canvas, scaled to fit any viewport.
+
+   ── FONT-SIZE RULE ──────────────────────────────────────
+   HARD floor: 18px for any text on any slide.
+   Body / labels:   ≥ 22px (comfortable for projection)
+   Footnotes:       ≥ 18px
+   SVG text:        ≥ 18px (effective, after viewBox scaling)
+   Never use sub-18px — illegible at conference projection distance.
+   ──────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -70,28 +78,28 @@ h1, h2, h3 {
   line-height: 1.15;
 }
 
-h1 { font-size: 72px; }
+h1 { font-size: 96px; }
 
-h2 { font-size: 48px; margin-bottom: 28px; }
+h2 { font-size: 60px; margin-bottom: 32px; }
 
 h3 {
   font-family: "Inter", sans-serif;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 p, li {
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px;
-  line-height: 1.6;
+  font-size: 40px;
+  line-height: 1.5;
 }
 
 ul { padding-left: 1.3em; }
-li { margin-bottom: 8px; }
+li { margin-bottom: 16px; }
 
 strong { font-weight: 600; }
 
@@ -119,8 +127,8 @@ pre {
 pre code {
   background: none;
   padding: 0;
-  font-size: 20px;
-  line-height: 1.6;
+  font-size: 24px;
+  line-height: 1.55;
 }
 
 /* ── Title slide ────────────────────────────────────── */
@@ -131,41 +139,41 @@ pre code {
   justify-content: center;
 }
 
-.slide--title h1 { margin-bottom: 12px; }
+.slide--title h1 { margin-bottom: 20px; }
 
 .subtitle {
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 28px;
+  font-size: 40px;
   color: var(--muted);
-  margin-bottom: 48px;
+  margin-bottom: 60px;
 }
 
 .divider {
-  width: 60px;
-  height: 2px;
+  width: 100px;
+  height: 3px;
   background: var(--accent);
-  margin-bottom: 40px;
+  margin-bottom: 52px;
 }
 
 .author {
   font-family: "Inter", sans-serif;
-  font-size: 20px;
+  font-size: 28px;
   color: var(--muted);
 }
 
 
 .repo-links {
   font-family: "Source Code Pro", monospace;
-  font-size: 16px;
-  margin-top: 16px;
+  font-size: 22px;
+  margin-top: 22px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .gh-icon {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   color: var(--muted);
 }
 
@@ -225,33 +233,26 @@ pre code {
 /* ── SVG diagrams ───────────────────────────────────── */
 
 .arch-diagram {
-  width: 1300px;
-  margin: 16px auto;
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  margin: 24px auto 0;
   display: block;
 }
 
 .loop-diagram {
-  width: 1300px;
-  height: 433px;
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
   margin: 24px auto;
   display: block;
 }
 
-/* Event annotations — default terracotta, animate on frag reveal */
+/* Event annotations — default terracotta, recolored on frag reveal (slide 4) */
 .evt {
   fill: #d97757;
   stroke: #d97757;
   transition: fill 0.6s ease, stroke 0.6s ease;
-}
-
-.slide:has(.frag-tool.visible) .evt-tool {
-  fill: #5b7ea1;
-  stroke: #5b7ea1;
-}
-
-.slide:has(.frag-ctx.visible) .evt-ctx {
-  fill: #5a8a6a;
-  stroke: #5a8a6a;
 }
 
 /* ── Interactive contract explorer ───────────────────── */
@@ -316,6 +317,420 @@ pre code {
 .card h3 { margin-top: 0; }
 .card ul { font-size: 22px; }
 
+/* ── Challenge grid (2×2) ───────────────────────────── */
+
+.challenge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 36px;
+  margin-top: 24px;
+}
+
+.challenge-card {
+  background: rgba(20, 20, 19, 0.04);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.challenge-num {
+  font-family: "Source Code Pro", monospace;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.challenge-card h3 {
+  font-family: "Newsreader", "Source Serif 4", Georgia, serif;
+  font-size: 48px;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.challenge-card p {
+  font-size: 34px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0;
+}
+
+.challenge-card p .accent {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Hook event highlight (slide 4) ──────────────────
+   Frag triggers are empty divs OUTSIDE the SVG (siblings) so
+   :has() class-change detection works reliably. Inline tags live
+   in the SVG and fade in via opacity. */
+
+.evt {
+  transition: opacity 0.4s ease, fill 0.4s ease, stroke 0.4s ease,
+              font-size 0.3s ease, font-weight 0.3s ease;
+}
+
+.hook-trigger {
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hook-tag {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.hook-tag-msgadd  { fill: #5b7ea1; }
+.hook-tag-afterinv { fill: #5a8a6a; }
+
+@keyframes evt-glow-blue {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(91, 126, 161, 0.45)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(91, 126, 161, 0.9)); }
+}
+
+@keyframes evt-glow-green {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(90, 138, 106, 0.45)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(90, 138, 106, 0.9)); }
+}
+
+/* ── Frag 1: msgadd highlight ── */
+.slide.fragv-msgadd .evt:not(.evt-msgadd) {
+  opacity: 0.25;
+}
+.slide.fragv-msgadd .hook-tag-msgadd {
+  opacity: 1;
+}
+.slide.fragv-msgadd text.evt-msgadd {
+  fill: #5b7ea1 !important;
+  stroke: #5b7ea1 !important;
+  font-size: 24px;
+  font-weight: 700;
+}
+.slide.fragv-msgadd circle.evt-msgadd {
+  r: 10;
+  stroke: #5b7ea1 !important;
+  fill: #5b7ea1 !important;
+  animation: evt-glow-blue 1.4s ease-in-out infinite;
+}
+.slide.fragv-msgadd line.evt-msgadd {
+  stroke: #5b7ea1 !important;
+}
+
+/* ── Frag 2: afterinv highlight — overrides frag 1 when cumulative ── */
+.slide.fragv-afterinv .evt:not(.evt-afterinv) {
+  opacity: 0.25;
+}
+/* Override msgadd's dim rule that would also dim evt-afterinv */
+.slide.fragv-afterinv .evt-afterinv {
+  opacity: 1 !important;
+}
+/* Hide msgadd inline tag */
+.slide.fragv-afterinv .hook-tag-msgadd {
+  opacity: 0;
+}
+/* Reveal afterinv inline tag */
+.slide.fragv-afterinv .hook-tag-afterinv {
+  opacity: 1;
+}
+/* Undo msgadd's highlight (back to default + dim treatment) */
+.slide.fragv-afterinv text.evt-msgadd {
+  fill: #d97757 !important;
+  stroke: #d97757 !important;
+  font-size: 20px;
+  font-weight: 500;
+}
+.slide.fragv-afterinv circle.evt-msgadd {
+  r: 6;
+  stroke: #d97757 !important;
+  fill: #d97757 !important;
+  animation: none;
+}
+.slide.fragv-afterinv line.evt-msgadd {
+  stroke: #d97757 !important;
+}
+/* Apply afterinv highlight */
+.slide.fragv-afterinv text.evt-afterinv {
+  fill: #5a8a6a !important;
+  stroke: #5a8a6a !important;
+  font-size: 24px;
+  font-weight: 700;
+}
+.slide.fragv-afterinv circle.evt-afterinv {
+  r: 10;
+  stroke: #5a8a6a !important;
+  fill: #5a8a6a !important;
+  animation: evt-glow-green 1.4s ease-in-out infinite;
+}
+.slide.fragv-afterinv line.evt-afterinv {
+  stroke: #5a8a6a !important;
+}
+
+/* ── Gym interface flow (slide 5) ───────────────────── */
+
+.gym-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1.4fr auto 1fr;
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.gym-flow__box {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.gym-flow__step {
+  background: rgba(217, 119, 87, 0.08);
+  border-color: rgba(217, 119, 87, 0.4);
+}
+
+.gym-flow__tag {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.gym-flow__name {
+  margin-bottom: 16px;
+}
+
+.gym-flow__name code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 28px;
+  font-weight: 600;
+  background: rgba(20, 20, 19, 0.05);
+  padding: 4px 12px;
+  border-radius: 4px;
+  color: var(--ink);
+}
+
+.gym-flow__fields {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gym-flow__fields li {
+  font-family: "Source Code Pro", monospace;
+  font-size: 24px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.gym-flow__fields li code {
+  background: transparent;
+  padding: 0;
+  font-size: 1em;
+  color: var(--muted);
+}
+
+/* Invisible placeholder line for vertical alignment */
+.gym-flow__ph {
+  visibility: hidden;
+}
+
+/* Step verbs styled differently from variable names: italic serif */
+.gym-flow__fields--steps li {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-size: 26px;
+  color: var(--accent);
+}
+
+.gym-flow__hero {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.gym-flow__sub {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 22px;
+  color: var(--muted);
+}
+
+.gym-flow__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* Extension points (below the flow) */
+
+.env-extend {
+  margin-top: 56px;
+}
+
+.env-extend__label {
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.env-extend__label code {
+  font-size: 0.95em;
+  background: rgba(20, 20, 19, 0.06);
+  color: var(--ink);
+}
+
+.env-extend__grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.env-extend__group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.env-extend__group-label {
+  grid-column: 1 / -1;
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.env-extend__method {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.env-extend__method code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 28px;
+  font-weight: 600;
+  background: transparent;
+  padding: 0;
+  color: var(--ink);
+}
+
+.env-extend__method span {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 24px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.env-extend__divider {
+  width: 1px;
+  background: var(--rule);
+  align-self: stretch;
+  margin-top: 40px;
+}
+
+/* ── Algorithm block ────────────────────────────────── */
+
+.algo {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 24px 32px;
+}
+
+.algo__title {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+.algo__title code {
+  font-size: 0.95em;
+  background: transparent;
+  padding: 0;
+  color: var(--accent);
+  text-transform: none;
+}
+
+.algo__steps {
+  margin: 0;
+  padding-left: 28px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.algo__steps li {
+  margin-bottom: 6px;
+}
+
+.algo__steps li::marker {
+  color: var(--muted);
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.82em;
+}
+
+.algo__steps strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.algo__steps .var {
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.88em;
+  color: var(--ink);
+}
+
+.algo__steps code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.88em;
+  background: rgba(20, 20, 19, 0.05);
+  color: var(--ink);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
 /* ── Table ──────────────────────────────────────────── */
 
 table {
@@ -364,7 +779,7 @@ tr:last-child td { border-bottom: none; }
   right: 0;
   text-align: center;
   font-family: "Inter", sans-serif;
-  font-size: 14px;
+  font-size: 20px;
   color: var(--muted);
 }
 
@@ -410,9 +825,716 @@ tr:last-child td { border-bottom: none; }
 /* ── Flow diagram ──────────────────────────────────── */
 
 .flow-diagram {
-  width: 1340px;
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
   margin: 24px auto 0;
   display: block;
+}
+
+/* ── Why TITO (slide 8): problem → ↓ → consequences ──── */
+
+/* PROBLEM panel: drift formula + concrete example, unified */
+.why-problem {
+  background: rgba(20, 20, 19, 0.04);
+  border-radius: 12px;
+  padding: 28px 40px 32px;
+  margin: 80px auto 0;
+  max-width: 1280px;
+  text-align: center;
+}
+
+.why-problem__tag {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.why-problem__eq {
+  margin-bottom: 22px;
+}
+
+.why-problem__eq code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 38px;
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  padding: 0;
+}
+
+.why-problem__example {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.why-step {
+  font-family: "Source Code Pro", monospace;
+  font-size: 26px;
+  font-weight: 600;
+  background: rgba(20, 20, 19, 0.06);
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: var(--ink);
+}
+
+.why-step--ok  { background: rgba(90, 138, 106, 0.15); color: #3d6a4e; }
+.why-step--bad { background: rgba(197, 82, 74, 0.15); color: #a93a2f; }
+
+.why-op {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Single connector */
+.why-connector {
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 22px 0;
+  letter-spacing: 0.04em;
+}
+
+/* CONSEQUENCES: 2 cards */
+.why-consequences {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.why-card {
+  background: rgba(20, 20, 19, 0.04);
+  border-radius: 10px;
+  padding: 28px 36px;
+  border-top: 5px solid var(--accent);
+}
+
+.why-card--correctness { border-top-color: #c5524a; }
+.why-card--efficiency  { border-top-color: #5b7ea1; }
+
+.why-card__tag {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.why-card--correctness .why-card__tag { color: #c5524a; }
+.why-card--efficiency  .why-card__tag { color: #5b7ea1; }
+
+.why-card__head {
+  font-family: "Newsreader", "Source Serif 4", Georgia, serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.why-card__list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 16px;
+}
+
+.why-card__list li {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.why-card__list li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  font-weight: 700;
+}
+
+.why-card--correctness .why-card__list li::before { color: #c5524a; }
+
+.why-card__list code,
+.why-card__body code {
+  font-size: 0.88em;
+  background: rgba(20, 20, 19, 0.06);
+  color: var(--ink);
+}
+
+.why-card__body {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0 0 16px;
+}
+
+.why-card__result {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+}
+
+/* ── Chat Template Rendering (slide 9) ────────────────── */
+
+/* The single "prompt buffer" canvas that grows per turn */
+.cht-buffer {
+  background: var(--bg);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  margin-top: 28px;
+  overflow: hidden;
+}
+
+.cht-row {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 24px;
+  padding: 20px 28px;
+}
+
+.cht-row + .cht-row {
+  border-top: 1px solid var(--rule);
+}
+
+.cht-row--env   { background: #eceae5; }
+.cht-row--model { background: rgba(217, 119, 87, 0.12); }
+
+/* Hidden frag rows take no layout space until revealed (buffer literally grows) */
+.cht-row.frag:not(.visible) {
+  display: none;
+}
+
+.cht-row__body {
+  font-family: "Source Code Pro", monospace;
+  font-size: 22px;
+  line-height: 1.55;
+  color: #4a4a46;
+}
+
+.cht-row--model .cht-row__body { color: #8b6355; }
+
+.cht-row__tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+
+.cht-row__tag-name {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cht-row__tag-sub {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.cht-row--env .cht-row__tag {
+  color: var(--muted);
+}
+
+.cht-row--model .cht-row__tag {
+  color: var(--accent);
+}
+
+.cht-tok    { color: #d97757; font-weight: 600; }
+.cht-role   { color: #4a4a46; }
+.cht-text   { color: #4a4a46; }
+.cht-think  { color: #8b6355; }
+
+.cht-teaser {
+  margin-top: 28px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 28px;
+  font-style: italic;
+  color: var(--muted);
+  text-align: center;
+}
+
+.cht-teaser strong {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ── Chat Template Rendering, Part 2 (slide 10) ───────── */
+
+.ctr-subtitle {
+  text-align: center;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+
+.ctr-section {
+  margin-bottom: 40px;
+}
+
+.ctr-section:first-of-type {
+  margin-top: 50px;
+}
+
+.ctr-section__tag {
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+/* What breaks */
+
+.ctr-breaks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ctr-break {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 32px;
+  color: var(--ink);
+}
+
+.ctr-x {
+  color: #c5524a;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.ctr-break__name {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ctr-arrow {
+  color: var(--muted);
+}
+
+.ctr-break__why {
+  color: var(--muted);
+}
+
+.ctr-break__why code {
+  font-size: 0.85em;
+  background: rgba(20, 20, 19, 0.06);
+}
+
+/* What we do */
+
+.ctr-fixes {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ctr-fix {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 18px;
+  background: rgba(20, 20, 19, 0.03);
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+
+.ctr-fix__num {
+  font-family: "Source Code Pro", monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  padding-top: 4px;
+}
+
+.ctr-fix__name {
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.ctr-fix__detail {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.ctr-fix__detail code {
+  font-size: 0.88em;
+  background: rgba(20, 20, 19, 0.06);
+  color: var(--ink);
+}
+
+.ctr-fix__formula {
+  margin-top: 10px;
+}
+
+.ctr-fix__formula code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 26px;
+  font-weight: 600;
+  background: rgba(217, 119, 87, 0.10);
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 119, 87, 0.4);
+  display: inline-block;
+}
+
+/* Caveat at bottom */
+
+.ctr-caveat {
+  margin-top: 24px !important;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 24px !important;
+  font-style: italic;
+  color: var(--muted) !important;
+  text-align: center;
+}
+
+/* ── Click-to-reveal info popover (used inline in code/text) ── */
+
+.popinfo {
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1.5px dotted var(--accent);
+  outline: none;
+}
+
+.popinfo:hover { color: var(--accent); }
+
+.popinfo__tip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 14px);
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #faf9f5;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.45;
+  padding: 14px 20px;
+  border-radius: 8px;
+  white-space: normal;
+  width: max-content;
+  max-width: 560px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  z-index: 50;
+}
+
+.popinfo__tip code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.12);
+  color: #faf9f5;
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: none;
+}
+
+/* Arrow pointing down to the trigger */
+.popinfo__tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.popinfo.open .popinfo__tip,
+.popinfo:focus .popinfo__tip {
+  display: block;
+}
+
+/* ── Fake Prefix Trick (slide 10) ─────────────────────── */
+
+.fpt-bad {
+  margin: 28px auto 0;
+  max-width: max-content;
+}
+
+.fpt-bad-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 12px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 32px;
+  color: var(--ink);
+}
+
+.fpt-x {
+  color: #c5524a;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.fpt-bad-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 290px;
+}
+
+.fpt-arrow {
+  color: var(--muted);
+}
+
+.fpt-bad-why {
+  color: var(--muted);
+}
+
+.fpt-bad-examples {
+  list-style: none;
+  padding-left: 338px;
+  margin: 10px 0 0;
+}
+
+.fpt-bad-examples li {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  color: var(--muted);
+  line-height: 1.45;
+  padding-left: 20px;
+  position: relative;
+}
+
+.fpt-bad-examples li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  font-weight: 700;
+  color: #c5524a;
+}
+
+.fpt-bad-examples code {
+  font-size: 0.92em;
+  background: rgba(20, 20, 19, 0.06);
+}
+
+/* Subtitle: italic ink centered (narrative tone with presence) */
+.fpt-subtitle {
+  text-align: center;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+
+/* The visual diff */
+
+.fpt-visual {
+  margin-top: 36px;
+}
+
+/* "The Fix" section tag — matches deck pattern (slide 5's "EXTEND ENVIRONMENT") */
+.fpt-section-tag {
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 14px;
+}
+
+.fpt-formula {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.fpt-formula code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 26px;
+  font-weight: 600;
+  background: rgba(217, 119, 87, 0.10);
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(217, 119, 87, 0.4);
+  display: inline-block;
+}
+
+.fpt-visual__label {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.fpt-visual__label code {
+  text-transform: none;
+  font-size: 0.95em;
+  background: rgba(20, 20, 19, 0.06);
+  color: var(--ink);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.fpt-buffer {
+  background: var(--bg);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.fpt-zone {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  gap: 24px;
+  padding: 18px 24px;
+}
+
+.fpt-zone + .fpt-zone {
+  border-top: 1px solid var(--rule);
+}
+
+.fpt-zone--drop {
+  background: rgba(20, 20, 19, 0.05);
+  opacity: 0.55;
+}
+
+.fpt-zone--keep {
+  background: rgba(217, 119, 87, 0.12);
+}
+
+.fpt-zone__body {
+  font-family: "Source Code Pro", monospace;
+  font-size: 22px;
+  line-height: 1.55;
+  color: #4a4a46;
+}
+
+.fpt-zone__tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+
+.fpt-zone__tag-name {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.fpt-zone__tag-sub {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.fpt-zone--drop .fpt-zone__tag {
+  color: var(--muted);
+}
+
+.fpt-zone--keep .fpt-zone__tag {
+  color: var(--accent);
+}
+
+.fpt-sep {
+  background: rgba(217, 119, 87, 0.25);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  color: #a93a2f;
+}
+
+.fpt-caveat {
+  margin: 26px auto 0 !important;
+  max-width: 1100px;
+  padding: 18px 28px;
+  background: rgba(20, 20, 19, 0.04);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px !important;
+  color: var(--ink) !important;
+  text-align: left;
+  line-height: 1.5 !important;
+}
+
+.fpt-result {
+  margin-top: 16px;
+  text-align: center;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 22px;
+  color: var(--ink);
+}
+
+.fpt-result code {
+  font-size: 0.92em;
+  background: rgba(20, 20, 19, 0.06);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ── TITO sub-label verb highlight (slide 7) ────────── */
+
+.hl-preserve, .hl-tokenize {
+  transition: fill 0.35s ease, font-weight 0.35s ease, font-size 0.35s ease;
+}
+
+.slide.fragv-preserve .hl-preserve {
+  fill: #d97757;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.slide.fragv-tokenize .hl-tokenize {
+  fill: #5a8a6a;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 /* ── Example table ─────────────────────────────────── */

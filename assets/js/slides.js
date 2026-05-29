@@ -35,12 +35,30 @@
     return getFrags(slide).filter(function (f) { return !f.classList.contains('visible'); });
   }
 
+  // Mirror each visible frag's `frag-*` classes onto the slide as `fragv-*`,
+  // so CSS can target them via simple class selectors (more reliable than :has()
+  // when the .visible toggle happens on SVG descendants).
+  function syncFragClasses(slide) {
+    Array.from(slide.classList).forEach(function (c) {
+      if (c.indexOf('fragv-') === 0) slide.classList.remove(c);
+    });
+    shownFrags(slide).forEach(function (f) {
+      Array.from(f.classList).forEach(function (c) {
+        if (c.indexOf('frag-') === 0) {
+          slide.classList.add('fragv-' + c.slice(5));
+        }
+      });
+    });
+  }
+
   function go(idx) {
     if (idx < 0 || idx >= slides.length) return;
     slides[cur].classList.remove('active');
     getFrags(slides[cur]).forEach(function (f) { f.classList.remove('visible'); });
+    syncFragClasses(slides[cur]);
     cur = idx;
     slides[cur].classList.add('active');
+    syncFragClasses(slides[cur]);
     updateProgress();
   }
 
@@ -48,6 +66,7 @@
     var hidden = hiddenFrags(slides[cur]);
     if (hidden.length) {
       hidden[0].classList.add('visible');
+      syncFragClasses(slides[cur]);
       return;
     }
     go(cur + 1);
@@ -57,6 +76,7 @@
     var shown = shownFrags(slides[cur]);
     if (shown.length) {
       shown[shown.length - 1].classList.remove('visible');
+      syncFragClasses(slides[cur]);
       return;
     }
     go(cur - 1);
@@ -105,6 +125,16 @@
       slide.querySelectorAll('.env-ex').forEach(function (ex) { ex.classList.remove('active'); });
       var target = slide.querySelector('#' + targetId);
       if (target) target.classList.add('active');
+      return;
+    }
+
+    // Click-to-reveal popinfo tooltip — toggle clicked trigger, close others
+    var pop = e.target.closest('.popinfo');
+    document.querySelectorAll('.popinfo.open').forEach(function (p) {
+      if (p !== pop) p.classList.remove('open');
+    });
+    if (pop) {
+      pop.classList.toggle('open');
       return;
     }
 

@@ -1,186 +1,154 @@
 <section class="slide">
   <div class="slide-inner">
     <h2>Token-in / Token-out</h2>
-    <p>Faithful token-level tracking for every message in the trajectory.</p>
 
-    <svg class="flow-diagram" viewBox="0 0 1100 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
-          orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#141413" />
-        </marker>
-      </defs>
+    <svg class="flow-diagram" style="margin-left: 0; max-width: 1560px;" viewBox="0 0 1260 560" fill="none" xmlns="http://www.w3.org/2000/svg">
 
       <!-- ══════════════════════════════════════════════════ -->
-      <!-- Left: Conversation (identical to slide 6)         -->
+      <!-- Left: Conversation                                 -->
       <!-- ══════════════════════════════════════════════════ -->
-
-      <!-- Action -->
-      <rect x="26" y="17" width="120" height="34" rx="6" fill="#141413" />
-      <text x="86" y="39" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600"
-        fill="#faf9f5">Action</text>
-      <line x1="146" y1="34" x2="186" y2="34" stroke="#141413" stroke-width="1.5" marker-end="url(#fa)" />
 
       <!-- System + User -->
-      <rect x="190" y="0" width="600" height="68" rx="8" fill="#eceae5" />
-      <text x="212" y="20" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
+      <rect x="20" y="0" width="760" height="84" rx="8" fill="#eceae5" />
+      <text x="42" y="24" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
         fill="#4a4a46">SYSTEM</text>
-      <text x="276" y="20" font-family="Source Code Pro, monospace" font-size="13" fill="#4a4a46">You are a research
-        assistant.</text>
-      <text x="276" y="36" font-family="Source Code Pro, monospace" font-size="13" fill="#4a4a46">#Tools: search(query),
-        scrape(url, instruction)</text>
-      <text x="212" y="56" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
+      <text x="140" y="24" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">You are a research assistant.</text>
+      <text x="140" y="44" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">#Tools: search(query), scrape(url, instruction)</text>
+      <text x="42" y="68" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
         fill="#4a4a46">USER</text>
-      <text x="276" y="56" font-family="Source Code Pro, monospace" font-size="13" fill="#4a4a46">Summarize
-        DeepSeek-V3's key innovations and compare...</text>
+      <text x="140" y="68" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">Summarize DeepSeek-V3's key innovations and compare…</text>
 
       <!-- Assistant 1 -->
-      <rect x="190" y="76" width="600" height="68" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="212" y="94" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
+      <rect x="20" y="92" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
+      <text x="42" y="116" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
         fill="#d97757">ASSISTANT</text>
-      <text x="212" y="112" font-family="Source Code Pro, monospace" font-size="13">
-        <tspan fill="#8b6355">&lt;think&gt;I should find the DeepSeek-V3 report…&lt;/think&gt;</tspan>
-      </text>
-      <text x="212" y="128" font-family="Source Code Pro, monospace" font-size="13"
-        fill="#8b6355">&lt;tool_call&gt;search(query="DeepSeek-V3 architecture")&lt;/tool_call&gt;</text>
+      <text x="42" y="140" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;I should find the DeepSeek-V3 report…&lt;/think&gt;</text>
+      <text x="42" y="162" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;tool_call&gt;{"name":"search","arguments":{...}}&lt;/tool_call&gt;</text>
 
       <!-- Tool Result 1 -->
-      <rect x="190" y="152" width="600" height="32" rx="8" fill="#eceae5" />
-      <text x="212" y="173" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
-        fill="#4a4a46">TOOL RESULT</text>
-      <text x="312" y="173" font-family="Source Code Pro, monospace" font-size="12" fill="#4a4a46">[1] "DeepSeek-V3
-        Report — arxiv.org/…" [2] "671B MoE with MLA…"</text>
+      <rect x="20" y="184" width="760" height="42" rx="8" fill="#eceae5" />
+      <text x="42" y="211" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
+        fill="#4a4a46">TOOL</text>
+      <text x="140" y="211" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">"[1] arxiv.org/2412.19437  [2] hf.co/deepseek-ai/V3 …"</text>
 
       <!-- Assistant 2 -->
-      <rect x="190" y="192" width="600" height="68" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="212" y="210" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
+      <rect x="20" y="234" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
+      <text x="42" y="258" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
         fill="#d97757">ASSISTANT</text>
-      <text x="212" y="228" font-family="Source Code Pro, monospace" font-size="13">
-        <tspan fill="#8b6355">&lt;think&gt;Let me read the paper for details…&lt;/think&gt;</tspan>
-      </text>
-      <text x="212" y="244" font-family="Source Code Pro, monospace" font-size="13"
-        fill="#8b6355">&lt;tool_call&gt;scrape(url="arxiv.org/…", instruction="...")&lt;/tool_call&gt;</text>
+      <text x="42" y="282" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;Let me read the paper for details…&lt;/think&gt;</text>
+      <text x="42" y="304" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;tool_call&gt;{"name":"scrape","arguments":{...}}&lt;/tool_call&gt;</text>
 
       <!-- Tool Result 2 -->
-      <rect x="190" y="268" width="600" height="32" rx="8" fill="#eceae5" />
-      <text x="212" y="289" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
-        fill="#4a4a46">TOOL RESULT</text>
-      <text x="312" y="289" font-family="Source Code Pro, monospace" font-size="12" fill="#4a4a46">"MLA, DeepSeekMoE,
-        671B / 37B active. 2.788M H800 hrs (~$5.5M)."</text>
+      <rect x="20" y="326" width="760" height="42" rx="8" fill="#eceae5" />
+      <text x="42" y="353" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
+        fill="#4a4a46">TOOL</text>
+      <text x="140" y="353" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">"Abstract: DeepSeek-V3, a 671B MoE (37B active) with MLA…"</text>
 
       <!-- ⋮ -->
-      <circle cx="490" cy="311" r="3" fill="#d97757" opacity="0.5" />
-      <circle cx="490" cy="322" r="3" fill="#c8c7c3" />
-      <circle cx="490" cy="333" r="3" fill="#d97757" opacity="0.5" />
+      <circle cx="370" cy="380" r="3.5" fill="#d97757" opacity="0.5" />
+      <circle cx="370" cy="391" r="3.5" fill="#c8c7c3" />
+      <circle cx="370" cy="402" r="3.5" fill="#d97757" opacity="0.5" />
 
       <!-- Assistant final -->
-      <rect x="190" y="342" width="600" height="68" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="212" y="360" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em"
+      <rect x="20" y="414" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
+      <text x="42" y="438" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
         fill="#d97757">ASSISTANT</text>
-      <text x="212" y="378" font-family="Source Code Pro, monospace" font-size="13">
-        <tspan fill="#8b6355">&lt;think&gt;I have enough info to answer…&lt;/think&gt;</tspan>
-      </text>
-      <text x="212" y="394" font-family="Source Code Pro, monospace" font-size="13" fill="#8b6355">DeepSeek-V3: MLA +
-        DeepSeekMoE (671B/37B). Cost ~$5.5M vs ~$100M+.</text>
-
-      <!-- Observation -->
-      <rect x="26" y="359" width="120" height="34" rx="6" fill="#141413" />
-      <text x="86" y="381" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600"
-        fill="#faf9f5">Observation</text>
-      <line x1="186" y1="376" x2="146" y2="376" stroke="#141413" stroke-width="1.5" marker-end="url(#fa)" />
-
-      <!-- Legend -->
-      <rect x="190" y="424" width="14" height="14" rx="3" fill="rgba(217,119,87,0.12)" />
-      <text x="210" y="436" font-family="Inter, sans-serif" font-size="11" fill="#4a4a46">model output</text>
-      <rect x="310" y="424" width="14" height="14" rx="3" fill="#eceae5" />
-      <text x="330" y="436" font-family="Inter, sans-serif" font-size="11" fill="#4a4a46">env input</text>
+      <text x="42" y="462" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;I have enough info to answer…&lt;/think&gt;</text>
+      <text x="42" y="484" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">DeepSeek-V3: MLA + DeepSeekMoE (671B/37B). Cost ~$5.5M vs ~$100M+.</text>
 
       <!-- ══════════════════════════════════════════════════ -->
-      <!-- Right: TITO annotation boxes (fragments)          -->
+      <!-- Right: TITO annotation columns                    -->
       <!-- ══════════════════════════════════════════════════ -->
+
+      <!-- Right column wrapper — shifted right to clear conversation rect -->
+      <g transform="translate(60,0)">
 
       <!-- Column headers (always visible) -->
-      <text x="842" y="10" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600"
-        letter-spacing="0.05em" fill="#7a7a75">TOKEN</text>
-      <text x="885" y="10" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600"
-        letter-spacing="0.05em" fill="#7a7a75">MASK</text>
+      <text x="800" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600"
+        letter-spacing="0.06em" fill="#7a7a75">TOKEN</text>
+      <text x="870" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600"
+        letter-spacing="0.06em" fill="#7a7a75">MASK</text>
 
       <!-- Fragment 1: env input annotations -->
       <g class="frag frag-env">
         <!-- System+User -->
-        <line x1="790" y1="28" x2="818" y2="28" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="18" width="40" height="20" rx="4" fill="#eceae5" />
-        <text x="842" y="32" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="42" x2="760" y2="42" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="28" width="64" height="28" rx="5" fill="#eceae5" />
+        <text x="800" y="47" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="870" y="18" width="30" height="20" rx="4" fill="#eceae5" />
-        <text x="885" y="32" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="840" y="28" width="60" height="28" rx="5" fill="#eceae5" />
+        <text x="870" y="47" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">0</text>
-        <text x="822" y="52" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">chat_template +
-          tokenize</text>
+        <text x="768" y="76" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template</text>
 
         <!-- Tool Result 1 -->
-        <line x1="790" y1="168" x2="818" y2="168" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="158" width="40" height="20" rx="4" fill="#eceae5" />
-        <text x="842" y="172" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="205" x2="760" y2="205" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="191" width="64" height="28" rx="5" fill="#eceae5" />
+        <text x="800" y="210" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="870" y="158" width="30" height="20" rx="4" fill="#eceae5" />
-        <text x="885" y="172" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="840" y="191" width="60" height="28" rx="5" fill="#eceae5" />
+        <text x="870" y="210" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">0</text>
-        <text x="822" y="192" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">chat_template
-          (incr.) + tokenize</text>
+        <text x="768" y="237" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template (incr.)</text>
 
         <!-- Tool Result 2 -->
-        <line x1="790" y1="284" x2="818" y2="284" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="274" width="40" height="20" rx="4" fill="#eceae5" />
-        <text x="842" y="288" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="347" x2="760" y2="347" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="333" width="64" height="28" rx="5" fill="#eceae5" />
+        <text x="800" y="352" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="870" y="274" width="30" height="20" rx="4" fill="#eceae5" />
-        <text x="885" y="288" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="840" y="333" width="60" height="28" rx="5" fill="#eceae5" />
+        <text x="870" y="352" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#4a4a46">0</text>
-        <text x="822" y="308" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">chat_template
-          (incr.) + tokenize</text>
+        <text x="768" y="379" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template (incr.)</text>
       </g>
 
       <!-- Fragment 2: model output annotations -->
       <g class="frag frag-model">
         <!-- Assistant 1 -->
-        <line x1="790" y1="110" x2="818" y2="110" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="100" width="46" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="845" y="114" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="134" x2="760" y2="134" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="120" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="802" y="139" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">OUT</text>
-        <rect x="876" y="100" width="30" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="891" y="114" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="844" y="120" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="874" y="139" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">1</text>
-        <text x="822" y="134" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">tokens + logprobs +
-          experts (MoE)</text>
+        <text x="768" y="167" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
 
         <!-- Assistant 2 -->
-        <line x1="790" y1="226" x2="818" y2="226" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="216" width="46" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="845" y="230" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="276" x2="760" y2="276" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="262" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="802" y="281" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">OUT</text>
-        <rect x="876" y="216" width="30" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="891" y="230" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="844" y="262" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="874" y="281" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">1</text>
-        <text x="822" y="250" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">tokens + logprobs +
-          experts (MoE)</text>
+        <text x="768" y="309" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
 
         <!-- Assistant final -->
-        <line x1="790" y1="376" x2="818" y2="376" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="822" y="366" width="46" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="845" y="380" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <line x1="720" y1="456" x2="760" y2="456" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
+        <rect x="768" y="442" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="802" y="461" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">OUT</text>
-        <rect x="876" y="366" width="30" height="20" rx="4" fill="rgba(217,119,87,0.12)" />
-        <text x="891" y="380" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11"
+        <rect x="844" y="442" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
+        <text x="874" y="461" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
           font-weight="600" fill="#d97757">1</text>
-        <text x="822" y="400" font-family="Source Code Pro, monospace" font-size="10" fill="#7a7a75">tokens + logprobs +
-          experts (MoE)</text>
+        <text x="768" y="489" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
       </g>
+
+      </g><!-- /right column wrapper -->
+
+      <!-- Fragment 3: trigger only — highlights "preserve:" in OUT sub-labels via CSS -->
+      <g class="frag frag-preserve"></g>
+
+      <!-- Fragment 4: trigger only — highlights "tokenize:" in IN sub-labels via CSS -->
+      <g class="frag frag-tokenize"></g>
+
+      <!-- Legend -->
+      <rect x="20" y="527" width="18" height="18" rx="3" fill="rgba(217,119,87,0.12)" />
+      <text x="46" y="540" font-family="Inter, sans-serif" font-size="18" fill="#4a4a46">model output</text>
+      <rect x="180" y="527" width="18" height="18" rx="3" fill="#eceae5" />
+      <text x="206" y="540" font-family="Inter, sans-serif" font-size="18" fill="#4a4a46">env input</text>
     </svg>
 
-    <div class="frag" style="margin-top: 16px; background: rgba(20, 20, 19, 0.04); border-radius: 10px; padding: 16px 24px;">
-      <p style="font-size: 24px;"><strong>Retokenization Drift:</strong> <code>tokens ≠ encode(decode(tokens))</code></p>
-      <p style="margin-top: 6px; font-size: 21px; color: var(--muted);">TITO preserves exact generated token IDs, avoiding mismatch from re-encoding text messages.</p>
-    </div>
   </div>
 </section>
