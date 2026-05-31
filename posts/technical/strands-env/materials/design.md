@@ -373,3 +373,5 @@ The event-based hook system is what makes this composable rather than monolithic
 tool parser: <think> as draft
 
 async not enough? When to use distributed: even api calls from 512 batch size 5s to <1s
+
+tool async dispatched, ordered return

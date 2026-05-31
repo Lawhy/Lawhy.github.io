@@ -2,22 +2,36 @@
   <div class="slide-inner">
     <h2>Retokenization Drift</h2>
 
-    <!-- ── PROBLEM: drift formula + concrete example, one panel ── -->
-    <div class="why-problem">
-      <div class="why-problem__eq"><code>tokens &ne; encode(decode(tokens))</code></div>
-      <div class="why-problem__example">
-        <code class="why-step why-step--ok">['&lt;', 'tool_call&gt;']</code>
-        <span class="why-op">decode &rarr;</span>
-        <code class="why-step">"&lt;tool_call&gt;"</code>
-        <span class="why-op">encode &rarr;</span>
-        <code class="why-step why-step--bad">['&lt;tool_call&gt;']</code>
+    <div class="why-eq"><code>tokens &ne; encode(decode(tokens))</code></div>
+
+    <div class="drift-demo">
+      <div class="drift-row drift-row--gen">
+        <div class="drift-label">model generated<span class="drift-sub">TITO — kept exactly</span></div>
+        <div class="drift-toks">
+          <span class="dchip"><span class="dtxt">5</span><span class="did">20</span></span>
+          <span class="dchip"><span class="dtxt">0</span><span class="did">15</span></span>
+          <span class="dchip dchip--hot"><span class="dtxt">)"</span><span class="did">9940</span></span>
+          <span class="dchip dchip--hot"><span class="dtxt">}}⏎</span><span class="did">11248</span></span>
+          <span class="dchip"><span class="dtxt">8</span><span class="did">23</span></span>
+          <span class="dchip"><span class="dtxt">.</span><span class="did">13</span></span>
+        </div>
       </div>
+      <div class="drift-row drift-row--re">
+        <div class="drift-label">decode &rarr; re-encode<span class="drift-sub">drifted</span></div>
+        <div class="drift-toks">
+          <span class="dchip"><span class="dtxt">5</span><span class="did">20</span></span>
+          <span class="dchip"><span class="dtxt">0</span><span class="did">15</span></span>
+          <span class="dchip dchip--bad"><span class="dtxt">)</span><span class="did">8</span></span>
+          <span class="dchip dchip--bad"><span class="dtxt">"}}⏎</span><span class="did">95642</span></span>
+          <span class="dchip"><span class="dtxt">8</span><span class="did">23</span></span>
+          <span class="dchip"><span class="dtxt">.</span><span class="did">13</span></span>
+        </div>
+      </div>
+      <div class="drift-note">same text <code>…0)"}}⏎8.…</code> — the <code>"</code> jumps tokens. Buried at token <b>8057 / 9727</b>, in a JSON corner you'd never check by hand.</div>
     </div>
 
-    <!-- ── Single connector ── -->
     <div class="why-connector">&darr; breaks</div>
 
-    <!-- ── CONSEQUENCES: 2 cards ── -->
     <div class="why-consequences">
       <div class="why-card why-card--correctness frag">
         <div class="why-card__tag">Correctness</div>

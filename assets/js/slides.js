@@ -60,6 +60,7 @@
     slides[cur].classList.add('active');
     syncFragClasses(slides[cur]);
     updateProgress();
+    updateHash();
   }
 
   function next() {
@@ -67,6 +68,7 @@
     if (hidden.length) {
       hidden[0].classList.add('visible');
       syncFragClasses(slides[cur]);
+      updateHash();
       return;
     }
     go(cur + 1);
@@ -77,6 +79,7 @@
     if (shown.length) {
       shown[shown.length - 1].classList.remove('visible');
       syncFragClasses(slides[cur]);
+      updateHash();
       return;
     }
     go(cur - 1);
@@ -87,7 +90,62 @@
     progress.style.width = pct + '%';
   }
 
+  // ── Deep-link: keep current slide (+ revealed frag count) in the URL hash,
+  //    so a refresh lands you right back where you were (#7 or #7-2). ──
+  function updateHash() {
+    var n = shownFrags(slides[cur]).length;
+    var h = (cur + 1) + (n ? '-' + n : '');
+    if (location.hash !== '#' + h) history.replaceState(null, '', '#' + h);
+  }
+
+  function restoreFromHash() {
+    var m = /^#(\d+)(?:-(\d+))?$/.exec(location.hash);
+    if (!m) return;
+    var idx = Math.min(Math.max(parseInt(m[1], 10) - 1, 0), slides.length - 1);
+    go(idx);
+    var nf = m[2] ? parseInt(m[2], 10) : 0;
+    var frags = getFrags(slides[idx]);
+    for (var i = 0; i < nf && i < frags.length; i++) frags[i].classList.add('visible');
+    syncFragClasses(slides[idx]);
+    updateHash();
+  }
+
+  // ── Overview / TOC overlay (press 'o'); hidden by default, zero slide footprint ──
+  var toc = document.createElement('div');
+  toc.className = 'toc-overlay';
+  var tocHtml = '<div class="toc-panel"><div class="toc-title">Slides</div><ul class="toc-list">';
+  slides.forEach(function (s, i) {
+    var h2 = s.querySelector('h2');
+    var label = s.dataset.toc || (h2 ? h2.textContent.trim() : ('Slide ' + (i + 1)));
+    tocHtml += '<li class="toc-item" data-idx="' + i + '"><span class="toc-num">' + (i + 1) + '</span><span>' + label + '</span></li>';
+  });
+  tocHtml += '</ul></div>';
+  toc.innerHTML = tocHtml;
+  document.body.appendChild(toc);
+
+  function markToc() {
+    toc.querySelectorAll('.toc-item').forEach(function (it, i) {
+      it.classList.toggle('current', i === cur);
+    });
+  }
+
+  function toggleToc(force) {
+    var open = (force != null) ? force : !toc.classList.contains('open');
+    toc.classList.toggle('open', open);
+    if (open) markToc();
+  }
+
+  toc.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var item = e.target.closest('.toc-item');
+    if (item) { go(parseInt(item.dataset.idx, 10)); toggleToc(false); return; }
+    if (e.target === toc) toggleToc(false);
+  });
+
   document.addEventListener('keydown', function (e) {
+    if (e.key === 'o' || e.key === 'O') { e.preventDefault(); toggleToc(); return; }
+    if (e.key === 'Escape') { toggleToc(false); return; }
+    if (toc.classList.contains('open')) return;
     if (hint && !hint.classList.contains('hidden')) {
       hint.classList.add('hidden');
     }
@@ -155,6 +213,7 @@
   window.addEventListener('resize', scaleSlides);
   scaleSlides();
   updateProgress();
+  restoreFromHash();
 
   setTimeout(function () {
     if (hint) hint.classList.add('hidden');

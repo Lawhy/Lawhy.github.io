@@ -1,0 +1,51 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>Tool Parsing</h2>
+    <p>Tool parsers on inference servers (e.g., SGLang/vLLM) <span class="accent">silently fix</span> what the model got wrong &mdash; for RL, they must <span class="accent">fail loud</span>. Examples:</p>
+
+    <div class="tp-examples">
+
+    <!-- Case 1: partial JSON repair (more common) -->
+    <div class="tp-case">
+      <div class="tp-case__cols">
+        <div class="tp-col">
+          <pre class="tp-col__code">{<span class="tp-str">"name"</span>: <span class="tp-str">"search"</span>,
+ <span class="tp-str">"arguments"</span>: {
+   <span class="tp-str">"query"</span>: <span class="tp-str">"deep</span></pre>
+        </div>
+        <div class="tp-case__arrow">&rarr;</div>
+        <div class="tp-col tp-col--server">
+          <pre class="tp-col__code">{<span class="tp-str">"name"</span>: <span class="tp-str">"search"</span>,
+ <span class="tp-str">"arguments"</span>: {
+   <span class="tp-str">"query"</span>: <span class="tp-str">"deep<span class="tp-invented">"</span></span>
+ <span class="tp-invented">}}</span></pre>
+        </div>
+      </div>
+      <div class="tp-case__consequence">
+        Parsers may silently patch the format, the broken call lands as &ldquo;success&rdquo; like nothing happened.
+      </div>
+    </div>
+
+    <!-- Case 2: think-block leak -->
+    <div class="tp-case">
+      <div class="tp-case__cols">
+        <div class="tp-col">
+          <pre class="tp-col__code"><span class="tp-tag">&lt;think&gt;</span>let me try
+  <span class="tp-tag">&lt;tool_call&gt;</span>search(<span class="tp-str">"X"</span>)<span class="tp-tag">&lt;/tool_call&gt;</span>
+<span class="tp-tag">&lt;/think&gt;</span>
+<span class="tp-tag">&lt;tool_call&gt;</span>search(<span class="tp-str">"Y"</span>)<span class="tp-tag">&lt;/tool_call&gt;</span></pre>
+        </div>
+        <div class="tp-case__arrow">&rarr;</div>
+        <div class="tp-col tp-col--server">
+          <pre class="tp-col__code"><span class="tp-rogue">[#1] search(<span class="tp-str">"X"</span>)</span>
+[#2] search(<span class="tp-str">"Y"</span>)</pre>
+        </div>
+      </div>
+      <div class="tp-case__consequence">
+        Draft tool calls inside the think block got executed too.
+      </div>
+    </div>
+
+    </div><!-- /tp-examples -->
+  </div>
+</section>

@@ -105,7 +105,9 @@ strong { font-weight: 600; }
 
 a { color: inherit; }
 
-.accent { color: var(--accent); }
+.accent { color: var(--accent); font-weight: 600; }
+.muted  { color: var(--muted); }
+.warn   { color: #c5524a; font-weight: 600; }
 
 code {
   font-family: "Source Code Pro", "SF Mono", monospace;
@@ -328,10 +330,7 @@ pre code {
 }
 
 .challenge-card {
-  background: rgba(20, 20, 19, 0.04);
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-  padding: 32px 40px;
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -345,7 +344,6 @@ pre code {
   letter-spacing: 0.04em;
   margin-bottom: 8px;
 }
-
 .challenge-card h3 {
   font-family: "Newsreader", "Source Serif 4", Georgia, serif;
   font-size: 48px;
@@ -1228,6 +1226,105 @@ tr:last-child td { border-bottom: none; }
   text-align: center;
 }
 
+/* ── Tool Parsing (slide 11) ──────────────────────────── */
+
+.tp-case {
+  background: rgba(20, 20, 19, 0.03);
+  border-radius: 10px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.tp-examples {
+  margin-top: 50px;
+}
+
+.tp-case__cols {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgba(20, 20, 19, 0.08);
+}
+
+.tp-col {
+  padding: 24px 28px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.tp-col--server {
+  background: rgba(217, 119, 87, 0.06);
+}
+
+.tp-case__arrow {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--accent);
+  padding: 0 18px;
+  user-select: none;
+}
+
+.tp-col__code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 26px;
+  color: var(--ink);
+  line-height: 1.45;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tp-code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: rgba(217, 119, 87, 0.06);
+  border: 1px solid rgba(217, 119, 87, 0.18);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 10px 0 14px;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.tp-comment { color: var(--muted); font-style: italic; }
+
+
+.tp-tag    { color: var(--accent); font-weight: 600; }
+.tp-str    { color: #5a8a6a; }
+.tp-rogue  { color: #c5524a; text-decoration: line-through; text-decoration-color: rgba(197, 82, 74, 0.6); }
+.tp-invented {
+  background: rgba(217, 119, 87, 0.22);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.tp-case__consequence {
+  padding: 22px 32px 24px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 30px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.tp-case__consequence::before {
+  content: "\2192  ";
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tp-case__consequence code {
+  font-size: 0.92em;
+  background: rgba(20, 20, 19, 0.06);
+  padding: 1px 6px;
+}
+
 /* ── Click-to-reveal info popover (used inline in code/text) ── */
 
 .popinfo {
@@ -1284,6 +1381,64 @@ tr:last-child td { border-bottom: none; }
 .popinfo.open .popinfo__tip,
 .popinfo:focus .popinfo__tip {
   display: block;
+}
+
+/* ── Token Metadata (slide 11) ─────────────────────────── */
+
+.meta-list {
+  margin: 32px 0 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  font-size: 40px;
+  line-height: 1.4;
+}
+
+.meta-key {
+  font-family: "Source Code Pro", monospace;
+  font-size: 1em;
+  color: var(--accent);
+  font-weight: 600;
+  background: rgba(217, 119, 87, 0.10);
+  padding: 4px 12px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.meta-val {
+  font-family: "Source Serif 4", Georgia, serif;
+  color: var(--ink);
+}
+
+.meta-mech {
+  font-size: 32px !important;
+  line-height: 1.45;
+}
+
+/* Aside line on slide 10 — small italic footnote */
+
+.ctr-aside {
+  margin-top: 28px !important;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 28px !important;
+  font-style: italic;
+  color: var(--muted) !important;
+  line-height: 1.4;
+}
+
+.ctr-aside code {
+  font-family: "Source Code Pro", monospace;
+  font-style: normal;
+  font-size: 0.9em;
+  background: rgba(20, 20, 19, 0.06);
+  padding: 1px 6px;
+  color: var(--ink);
 }
 
 /* ── Fake Prefix Trick (slide 10) ─────────────────────── */
@@ -1615,3 +1770,133 @@ tr:last-child td { border-bottom: none; }
 .cm { color: #6b6b66; font-style: italic; }
 .st { color: #0a3069; }
 .op { color: #141413; }
+
+/* ── Slide: Token-in / Token-out (stage walk) ─────────── */
+
+.tito-rows { position: relative; margin-top: 6px; }
+
+.tito-row {
+  display: grid;
+  grid-template-columns: 160px 440px 1fr 180px;
+  column-gap: 22px;
+  align-items: start;
+  padding: 18px 0;
+}
+/* row container steps via .frag but stays laid out as a skeleton; cells reveal */
+.tito-row.frag { opacity: 1; transform: none; }
+
+.tito-stage {
+  font-family: "Inter", sans-serif;
+  font-size: 27px;
+  font-weight: 600;
+  padding-left: 38px;
+  position: relative;
+}
+.tito-row--env .tito-stage { color: #8a887e; }
+.tito-row--model .tito-stage { color: var(--accent); }
+.tito-sub { display: block; font-size: 17px; font-weight: 500; color: #b4b2a8; margin-top: 2px; }
+.tito-arrow {
+  position: absolute; left: 0; top: 3px;
+  color: var(--accent); font-size: 24px; line-height: 1;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+
+.tito-toks, .tito-txt, .tito-anno { opacity: 0; transition: opacity 0.45s ease; }
+.tito-row.visible .tito-toks,
+.tito-row.visible .tito-txt,
+.tito-row.visible .tito-anno { opacity: 1; }
+
+.tito-toks { display: flex; flex-wrap: wrap; gap: 7px; align-content: flex-start; }
+.tito-chip {
+  font-family: "Source Code Pro", monospace; font-size: 21px;
+  padding: 3px 9px; border-radius: 6px;
+  background: #e7e5de; color: #4a4a46; border: 1px solid #cfcdc4;
+}
+.tito-row--model .tito-chip { background: rgba(217, 119, 87, 0.16); color: #a64f2c; border-color: rgba(217, 119, 87, 0.42); }
+.tito-chip.sp { font-weight: 600; }
+.tito-row--env .tito-chip.sp { background: #d3d1ca; }
+.tito-row--model .tito-chip.sp { background: rgba(217, 119, 87, 0.3); }
+.tito-chip.fold { background: #fff; border-style: dashed; font-style: italic; color: var(--muted); }
+.tito-el { color: #b8b6ad; font-family: "Source Code Pro", monospace; font-size: 21px; align-self: center; }
+
+.tito-txt { font-family: "Source Code Pro", monospace; font-size: 22px; line-height: 1.4; color: #55534d; }
+.tito-txt .imk { color: #a8a69d; }
+
+.tito-anno .tito-dir { font-family: "Inter", sans-serif; font-size: 23px; font-weight: 600; }
+.tito-row--env .tito-anno .tito-dir { color: #8a887e; }
+.tito-row--model .tito-anno .tito-dir { color: var(--accent); }
+.tito-anno .tito-msk { font-family: "Inter", sans-serif; font-size: 18px; color: var(--muted); margin-top: 5px; }
+.tito-row--model .tito-anno .tito-msk { color: #c0764f; }
+
+/* single walking arrow — cascade shows it only on the latest revealed row */
+.slide.fragv-tito1 .frag-tito1 .tito-arrow { opacity: 1; }
+.slide.fragv-tito2 .frag-tito1 .tito-arrow { opacity: 0; }
+.slide.fragv-tito2 .frag-tito2 .tito-arrow { opacity: 1; }
+.slide.fragv-tito3 .frag-tito2 .tito-arrow { opacity: 0; }
+.slide.fragv-tito3 .frag-tito3 .tito-arrow { opacity: 1; }
+.slide.fragv-tito4 .frag-tito3 .tito-arrow { opacity: 0; }
+.slide.fragv-tito4 .frag-tito4 .tito-arrow { opacity: 1; }
+
+/* ── Slide: Retokenization Drift (real )"}}  example) ── */
+
+.why-eq { font-family: "Source Code Pro", monospace; font-size: 30px; color: var(--accent); margin-bottom: 26px; }
+.why-eq code { background: none; padding: 0; font-size: inherit; color: inherit; }
+
+.drift-demo { margin-bottom: 22px; }
+.drift-row { display: flex; align-items: center; gap: 22px; margin-bottom: 12px; }
+.drift-label {
+  width: 250px; text-align: right; line-height: 1.15;
+  font-family: "Inter", sans-serif; font-size: 22px; font-weight: 600;
+}
+.drift-row--gen .drift-label { color: var(--accent); }
+.drift-row--re .drift-label { color: var(--muted); }
+.drift-sub { display: block; font-size: 16px; font-weight: 500; color: #b4b2a8; margin-top: 2px; }
+
+.drift-toks { display: flex; gap: 8px; }
+.dchip {
+  display: flex; flex-direction: column; align-items: center; min-width: 46px;
+  padding: 7px 11px; border-radius: 7px; background: #eceae5; border: 1px solid #d6d4cd;
+}
+.dtxt { font-family: "Source Code Pro", monospace; font-size: 24px; color: #4a4a46; white-space: pre; }
+.did { font-family: "Source Code Pro", monospace; font-size: 14px; color: #aaa89e; margin-top: 3px; }
+.drift-row--gen .dchip--hot { background: rgba(217, 119, 87, 0.16); border-color: rgba(217, 119, 87, 0.55); }
+.drift-row--gen .dchip--hot .dtxt { color: #a64f2c; font-weight: 600; }
+.dchip--bad { background: #f5e0d9; border-color: #dca48f; }
+.dchip--bad .dtxt { color: #c5524a; font-weight: 600; }
+
+.drift-note { font-family: "Source Serif 4", Georgia, serif; font-size: 23px; color: var(--muted); }
+.drift-note code { background: var(--code-bg); padding: 0.05em 0.3em; border-radius: 3px; font-size: 0.92em; }
+.drift-note b { color: #c5524a; font-weight: 600; }
+
+/* ── Overview / TOC overlay (press 'o') — UI chrome, not a scaled slide ── */
+.toc-overlay {
+  position: fixed; inset: 0; z-index: 200; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(20, 20, 19, 0.88);
+}
+.toc-overlay.open { display: flex; }
+.toc-panel {
+  background: var(--bg); color: var(--ink);
+  border-radius: 16px; padding: 36px 48px;
+  min-width: 560px; max-height: 82vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+}
+.toc-title {
+  font-family: "Newsreader", Georgia, serif; font-size: 32px; font-weight: 500;
+  margin-bottom: 18px; flex: none;
+}
+.toc-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; min-height: 0; flex: 1 1 auto; }
+.toc-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px; border-radius: 9px; cursor: pointer;
+  font-family: "Inter", sans-serif; font-size: 22px; color: var(--ink);
+}
+.toc-item:hover { background: var(--code-bg); }
+.toc-item.current { color: var(--accent); font-weight: 600; }
+.toc-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%; flex: none;
+  background: var(--code-bg); color: var(--muted); font-size: 16px;
+}
+.toc-item.current .toc-num { background: var(--accent); color: #fff; }

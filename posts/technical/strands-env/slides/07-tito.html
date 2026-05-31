@@ -2,153 +2,53 @@
   <div class="slide-inner">
     <h2>Token-in / Token-out</h2>
 
-    <svg class="flow-diagram" style="margin-left: 0; max-width: 1560px;" viewBox="0 0 1260 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="tito-rows">
 
-      <!-- ══════════════════════════════════════════════════ -->
-      <!-- Left: Conversation                                 -->
-      <!-- ══════════════════════════════════════════════════ -->
+      <!-- row 1: user (env) -->
+      <div class="tito-row tito-row--env frag frag-tito1">
+        <div class="tito-stage"><span class="tito-arrow">&#9656;</span>user<span class="tito-sub">prompt</span></div>
+        <div class="tito-toks">
+          <span class="tito-chip sp">151644</span><span class="tito-chip fold">sys + tools · 150</span><span class="tito-chip sp">151645</span>
+          <span class="tito-chip sp">151644</span><span class="tito-chip">872</span><span class="tito-chip">9190</span><span class="tito-chip">5612</span>
+          <span class="tito-el">…</span><span class="tito-chip">13</span><span class="tito-chip sp">151645</span><span class="tito-chip sp">151644</span><span class="tito-chip">77091</span>
+        </div>
+        <div class="tito-txt"><span class="imk">&lt;|im_start|&gt;</span>system<br>…tools…<span class="imk">&lt;|im_end|&gt;</span><br><span class="imk">&lt;|im_start|&gt;</span>user<br>Summarize DeepSeek-V3.<span class="imk">&lt;|im_end|&gt;</span><br><span class="imk">&lt;|im_start|&gt;</span>assistant</div>
+        <div class="tito-anno"><div class="tito-dir">tokenize</div><div class="tito-msk">loss mask 0</div></div>
+      </div>
 
-      <!-- System + User -->
-      <rect x="20" y="0" width="760" height="84" rx="8" fill="#eceae5" />
-      <text x="42" y="24" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#4a4a46">SYSTEM</text>
-      <text x="140" y="24" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">You are a research assistant.</text>
-      <text x="140" y="44" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">#Tools: search(query), scrape(url, instruction)</text>
-      <text x="42" y="68" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#4a4a46">USER</text>
-      <text x="140" y="68" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">Summarize DeepSeek-V3's key innovations and compare…</text>
+      <!-- row 2: model -->
+      <div class="tito-row tito-row--model frag frag-tito2">
+        <div class="tito-stage"><span class="tito-arrow">&#9656;</span>model<span class="tito-sub">generate</span></div>
+        <div class="tito-toks">
+          <span class="tito-chip sp">151657</span><span class="tito-chip">4913</span><span class="tito-chip">606</span><span class="tito-chip">788</span><span class="tito-chip">330</span>
+          <span class="tito-el">…</span><span class="tito-chip">95642</span><span class="tito-chip sp">151658</span><span class="tito-chip sp">151645</span>
+        </div>
+        <div class="tito-txt">&lt;tool_call&gt;<br>{"name": "search", "arguments": {"query": "DeepSeek-V3"}}<br>&lt;/tool_call&gt;<span class="imk">&lt;|im_end|&gt;</span></div>
+        <div class="tito-anno"><div class="tito-dir">preserved</div><div class="tito-msk">loss mask 1</div></div>
+      </div>
 
-      <!-- Assistant 1 -->
-      <rect x="20" y="92" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="42" y="116" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#d97757">ASSISTANT</text>
-      <text x="42" y="140" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;I should find the DeepSeek-V3 report…&lt;/think&gt;</text>
-      <text x="42" y="162" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;tool_call&gt;{"name":"search","arguments":{...}}&lt;/tool_call&gt;</text>
+      <!-- row 3: tool (env) -->
+      <div class="tito-row tito-row--env frag frag-tito3">
+        <div class="tito-stage"><span class="tito-arrow">&#9656;</span>tool<span class="tito-sub">prompt</span></div>
+        <div class="tito-toks">
+          <span class="tito-chip sp">151644</span><span class="tito-chip">872</span><span class="tito-chip">27</span><span class="tito-chip">14172</span><span class="tito-chip">9655</span>
+          <span class="tito-el">…</span><span class="tito-chip">14172</span><span class="tito-chip">9655</span><span class="tito-chip">29</span><span class="tito-chip sp">151645</span><span class="tito-chip sp">151644</span><span class="tito-chip">77091</span>
+        </div>
+        <div class="tito-txt"><span class="imk">&lt;|im_start|&gt;</span>user<br>&lt;tool_response&gt;<br>[1] arxiv.org/2412.19437 - DeepSeek-V3, 671B MoE (37B active)<br>&lt;/tool_response&gt;<span class="imk">&lt;|im_end|&gt;</span><br><span class="imk">&lt;|im_start|&gt;</span>assistant</div>
+        <div class="tito-anno"><div class="tito-dir">tokenize</div><div class="tito-msk">loss mask 0</div></div>
+      </div>
 
-      <!-- Tool Result 1 -->
-      <rect x="20" y="184" width="760" height="42" rx="8" fill="#eceae5" />
-      <text x="42" y="211" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#4a4a46">TOOL</text>
-      <text x="140" y="211" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">"[1] arxiv.org/2412.19437  [2] hf.co/deepseek-ai/V3 …"</text>
+      <!-- row 4: model -->
+      <div class="tito-row tito-row--model frag frag-tito4">
+        <div class="tito-stage"><span class="tito-arrow">&#9656;</span>model<span class="tito-sub">generate</span></div>
+        <div class="tito-toks">
+          <span class="tito-chip">33464</span><span class="tito-chip">39350</span><span class="tito-chip">19625</span><span class="tito-chip">18</span><span class="tito-chip">25</span>
+          <span class="tito-el">…</span><span class="tito-chip">5426</span><span class="tito-chip">13</span><span class="tito-chip sp">151645</span>
+        </div>
+        <div class="tito-txt">DeepSeek-V3: 671B MoE, ~$5.5M to train.<span class="imk">&lt;|im_end|&gt;</span></div>
+        <div class="tito-anno"><div class="tito-dir">preserved</div><div class="tito-msk">loss mask 1</div></div>
+      </div>
 
-      <!-- Assistant 2 -->
-      <rect x="20" y="234" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="42" y="258" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#d97757">ASSISTANT</text>
-      <text x="42" y="282" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;Let me read the paper for details…&lt;/think&gt;</text>
-      <text x="42" y="304" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;tool_call&gt;{"name":"scrape","arguments":{...}}&lt;/tool_call&gt;</text>
-
-      <!-- Tool Result 2 -->
-      <rect x="20" y="326" width="760" height="42" rx="8" fill="#eceae5" />
-      <text x="42" y="353" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#4a4a46">TOOL</text>
-      <text x="140" y="353" font-family="Source Code Pro, monospace" font-size="18" fill="#4a4a46">"Abstract: DeepSeek-V3, a 671B MoE (37B active) with MLA…"</text>
-
-      <!-- ⋮ -->
-      <circle cx="370" cy="380" r="3.5" fill="#d97757" opacity="0.5" />
-      <circle cx="370" cy="391" r="3.5" fill="#c8c7c3" />
-      <circle cx="370" cy="402" r="3.5" fill="#d97757" opacity="0.5" />
-
-      <!-- Assistant final -->
-      <rect x="20" y="414" width="760" height="84" rx="8" fill="rgba(217,119,87,0.12)" />
-      <text x="42" y="438" font-family="Source Code Pro, monospace" font-size="18" font-weight="700"
-        fill="#d97757">ASSISTANT</text>
-      <text x="42" y="462" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">&lt;think&gt;I have enough info to answer…&lt;/think&gt;</text>
-      <text x="42" y="484" font-family="Source Code Pro, monospace" font-size="18" fill="#8b6355">DeepSeek-V3: MLA + DeepSeekMoE (671B/37B). Cost ~$5.5M vs ~$100M+.</text>
-
-      <!-- ══════════════════════════════════════════════════ -->
-      <!-- Right: TITO annotation columns                    -->
-      <!-- ══════════════════════════════════════════════════ -->
-
-      <!-- Right column wrapper — shifted right to clear conversation rect -->
-      <g transform="translate(60,0)">
-
-      <!-- Column headers (always visible) -->
-      <text x="800" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600"
-        letter-spacing="0.06em" fill="#7a7a75">TOKEN</text>
-      <text x="870" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600"
-        letter-spacing="0.06em" fill="#7a7a75">MASK</text>
-
-      <!-- Fragment 1: env input annotations -->
-      <g class="frag frag-env">
-        <!-- System+User -->
-        <line x1="720" y1="42" x2="760" y2="42" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="28" width="64" height="28" rx="5" fill="#eceae5" />
-        <text x="800" y="47" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="840" y="28" width="60" height="28" rx="5" fill="#eceae5" />
-        <text x="870" y="47" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">0</text>
-        <text x="768" y="76" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template</text>
-
-        <!-- Tool Result 1 -->
-        <line x1="720" y1="205" x2="760" y2="205" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="191" width="64" height="28" rx="5" fill="#eceae5" />
-        <text x="800" y="210" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="840" y="191" width="60" height="28" rx="5" fill="#eceae5" />
-        <text x="870" y="210" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">0</text>
-        <text x="768" y="237" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template (incr.)</text>
-
-        <!-- Tool Result 2 -->
-        <line x1="720" y1="347" x2="760" y2="347" stroke="#4a4a46" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="333" width="64" height="28" rx="5" fill="#eceae5" />
-        <text x="800" y="352" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">IN</text>
-        <rect x="840" y="333" width="60" height="28" rx="5" fill="#eceae5" />
-        <text x="870" y="352" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#4a4a46">0</text>
-        <text x="768" y="379" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-tokenize">tokenize:</tspan> chat_template (incr.)</text>
-      </g>
-
-      <!-- Fragment 2: model output annotations -->
-      <g class="frag frag-model">
-        <!-- Assistant 1 -->
-        <line x1="720" y1="134" x2="760" y2="134" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="120" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="802" y="139" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">OUT</text>
-        <rect x="844" y="120" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="874" y="139" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">1</text>
-        <text x="768" y="167" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
-
-        <!-- Assistant 2 -->
-        <line x1="720" y1="276" x2="760" y2="276" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="262" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="802" y="281" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">OUT</text>
-        <rect x="844" y="262" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="874" y="281" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">1</text>
-        <text x="768" y="309" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
-
-        <!-- Assistant final -->
-        <line x1="720" y1="456" x2="760" y2="456" stroke="#d97757" stroke-width="1" stroke-dasharray="4 3" />
-        <rect x="768" y="442" width="68" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="802" y="461" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">OUT</text>
-        <rect x="844" y="442" width="60" height="28" rx="5" fill="rgba(217,119,87,0.12)" />
-        <text x="874" y="461" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="18"
-          font-weight="600" fill="#d97757">1</text>
-        <text x="768" y="489" font-family="Source Code Pro, monospace" font-size="18" fill="#7a7a75"><tspan class="hl-preserve">preserve:</tspan> tokens, logprobs, experts</text>
-      </g>
-
-      </g><!-- /right column wrapper -->
-
-      <!-- Fragment 3: trigger only — highlights "preserve:" in OUT sub-labels via CSS -->
-      <g class="frag frag-preserve"></g>
-
-      <!-- Fragment 4: trigger only — highlights "tokenize:" in IN sub-labels via CSS -->
-      <g class="frag frag-tokenize"></g>
-
-      <!-- Legend -->
-      <rect x="20" y="527" width="18" height="18" rx="3" fill="rgba(217,119,87,0.12)" />
-      <text x="46" y="540" font-family="Inter, sans-serif" font-size="18" fill="#4a4a46">model output</text>
-      <rect x="180" y="527" width="18" height="18" rx="3" fill="#eceae5" />
-      <text x="206" y="540" font-family="Inter, sans-serif" font-size="18" fill="#4a4a46">env input</text>
-    </svg>
-
+    </div>
   </div>
 </section>
