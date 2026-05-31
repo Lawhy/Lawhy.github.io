@@ -1,0 +1,39 @@
+<section class="slide">
+  <div class="slide-inner">
+    <h2>Retokenization Drift</h2>
+
+    <p>
+      On-policy RL requires the model's own tokens.
+      Text-in/text-out APIs (default in most SDKs) silently re-tokenize them &mdash;
+      drifting the policy and collapsing training.
+    </p>
+
+    <div class="why-eq"><code>tokens &ne; encode(decode(tokens))</code></div>
+
+    <p class="drift-caption">A real example from Qwen3-4B-Thinking-2507.</p>
+    <div class="drift-demo">
+        <div class="drift-row drift-row--gen">
+          <div class="drift-label">model generated</div>
+          <div class="drift-toks">
+            <span class="dchip"><span class="dtxt">5</span><span class="did">20</span></span>
+            <span class="dchip"><span class="dtxt">0</span><span class="did">15</span></span>
+            <span class="dchip dchip--hot"><span class="dtxt">)"</span><span class="did">9940</span></span>
+            <span class="dchip dchip--hot"><span class="dtxt">}}</span><span class="did">11248</span></span>
+            <span class="dchip"><span class="dtxt">8</span><span class="did">23</span></span>
+            <span class="dchip"><span class="dtxt">.</span><span class="did">13</span></span>
+          </div>
+        </div>
+        <div class="drift-row drift-row--re">
+          <div class="drift-label">decode &rarr; re-encode</div>
+          <div class="drift-toks">
+            <span class="dchip"><span class="dtxt">5</span><span class="did">20</span></span>
+            <span class="dchip"><span class="dtxt">0</span><span class="did">15</span></span>
+            <span class="dchip dchip--bad"><span class="dtxt">)</span><span class="did">8</span></span>
+            <span class="dchip dchip--bad"><span class="dtxt">"}}</span><span class="did">95642</span></span>
+            <span class="dchip"><span class="dtxt">8</span><span class="did">23</span></span>
+            <span class="dchip"><span class="dtxt">.</span><span class="did">13</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

@@ -830,367 +830,101 @@ tr:last-child td { border-bottom: none; }
   display: block;
 }
 
-/* ── Why TITO (slide 8): problem → ↓ → consequences ──── */
+/* ── Chat Template (slide 9) ──────────────────────────── */
 
-/* PROBLEM panel: drift formula + concrete example, unified */
-.why-problem {
-  background: rgba(20, 20, 19, 0.04);
-  border-radius: 12px;
-  padding: 28px 40px 32px;
-  margin: 80px auto 0;
-  max-width: 1280px;
-  text-align: center;
-}
+/* Whole appended message, templated on its own. The leading boundary is wrong:
+   a [BOS] is injected and the "\n" turn-separator is dropped. Rendered as the
+   raw template string (slide 7 .tito-txt family), defects flagged inline and
+   echoed in the caption with the same red treatment. */
+.tmpl-wrap { text-align: center; margin: 48px 0 36px; }
 
-.why-problem__tag {
-  font-family: "Inter", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
-}
-
-.why-problem__eq {
-  margin-bottom: 22px;
-}
-
-.why-problem__eq code {
+.tmpl-msg {
+  display: inline-block;
+  text-align: left;
   font-family: "Source Code Pro", monospace;
-  font-size: 38px;
-  font-weight: 600;
-  color: var(--ink);
-  background: transparent;
+  font-size: 27px;
+  line-height: 1.7;
+  color: #55534d;
+  background: none;
+  border: none;
   padding: 0;
+  margin: 0;
+  white-space: pre;
 }
+.tmpl-msg .imk { color: #a8a69d; }   /* special tokens, de-emphasized */
+.tmpl-ctx { color: #b8b6ad; }         /* previous turn — already in the buffer */
 
-.why-problem__example {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.why-step {
+/* Two defects, shared between the message and the caption */
+.tmpl-drop {
   font-family: "Source Code Pro", monospace;
-  font-size: 26px;
-  font-weight: 600;
-  background: rgba(20, 20, 19, 0.06);
-  padding: 10px 16px;
-  border-radius: 6px;
-  color: var(--ink);
+  color: #c5524a;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  opacity: 0.8;
+  margin: 0 3px;
 }
-
-.why-step--ok  { background: rgba(90, 138, 106, 0.15); color: #3d6a4e; }
-.why-step--bad { background: rgba(197, 82, 74, 0.15); color: #a93a2f; }
-
-.why-op {
-  font-family: "Inter", sans-serif;
-  font-size: 22px;
-  color: var(--muted);
-  font-style: italic;
-}
-
-/* Single connector */
-.why-connector {
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  font-size: 28px;
-  font-weight: 500;
-  color: var(--muted);
-  margin: 22px 0;
-  letter-spacing: 0.04em;
-}
-
-/* CONSEQUENCES: 2 cards */
-.why-consequences {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-}
-
-.why-card {
-  background: rgba(20, 20, 19, 0.04);
-  border-radius: 10px;
-  padding: 28px 36px;
-  border-top: 5px solid var(--accent);
-}
-
-.why-card--correctness { border-top-color: #c5524a; }
-.why-card--efficiency  { border-top-color: #5b7ea1; }
-
-.why-card__tag {
-  font-family: "Inter", sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-}
-
-.why-card--correctness .why-card__tag { color: #c5524a; }
-.why-card--efficiency  .why-card__tag { color: #5b7ea1; }
-
-.why-card__head {
-  font-family: "Newsreader", "Source Serif 4", Georgia, serif;
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--ink);
-  text-transform: none;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
-}
-
-.why-card__list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0 0 16px;
-}
-
-.why-card__list li {
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px;
-  color: var(--muted);
-  line-height: 1.45;
-  margin-bottom: 8px;
-  padding-left: 20px;
-  position: relative;
-}
-
-.why-card__list li::before {
-  content: "·";
-  position: absolute;
-  left: 4px;
-  font-weight: 700;
-}
-
-.why-card--correctness .why-card__list li::before { color: #c5524a; }
-
-.why-card__list code,
-.why-card__body code {
-  font-size: 0.88em;
-  background: rgba(20, 20, 19, 0.06);
-  color: var(--ink);
-}
-
-.why-card__body {
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px;
-  color: var(--muted);
-  line-height: 1.45;
-  margin: 0 0 16px;
-}
-
-.why-card__result {
-  font-family: "Inter", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--ink);
-  padding-top: 14px;
-  border-top: 1px dashed var(--rule);
-}
-
-/* ── Chat Template Rendering (slide 9) ────────────────── */
-
-/* The single "prompt buffer" canvas that grows per turn */
-.cht-buffer {
-  background: var(--bg);
-  border: 1.5px solid var(--ink);
-  border-radius: 12px;
-  margin-top: 28px;
-  overflow: hidden;
-}
-
-.cht-row {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 24px;
-  padding: 20px 28px;
-}
-
-.cht-row + .cht-row {
-  border-top: 1px solid var(--rule);
-}
-
-.cht-row--env   { background: #eceae5; }
-.cht-row--model { background: rgba(217, 119, 87, 0.12); }
-
-/* Hidden frag rows take no layout space until revealed (buffer literally grows) */
-.cht-row.frag:not(.visible) {
-  display: none;
-}
-
-.cht-row__body {
+.tmpl-inject {
   font-family: "Source Code Pro", monospace;
-  font-size: 22px;
-  line-height: 1.55;
-  color: #4a4a46;
-}
-
-.cht-row--model .cht-row__body { color: #8b6355; }
-
-.cht-row__tag {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  text-align: right;
-}
-
-.cht-row__tag-name {
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.cht-row__tag-sub {
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 18px;
-  font-style: italic;
-  margin-top: 4px;
-}
-
-.cht-row--env .cht-row__tag {
-  color: var(--muted);
-}
-
-.cht-row--model .cht-row__tag {
-  color: var(--accent);
-}
-
-.cht-tok    { color: #d97757; font-weight: 600; }
-.cht-role   { color: #4a4a46; }
-.cht-text   { color: #4a4a46; }
-.cht-think  { color: #8b6355; }
-
-.cht-teaser {
-  margin-top: 28px;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 28px;
-  font-style: italic;
-  color: var(--muted);
-  text-align: center;
-}
-
-.cht-teaser strong {
-  color: var(--ink);
-  font-style: normal;
+  color: #c5524a;
+  background: rgba(197, 82, 74, 0.15);
   font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin: 0 3px;
 }
 
-/* ── Chat Template Rendering, Part 2 (slide 10) ───────── */
+/* the Solution reveals as a second beat (.frag), pushed down from the figure */
+.tmpl-solution { margin-top: 40px; }
 
-.ctr-subtitle {
-  text-align: center;
-  font-style: italic;
-  font-size: 36px;
-  color: var(--ink);
-  margin-bottom: 36px;
-}
+/* ── Strict Tool Parsing (slide 13) ───────────────────── */
 
 .ctr-section {
-  margin-bottom: 40px;
+  margin-top: 52px;
 }
-
-.ctr-section:first-of-type {
-  margin-top: 50px;
-}
-
-.ctr-section__tag {
-  font-family: "Inter", sans-serif;
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 20px;
-}
-
-/* What breaks */
-
-.ctr-breaks {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ctr-break {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 32px;
-  color: var(--ink);
-}
-
-.ctr-x {
-  color: #c5524a;
-  font-weight: 700;
-  font-size: 32px;
-}
-
-.ctr-break__name {
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.ctr-arrow {
-  color: var(--muted);
-}
-
-.ctr-break__why {
-  color: var(--muted);
-}
-
-.ctr-break__why code {
-  font-size: 0.85em;
-  background: rgba(20, 20, 19, 0.06);
-}
-
-/* What we do */
 
 .ctr-fixes {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 28px;
 }
 
 .ctr-fix {
   display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 18px;
+  grid-template-columns: 60px 1fr;
+  gap: 28px;
+  align-items: start;
   background: rgba(20, 20, 19, 0.03);
-  border-radius: 10px;
-  padding: 18px 24px;
+  border-radius: 12px;
+  padding: 34px 42px;
 }
 
 .ctr-fix__num {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #faf9f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "Source Code Pro", monospace;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  padding-top: 4px;
 }
 
 .ctr-fix__name {
   font-family: "Inter", sans-serif;
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .ctr-fix__detail {
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px;
+  font-size: 30px;
   color: var(--muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .ctr-fix__detail code {
@@ -1199,40 +933,10 @@ tr:last-child td { border-bottom: none; }
   color: var(--ink);
 }
 
-.ctr-fix__formula {
-  margin-top: 10px;
-}
-
-.ctr-fix__formula code {
-  font-family: "Source Code Pro", monospace;
-  font-size: 26px;
-  font-weight: 600;
-  background: rgba(217, 119, 87, 0.10);
-  color: var(--ink);
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: 1px solid rgba(217, 119, 87, 0.4);
-  display: inline-block;
-}
-
-/* Caveat at bottom */
-
-.ctr-caveat {
-  margin-top: 24px !important;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 24px !important;
-  font-style: italic;
-  color: var(--muted) !important;
-  text-align: center;
-}
-
 /* ── Tool Parsing (slide 11) ──────────────────────────── */
 
 .tp-case {
-  background: rgba(20, 20, 19, 0.03);
-  border-radius: 10px;
-  margin-bottom: 28px;
-  overflow: hidden;
+  margin-bottom: 44px;
 }
 
 .tp-examples {
@@ -1242,19 +946,32 @@ tr:last-child td { border-bottom: none; }
 .tp-case__cols {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  border-bottom: 1px solid rgba(20, 20, 19, 0.08);
+  align-items: stretch;
 }
 
 .tp-col {
-  padding: 24px 28px;
+  padding: 18px 0;
   align-self: stretch;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
+
+.tp-col__label {
+  font-family: "Inter", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.tp-col--server .tp-col__label { color: var(--accent); }
 
 .tp-col--server {
   background: rgba(217, 119, 87, 0.06);
+  border-radius: 10px;
+  padding: 18px 24px;
 }
 
 .tp-case__arrow {
@@ -1264,6 +981,7 @@ tr:last-child td { border-bottom: none; }
   color: var(--accent);
   padding: 0 18px;
   user-select: none;
+  align-self: center;
 }
 
 .tp-col__code {
@@ -1306,9 +1024,9 @@ tr:last-child td { border-bottom: none; }
 }
 
 .tp-case__consequence {
-  padding: 22px 32px 24px;
+  padding: 16px 0 0;
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 30px;
+  font-size: 27px;
   line-height: 1.4;
   color: var(--ink);
 }
@@ -1385,294 +1103,76 @@ tr:last-child td { border-bottom: none; }
 
 /* ── Token Metadata (slide 11) ─────────────────────────── */
 
-.meta-list {
-  margin: 32px 0 44px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+/* "A token is a record": columns = model tokens, rows = per-token fields.
+   token_id reuses slide 7's terracotta model-token chip; logprob and
+   routed_experts are annotated with why each is kept. */
+.tmeta { display: flex; justify-content: center; margin: 52px 0 64px; }
+
+.tmeta-grid {
+  display: grid;
+  grid-template-columns: auto repeat(4, 104px) auto;
+  column-gap: 16px;
+  row-gap: 16px;
+  align-items: center;
 }
 
-.meta-row {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  font-size: 40px;
-  line-height: 1.4;
-}
-
-.meta-key {
+.tmeta-key {
   font-family: "Source Code Pro", monospace;
-  font-size: 1em;
-  color: var(--accent);
-  font-weight: 600;
-  background: rgba(217, 119, 87, 0.10);
-  padding: 4px 12px;
-  border-radius: 4px;
-  flex-shrink: 0;
+  font-size: 24px;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  padding-right: 14px;
 }
 
-.meta-val {
-  font-family: "Source Serif 4", Georgia, serif;
-  color: var(--ink);
-}
-
-.meta-mech {
-  font-size: 32px !important;
-  line-height: 1.45;
-}
-
-/* Aside line on slide 10 — small italic footnote */
-
-.ctr-aside {
-  margin-top: 28px !important;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 28px !important;
-  font-style: italic;
-  color: var(--muted) !important;
-  line-height: 1.4;
-}
-
-.ctr-aside code {
+.tmeta-chip {
   font-family: "Source Code Pro", monospace;
-  font-style: normal;
-  font-size: 0.9em;
-  background: rgba(20, 20, 19, 0.06);
-  padding: 1px 6px;
-  color: var(--ink);
-}
-
-/* ── Fake Prefix Trick (slide 10) ─────────────────────── */
-
-.fpt-bad {
-  margin: 28px auto 0;
-  max-width: max-content;
-}
-
-.fpt-bad-row {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  margin-bottom: 12px;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 32px;
-  color: var(--ink);
-}
-
-.fpt-x {
-  color: #c5524a;
-  font-weight: 700;
-  font-size: 32px;
-}
-
-.fpt-bad-name {
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  color: var(--ink);
-  min-width: 290px;
-}
-
-.fpt-arrow {
-  color: var(--muted);
-}
-
-.fpt-bad-why {
-  color: var(--muted);
-}
-
-.fpt-bad-examples {
-  list-style: none;
-  padding-left: 338px;
-  margin: 10px 0 0;
-}
-
-.fpt-bad-examples li {
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px;
-  color: var(--muted);
-  line-height: 1.45;
-  padding-left: 20px;
-  position: relative;
-}
-
-.fpt-bad-examples li::before {
-  content: "·";
-  position: absolute;
-  left: 4px;
-  font-weight: 700;
-  color: #c5524a;
-}
-
-.fpt-bad-examples code {
-  font-size: 0.92em;
-  background: rgba(20, 20, 19, 0.06);
-}
-
-/* Subtitle: italic ink centered (narrative tone with presence) */
-.fpt-subtitle {
-  text-align: center;
-  font-style: italic;
-  font-size: 36px;
-  color: var(--ink);
-  margin-bottom: 28px;
-}
-
-/* The visual diff */
-
-.fpt-visual {
-  margin-top: 36px;
-}
-
-/* "The Fix" section tag — matches deck pattern (slide 5's "EXTEND ENVIRONMENT") */
-.fpt-section-tag {
-  text-align: center;
-  font-family: "Inter", sans-serif;
   font-size: 24px;
   font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 14px;
-}
-
-.fpt-formula {
   text-align: center;
-  margin-bottom: 22px;
+  padding: 7px 0;
+  border-radius: 7px;
+  background: rgba(217, 119, 87, 0.16);
+  color: #a64f2c;
+  border: 1px solid rgba(217, 119, 87, 0.42);
 }
 
-.fpt-formula code {
+.tmeta-val {
   font-family: "Source Code Pro", monospace;
-  font-size: 26px;
-  font-weight: 600;
-  background: rgba(217, 119, 87, 0.10);
-  color: var(--ink);
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(217, 119, 87, 0.4);
-  display: inline-block;
-}
-
-.fpt-visual__label {
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 10px;
-}
-
-.fpt-visual__label code {
-  text-transform: none;
-  font-size: 0.95em;
-  background: rgba(20, 20, 19, 0.06);
-  color: var(--ink);
-  padding: 1px 6px;
-  border-radius: 3px;
-}
-
-.fpt-buffer {
-  background: var(--bg);
-  border: 1.5px solid var(--ink);
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.fpt-zone {
-  display: grid;
-  grid-template-columns: 1fr 180px;
-  gap: 24px;
-  padding: 18px 24px;
-}
-
-.fpt-zone + .fpt-zone {
-  border-top: 1px solid var(--rule);
-}
-
-.fpt-zone--drop {
-  background: rgba(20, 20, 19, 0.05);
-  opacity: 0.55;
-}
-
-.fpt-zone--keep {
-  background: rgba(217, 119, 87, 0.12);
-}
-
-.fpt-zone__body {
-  font-family: "Source Code Pro", monospace;
-  font-size: 22px;
-  line-height: 1.55;
+  font-size: 24px;
   color: #4a4a46;
-}
-
-.fpt-zone__tag {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  text-align: right;
-}
-
-.fpt-zone__tag-name {
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.fpt-zone__tag-sub {
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 18px;
-  font-style: italic;
-  margin-top: 4px;
-}
-
-.fpt-zone--drop .fpt-zone__tag {
-  color: var(--muted);
-}
-
-.fpt-zone--keep .fpt-zone__tag {
-  color: var(--accent);
-}
-
-.fpt-sep {
-  background: rgba(217, 119, 87, 0.25);
-  padding: 1px 6px;
-  border-radius: 3px;
-  font-weight: 600;
-  color: #a93a2f;
-}
-
-.fpt-caveat {
-  margin: 26px auto 0 !important;
-  max-width: 1100px;
-  padding: 18px 28px;
-  background: rgba(20, 20, 19, 0.04);
-  border-left: 4px solid var(--accent);
-  border-radius: 0 8px 8px 0;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 26px !important;
-  color: var(--ink) !important;
-  text-align: left;
-  line-height: 1.5 !important;
-}
-
-.fpt-result {
-  margin-top: 16px;
   text-align: center;
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: 22px;
-  color: var(--ink);
 }
 
-.fpt-result code {
-  font-size: 0.92em;
-  background: rgba(20, 20, 19, 0.06);
-  padding: 2px 8px;
-  border-radius: 4px;
+.tmeta-anno {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: left;
 }
+.tmeta-anno:not(:empty)::before { content: "\2192  "; color: var(--accent); font-weight: 600; }
+
+/* loss_mask = 0 → prompt/tool token, shown in slide 7's gray env-chip */
+.tmeta-chip--ctx { background: #e7e5de; color: #4a4a46; border-color: #cfcdc4; }
+
+/* divider between the per-token scalars and the routed_experts matrix */
+.tmeta-rule { grid-column: 1 / -1; border-top: 1px solid var(--rule); margin: 4px 0; }
+
+/* routed_experts: layers (rows) × top_k (cell) under the same token columns */
+.tmeta-rexp-hdr {
+  grid-column: 2 / 6;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--muted);
+  text-align: center;
+}
+.tmeta-layer { font-size: 20px; }
+
+/* routed_experts cells: abstract "top_k experts" as small blocks, not fake indices */
+.tmeta-experts { display: flex; justify-content: center; gap: 5px; }
+.tmeta-experts i { width: 13px; height: 13px; border-radius: 3px; background: rgba(217, 119, 87, 0.65); }
 
 /* ── TITO sub-label verb highlight (slide 7) ────────── */
 
@@ -1837,36 +1337,71 @@ tr:last-child td { border-bottom: none; }
 .slide.fragv-tito4 .frag-tito3 .tito-arrow { opacity: 0; }
 .slide.fragv-tito4 .frag-tito4 .tito-arrow { opacity: 1; }
 
-/* ── Slide: Retokenization Drift (real )"}}  example) ── */
+/* ── Slide: Retokenization Drift (real example → reason → what breaks) ── */
 
-.why-eq { font-family: "Source Code Pro", monospace; font-size: 30px; color: var(--accent); margin-bottom: 26px; }
+/* Equation as the formal restatement under the opening sentence */
+.why-eq {
+  font-family: "Source Code Pro", monospace;
+  font-size: 44px;
+  color: var(--accent);
+  text-align: center;
+  margin: 56px 0 72px;
+}
 .why-eq code { background: none; padding: 0; font-size: inherit; color: inherit; }
 
-.drift-demo { margin-bottom: 22px; }
-.drift-row { display: flex; align-items: center; gap: 22px; margin-bottom: 12px; }
+/* Token-chip demo */
+.drift-demo { margin: 0; }
+.drift-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 14px;
+}
+.drift-row:last-child { margin-bottom: 0; }
 .drift-label {
-  width: 250px; text-align: right; line-height: 1.15;
-  font-family: "Inter", sans-serif; font-size: 22px; font-weight: 600;
+  width: 280px;
+  text-align: right;
+  line-height: 1.2;
+  font-family: "Inter", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
 }
 .drift-row--gen .drift-label { color: var(--accent); }
 .drift-row--re .drift-label { color: var(--muted); }
-.drift-sub { display: block; font-size: 16px; font-weight: 500; color: #b4b2a8; margin-top: 2px; }
 
-.drift-toks { display: flex; gap: 8px; }
+.drift-toks { display: flex; gap: 10px; }
 .dchip {
-  display: flex; flex-direction: column; align-items: center; min-width: 46px;
-  padding: 7px 11px; border-radius: 7px; background: #eceae5; border: 1px solid #d6d4cd;
+  display: flex; flex-direction: column; align-items: center; min-width: 60px;
+  padding: 10px 14px; border-radius: 8px; background: #eceae5; border: 1px solid #d6d4cd;
 }
-.dtxt { font-family: "Source Code Pro", monospace; font-size: 24px; color: #4a4a46; white-space: pre; }
-.did { font-family: "Source Code Pro", monospace; font-size: 14px; color: #aaa89e; margin-top: 3px; }
+.dtxt {
+  font-family: "Source Code Pro", monospace;
+  font-size: 32px;
+  color: #4a4a46;
+  white-space: pre;
+}
+.did {
+  font-family: "Source Code Pro", monospace;
+  font-size: 18px;
+  color: #aaa89e;
+  margin-top: 4px;
+}
 .drift-row--gen .dchip--hot { background: rgba(217, 119, 87, 0.16); border-color: rgba(217, 119, 87, 0.55); }
 .drift-row--gen .dchip--hot .dtxt { color: #a64f2c; font-weight: 600; }
 .dchip--bad { background: #f5e0d9; border-color: #dca48f; }
 .dchip--bad .dtxt { color: #c5524a; font-weight: 600; }
 
-.drift-note { font-family: "Source Serif 4", Georgia, serif; font-size: 23px; color: var(--muted); }
-.drift-note code { background: var(--code-bg); padding: 0.05em 0.3em; border-radius: 3px; font-size: 0.92em; }
-.drift-note b { color: #c5524a; font-weight: 600; }
+/* Caption above the demo: small muted Inter, attribution tone */
+.drift-caption {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #b4b2a8;
+  text-align: center;
+  letter-spacing: 0.06em;
+  margin: 0 0 22px;
+}
 
 /* ── Overview / TOC overlay (press 'o') — UI chrome, not a scaled slide ── */
 .toc-overlay {

@@ -1,0 +1,66 @@
+<section class="slide" data-toc="Token Metadata">
+  <div class="slide-inner">
+    <h2>Token Metadata</h2>
+
+    <p>Preserving the tokens keeps their <span class="accent">metadata</span>, too &mdash; and training needs it just as
+      much:</p>
+
+    <div class="tmeta">
+      <div class="tmeta-grid">
+        <div class="tmeta-key">token_id</div>
+        <span class="tmeta-chip tmeta-chip--ctx">151644</span>
+        <span class="tmeta-chip tmeta-chip--ctx">77091</span>
+        <span class="tmeta-chip">33464</span>
+        <span class="tmeta-chip">39350</span>
+        <div class="tmeta-anno"></div>
+
+        <div class="tmeta-key">loss_mask</div>
+        <span class="tmeta-val">0</span>
+        <span class="tmeta-val">0</span>
+        <span class="tmeta-val">1</span>
+        <span class="tmeta-val">1</span>
+        <div class="tmeta-anno"></div>
+
+        <div class="tmeta-key">logprob</div>
+        <span class="tmeta-val">&minus;0.41</span>
+        <span class="tmeta-val">&minus;0.02</span>
+        <span class="tmeta-val">&minus;0.08</span>
+        <span class="tmeta-val">&minus;2.44</span>
+        <div class="tmeta-anno">measures train-inference drift</div>
+
+        <div class="tmeta-rule"></div>
+
+        <div class="tmeta-key">routed_experts</div>
+        <div class="tmeta-rexp-hdr">layers &darr; &times; top_k</div>
+        <div class="tmeta-anno">MoE router replay (opt-in)</div>
+
+        <div class="tmeta-key tmeta-layer">&#8467;0</div>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <div class="tmeta-anno"></div>
+
+        <div class="tmeta-key tmeta-layer">&#8467;1</div>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <span class="tmeta-experts"><i></i><i></i><i></i></span>
+        <div class="tmeta-anno"></div>
+
+        <div class="tmeta-key tmeta-layer">&vellip;</div>
+        <span class="tmeta-val">&vellip;</span>
+        <span class="tmeta-val">&vellip;</span>
+        <span class="tmeta-val">&vellip;</span>
+        <span class="tmeta-val">&vellip;</span>
+        <div class="tmeta-anno"></div>
+      </div>
+    </div>
+
+    <p>
+      Each turn we collect metadata only for the <span class="accent">new chunk</span> &mdash; for instance, via
+      SGLang's
+      <code>start_len</code> &mdash; which keeps the payload light.
+    </p>
+  </div>
+</section>
