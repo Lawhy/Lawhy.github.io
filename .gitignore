@@ -1,0 +1,5 @@
+# Reference source repos cloned under materials/ for the strands-env post — never commit.
+# They are embedded git repos; committing them as gitlinks (with no .gitmodules)
+# breaks the GitHub Pages build (submodule fetch fails).
+posts/technical/strands-env/materials/strands-env/
+posts/technical/strands-env/materials/strands-sglang/
