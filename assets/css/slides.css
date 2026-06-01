@@ -933,6 +933,44 @@ tr:last-child td { border-bottom: none; }
   color: var(--ink);
 }
 
+/* ── Termination Reasons (slide 13) ─────────────────────── */
+
+/* a list: each enum reason → how we treat the rollout, with the treatment
+   (bold sans) and why (serif, muted) merged on one line. env chips gray,
+   model terracotta (the deck's env/model palette). task_complete sits last,
+   below a heavier divider, as the normal-completion baseline that hands the
+   output to the reward function. */
+.term-list { margin-top: 44px; }
+
+.term-item {
+  display: grid;
+  grid-template-columns: 360px 48px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 0;
+}
+.term-item + .term-item { border-top: 1px solid var(--rule); }
+.term-item--note { margin-top: 6px; }
+.term-item + .term-item--note { border-top: 2px solid #cfcdc4; }
+
+.term-reason { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.term-chip {
+  font-family: "Source Code Pro", monospace;
+  font-size: 23px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.term-chip--env   { background: #e7e5de; color: #4a4a46; border-color: #cfcdc4; }
+.term-chip--model { background: rgba(217, 119, 87, 0.16); color: #a64f2c; border-color: rgba(217, 119, 87, 0.42); }
+
+.term-arrow { font-family: "Source Serif 4", Georgia, serif; font-size: 34px; color: var(--accent); text-align: center; }
+
+.term-out { font-family: "Source Serif 4", Georgia, serif; font-size: 25px; line-height: 1.4; }
+.term-treat__name { font-family: "Inter", sans-serif; font-size: 25px; font-weight: 600; color: var(--ink); }
+.term-why { color: var(--muted); }
+
 /* ── Tool Parsing (slide 11) ──────────────────────────── */
 
 .tp-case {

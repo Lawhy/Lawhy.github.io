@@ -1,0 +1,50 @@
+<section class="slide" data-toc="Termination Reasons">
+  <div class="slide-inner">
+    <h2>Termination Reasons</h2>
+    <p>Before a reward, the environment catches what reason ended the rollout. Turning each reason into how we treat a
+      rollout is an <span class="accent">algorithm choice</span> and a lever for the <span class="accent">model's
+        behavior</span>. A few examples:</p>
+
+    <div class="term-list">
+
+      <div class="term-item">
+        <div class="term-reason">
+          <span class="term-chip term-chip--env">throttling</span>
+          <span class="term-chip term-chip--env">timeout</span>
+        </div>
+        <div class="term-arrow">&rarr;</div>
+        <div class="term-out"><span class="term-treat__name">retry or drop</span> <span class="term-why">&mdash; the
+            env's fault, not about the policy</span></div>
+      </div>
+
+      <div class="term-item">
+        <div class="term-reason">
+          <span class="term-chip term-chip--model">context_window_overflow</span>
+        </div>
+        <div class="term-arrow">&rarr;</div>
+        <div class="term-out"><span class="term-treat__name">length penalty</span> <span class="term-why">&mdash; if
+            the model is too verbose and bloats the context in just a few turns</span></div>
+      </div>
+
+      <div class="term-item">
+        <div class="term-reason">
+          <span class="term-chip term-chip--model">max_tool_iterations</span>
+        </div>
+        <div class="term-arrow">&rarr;</div>
+        <div class="term-out"><span class="term-treat__name">negative sample</span> <span class="term-why">&mdash; an
+            unexpectedly long rollout in an easy task; truncated and penalized, even if it might've reached the
+            answer</span></div>
+      </div>
+
+      <div class="term-item term-item--note">
+        <div class="term-reason">
+          <span class="term-chip term-chip--model">task_complete</span>
+        </div>
+        <div class="term-arrow">&rarr;</div>
+        <div class="term-out"><span class="term-treat__name">grade the output</span> <span class="term-why">&mdash; it
+            finished on its own; hand to the reward function</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
