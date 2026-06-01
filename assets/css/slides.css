@@ -197,10 +197,22 @@ pre code {
   text-align: center;
   align-items: center;
   justify-content: center;
+  /* optical centering — sit a touch above the true middle so it doesn't read low */
+  padding-bottom: 220px;
 }
 
 .slide--section h2 {
-  font-size: 56px;
+  font-size: 104px;
+}
+
+.sect-sub {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 40px;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 1180px;
+  margin-top: 36px;
+  line-height: 1.4;
 }
 
 /* ── Callout box ────────────────────────────────────── */
@@ -321,50 +333,57 @@ pre code {
 
 /* ── Challenge grid (2×2) ───────────────────────────── */
 
-.challenge-grid {
+/* ── Challenges (slide 3) — two pillars: Correctness · Efficiency ── */
+.ch-thesis {
+  font-size: 34px;
+  color: var(--muted);
+  margin: 0 0 60px;
+  max-width: 1450px;
+}
+
+.ch-pillars {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 36px;
-  margin-top: 24px;
+  gap: 100px;
 }
 
-.challenge-card {
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.challenge-num {
-  font-family: "Source Code Pro", monospace;
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.04em;
-  margin-bottom: 8px;
-}
-.challenge-card h3 {
+.ch-pillar__name {
   font-family: "Newsreader", "Source Serif 4", Georgia, serif;
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 500;
-  font-style: normal;
-  color: var(--ink);
-  text-transform: none;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
-}
-
-.challenge-card p {
-  font-size: 34px;
-  line-height: 1.45;
-  color: var(--muted);
-  margin: 0;
-}
-
-.challenge-card p .accent {
   color: var(--accent);
+  margin-bottom: 38px;
+}
+
+.ch-list { list-style: none; padding: 0; margin: 0; }
+.ch-list li {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 32px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 42px;
+}
+.ch-list li:last-child { margin-bottom: 0; }
+.ch-list b { color: var(--ink); font-weight: 600; }
+
+/* scoped-out facet: named but deliberately below the "scope line" (kernel / RL-infra layer) */
+.ch-list li.scoped {
+  font-size: 27px;
+  color: #aba89e;
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid var(--rule);
+}
+.ch-list li.scoped b { color: inherit; font-weight: 600; }
+.ch-list li.scoped::before {
+  content: "Not covered here";
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
   font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  margin-bottom: 12px;
 }
 
 /* ── Hook event highlight (slide 4) ──────────────────

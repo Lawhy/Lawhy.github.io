@@ -1,0 +1,28 @@
+<section class="slide" data-toc="Challenges">
+  <div class="slide-inner">
+    <h2>But to make it trainable...</h2>
+    <p class="ch-thesis">&hellip; the agent's rollout has to be both <span class="accent">correct</span> and <span
+        class="accent">efficient</span> &mdash; before RL algorithm optimizations.</p>
+
+    <div class="ch-pillars">
+      <div class="ch-pillar">
+        <div class="ch-pillar__name">Correctness</div>
+        <ul class="ch-list">
+          <li><b>Tokens</b> &mdash; no retokenization drift</li>
+          <li><b>Tool calls</b> &mdash; strict parsing, no fallbacks</li>
+          <li><b>Terminations</b> &mdash; classified to shape reward</li>
+          <li class="scoped"><b>Train&ndash;inference match</b> &mdash; kernel-level</li>
+        </ul>
+      </div>
+      <div class="ch-pillar">
+        <div class="ch-pillar__name">Efficiency</div>
+        <ul class="ch-list">
+          <li><b>Async &ne; parallelism</b> &mdash; overlaps I/O, not CPU</li>
+          <li><b>Bottlenecks</b> &mdash; CPU, rate-limits, slow tools</li>
+          <li><b>Per-env tuning</b> &mdash; no single solution</li>
+          <li class="scoped"><b>Fully-async + staleness control</b> &mdash; Training infra-level</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
