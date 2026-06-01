@@ -1,0 +1,26 @@
+<section class="slide" data-toc="Tool execution">
+  <div class="slide-inner">
+    <h2>Tool Execution</h2>
+    <p>Tool calls are a big share of the wallclock &mdash; the bottleneck differs by environment:
+    </p>
+
+    <div class="te-grid">
+      <div class="te-card">
+        <div class="te-card__name"><code>SearchEnv</code></div>
+        <div class="te-card__wall">Many APIs like web search are highly <span class="accent">rate-limited</span> &mdash;
+          fire too many requests at once and the provider <span class="accent">throttles</span> you.</div>
+        <div class="te-card__knob"><span class="te-card__arrow">&rarr;</span> a <code>semaphore</code> and/or a
+          <code>rate_limiter</code> caps concurrency under the limit
+        </div>
+      </div>
+      <div class="te-card">
+        <div class="te-card__name"><code>CodeEnv</code></div>
+        <div class="te-card__wall">Every task initializes, runs, and cleans up a new sandbox &mdash; and a <span
+            class="accent">long-running</span> code can take minutes.</div>
+        <div class="te-card__knob"><span class="te-card__arrow">&rarr;</span> cap active sessions, enforce backpressure
+          and
+          timeouts, and preserve faithful execution results across retries and cleanup</div>
+      </div>
+    </div>
+  </div>
+</section>

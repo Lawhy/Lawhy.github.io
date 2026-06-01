@@ -1,0 +1,20 @@
+<section class="slide" data-toc="Distribution">
+  <div class="slide-inner">
+    <h2>Distributed Rollouts</h2>
+    <p>To scale rollouts past Python's GIL, we can use processes &mdash; e.g., <span class="accent">Ray actors</span>:
+    </p>
+
+    <pre
+      class="eff-code"><code><span class="eff-hl">@ray.remote</span>                          <span class="eff-hl"># its own process: own GIL, own event loop</span>
+class EnvironmentActor:
+    async def step(self, action):
+        return await self.env.step(action)
+
+pool = EnvironmentActorPool(n_actors_per_node=8)   <span class="eff-cmt"># 8 per node, across the cluster</span>
+result = await pool.step(action)                   <span class="eff-cmt"># round-robin to a free actor</span></code></pre>
+
+    <div class="eff-take eff-take--good frag"><span class="eff-mark">&checkmark;</span> Each actor is a separate process
+      &mdash; async <i>inside</i> each, parallel <i>across</i>. Work that used to pile up in one event loop now
+      runs across many actors.</div>
+  </div>
+</section>

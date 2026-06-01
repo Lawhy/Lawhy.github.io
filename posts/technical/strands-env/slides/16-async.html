@@ -1,0 +1,21 @@
+<section class="slide" data-toc="Async vs parallelism">
+  <div class="slide-inner">
+    <h2>Async &ne; Parallelism</h2>
+    <p>Agent loop is <span class="accent">async by default</span> &mdash; a rollout is mostly
+      <i>waiting</i> (model/tool calls) in one event loop. But Python's
+      <code>async</code> is <span class="accent">one thread</span>, bounded by its <span class="accent">GIL</span>.
+    </p>
+
+    <pre class="eff-code"><code>@tool
+async def read_page(url):
+    html = await fetch_html(url)      <span class="eff-cmt"># awaits &rarr; releases the loop</span>
+    markdown = html_to_markdown(html) <span class="eff-hl"># no await &rarr; holds the loop</span>
+    return markdown</code></pre>
+
+    <div class="eff-take frag"><span class="eff-mark eff-hl">&times;</span> So
+      <code>html_to_markdown</code> is CPU-side work with no <code>await</code>: each call is cheap, but blocking
+      sections pile up across
+      thousands of concurrent rollouts.
+    </div>
+  </div>
+</section>
