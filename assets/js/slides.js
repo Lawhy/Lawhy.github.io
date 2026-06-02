@@ -5,6 +5,7 @@
   var SLIDE_W = 1920;
   var SLIDE_H = 1080;
 
+  var deck = document.querySelector('.deck');
   var slides = Array.from(document.querySelectorAll('.slide'));
   var progress = document.getElementById('progress');
   var hint = document.getElementById('hint');
@@ -15,8 +16,12 @@
   var isRotated = false;
 
   function scaleSlides() {
-    var vw = window.innerWidth;
-    var vh = window.innerHeight;
+    // Size to the deck's own box rather than window.innerWidth/Height. The deck
+    // is 100dvh, so its height tracks the *visible* viewport — excluding mobile
+    // browser toolbars. (innerHeight includes the area behind the bottom bar, so
+    // the rotated slide's right edge would otherwise hide under it.)
+    var vw = deck.clientWidth;
+    var vh = deck.clientHeight;
 
     // A landscape (16:9) slide on a portrait viewport fits-to-width and ends up
     // tiny, wasting most of the screen. Rotating the canvas 90° lets the slide's
@@ -108,7 +113,7 @@
   // so we use Y instead — keeping left/right relative to the slide, not the screen.
   function navByPoint(x, y) {
     var pos = isRotated ? y : x;
-    var extent = isRotated ? window.innerHeight : window.innerWidth;
+    var extent = isRotated ? deck.clientHeight : deck.clientWidth;
     if (pos < extent / 2) prev(); else next();
   }
 
@@ -238,6 +243,11 @@
 
   window.addEventListener('resize', scaleSlides);
   window.addEventListener('orientationchange', scaleSlides);
+  // Mobile toolbars show/hide without firing a window resize — track the
+  // visual viewport so the deck re-fits when the bottom bar appears.
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', scaleSlides);
+  }
   scaleSlides();
   updateProgress();
   restoreFromHash();
