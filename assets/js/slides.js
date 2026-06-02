@@ -5,19 +5,36 @@
   var SLIDE_W = 1920;
   var SLIDE_H = 1080;
 
-  var deck = document.querySelector('.deck');
   var slides = Array.from(document.querySelectorAll('.slide'));
   var progress = document.getElementById('progress');
   var hint = document.getElementById('hint');
   var cur = 0;
+  // True when the canvas is rotated 90° (portrait phone). In that state the
+  // slide's left→right axis runs top→bottom down the device, so navigation
+  // gestures are measured against the slide, not the device. See scaleSlides.
+  var isRotated = false;
 
   function scaleSlides() {
     var vw = window.innerWidth;
     var vh = window.innerHeight;
-    var scale = Math.min(vw / SLIDE_W, vh / SLIDE_H);
+
+    // A landscape (16:9) slide on a portrait viewport fits-to-width and ends up
+    // tiny, wasting most of the screen. Rotating the canvas 90° lets the slide's
+    // long axis run down the screen instead — much bigger. Only do it when the
+    // rotated fit is actually larger, so the embedded (landscape) iframe and
+    // landscape phones are left upright untouched.
+    // rotate(90deg): slide top points to the device's right, so it reads
+    // upright when the phone is turned counter-clockwise — the natural motion
+    // for a right-hander gripping the phone (bottom edge swings out to the right).
+    var upright = Math.min(vw / SLIDE_W, vh / SLIDE_H);
+    var rotated = Math.min(vw / SLIDE_H, vh / SLIDE_W);
+    var doRotate = rotated > upright;
+    isRotated = doRotate;
+    var scale = doRotate ? rotated : upright;
+    var rot = doRotate ? ' rotate(90deg)' : '';
 
     slides.forEach(function (s) {
-      s.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+      s.style.transform = 'translate(-50%, -50%)' + rot + ' scale(' + scale + ')';
       s.style.left = '50%';
       s.style.top = '50%';
     });
@@ -83,6 +100,16 @@
       return;
     }
     go(cur - 1);
+  }
+
+  // Tap/click the left half of the SLIDE → prev, right half → next. Measured
+  // against the slide's left→right axis: that's the device X normally, but when
+  // the canvas is rotated 90° (portrait phone) the slide runs down the device,
+  // so we use Y instead — keeping left/right relative to the slide, not the screen.
+  function navByPoint(x, y) {
+    var pos = isRotated ? y : x;
+    var extent = isRotated ? window.innerHeight : window.innerWidth;
+    if (pos < extent / 2) prev(); else next();
   }
 
   function updateProgress() {
@@ -192,6 +219,7 @@
 
     // Click-to-reveal popinfo tooltip — toggle clicked trigger, close others
     var pop = e.target.closest('.popinfo');
+    var hadOpenPop = document.querySelector('.popinfo.open');
     document.querySelectorAll('.popinfo.open').forEach(function (p) {
       if (p !== pop) p.classList.remove('open');
     });
@@ -199,39 +227,17 @@
       pop.classList.toggle('open');
       return;
     }
+    // A click that only dismissed an open tooltip shouldn't also flip the slide.
+    if (hadOpenPop) return;
 
-    // Don't navigate when clicking inside slide content
-    if (e.target.closest('.slide-inner')) return;
-
-    // Links — don't navigate slides
+    // Links — let them work, never navigate.
     if (e.target.closest('a')) return;
 
-    // Default: click to navigate slides (only on empty areas / margins)
-    if (e.clientX > window.innerWidth / 3) {
-      next();
-    } else {
-      prev();
-    }
+    navByPoint(e.clientX, e.clientY);
   });
 
-  // Touch: horizontal swipe to navigate (mobile / embedded iframe)
-  var touchX = null, touchY = null;
-  document.addEventListener('touchstart', function (e) {
-    touchX = e.changedTouches[0].clientX;
-    touchY = e.changedTouches[0].clientY;
-  }, { passive: true });
-  document.addEventListener('touchend', function (e) {
-    if (touchX === null) return;
-    var dx = e.changedTouches[0].clientX - touchX;
-    var dy = e.changedTouches[0].clientY - touchY;
-    touchX = touchY = null;
-    if (toc.classList.contains('open')) return;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
-      if (dx < 0) next(); else prev();
-    }
-  }, { passive: true });
-
   window.addEventListener('resize', scaleSlides);
+  window.addEventListener('orientationchange', scaleSlides);
   scaleSlides();
   updateProgress();
   restoreFromHash();

@@ -22,6 +22,6 @@ This slide deck discusses the principles behind how we built agent environments 
 </div>
 
 <div class="post-deck__bar">
-  <span class="post-deck__hint">Click the slides, then <kbd>&larr;</kbd> <kbd>&rarr;</kbd> <kbd>Space</kbd> or swipe to navigate &middot; <kbd>1</kbd> &rarr; first slide.</span>
+  <span class="post-deck__hint">Click left / right to navigate &middot; <kbd>1</kbd> &rarr; first slide.</span>
   <button class="post-deck__fs" type="button" onclick="var f=document.querySelector('.post-deck__frame'); if(f.requestFullscreen){f.requestFullscreen();}else{window.open('slides/deck.html','_blank');}">&#9974; Fullscreen</button>
 </div>
