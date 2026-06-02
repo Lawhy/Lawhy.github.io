@@ -2060,3 +2060,57 @@ tr:last-child td {
   background: var(--accent);
   color: #fff;
 }
+
+/* ── Slide: When the reward won't move (diagnostic) ──── */
+.wm-list { display: flex; flex-direction: column; margin: 34px 0 64px; }
+.wm-row {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  column-gap: 40px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+}
+.wm-row:last-child { border-bottom: 1px solid var(--rule); }
+.wm-key {
+  font-family: "Newsreader", "Source Serif 4", Georgia, serif;
+  font-size: 33px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.wm-tag {
+  display: block;
+  margin-top: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.wm-desc {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 30px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.wm-ret { display: inline-block; transform: scaleX(-1); color: var(--accent); font-weight: 600; margin-right: 14px; }
+
+/* ── Slide: Finally (closer) ─────────────────────────── */
+.slide--finally p { margin-bottom: 48px; max-width: 1480px; }
+/* code-pointer pill — rounded, accent-outlined CTA, floating in the lower space */
+.fin-callout {
+  margin: 80px 0 auto;
+  background: rgba(217, 119, 87, 0.06);
+  border: 2px solid var(--accent);
+  border-radius: 18px;
+  padding: 26px 36px;
+  max-width: 1480px;
+}
+.fin-callout p { font-size: 30px; line-height: 1.45; margin: 0; max-width: none; }
+.fin-callout .fc-label {
+  font-family: "Inter", sans-serif; font-size: 18px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);
+  margin-bottom: 12px;
+}
+.fin-callout a { color: var(--accent); font-weight: 600; text-decoration: none; }
