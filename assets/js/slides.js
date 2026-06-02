@@ -169,6 +169,10 @@
         e.preventDefault();
         go(slides.length - 1);
         break;
+      case '1':
+        e.preventDefault();
+        go(0);
+        break;
     }
   });
 
@@ -209,6 +213,23 @@
       prev();
     }
   });
+
+  // Touch: horizontal swipe to navigate (mobile / embedded iframe)
+  var touchX = null, touchY = null;
+  document.addEventListener('touchstart', function (e) {
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    var dy = e.changedTouches[0].clientY - touchY;
+    touchX = touchY = null;
+    if (toc.classList.contains('open')) return;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next(); else prev();
+    }
+  }, { passive: true });
 
   window.addEventListener('resize', scaleSlides);
   scaleSlides();

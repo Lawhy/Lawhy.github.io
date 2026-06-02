@@ -60,8 +60,8 @@
 </div>
 
 <div class="post-deck__bar">
-  <span class="post-deck__hint">Arrow keys or click to navigate &middot; <kbd>Space</kbd> reveals details.</span>
-  <button class="post-deck__fs" type="button" onclick="document.querySelector('.post-deck__frame').requestFullscreen()">&#9974; Fullscreen</button>
+  <span class="post-deck__hint">&larr; &rarr; or swipe to navigate &middot; <kbd>Space</kbd> reveals details.</span>
+  <button class="post-deck__fs" type="button" onclick="var f=document.querySelector('.post-deck__frame'); if(f.requestFullscreen){f.requestFullscreen();}else{window.open('slides/deck.html','_blank');}">&#9974; Fullscreen</button>
 </div>
         </div>
         <section class="post-comments" aria-label="Comments">
