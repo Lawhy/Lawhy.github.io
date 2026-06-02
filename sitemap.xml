@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://yuanhe.wiki/posts/technical/strands-env/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yuanhe.wiki/posts/technical/bpe/</loc>
     <lastmod>2026-05-20</lastmod>
     <priority>0.8</priority>

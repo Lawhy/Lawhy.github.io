@@ -8,6 +8,13 @@
     <atom:link href="https://yuanhe.wiki/feed.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>Mon, 01 Jun 2026 00:00:00 GMT</lastBuildDate>
     <item>
+      <title>From Agent Loops to Agent Environments</title>
+      <link>https://yuanhe.wiki/posts/technical/strands-env/</link>
+      <guid>https://yuanhe.wiki/posts/technical/strands-env/</guid>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Slides on the infrastructure behind agentic RL — making a rollout correct (token-faithful, on-policy) and fast (scalable), before any algorithm. The story behind strands-env and strands-sglang.]]></description>
+    </item>
+    <item>
       <title>Building BPE from Scratch</title>
       <link>https://yuanhe.wiki/posts/technical/bpe/</link>
       <guid>https://yuanhe.wiki/posts/technical/bpe/</guid>

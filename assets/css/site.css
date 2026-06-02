@@ -1800,3 +1800,55 @@ body {
     gap: 0.2rem;
   }
 }
+
+/* Embedded slide deck (talk posts) — wider-than-body 16:9, mirrors .post-cover */
+.post-body > .post-deck {
+  margin: 0 -3rem;
+}
+.post-deck__frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #2c2c2a;
+}
+/* toolbar under the deck: hint left, fullscreen right, one line, deck-aligned */
+.post-body > .post-deck__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.75rem -3rem 1.5rem;
+}
+.post-deck__hint {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+}
+.post-deck__hint kbd {
+  font-family: var(--sans);
+  font-size: 0.8em;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  background: var(--aside-bg);
+}
+.post-deck__fs {
+  flex: none;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  padding: 0.45em 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.post-deck__fs:hover { background: var(--accent); color: #fff; }
+@media (max-width: 800px) {
+  .post-body > .post-deck,
+  .post-body > .post-deck__bar { margin-left: 0; margin-right: 0; }
+}

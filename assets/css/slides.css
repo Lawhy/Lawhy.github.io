@@ -2003,9 +2003,10 @@ tr:last-child td {
 .toc-panel {
   background: var(--bg);
   color: var(--ink);
-  border-radius: 16px;
-  padding: 36px 48px;
-  min-width: 560px;
+  border-radius: 1.4vh;
+  padding: 3vh 4vh;
+  min-width: 30vw;
+  max-width: 80vw;
   max-height: 82vh;
   display: flex;
   flex-direction: column;
@@ -2013,9 +2014,9 @@ tr:last-child td {
 }
 .toc-title {
   font-family: "Newsreader", Georgia, serif;
-  font-size: 32px;
+  font-size: 3vh;
   font-weight: 500;
-  margin-bottom: 18px;
+  margin-bottom: 1.6vh;
   flex: none;
 }
 .toc-list {
@@ -2029,12 +2030,12 @@ tr:last-child td {
 .toc-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 14px;
-  border-radius: 9px;
+  gap: 1.4vh;
+  padding: 0.9vh 1.3vh;
+  border-radius: 0.8vh;
   cursor: pointer;
   font-family: "Inter", sans-serif;
-  font-size: 22px;
+  font-size: 2vh;
   color: var(--ink);
 }
 .toc-item:hover {
@@ -2048,13 +2049,13 @@ tr:last-child td {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 3vh;
+  height: 3vh;
   border-radius: 50%;
   flex: none;
   background: var(--code-bg);
   color: var(--muted);
-  font-size: 16px;
+  font-size: 1.5vh;
 }
 .toc-item.current .toc-num {
   background: var(--accent);
