@@ -12,7 +12,7 @@
       <link>https://yuanhe.wiki/posts/technical/strands-env/</link>
       <guid>https://yuanhe.wiki/posts/technical/strands-env/</guid>
       <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Slides on the infrastructure behind agentic RL — making a rollout correct (token-faithful, on-policy) and fast (scalable), before any algorithm. The story behind strands-env and strands-sglang.]]></description>
+      <description><![CDATA[This slide deck discusses the principles behind how we built agent environments for agentic RL with strands-env and strands-sglang. An agent environment is essentially a rollout system — and getting it right requires infra-level understanding before approaching the algorithms…]]></description>
     </item>
     <item>
       <title>Building BPE from Scratch</title>

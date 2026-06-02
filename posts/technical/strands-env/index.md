@@ -2,7 +2,7 @@
 title: "From Agent Loops to Agent Environments"
 date: 2026-06-01
 slug: strands-env
-summary: "Slides on the infrastructure behind agentic RL — making a rollout correct (token-faithful, on-policy) and fast (scalable), before any algorithm. The story behind strands-env and strands-sglang."
+summary: ""
 authors: '<a href="https://www.yuanhe.wiki/">Yuan He</a>'
 comments: true
 ---
