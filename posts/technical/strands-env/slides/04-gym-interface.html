@@ -1,14 +1,14 @@
 <section class="slide">
   <div class="slide-inner">
-    <h2>The Gym-Like Interface</h2>
+    <h2>The Environment Interface</h2>
 
     <div class="gym-flow">
       <div class="gym-flow__box gym-flow__io">
         <div class="gym-flow__tag">Input</div>
-        <div class="gym-flow__name"><code>Action</code></div>
+        <div class="gym-flow__name"><code>Task</code></div>
         <ul class="gym-flow__fields">
           <li><code>message</code></li>
-          <li><code>task_context</code></li>
+          <li><code>context</code></li>
           <li class="gym-flow__ph">&middot;</li>
         </ul>
       </div>
@@ -17,10 +17,10 @@
 
       <div class="gym-flow__box gym-flow__step">
         <div class="gym-flow__tag">Call</div>
-        <div class="gym-flow__name"><code>await env.step(action)</code></div>
+        <div class="gym-flow__name"><code>await env.rollout(task)</code></div>
         <ul class="gym-flow__fields gym-flow__fields--steps">
           <li>run agent loop</li>
-          <li>collect observation</li>
+          <li>collect trajectory</li>
           <li>compute reward</li>
         </ul>
       </div>
@@ -29,9 +29,9 @@
 
       <div class="gym-flow__box gym-flow__io">
         <div class="gym-flow__tag">Output</div>
-        <div class="gym-flow__name"><code>StepResult</code></div>
+        <div class="gym-flow__name"><code>RolloutResult</code></div>
         <ul class="gym-flow__fields">
-          <li><code>observation</code></li>
+          <li><code>rollout</code></li>
           <li><code>reward</code></li>
           <li><code>termination</code></li>
         </ul>
