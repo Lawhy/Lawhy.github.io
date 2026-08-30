@@ -3,3 +3,6 @@
 # breaks the GitHub Pages build (submodule fetch fails).
 posts/technical/strands-env/materials/strands-env/
 posts/technical/strands-env/materials/strands-sglang/
+
+# macOS Finder metadata — Finder drops these into any browsed directory.
+.DS_Store
