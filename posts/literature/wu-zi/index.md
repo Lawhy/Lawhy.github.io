@@ -1,6 +1,6 @@
 ---
 title: 兀自
-date: 2026-08-29
+date: 2026-08-25
 tags: [文学, 随笔]
 slug: wu-zi
 authors: 知陌若
