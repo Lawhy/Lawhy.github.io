@@ -1,6 +1,7 @@
 :root {
-  /* news/blog cream */
-  --bg: #faf9f5;
+  /* white paper; the cream it replaced sat too close to claude.ai */
+  --bg: #ffffff;
+  --surface: #f5f5f7;
   --ink: #141413;
   --muted: #6b6b66;
   --muted-2: #87867f;
@@ -996,17 +997,14 @@ body {
 }
 
 /* Standalone images in markdown get wrapped in <p>. Treat those as figures:
-   white card surface so screenshot whitespace blends in, rounded edges so the
-   figure sits naturally on the cream page. */
+   a light grey card so the figure separates from the white page, rounded
+   edges, hairline border. */
 .post-body p > img:only-child,
 .post-body figure > img {
-  background: #ffffff;
+  background: var(--surface);
   padding: 0.9rem;
   border-radius: 6px;
   border: 1px solid var(--rule);
-  box-shadow:
-    0 2px 8px rgba(20, 20, 19, 0.05),
-    0 1px 2px rgba(20, 20, 19, 0.04);
   box-sizing: border-box;
   margin: 0 auto;
 }
