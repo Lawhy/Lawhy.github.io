@@ -4,15 +4,15 @@
 
 main {
   /* Site palette (mirrors site.css :root) */
-  --color-canvas-default: #FAF9F5;
-  --color-canvas-overlay: #FAF9F5;
+  --color-canvas-default: #F7F6F2;
+  --color-canvas-overlay: #F7F6F2;
   --color-canvas-inset: #F2F0E8;
   --color-canvas-subtle: #F2F0E8;
 
   --color-fg-default: #141413;
   --color-fg-muted: #6B6B66;
   --color-fg-subtle: #87867F;
-  --color-fg-on-emphasis: #FAF9F5;
+  --color-fg-on-emphasis: #F7F6F2;
 
   --color-border-default: rgba(20, 20, 19, 0.12);
   --color-border-muted: rgba(20, 20, 19, 0.08);
@@ -26,19 +26,19 @@ main {
   --color-accent-subtle: rgba(217, 119, 87, 0.08);
 
   /* Primary CTA → site accent (terracotta) */
-  --color-btn-primary-text: #FAF9F5;
+  --color-btn-primary-text: #F7F6F2;
   --color-btn-primary-bg: #D97757;
   --color-btn-primary-border: rgba(20, 20, 19, 0.05);
   --color-btn-primary-shadow: none;
   --color-btn-primary-inset-shadow: none;
   --color-btn-primary-hover-bg: #C56A4D;
   --color-btn-primary-hover-border: rgba(20, 20, 19, 0.12);
-  --color-btn-primary-disabled-text: rgba(250, 249, 245, 0.8);
+  --color-btn-primary-disabled-text: rgba(247, 246, 242, 0.8);
   --color-btn-primary-disabled-bg: rgba(217, 119, 87, 0.6);
 
   /* Secondary buttons → subtle cream */
   --color-btn-text: #141413;
-  --color-btn-bg: #FAF9F5;
+  --color-btn-bg: #F7F6F2;
   --color-btn-border: rgba(20, 20, 19, 0.12);
   --color-btn-shadow: none;
   --color-btn-inset-shadow: none;
