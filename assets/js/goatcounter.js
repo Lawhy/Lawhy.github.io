@@ -9,13 +9,15 @@
   var path = location.pathname;
   var isHome = path === "/" || path === "/index.html";
 
+  // Resolves to the count as a string. GoatCounter answers 404 with
+  // {"count": "0"} for a path it has never seen, so a 404 is a real zero,
+  // not an error; only network failures and other statuses yield null.
   function fetchCount(key) {
     return fetch(base + "/counter/" + encodeURIComponent(key) + ".json")
-      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (r) { return (r.ok || r.status === 404) ? r.json() : null; })
       .then(function (d) {
-        if (!d) return null;
-        var n = d.count;
-        return (n && n !== "0") ? n : null;
+        if (!d || d.count == null) return null;
+        return String(d.count);
       })
       .catch(function () { return null; });
   }
@@ -26,11 +28,14 @@
 
   Promise.all(tasks).then(function (vals) {
     var parts = [];
+    // Sitewide total is only worth showing when non-zero; the per-page count
+    // is shown even at zero so "no visits yet" is distinguishable from
+    // "counter failed to load".
     if (isHome) {
-      if (vals[0]) parts.push(vals[0] + " visits");
+      if (vals[0] && vals[0] !== "0") parts.push(vals[0] + " visits");
     } else {
-      if (vals[0]) parts.push(vals[0] + " here");
-      if (vals[1]) parts.push(vals[1] + " visits");
+      if (vals[0] !== null) parts.push(vals[0] + " here");
+      if (vals[1] && vals[1] !== "0") parts.push(vals[1] + " visits");
     }
     if (!parts.length) return;
 
