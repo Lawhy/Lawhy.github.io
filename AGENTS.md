@@ -110,7 +110,7 @@ DEFAULT_OG_IMAGE = "/assets/images/og-default.png"
 
 - **GoatCounter** — `<script>` in every page beacons to `yuanhe.goatcounter.com`. `assets/js/goatcounter.js` (loaded with cache-busting) fetches the `/counter/<path>.json` endpoint and populates the footer's `#pagevisits` span with "N here · M visits · by GoatCounter" (sitewide-only on the homepage). Requires "Allow adding visitor counts on your website" enabled in GoatCounter settings.
 - **Cloudflare Web Analytics** — beacon-only, dashboard-only, no on-page rendering. Lives next to the GoatCounter script.
-- **giscus comments** — opt-in per post via `comments: true`. Threads live in GitHub Discussions on `Lawhy/Lawhy.github.io`, keyed by post pathname. Theme is a custom file at `assets/css/giscus.css` that overrides GitHub Primer CSS variables to match the site palette (cream canvas, terracotta primary button). Loaded from the production URL, so localhost previews show the default GitHub theme.
+- **giscus comments** — opt-in per post via `comments: true`. Threads live in GitHub Discussions on `Lawhy/Lawhy.github.io`, keyed by post pathname. Theme is a custom file at `assets/css/giscus.css` that overrides GitHub Primer CSS variables to match the site palette (white canvas, white buttons with hairline borders, terracotta kept only for links). Loaded from the production URL, so localhost previews show the default GitHub theme.
 
 ## Helpers
 

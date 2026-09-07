@@ -18,12 +18,12 @@
 }
 
 :root {
-  --bg: #faf9f5;
+  --bg: #ffffff;
   --ink: #141413;
   --muted: #6b6b66;
-  --accent: #d97757;
+  --accent: #d86f55;
   --rule: rgba(20, 20, 19, 0.1);
-  --code-bg: #f0efeb;
+  --code-bg: #f5f5f7;
   --slide-w: 1920;
   --slide-h: 1080;
 }
@@ -310,8 +310,8 @@ pre code {
 
 /* Event annotations — default terracotta, recolored on frag reveal (slide 4) */
 .evt {
-  fill: #d97757;
-  stroke: #d97757;
+  fill: #d86f55;
+  stroke: #d86f55;
   transition:
     fill 0.6s ease,
     stroke 0.6s ease;
@@ -336,12 +336,12 @@ pre code {
 }
 
 .env-method:hover {
-  background: rgba(217, 119, 87, 0.06);
+  background: rgba(216, 111, 85, 0.06);
 }
 
 .env-method.active {
   border-left-color: var(--accent);
-  background: rgba(217, 119, 87, 0.08);
+  background: rgba(216, 111, 85, 0.08);
 }
 
 .env-examples {
@@ -588,7 +588,7 @@ pre code {
 /* slide 18: observed-payoff callout */
 .eff-stat {
   padding: 18px 28px;
-  background: rgba(217, 119, 87, 0.07);
+  background: rgba(216, 111, 85, 0.07);
   border-left: 3px solid var(--accent);
   border-radius: 0 8px 8px 0;
   font-family: "Source Serif 4", Georgia, serif;
@@ -744,19 +744,19 @@ pre code {
 }
 /* Undo msgadd's highlight (back to default + dim treatment) */
 .slide.fragv-afterinv text.evt-msgadd {
-  fill: #d97757 !important;
-  stroke: #d97757 !important;
+  fill: #d86f55 !important;
+  stroke: #d86f55 !important;
   font-size: 20px;
   font-weight: 500;
 }
 .slide.fragv-afterinv circle.evt-msgadd {
   r: 6;
-  stroke: #d97757 !important;
-  fill: #d97757 !important;
+  stroke: #d86f55 !important;
+  fill: #d86f55 !important;
   animation: none;
 }
 .slide.fragv-afterinv line.evt-msgadd {
-  stroke: #d97757 !important;
+  stroke: #d86f55 !important;
 }
 /* Apply afterinv highlight */
 .slide.fragv-afterinv text.evt-afterinv {
@@ -797,8 +797,8 @@ pre code {
 }
 
 .gym-flow__step {
-  background: rgba(217, 119, 87, 0.08);
-  border-color: rgba(217, 119, 87, 0.4);
+  background: rgba(216, 111, 85, 0.08);
+  border-color: rgba(216, 111, 85, 0.4);
 }
 
 .gym-flow__tag {
@@ -1220,7 +1220,7 @@ tr:last-child td {
   height: 60px;
   border-radius: 50%;
   background: var(--accent);
-  color: #faf9f5;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1298,9 +1298,9 @@ tr:last-child td {
   border-color: #cfcdc4;
 }
 .term-chip--model {
-  background: rgba(217, 119, 87, 0.16);
+  background: rgba(216, 111, 85, 0.16);
   color: #a64f2c;
-  border-color: rgba(217, 119, 87, 0.42);
+  border-color: rgba(216, 111, 85, 0.42);
 }
 
 .term-arrow {
@@ -1363,7 +1363,7 @@ tr:last-child td {
 }
 
 .tp-col--server {
-  background: rgba(217, 119, 87, 0.06);
+  background: rgba(216, 111, 85, 0.06);
   border-radius: 10px;
   padding: 18px 24px;
 }
@@ -1396,8 +1396,8 @@ tr:last-child td {
   font-size: 22px;
   line-height: 1.5;
   color: var(--ink);
-  background: rgba(217, 119, 87, 0.06);
-  border: 1px solid rgba(217, 119, 87, 0.18);
+  background: rgba(216, 111, 85, 0.06);
+  border: 1px solid rgba(216, 111, 85, 0.18);
   border-radius: 6px;
   padding: 14px 18px;
   margin: 10px 0 14px;
@@ -1423,7 +1423,7 @@ tr:last-child td {
   text-decoration-color: rgba(197, 82, 74, 0.6);
 }
 .tp-invented {
-  background: rgba(217, 119, 87, 0.22);
+  background: rgba(216, 111, 85, 0.22);
   border-radius: 2px;
   padding: 0 2px;
 }
@@ -1468,7 +1468,7 @@ tr:last-child td {
   bottom: calc(100% + 14px);
   transform: translateX(-50%);
   background: var(--ink);
-  color: #faf9f5;
+  color: #ffffff;
   font-family: "Source Serif 4", Georgia, serif;
   font-weight: 400;
   font-size: 22px;
@@ -1486,7 +1486,7 @@ tr:last-child td {
   font-family: "Source Code Pro", monospace;
   font-size: 0.9em;
   background: rgba(255, 255, 255, 0.12);
-  color: #faf9f5;
+  color: #ffffff;
   padding: 1px 6px;
   border-radius: 3px;
   border: none;
@@ -1543,9 +1543,9 @@ tr:last-child td {
   text-align: center;
   padding: 7px 0;
   border-radius: 7px;
-  background: rgba(217, 119, 87, 0.16);
+  background: rgba(216, 111, 85, 0.16);
   color: #a64f2c;
-  border: 1px solid rgba(217, 119, 87, 0.42);
+  border: 1px solid rgba(216, 111, 85, 0.42);
 }
 
 .tmeta-val {
@@ -1605,7 +1605,7 @@ tr:last-child td {
   width: 13px;
   height: 13px;
   border-radius: 3px;
-  background: rgba(217, 119, 87, 0.65);
+  background: rgba(216, 111, 85, 0.65);
 }
 
 /* ── TITO sub-label verb highlight (slide 7) ────────── */
@@ -1619,7 +1619,7 @@ tr:last-child td {
 }
 
 .slide.fragv-preserve .hl-preserve {
-  fill: #d97757;
+  fill: #d86f55;
   font-weight: 700;
   font-size: 20px;
 }
@@ -1692,7 +1692,7 @@ tr:last-child td {
   color: #6b6b66;
 }
 .trace-model .trace-role {
-  color: #d97757;
+  color: #d86f55;
 }
 
 .trace-content {
@@ -1809,9 +1809,9 @@ tr:last-child td {
   border: 1px solid #cfcdc4;
 }
 .tito-row--model .tito-chip {
-  background: rgba(217, 119, 87, 0.16);
+  background: rgba(216, 111, 85, 0.16);
   color: #a64f2c;
-  border-color: rgba(217, 119, 87, 0.42);
+  border-color: rgba(216, 111, 85, 0.42);
 }
 .tito-chip.sp {
   font-weight: 600;
@@ -1820,7 +1820,7 @@ tr:last-child td {
   background: #d3d1ca;
 }
 .tito-row--model .tito-chip.sp {
-  background: rgba(217, 119, 87, 0.3);
+  background: rgba(216, 111, 85, 0.3);
 }
 .tito-chip.fold {
   background: #fff;
@@ -1962,8 +1962,8 @@ tr:last-child td {
   margin-top: 4px;
 }
 .drift-row--gen .dchip--hot {
-  background: rgba(217, 119, 87, 0.16);
-  border-color: rgba(217, 119, 87, 0.55);
+  background: rgba(216, 111, 85, 0.16);
+  border-color: rgba(216, 111, 85, 0.55);
 }
 .drift-row--gen .dchip--hot .dtxt {
   color: #a64f2c;
@@ -2104,7 +2104,7 @@ tr:last-child td {
 /* code-pointer pill — rounded, accent-outlined CTA, floating in the lower space */
 .fin-callout {
   margin: 80px 0 auto;
-  background: rgba(217, 119, 87, 0.06);
+  background: rgba(216, 111, 85, 0.06);
   border: 2px solid var(--accent);
   border-radius: 18px;
   padding: 26px 36px;
