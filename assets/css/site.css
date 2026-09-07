@@ -5,7 +5,7 @@
   --ink: #141413;
   --muted: #6b6b66;
   --muted-2: #87867f;
-  --accent: #d97757;
+  --accent: #d86f55; /* nudged off claude.ai's #d97757 */
   --rule: rgba(20, 20, 19, 0.1);
   --aside-bg: rgba(20, 20, 19, 0.025);
 

@@ -20,10 +20,10 @@ main {
   --color-neutral-muted: rgba(135, 134, 127, 0.16);
   --color-neutral-subtle: rgba(135, 134, 127, 0.08);
 
-  --color-accent-fg: #D97757;
-  --color-accent-emphasis: #D97757;
-  --color-accent-muted: rgba(217, 119, 87, 0.3);
-  --color-accent-subtle: rgba(217, 119, 87, 0.08);
+  --color-accent-fg: #D86F55;
+  --color-accent-emphasis: #D86F55;
+  --color-accent-muted: rgba(216, 111, 85, 0.3);
+  --color-accent-subtle: rgba(216, 111, 85, 0.08);
 
   /* Primary CTA → same quiet white button as the secondary ones */
   --color-btn-primary-text: #141413;
@@ -48,7 +48,7 @@ main {
 
   /* Code/syntax inside comments — light, low-contrast */
   --color-prettylights-syntax-comment: #87867F;
-  --color-prettylights-syntax-constant: #D97757;
+  --color-prettylights-syntax-constant: #D86F55;
   --color-prettylights-syntax-entity: #6B6B66;
   --color-prettylights-syntax-keyword: #141413;
   --color-prettylights-syntax-string: #6B6B66;
