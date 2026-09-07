@@ -706,6 +706,93 @@ body {
 }
 
 /* ===================================================================
+   OPEN-SOURCE: one column per GitHub org (hairline top rule, no box).
+   auto-fit keeps up to four orgs on one row at content width and wraps
+   further ones onto a new row rather than scrolling sideways.
+   =================================================================== */
+
+.org-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1.25rem 1rem;
+  align-items: start;
+}
+
+.org {
+  min-width: 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.9rem;
+}
+
+.org__name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 0.2rem;
+}
+
+.org__name a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.org__name a:hover {
+  color: var(--accent);
+}
+
+.org__period {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin: 0 0 0.9rem;
+}
+
+.org__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.org__list li {
+  margin: 0 0 0.3rem;
+}
+
+.org__list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.org__list a:hover {
+  color: var(--accent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.org__note {
+  color: var(--muted);
+}
+
+.org__note a {
+  color: inherit;
+}
+
+@media (max-width: 640px) {
+  .org-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* ===================================================================
    POST PAGES
    =================================================================== */
 
